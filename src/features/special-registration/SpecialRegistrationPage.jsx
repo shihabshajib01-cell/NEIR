@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { ContextualSecondaryNav } from '../../components/navigation/ContextualSecondaryNav.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { Button } from '../../components/forms/Button.jsx';
@@ -143,84 +143,85 @@ export const SpecialRegistrationPage = () => {
         }
       />
 
-      {/* Segmented Status Tabs */}
-      <ContextualSecondaryNav
+      <TablePageWorkspace
+        title="All Applications"
+        count={total}
         tabs={statusTabs}
-        activeId={statusFilter}
+        activeTab={statusFilter}
         onTabChange={(id) => {
           setStatusFilter(id);
           setPage(1);
         }}
-      />
-
-      {/* Filter Bar with Search and Date Range */}
-      <FilterBar
-        searchPlaceholder="Search by IMEI, Requester name, or NID..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => {
-          setSearchTerm('');
-          setStatusFilter('All');
-        }}
-        filters={
-          <div className="flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-1.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-md px-2 py-1 text-xs text-[#626981]">
-              <Calendar className="w-3.5 h-3.5 text-[#7A8197]" />
-              <input
-                type="date"
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-                className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
-              />
-              <span>to</span>
-              <input
-                type="date"
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-                className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
-              />
-            </div>
-          </div>
+        showSummary
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Search by IMEI, Requester name, or NID..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => {
+                    setSearchTerm('');
+                    setStatusFilter('All');
+                  }}
+                  filters={
+                    <div className="flex items-center gap-2">
+                      <div className="hidden sm:flex items-center gap-1.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-md px-2 py-1 text-xs text-[#626981]">
+                        <Calendar className="w-3.5 h-3.5 text-[#7A8197]" />
+                        <input
+                          type="date"
+                          value={fromDate}
+                          onChange={(e) => setFromDate(e.target.value)}
+                          className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
+                        />
+                        <span>to</span>
+                        <input
+                          type="date"
+                          value={toDate}
+                          onChange={(e) => setToDate(e.target.value)}
+                          className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
+                        />
+                      </div>
+                    </div>
+                  }
+                />
         }
-      />
-
-      {/* Main Unified DataTable with Mobile Card Transform */}
-      <DataTable
-        columns={columns}
-        data={data}
-        isLoading={isLoading}
-        pagination
-        currentPage={page}
-        totalPages={Math.ceil(total / pageSize) || 1}
-        totalItems={total}
-        pageSize={pageSize}
-        onPageChange={setPage}
-        onPageSizeChange={setPageSize}
-        renderMobileCard={(row) => (
-          <MobileRecordCard
-            title={row.imei}
-            subtitle={`${row.brand} ${row.model}`}
-            status={row.status}
-            fields={[
-              { label: 'Requester', value: row.requesterName },
-              { label: 'Category', value: row.category },
-              { label: 'Date', value: row.date, isMono: true },
-              { label: 'Challan No', value: row.customsChallanNo, isMono: true },
-            ]}
-            actions={
-              <Button
-                variant="outline"
-                size="sm"
-                icon={Eye}
-                onClick={() => handleOpenReview(row)}
-                className="w-full justify-center"
-              >
-                View details & Review
-              </Button>
-            }
-          />
-        )}
-      />
+      >
+        <DataTable embedded
+                columns={columns}
+                data={data}
+                isLoading={isLoading}
+                pagination
+                currentPage={page}
+                totalPages={Math.ceil(total / pageSize) || 1}
+                totalItems={total}
+                pageSize={pageSize}
+                onPageChange={setPage}
+                onPageSizeChange={setPageSize}
+                renderMobileCard={(row) => (
+                  <MobileRecordCard
+                    title={row.imei}
+                    subtitle={`${row.brand} ${row.model}`}
+                    status={row.status}
+                    fields={[
+                      { label: 'Requester', value: row.requesterName },
+                      { label: 'Category', value: row.category },
+                      { label: 'Date', value: row.date, isMono: true },
+                      { label: 'Challan No', value: row.customsChallanNo, isMono: true },
+                    ]}
+                    actions={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        icon={Eye}
+                        onClick={() => handleOpenReview(row)}
+                        className="w-full justify-center"
+                      >
+                        View details & Review
+                      </Button>
+                    }
+                  />
+                )}
+              />
+      </TablePageWorkspace>
 
       {/* Large Review Workspace Modal */}
       {selectedItem && (

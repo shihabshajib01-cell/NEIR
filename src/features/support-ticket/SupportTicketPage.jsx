@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { ContextualSecondaryNav } from '../../components/navigation/ContextualSecondaryNav.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { Drawer } from '../../components/overlays/Drawer.jsx';
@@ -166,51 +166,59 @@ export const SupportTicketPage = () => {
         ]}
       />
 
-      <ContextualSecondaryNav
+      
+
+      <TablePageWorkspace
+        title="Support Tickets"
+        count={statusTabs.find((tab) => tab.id === statusFilter)?.count ?? tickets.length}
         tabs={statusTabs}
-        activeId={statusFilter}
-        onTabChange={(id) => setStatusFilter(id)}
-      />
-
-      <FilterBar
-        searchPlaceholder="Search by Ticket ID, citizen name, phone, or IMEI..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => {
-          setSearchTerm('');
-          setStatusFilter('All');
+        activeTab={statusFilter}
+        onTabChange={(id) => {
+          setStatusFilter(id);
         }}
-      />
-
-      <DataTable
-        columns={columns}
-        data={tickets}
-        isLoading={isLoading}
-        renderMobileCard={(row) => (
-          <MobileRecordCard
-            title={row.ticketNumber}
-            subtitle={row.subject}
-            status={row.status}
-            fields={[
-              { label: 'Submitted By', value: row.submittedBy },
-              { label: 'Phone', value: row.phone, isMono: true },
-              { label: 'Priority', value: row.priority },
-              { label: 'Date', value: row.date, isMono: true },
-            ]}
-            actions={
-              <Button
-                variant="outline"
-                size="sm"
-                icon={Eye}
-                onClick={() => handleOpenTicket(row)}
-                className="w-full justify-center"
-              >
-                Inspect Ticket
-              </Button>
-            }
-          />
-        )}
-      />
+        showSummary
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Search by Ticket ID, citizen name, phone, or IMEI..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => {
+                    setSearchTerm('');
+                    setStatusFilter('All');
+                  }}
+                />
+        }
+      >
+        <DataTable embedded
+                columns={columns}
+                data={tickets}
+                isLoading={isLoading}
+                renderMobileCard={(row) => (
+                  <MobileRecordCard
+                    title={row.ticketNumber}
+                    subtitle={row.subject}
+                    status={row.status}
+                    fields={[
+                      { label: 'Submitted By', value: row.submittedBy },
+                      { label: 'Phone', value: row.phone, isMono: true },
+                      { label: 'Priority', value: row.priority },
+                      { label: 'Date', value: row.date, isMono: true },
+                    ]}
+                    actions={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        icon={Eye}
+                        onClick={() => handleOpenTicket(row)}
+                        className="w-full justify-center"
+                      >
+                        Inspect Ticket
+                      </Button>
+                    }
+                  />
+                )}
+              />
+      </TablePageWorkspace>
 
       {/* Support Ticket Details & Message History Drawer */}
       {selectedTicket && (

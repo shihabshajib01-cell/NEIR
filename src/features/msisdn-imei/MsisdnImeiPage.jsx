@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
@@ -132,60 +133,66 @@ export const MsisdnImeiPage = () => {
         }
       />
 
-      <FilterBar
-        searchPlaceholder="Search by phone number, IMEI, IMSI, or subscriber name..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => {
-          setSearchTerm('');
-          setOperatorFilter('All');
-        }}
-        filters={
-          <div className="w-48">
-            <select
-              value={operatorFilter}
-              onChange={(e) => setOperatorFilter(e.target.value)}
-              className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
-            >
-              <option value="All">All Operators (MNOs)</option>
-              <option value="Grameenphone">Grameenphone</option>
-              <option value="Robi Axiata">Robi Axiata</option>
-              <option value="Banglalink">Banglalink</option>
-              <option value="Teletalk">Teletalk</option>
-            </select>
-          </div>
+      <TablePageWorkspace
+        title="MSISDN IMEI List"
+        count={data.length}
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Search by phone number, IMEI, IMSI, or subscriber name..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => {
+                    setSearchTerm('');
+                    setOperatorFilter('All');
+                  }}
+                  filters={
+                    <div className="w-48">
+                      <select
+                        value={operatorFilter}
+                        onChange={(e) => setOperatorFilter(e.target.value)}
+                        className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
+                      >
+                        <option value="All">All Operators (MNOs)</option>
+                        <option value="Grameenphone">Grameenphone</option>
+                        <option value="Robi Axiata">Robi Axiata</option>
+                        <option value="Banglalink">Banglalink</option>
+                        <option value="Teletalk">Teletalk</option>
+                      </select>
+                    </div>
+                  }
+                />
         }
-      />
-
-      <DataTable
-        columns={columns}
-        data={data}
-        isLoading={isLoading}
-        renderMobileCard={(row) => (
-          <MobileRecordCard
-            title={row.msisdn}
-            subtitle={row.subscriberName}
-            status={row.status}
-            fields={[
-              { label: 'Active IMEI', value: row.imei, isMono: true },
-              { label: 'Operator', value: row.operator },
-              { label: 'Device', value: row.deviceModel },
-              { label: 'Attached Date', value: row.attachedDate, isMono: true },
-            ]}
-            actions={
-              <Button
-                variant="outline"
-                size="sm"
-                icon={Eye}
-                onClick={() => handleOpenDetails(row)}
-                className="w-full justify-center"
-              >
-                Inspect Pairing
-              </Button>
-            }
-          />
-        )}
-      />
+      >
+        <DataTable embedded
+                columns={columns}
+                data={data}
+                isLoading={isLoading}
+                renderMobileCard={(row) => (
+                  <MobileRecordCard
+                    title={row.msisdn}
+                    subtitle={row.subscriberName}
+                    status={row.status}
+                    fields={[
+                      { label: 'Active IMEI', value: row.imei, isMono: true },
+                      { label: 'Operator', value: row.operator },
+                      { label: 'Device', value: row.deviceModel },
+                      { label: 'Attached Date', value: row.attachedDate, isMono: true },
+                    ]}
+                    actions={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        icon={Eye}
+                        onClick={() => handleOpenDetails(row)}
+                        className="w-full justify-center"
+                      >
+                        Inspect Pairing
+                      </Button>
+                    }
+                  />
+                )}
+              />
+      </TablePageWorkspace>
 
       {/* Record Details Drawer */}
       {selectedRecord && (

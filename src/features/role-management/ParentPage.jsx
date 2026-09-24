@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Modal } from '../../components/overlays/Modal.jsx';
@@ -174,18 +175,24 @@ export const ParentPage = () => {
         }
       />
 
-      <FilterBar
-        searchPlaceholder="Filter by parent name or route path..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => setSearchTerm('')}
-      />
-
-      <DataTable
-        columns={columns}
-        data={filteredData}
-        isLoading={isLoading}
-      />
+      <TablePageWorkspace
+        title="Parent List"
+        count={filteredData.length}
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Filter by parent name or route path..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => setSearchTerm('')}
+                />
+        }
+      >
+        <DataTable embedded
+                columns={columns}
+                data={filteredData}
+                isLoading={isLoading}
+              />
+      </TablePageWorkspace>
 
       {/* Create / Edit Modal */}
       <Modal

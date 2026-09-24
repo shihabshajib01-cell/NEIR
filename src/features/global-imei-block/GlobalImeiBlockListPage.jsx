@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
@@ -155,55 +156,61 @@ export const GlobalImeiBlockListPage = () => {
         }
       />
 
-      <FilterBar
-        searchPlaceholder="Search by Block ID, IMEI, authority, or remarks..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => setSearchTerm('')}
-      />
-
-      <DataTable
-        columns={columns}
-        data={data}
-        isLoading={isLoading}
-        renderMobileCard={(row) => (
-          <MobileRecordCard
-            title={row.blockId}
-            subtitle={row.imei}
-            status={row.status}
-            fields={[
-              { label: 'Reason', value: row.reason },
-              { label: 'Blocked By', value: row.blockedBy },
-              { label: 'Block Date', value: row.blockDate, isMono: true },
-              { label: 'Type', value: row.blockType },
-            ]}
-            actions={
-              <div className="flex items-center gap-2 w-full">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  icon={Eye}
-                  onClick={() => handleOpenDetails(row)}
-                  className="flex-1 justify-center"
-                >
-                  View Details
-                </Button>
-                {row.status === 'Blocked' && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    icon={Unlock}
-                    onClick={() => setUnblockTarget(row)}
-                    className="flex-1 justify-center border-emerald-300 text-emerald-800"
-                  >
-                    Unblock
-                  </Button>
+      <TablePageWorkspace
+        title="Global IMEI Block List"
+        count={data.length}
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Search by Block ID, IMEI, authority, or remarks..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => setSearchTerm('')}
+                />
+        }
+      >
+        <DataTable embedded
+                columns={columns}
+                data={data}
+                isLoading={isLoading}
+                renderMobileCard={(row) => (
+                  <MobileRecordCard
+                    title={row.blockId}
+                    subtitle={row.imei}
+                    status={row.status}
+                    fields={[
+                      { label: 'Reason', value: row.reason },
+                      { label: 'Blocked By', value: row.blockedBy },
+                      { label: 'Block Date', value: row.blockDate, isMono: true },
+                      { label: 'Type', value: row.blockType },
+                    ]}
+                    actions={
+                      <div className="flex items-center gap-2 w-full">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          icon={Eye}
+                          onClick={() => handleOpenDetails(row)}
+                          className="flex-1 justify-center"
+                        >
+                          View Details
+                        </Button>
+                        {row.status === 'Blocked' && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            icon={Unlock}
+                            onClick={() => setUnblockTarget(row)}
+                            className="flex-1 justify-center border-emerald-300 text-emerald-800"
+                          >
+                            Unblock
+                          </Button>
+                        )}
+                      </div>
+                    }
+                  />
                 )}
-              </div>
-            }
-          />
-        )}
-      />
+              />
+      </TablePageWorkspace>
 
       {/* Details Drawer */}
       {selectedRecord && (

@@ -170,6 +170,7 @@ export const ManufacturerUploadPage = () => {
 
               <Card title="Ingested Handset Sample Preview">
                 <DataTable
+                  embedded
                   columns={previewColumns}
                   data={uploadResult.previewSample || []}
                   pagination={false}

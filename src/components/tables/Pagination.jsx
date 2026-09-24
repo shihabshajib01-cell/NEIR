@@ -41,13 +41,13 @@ export const Pagination = ({
 };
 
 export const FilterBar = ({
-  searchPlaceholder = 'Search records...', searchValue = '', onSearchChange, filters = null, onReset, onExport, className = '',
+  searchPlaceholder = 'Search records...', searchValue = '', onSearchChange, filters = null, onReset, onExport, embedded = false, className = '',
 }) => {
   const { t } = usePreferences();
 
   return (
-    <div className={'p-3 bg-white border border-[var(--color-border)] rounded-xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 ' + className}>
-      <div className="flex flex-1 flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2.5">
+    <div className={(embedded ? 'bg-transparent flex flex-col lg:flex-row lg:items-center lg:justify-end gap-2.5 w-full ' : 'p-3 bg-white border border-[var(--color-border)] rounded-xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 ') + className}>
+      <div className={(embedded ? "flex flex-1 lg:flex-none flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-end gap-2.5" : "flex flex-1 flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2.5")}>
         {onSearchChange && (
           <div className="relative min-w-0 sm:min-w-[240px] flex-1 max-w-lg">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />

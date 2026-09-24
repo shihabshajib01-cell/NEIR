@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
@@ -124,48 +125,54 @@ export const LostStolenPage = () => {
         }
       />
 
-      <FilterBar
-        searchPlaceholder="Search by IMEI, GD number, citizen name, or Police Station..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => setSearchTerm('')}
-      />
-
-      <DataTable
-        columns={columns}
-        data={data}
-        isLoading={isLoading}
-        isError={mockError}
-        errorMessage="Failed to establish secure TLS handshake with DMP Cyber Crime Unit EIR gateway."
-        onRetry={() => {
-          setMockError(false);
-          loadData();
-        }}
-        renderMobileCard={(row) => (
-          <MobileRecordCard
-            title={row.imei}
-            subtitle={`${row.deviceDetails.brand} ${row.deviceDetails.model}`}
-            status={row.status}
-            fields={[
-              { label: 'Requested By', value: row.requestedBy },
-              { label: 'GD Number', value: row.gdNumber, isMono: true },
-              { label: 'Report Date', value: row.reportDate, isMono: true },
-              { label: 'Last Seen Carrier', value: row.deviceDetails.lastSeenOperator },
-            ]}
-            actions={
-              <Button
-                variant="outline"
-                size="sm"
-                icon={Eye}
-                onClick={() => handleOpenDetails(row)}
-                className="w-full justify-center"
-              >
-                View Police Details
-              </Button>
-            }
-          />
-        )}
-      />
+      <TablePageWorkspace
+        title="Lost & Stolen Registry"
+        count={data.length}
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Search by IMEI, GD number, citizen name, or Police Station..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => setSearchTerm('')}
+                />
+        }
+      >
+        <DataTable embedded
+                columns={columns}
+                data={data}
+                isLoading={isLoading}
+                isError={mockError}
+                errorMessage="Failed to establish secure TLS handshake with DMP Cyber Crime Unit EIR gateway."
+                onRetry={() => {
+                  setMockError(false);
+                  loadData();
+                }}
+                renderMobileCard={(row) => (
+                  <MobileRecordCard
+                    title={row.imei}
+                    subtitle={`${row.deviceDetails.brand} ${row.deviceDetails.model}`}
+                    status={row.status}
+                    fields={[
+                      { label: 'Requested By', value: row.requestedBy },
+                      { label: 'GD Number', value: row.gdNumber, isMono: true },
+                      { label: 'Report Date', value: row.reportDate, isMono: true },
+                      { label: 'Last Seen Carrier', value: row.deviceDetails.lastSeenOperator },
+                    ]}
+                    actions={
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        icon={Eye}
+                        onClick={() => handleOpenDetails(row)}
+                        className="w-full justify-center"
+                      >
+                        View Police Details
+                      </Button>
+                    }
+                  />
+                )}
+              />
+      </TablePageWorkspace>
 
       {/* Right-Side Record Details Drawer */}
       {selectedRecord && (

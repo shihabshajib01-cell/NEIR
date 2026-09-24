@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Modal } from '../../components/overlays/Modal.jsx';
@@ -182,37 +183,43 @@ export const DesignationsPage = () => {
         }
       />
 
-      <FilterBar
-        searchPlaceholder="Filter designations..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => {
-          setSearchTerm('');
-          setSelectedDeptFilter('All');
-        }}
-        filters={
-          <div className="w-56">
-            <select
-              value={selectedDeptFilter}
-              onChange={(e) => setSelectedDeptFilter(e.target.value)}
-              className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
-            >
-              <option value="All">All Departments</option>
-              {departments.map((d) => (
-                <option key={d.id} value={d.id}>
-                  {d.name}
-                </option>
-              ))}
-            </select>
-          </div>
+      <TablePageWorkspace
+        title="Designation List"
+        count={filteredData.length}
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Filter designations..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => {
+                    setSearchTerm('');
+                    setSelectedDeptFilter('All');
+                  }}
+                  filters={
+                    <div className="w-56">
+                      <select
+                        value={selectedDeptFilter}
+                        onChange={(e) => setSelectedDeptFilter(e.target.value)}
+                        className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
+                      >
+                        <option value="All">All Departments</option>
+                        {departments.map((d) => (
+                          <option key={d.id} value={d.id}>
+                            {d.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  }
+                />
         }
-      />
-
-      <DataTable
-        columns={columns}
-        data={filteredData}
-        isLoading={isLoading}
-      />
+      >
+        <DataTable embedded
+                columns={columns}
+                data={filteredData}
+                isLoading={isLoading}
+              />
+      </TablePageWorkspace>
 
       <Modal
         isOpen={isModalOpen}

@@ -35,7 +35,7 @@ export const DataTable = ({
   columns = [], data = [], keyField = 'id', isLoading = false, isError = false, errorMessage, onRetry,
   emptyTitle = 'No records found', emptyDescription = 'There are no records matching your current filter criteria.',
   selectable = false, selectedKeys = [], onSelectChange, pagination = false, currentPage = 1, totalPages = 1,
-  totalItems = 0, pageSize = 10, onPageChange, onPageSizeChange, renderMobileCard, onRowClick, className = '',
+  totalItems = 0, pageSize = 10, onPageChange, onPageSizeChange, renderMobileCard, onRowClick, embedded = false, className = '',
 }) => {
   const { t } = usePreferences();
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
@@ -62,7 +62,7 @@ export const DataTable = ({
   const allSelected = data.length > 0 && selectedKeys.length === data.length;
 
   return (
-    <div className={'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col ' + className}>
+    <div className={(embedded ? 'bg-white overflow-hidden flex flex-col ' : 'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col ') + className}>
       {isLoading && <TableSkeleton rows={pageSize || 5} cols={columns.length} />}
       {!isLoading && isError && <ErrorState message={errorMessage} onRetry={onRetry} />}
       {!isLoading && !isError && data.length === 0 && <EmptyState title={emptyTitle} description={emptyDescription} />}

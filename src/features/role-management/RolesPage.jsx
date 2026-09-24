@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Modal } from '../../components/overlays/Modal.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
@@ -185,11 +186,16 @@ export const RolesPage = () => {
         }
       />
 
-      <DataTable
-        columns={columns}
-        data={roles}
-        isLoading={isLoading}
-      />
+      <TablePageWorkspace
+        title="Role List"
+        count={roles.length}
+      >
+        <DataTable embedded
+                columns={columns}
+                data={roles}
+                isLoading={isLoading}
+              />
+      </TablePageWorkspace>
 
       {/* Create / Edit Role Modal */}
       <Modal

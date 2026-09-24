@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
@@ -156,72 +157,78 @@ export const UsersListPage = () => {
         }
       />
 
-      <FilterBar
-        searchPlaceholder="Search officer by name, username, email, or designation..."
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        onReset={() => {
-          setSearchTerm('');
-          setDeptFilter('All');
-        }}
-        filters={
-          <div className="w-56">
-            <select
-              value={deptFilter}
-              onChange={(e) => setDeptFilter(e.target.value)}
-              className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
-            >
-              <option value="All">All Departments</option>
-              {departments.map((d) => (
-                <option key={d.id} value={d.name}>
-                  {d.name}
-                </option>
-              ))}
-            </select>
-          </div>
+      <TablePageWorkspace
+        title="User List"
+        count={filteredUsers.length}
+        toolbar={
+          <FilterBar embedded
+                  searchPlaceholder="Search officer by name, username, email, or designation..."
+                  searchValue={searchTerm}
+                  onSearchChange={setSearchTerm}
+                  onReset={() => {
+                    setSearchTerm('');
+                    setDeptFilter('All');
+                  }}
+                  filters={
+                    <div className="w-56">
+                      <select
+                        value={deptFilter}
+                        onChange={(e) => setDeptFilter(e.target.value)}
+                        className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
+                      >
+                        <option value="All">All Departments</option>
+                        {departments.map((d) => (
+                          <option key={d.id} value={d.name}>
+                            {d.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  }
+                />
         }
-      />
-
-      <DataTable
-        columns={columns}
-        data={filteredUsers}
-        isLoading={isLoading}
-        renderMobileCard={(row) => (
-          <MobileRecordCard
-            title={row.fullName}
-            subtitle={row.email}
-            status={row.status}
-            fields={[
-              { label: 'Username', value: row.username, isMono: true },
-              { label: 'Department', value: row.department },
-              { label: 'Designation', value: row.designation },
-              { label: 'Role', value: row.role },
-            ]}
-            actions={
-              <div className="flex items-center gap-2 w-full">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  icon={Eye}
-                  onClick={() => handleOpenDetails(row)}
-                  className="flex-1 justify-center"
-                >
-                  View Profile
-                </Button>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  icon={Edit2}
-                  onClick={() => navigate(`/office/users/${row.id}/edit`)}
-                  className="flex-1 justify-center"
-                >
-                  Edit Officer
-                </Button>
-              </div>
-            }
-          />
-        )}
-      />
+      >
+        <DataTable embedded
+                columns={columns}
+                data={filteredUsers}
+                isLoading={isLoading}
+                renderMobileCard={(row) => (
+                  <MobileRecordCard
+                    title={row.fullName}
+                    subtitle={row.email}
+                    status={row.status}
+                    fields={[
+                      { label: 'Username', value: row.username, isMono: true },
+                      { label: 'Department', value: row.department },
+                      { label: 'Designation', value: row.designation },
+                      { label: 'Role', value: row.role },
+                    ]}
+                    actions={
+                      <div className="flex items-center gap-2 w-full">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          icon={Eye}
+                          onClick={() => handleOpenDetails(row)}
+                          className="flex-1 justify-center"
+                        >
+                          View Profile
+                        </Button>
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          icon={Edit2}
+                          onClick={() => navigate(`/office/users/${row.id}/edit`)}
+                          className="flex-1 justify-center"
+                        >
+                          Edit Officer
+                        </Button>
+                      </div>
+                    }
+                  />
+                )}
+              />
+      </TablePageWorkspace>
 
       {/* User Details Drawer */}
       {selectedUser && (
