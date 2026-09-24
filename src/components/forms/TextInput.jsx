@@ -14,6 +14,7 @@ export const TextInput = ({
   required = false, disabled = false, readOnly = false, icon: Icon, density = 'standard',
   className = '', inputClassName = '', ...props
 }) => {
+  const [focused, setFocused] = useState(false);
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
@@ -29,6 +30,14 @@ export const TextInput = ({
         label={fieldLabel}
         value={value ?? ''}
         onChange={onChange}
+        onFocus={(event) => {
+          setFocused(true);
+          props.onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          setFocused(false);
+          props.onBlur?.(event);
+        }}
         placeholder={translated(t, placeholder)}
         type={type}
         error={Boolean(error)}
@@ -39,7 +48,9 @@ export const TextInput = ({
         size="medium"
         fullWidth
         autoComplete={props.autoComplete}
-        InputLabelProps={type === 'date' ? { shrink: true } : undefined}
+        InputLabelProps={{
+          shrink: type === 'date' || focused || Boolean(value),
+        }}
         InputProps={{
           readOnly,
           startAdornment: Icon ? (
@@ -59,7 +70,7 @@ export const TextInput = ({
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
         sx={fieldSx}
-        {...passthroughProps(props, ['autoComplete', 'maxLength', 'min', 'max', 'inputMode'])}
+        {...passthroughProps(props, ['autoComplete', 'maxLength', 'min', 'max', 'inputMode', 'onFocus', 'onBlur'])}
       />
     </div>
   );
@@ -70,6 +81,7 @@ export const PasswordInput = ({
   required = false, disabled = false, readOnly = false, density = 'standard', className = '', ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [focused, setFocused] = useState(false);
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
@@ -85,6 +97,14 @@ export const PasswordInput = ({
         label={fieldLabel}
         value={value ?? ''}
         onChange={onChange}
+        onFocus={(event) => {
+          setFocused(true);
+          props.onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          setFocused(false);
+          props.onBlur?.(event);
+        }}
         placeholder={translated(t, placeholder)}
         type={showPassword ? 'text' : 'password'}
         error={Boolean(error)}
@@ -95,7 +115,7 @@ export const PasswordInput = ({
         size="medium"
         fullWidth
         autoComplete={props.autoComplete}
-        InputLabelProps={undefined}
+        InputLabelProps={{ shrink: focused || Boolean(value) }}
         InputProps={{
           readOnly,
           endAdornment: (
@@ -118,7 +138,7 @@ export const PasswordInput = ({
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
         sx={fieldSx}
-        {...passthroughProps(props, ['autoComplete'])}
+        {...passthroughProps(props, ['autoComplete', 'onFocus', 'onBlur'])}
       />
     </div>
   );
@@ -237,6 +257,7 @@ export const Textarea = ({
   label, id, name, value, onChange, placeholder, rows = 3, error, helperText,
   required = false, disabled = false, readOnly = false, className = '', ...props
 }) => {
+  const [focused, setFocused] = useState(false);
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
@@ -251,6 +272,14 @@ export const Textarea = ({
         label={fieldLabel}
         value={value ?? ''}
         onChange={onChange}
+        onFocus={(event) => {
+          setFocused(true);
+          props.onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          setFocused(false);
+          props.onBlur?.(event);
+        }}
         placeholder={translated(t, placeholder)}
         multiline
         minRows={rows}
@@ -261,7 +290,7 @@ export const Textarea = ({
         variant="outlined"
         size="medium"
         fullWidth
-        InputLabelProps={undefined}
+        InputLabelProps={{ shrink: focused || Boolean(value) }}
         InputProps={{ readOnly }}
         inputProps={{
           'aria-invalid': Boolean(error) || undefined,
@@ -269,7 +298,7 @@ export const Textarea = ({
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
         sx={muiFieldSx}
-        {...props}
+        {...passthroughProps(props, ['onFocus', 'onBlur'])}
       />
     </div>
   );
