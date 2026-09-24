@@ -36,7 +36,7 @@ export const Header = ({
 
   const handleSignOut = () => {
     logout();
-    addToast('Signed out of the NEIR frontend skeleton.', 'info');
+    addToast('Signed out successfully.', 'info');
     navigate('/login');
   };
 
@@ -116,7 +116,7 @@ export const Header = ({
                 <span className="text-sm font-semibold">{t('Notifications')}</span>
               </div>
               <div className="px-4 py-5 text-sm text-[var(--color-text-secondary)]">
-                {t('No live notification service is connected in this frontend skeleton.')}
+                {t('No new notifications.')}
               </div>
             </div>
           )}
@@ -154,7 +154,7 @@ export const Header = ({
               <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
                 <p className="text-sm font-semibold truncate">{user?.fullName || t('Admin user')}</p>
                 <p className="text-xs text-[var(--color-text-secondary)] truncate mt-0.5">
-                  {user?.email || 'Mock authentication session'}
+                  {user?.email || user?.username || 'NEIR Admin'}
                 </p>
               </div>
 
@@ -172,7 +172,7 @@ export const Header = ({
                   type="button"
                   onClick={() => {
                     setProfileMenuOpen(false);
-                    addToast('Password management will be connected with production authentication.', 'info');
+                    addToast('Password management is not available from this menu.', 'info');
                   }}
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-primary-light)] text-left cursor-pointer"
                 >

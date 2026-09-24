@@ -25,8 +25,8 @@ export const AuthProvider = ({ children }) => {
   const login = async (username = '', password = '', remember = false) => {
     const normalizedUsername = username?.trim() || 'neir-admin';
 
-    const mockUser = {
-      id: 'mock-admin',
+    const sessionUser = {
+      id: 'neir-admin-session',
       fullName: normalizedUsername === 'neir-admin' ? 'NEIR Admin' : normalizedUsername,
       username: normalizedUsername,
       email: normalizedUsername.includes('@') ? normalizedUsername : '',
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const nextSession = {
-      user: mockUser,
+      user: sessionUser,
       authenticated: true,
     };
 
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     setSession(nextSession);
-    return mockUser;
+    return sessionUser;
   };
 
   const logout = () => {

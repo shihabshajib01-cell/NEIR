@@ -1,6 +1,5 @@
 /**
  * BTRC NEIR Admin Portal
- * Frontend skeleton
  */
 
 import React from 'react';

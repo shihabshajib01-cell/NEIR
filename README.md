@@ -1,16 +1,16 @@
 # BTRC NEIR Admin Portal
 
-Frontend skeleton for the Bangladesh Telecommunication Regulatory Commission (BTRC) National Equipment Identity Register (NEIR) administrative portal.
+Administrative web application for the Bangladesh Telecommunication Regulatory Commission (BTRC) National Equipment Identity Register (NEIR).
 
 ## Stack
 
 - React 19
 - Vite 8
 - Tailwind CSS v4
+- Material UI (MUI)
 - React Router
 - Lucide React
-- JavaScript / JSX only
-- Mock service layer for future API integration
+- JavaScript / JSX
 
 ## Run locally
 
@@ -61,20 +61,18 @@ Live URL:
 - `#/office/users/:id/edit`
 - `#/msisdn-imei`
 
-## Authentication
+## Architecture
 
-Authentication is intentionally mocked for the frontend skeleton. Any non-empty username and password can be used. Production authentication is not connected.
+The interface is organized around reusable application primitives for navigation, forms, tables, overlays, feedback states, language preferences, and responsive behavior.
 
-The mock session is stored in `sessionStorage` by default and in `localStorage` only when “Remember this browser” is selected.
+Data access is isolated behind the service layer so backend integration can be completed without rebuilding page-level UI. Authentication state is isolated in `AuthContext` for the same reason.
 
-## API integration
+## Design system
 
-All current operational data is mock data. The service seam is:
-
-`src/services/mockApi.js`
-
-Production API integration should replace this service layer without changing page-level UI structure.
-
-## Important
-
-This repository currently contains a UI skeleton only. It must not be treated as a production NEIR system until real authentication, authorization, APIs, validation, audit logging, and backend security controls are connected and verified.
+- Primary NEIR teal palette
+- Poppins for English
+- Noto Sans Bengali for Bangla
+- Shared MUI-backed form fields
+- Shared responsive table workspace
+- Desktop table to mobile record-card transformation
+- Shared modal, drawer, status, feedback, and pagination patterns

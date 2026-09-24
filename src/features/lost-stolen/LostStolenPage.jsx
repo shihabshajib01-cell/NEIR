@@ -9,7 +9,7 @@ import { Button } from '../../components/forms/Button.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Eye, ShieldAlert, ShieldCheck, Download, Ban } from 'lucide-react';
+import { Eye, Download, Ban } from 'lucide-react';
 
 export const LostStolenPage = () => {
   const [data, setData] = useState([]);
@@ -17,19 +17,19 @@ export const LostStolenPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [mockError, setMockError] = useState(false);
+  const [loadError, setLoadError] = useState('');
   const { addToast } = useToast();
 
   const loadData = async () => {
     try {
       setIsLoading(true);
-      if (mockError) {
-        throw new Error('Communication error with DMP Police EIR Gateway.');
-      }
+      setLoadError('');
       const res = await mockApi.getLostStolenDevices({ search: searchTerm });
       setData(res.items);
     } catch (err) {
-      addToast(err.message || 'Failed to retrieve lost/stolen registry.', 'error');
+      const message = err.message || 'Failed to retrieve lost/stolen registry.';
+      setLoadError(message);
+      addToast(message, 'error');
     } finally {
       setIsLoading(false);
     }
@@ -37,7 +37,7 @@ export const LostStolenPage = () => {
 
   useEffect(() => {
     loadData();
-  }, [searchTerm, mockError]);
+  }, [searchTerm]);
 
   const handleOpenDetails = (record) => {
     setSelectedRecord(record);
@@ -104,24 +104,14 @@ export const LostStolenPage = () => {
           { label: 'Lost & Stolen' }
         ]}
         actions={
-          <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setMockError(!mockError)}
-              className="text-xs"
-            >
-              {mockError ? 'Clear Error State' : 'Simulate Error'}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              icon={Download}
-              onClick={() => addToast('Downloading Lost/Stolen EIR police extract...', 'info')}
-            >
-              Export
-            </Button>
-          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            icon={Download}
+            onClick={() => addToast('Downloading Lost/Stolen EIR police extract...', 'info')}
+          >
+            Export
+          </Button>
         }
       />
 
@@ -141,12 +131,9 @@ export const LostStolenPage = () => {
                 columns={columns}
                 data={data}
                 isLoading={isLoading}
-                isError={mockError}
-                errorMessage="Failed to establish secure TLS handshake with DMP Cyber Crime Unit EIR gateway."
-                onRetry={() => {
-                  setMockError(false);
-                  loadData();
-                }}
+                isError={Boolean(loadError)}
+                errorMessage={loadError}
+                onRetry={loadData}
                 renderMobileCard={(row) => (
                   <MobileRecordCard
                     title={row.imei}

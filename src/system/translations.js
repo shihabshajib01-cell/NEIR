@@ -38,7 +38,7 @@ export const banglaTranslations = {
   'Close review workspace': 'রিভিউ ওয়ার্কস্পেস বন্ধ করুন',
   'Notifications': 'নোটিফিকেশন',
   'View notifications': 'নোটিফিকেশন দেখুন',
-  'No live notification service is connected in this frontend skeleton.': 'এই ফ্রন্টএন্ড প্রোটোটাইপে লাইভ নোটিফিকেশন সার্ভিস সংযুক্ত নেই।',
+  'No new notifications.': 'নতুন কোনো নোটিফিকেশন নেই।',
   'User directory': 'ব্যবহারকারী তালিকা',
   'Change password': 'পাসওয়ার্ড পরিবর্তন',
   'Sign out': 'সাইন আউট',
@@ -189,11 +189,9 @@ export const banglaTranslations = {
   'Administrative sign in': 'অ্যাডমিন সাইন ইন',
   'Sign in': 'সাইন ইন',
   'Remember this browser': 'এই ব্রাউজার মনে রাখুন',
-  'Prototype access': 'প্রোটোটাইপ অ্যাক্সেস',
   'NEIR Admin Portal': 'NEIR অ্যাডমিন পোর্টাল',
   'Bangladesh Telecommunication Regulatory Commission': 'বাংলাদেশ টেলিযোগাযোগ নিয়ন্ত্রণ কমিশন',
-  'Sign in to access your NEIR office workspace.': 'আপনার NEIR অফিস ওয়ার্কস্পেসে প্রবেশ করতে সাইন ইন করুন।',
-  'For this frontend prototype, credentials are optional. Click Sign in to continue to the dashboard.': 'এই ফ্রন্টএন্ড প্রোটোটাইপে ইউজারনেম ও পাসওয়ার্ড ঐচ্ছিক। ড্যাশবোর্ডে যেতে সাইন ইন করুন।'
+  'Sign in to access your NEIR office workspace.': 'আপনার NEIR অফিস ওয়ার্কস্পেসে প্রবেশ করতে সাইন ইন করুন।'
 };
 
 export const translate = (language, value, variables = {}) => {

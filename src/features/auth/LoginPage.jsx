@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { User, ShieldCheck, MonitorCheck, LayoutDashboard, Languages } from 'lucide-react';
+import { User, ShieldCheck, LayoutDashboard, Languages } from 'lucide-react';
 import { BtrcLogo } from '../../components/layout/BtrcLogo.jsx';
 import { TextInput, PasswordInput } from '../../components/forms/TextInput.jsx';
 import { Checkbox } from '../../components/forms/Checkbox.jsx';
@@ -27,7 +27,7 @@ export const LoginPage = () => {
     try {
       setIsLoading(true);
       await login(username, password, rememberMe);
-      addToast('Prototype access enabled.', 'success');
+      addToast('Signed in successfully.', 'success');
       navigate(from, { replace: true });
     } finally {
       setIsLoading(false);
@@ -72,10 +72,10 @@ export const LoginPage = () => {
               </div>
             </div>
             <div className="flex items-center gap-3 p-4 bg-white/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
-              <div className="w-10 h-10 rounded-xl bg-[rgba(46,125,50,0.10)] flex items-center justify-center text-[var(--color-success)] shrink-0"><MonitorCheck className="w-5 h-5" /></div>
+              <div className="w-10 h-10 rounded-xl bg-[rgba(46,125,50,0.10)] flex items-center justify-center text-[var(--color-success)] shrink-0"><ShieldCheck className="w-5 h-5" /></div>
               <div>
-                <p className="text-sm font-semibold text-[var(--color-text-primary)]">Prototype review mode</p>
-                <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">Credentials are bypassed while the frontend is being reviewed.</p>
+                <p className="text-sm font-semibold text-[var(--color-text-primary)]">Administrative workspace</p>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">Access NEIR operations, review queues, device services, and system management.</p>
               </div>
             </div>
           </div>
@@ -100,15 +100,13 @@ export const LoginPage = () => {
               <TextInput label="Username" id="username" name="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="Enter username" icon={User} autoComplete="username" />
               <PasswordInput label="Password" id="password" name="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter password" autoComplete="current-password" />
 
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center">
                 <Checkbox label="Remember this browser" checked={rememberMe} onChange={(event) => setRememberMe(event.target.checked)} />
-                <span className="text-xs text-[var(--color-text-muted)]">{t('Prototype access')}</span>
               </div>
 
               <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full justify-center">Sign in</Button>
             </form>
 
-            <p className="mt-5 text-center text-xs text-[var(--color-text-muted)] leading-5">{t('For this frontend prototype, credentials are optional. Click Sign in to continue to the dashboard.')}</p>
           </div>
         </section>
       </div>

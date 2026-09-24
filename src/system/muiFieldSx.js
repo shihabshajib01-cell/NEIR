@@ -43,6 +43,12 @@ export const muiFieldSx = {
   },
   '& .MuiInputLabel-root': {
     color: 'var(--color-text-secondary)',
+    fontSize: '0.875rem',
+    '&.MuiInputLabel-shrink': {
+      backgroundColor: 'var(--color-surface)',
+      paddingInline: '4px',
+      marginLeft: '-4px',
+    },
     '&.Mui-focused': { color: 'var(--color-primary-dark)' },
     '&.Mui-error': { color: 'var(--color-error)' },
   },

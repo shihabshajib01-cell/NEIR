@@ -32,7 +32,7 @@ export const TextInput = ({
       fullWidth
       className={className}
       autoComplete={props.autoComplete}
-      InputLabelProps={type === 'date' ? { shrink: true } : undefined}
+      InputLabelProps={{ shrink: true }}
       InputProps={{
         readOnly,
         startAdornment: Icon ? (
@@ -84,6 +84,7 @@ export const PasswordInput = ({
       fullWidth
       className={className}
       autoComplete={props.autoComplete}
+      InputLabelProps={{ shrink: true }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
@@ -244,6 +245,7 @@ export const Textarea = ({
       size="small"
       fullWidth
       className={className}
+      InputLabelProps={{ shrink: true }}
       InputProps={{ readOnly }}
       inputProps={{
         'aria-invalid': Boolean(error) || undefined,

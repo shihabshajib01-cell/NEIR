@@ -88,6 +88,7 @@ export const SearchableSelect = ({
           error={Boolean(error)}
           helperText={typeof (error || helperText) === 'string' ? t(error || helperText) : (error || helperText)}
           required={required}
+          InputLabelProps={{ shrink: true }}
           variant="outlined"
           size="small"
           inputProps={{
