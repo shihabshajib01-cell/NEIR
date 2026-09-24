@@ -100,7 +100,7 @@ export const DashboardPage = () => {
       />
 
       {/* 10 Compact KPI Cards Grid (4 to 5 per row desktop) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
         {data.kpis.map((kpi) => (
           <MetricCard
             key={kpi.id}
@@ -131,7 +131,7 @@ export const DashboardPage = () => {
               <div className="h-4 w-full rounded-full bg-slate-100 overflow-hidden flex border border-[#E2E5F0]">
                 <div
                   style={{ width: `${data.imeiSummary.whiteList.percent}%` }}
-                  className="bg-[#4B5694] transition-all"
+                  className="bg-[#2E7D32] transition-all"
                   title={`White List: ${data.imeiSummary.whiteList.percent}%`}
                 />
                 <div
@@ -148,10 +148,10 @@ export const DashboardPage = () => {
 
               {/* Legend & Breakdown */}
               <div className="grid grid-cols-3 gap-3 pt-2">
-                <div className="p-3 rounded-lg border border-[#4B5694]/20 bg-[#4B5694]/5">
+                <div className="p-3 rounded-lg border border-[#2E7D32]/20 bg-[#2E7D32]/5">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#4B5694]" />
-                    <span className="text-xs font-semibold text-[#343D73]">White List</span>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#2E7D32]" />
+                    <span className="text-xs font-semibold text-[#2E7D32]">White List</span>
                   </div>
                   <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.whiteList.count.toLocaleString()}
@@ -201,7 +201,7 @@ export const DashboardPage = () => {
                       {data.imeiSummary.recentMonthlyTrends.map((trend) => (
                         <tr key={trend.month} className="hover:bg-[#F7F8FC]">
                           <td className="py-1.5 font-sans font-medium text-[#202338]">{trend.month}</td>
-                          <td className="py-1.5 text-[#4B5694]">{trend.whiteList.toLocaleString()}</td>
+                          <td className="py-1.5 text-[#2E7D32]">{trend.whiteList.toLocaleString()}</td>
                           <td className="py-1.5 text-[#EF8F22]">{trend.grayList.toLocaleString()}</td>
                           <td className="py-1.5 text-[#C62828]">{trend.blackList.toLocaleString()}</td>
                         </tr>
@@ -224,10 +224,10 @@ export const DashboardPage = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
                   <span className="text-xs text-[#626981] font-medium">Auto Registered</span>
-                  <div className="text-xl font-bold text-[#343D73] font-mono tabular-nums mt-1">
+                  <div className="text-xl font-bold text-[#2E7D32] font-mono tabular-nums mt-1">
                     {data.registrationSummary.autoRegistration.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#4B5694] font-medium">
+                  <span className="text-[11px] text-[#2E7D32] font-medium">
                     {data.registrationSummary.autoRegistration.change}
                   </span>
                 </div>
