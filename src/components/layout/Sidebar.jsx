@@ -146,7 +146,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                 <button
                   type="button"
                   onClick={() => toggleSubmenu(item.path)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors cursor-pointer ${
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                     isCurrentSectionActive
                       ? 'bg-[#EEF0FA] text-[#4B5694]'
                       : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
@@ -178,7 +178,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                           to={child.path}
                           end={child.exact}
                           className={({ isActive }) =>
-                            `flex items-center gap-2 px-2.5 py-1.5 rounded text-xs transition-colors ${
+                            `flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm transition-colors ${
                               isActive || isChildActive
                                 ? 'bg-[#4B5694] text-white font-medium shadow-xs'
                                 : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
@@ -202,9 +202,9 @@ export const Sidebar = ({ isCollapsed = false }) => {
               to={item.children ? item.children[0].path : item.path}
               title={isCollapsed ? item.name : undefined}
               className={({ isActive }) =>
-                `flex items-center gap-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors relative ${
+                `flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${
                   isActive || isCurrentSectionActive
-                    ? 'bg-[#4B5694] text-[#4B5694] font-semibold'
+                    ? 'bg-[#4B5694] text-white font-semibold shadow-[0_1px_3px_rgba(75,86,148,0.22)]'
                     : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
                 } ${isCollapsed ? 'justify-center px-2' : ''}`
               }
