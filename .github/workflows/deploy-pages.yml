@@ -29,38 +29,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Apply NEIR public-site primary palette
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          replacements = {
-              '#4B5694': '#01ADC1',
-              '#343D73': '#028A97',
-              '#2D345F': '#0A767E',
-              '#EEF0FA': '#E1F7FB',
-              '#7C8BD6': '#80C2C6',
-              'rgba(75,86,148,0.24)': 'rgba(1,173,193,0.24)',
-              'rgba(75,86,148,0.22)': 'rgba(1,173,193,0.22)',
-              'rgba(75,86,148,0.16)': 'rgba(1,173,193,0.16)',
-              'rgba(75,86,148,0.045)': 'rgba(1,173,193,0.045)',
-          }
-
-          files = [p for p in Path('src').rglob('*') if p.suffix in {'.js', '.jsx', '.css'}]
-          files.append(Path('index.source.html'))
-
-          for path in files:
-              if not path.exists():
-                  continue
-              before = path.read_text(encoding='utf-8')
-              after = before
-              for old, new in replacements.items():
-                  after = after.replace(old, new)
-              if after != before:
-                  path.write_text(after, encoding='utf-8')
-                  print(f'updated {path}')
-          PY
-
       - name: Restore Vite source index
         run: cp index.source.html index.html
 
@@ -82,10 +50,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src index.source.html index.html assets logo.png .nojekyll
+          git add index.html assets logo.png .nojekyll
           if git diff --cached --quiet; then
             echo "Compiled site is already current."
           else
-            git commit -m "style: publish NEIR public-site primary palette [skip ci]"
+            git commit -m "chore: publish compiled NEIR site [skip ci]"
             git push origin HEAD:main
           fi
