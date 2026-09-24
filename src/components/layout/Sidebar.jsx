@@ -121,12 +121,12 @@ export const Sidebar = ({ isCollapsed = false }) => {
 
   return (
     <aside
-      className={`hidden lg:flex flex-col bg-[#102A43] text-slate-200 border-r border-[#173F5F] transition-all duration-200 shrink-0 select-none z-20 ${
+      className={`hidden lg:flex flex-col bg-white text-[#202338] border-r border-[#E2E5F0] transition-all duration-200 shrink-0 select-none z-20 ${
         isCollapsed ? 'w-16' : 'w-60'
       }`}
     >
       {/* Navigation rail label */}
-      <div className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-[#173F5F]/60">
+      <div className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-[#7A8197] border-b border-[#E2E5F0]">
         {isCollapsed ? 'NAV' : 'NAVIGATION'}
       </div>
 
@@ -148,24 +148,24 @@ export const Sidebar = ({ isCollapsed = false }) => {
                   onClick={() => toggleSubmenu(item.path)}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors cursor-pointer ${
                     isCurrentSectionActive
-                      ? 'bg-[#173F5F] text-white'
-                      : 'text-slate-300 hover:bg-[#173F5F]/60 hover:text-white'
+                      ? 'bg-[#EEF0FA] text-[#4B5694]'
+                      : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
                   }`}
                   aria-expanded={isSubmenuOpen}
                 >
                   <div className="flex items-center gap-2.5 truncate">
-                    <Icon className={`w-4 h-4 shrink-0 ${isCurrentSectionActive ? 'text-emerald-400' : 'text-slate-400'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 ${isCurrentSectionActive ? 'text-[#4B5694]' : 'text-[#7A8197]'}`} />
                     <span className="truncate">{item.name}</span>
                   </div>
                   {isSubmenuOpen ? (
-                    <ChevronDown className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <ChevronDown className="w-3.5 h-3.5 text-[#7A8197] shrink-0" />
                   ) : (
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[#7A8197] shrink-0" />
                   )}
                 </button>
 
                 {isSubmenuOpen && (
-                  <div className="pl-6 pr-1 space-y-0.5 border-l border-[#173F5F] ml-4 py-1">
+                  <div className="pl-6 pr-1 space-y-0.5 border-l border-[#E2E5F0] ml-4 py-1">
                     {item.children.map((child) => {
                       const ChildIcon = child.icon;
                       const isChildActive = child.exact
@@ -180,8 +180,8 @@ export const Sidebar = ({ isCollapsed = false }) => {
                           className={({ isActive }) =>
                             `flex items-center gap-2 px-2.5 py-1.5 rounded text-xs transition-colors ${
                               isActive || isChildActive
-                                ? 'bg-[#14804A] text-white font-medium shadow-xs'
-                                : 'text-slate-300 hover:bg-[#173F5F]/80 hover:text-white'
+                                ? 'bg-[#4B5694] text-white font-medium shadow-xs'
+                                : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
                             }`
                           }
                         >
@@ -204,17 +204,17 @@ export const Sidebar = ({ isCollapsed = false }) => {
               className={({ isActive }) =>
                 `flex items-center gap-2.5 px-3 py-2 rounded-md text-xs font-medium transition-colors relative ${
                   isActive || isCurrentSectionActive
-                    ? 'bg-[#14804A] text-white font-semibold shadow-xs'
-                    : 'text-slate-300 hover:bg-[#173F5F]/60 hover:text-white'
+                    ? 'bg-[#4B5694] text-[#4B5694] font-semibold'
+                    : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
                 } ${isCollapsed ? 'justify-center px-2' : ''}`
               }
             >
               {({ isActive }) => (
                 <>
-                  <Icon className={`w-4 h-4 shrink-0 ${(isActive || isCurrentSectionActive) ? 'text-white' : 'text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${(isActive || isCurrentSectionActive) ? 'text-white' : 'text-[#7A8197]'}`} />
                   {!isCollapsed && <span className="truncate">{item.name}</span>}
                   {(isActive || isCurrentSectionActive) && (
-                    <div className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-emerald-400 rounded-r" />
+                    <div className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#4B5694] rounded-r" />
                   )}
                 </>
               )}
@@ -224,9 +224,9 @@ export const Sidebar = ({ isCollapsed = false }) => {
       </nav>
 
       {!isCollapsed && (
-        <div className="p-3 border-t border-[#173F5F] text-[11px] text-slate-400 bg-[#0B1E30]/40">
-          <p className="font-semibold text-slate-300">BTRC NEIR</p>
-          <p className="text-[10px] text-slate-400 mt-0.5">Frontend skeleton · mock data</p>
+        <div className="p-3 border-t border-[#E2E5F0] text-[11px] text-[#7A8197] bg-[#F7F8FC]">
+          <p className="font-semibold text-[#202338]">BTRC NEIR</p>
+          <p className="text-[10px] text-[#7A8197] mt-0.5">Frontend skeleton · mock data</p>
         </div>
       )}
     </aside>
