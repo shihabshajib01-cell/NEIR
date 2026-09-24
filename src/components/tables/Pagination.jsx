@@ -16,21 +16,21 @@ export const Pagination = ({
   const endItem = Math.min(currentPage * pageSize, totalItems);
 
   return (
-    <div className={`px-4 py-3 border-t border-[#D8E0E8] bg-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 ${className}`}>
+    <div className={`px-4 py-3 border-t border-[#E2E5F0] bg-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 ${className}`}>
       {/* Records count & page size */}
-      <div className="flex items-center gap-3 text-xs text-[#52677A]">
+      <div className="flex items-center gap-3 text-xs text-[#626981]">
         <span>
-          Showing <span className="font-semibold text-[#172B4D] font-mono tabular-nums">{startItem}</span> to{' '}
-          <span className="font-semibold text-[#172B4D] font-mono tabular-nums">{endItem}</span> of{' '}
-          <span className="font-semibold text-[#172B4D] font-mono tabular-nums">{totalItems}</span> records
+          Showing <span className="font-semibold text-[#202338] font-mono tabular-nums">{startItem}</span> to{' '}
+          <span className="font-semibold text-[#202338] font-mono tabular-nums">{endItem}</span> of{' '}
+          <span className="font-semibold text-[#202338] font-mono tabular-nums">{totalItems}</span> records
         </span>
         {onPageSizeChange && (
-          <div className="flex items-center gap-1.5 ml-2 border-l border-[#D8E0E8] pl-3">
-            <span className="text-[#748597]">Rows per page:</span>
+          <div className="flex items-center gap-1.5 ml-2 border-l border-[#E2E5F0] pl-3">
+            <span className="text-[#7A8197]">Rows per page:</span>
             <select
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="h-7 px-2 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded text-[#172B4D] font-mono outline-hidden cursor-pointer"
+              className="h-7 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg text-[#202338] font-mono outline-hidden cursor-pointer"
             >
               {pageSizeOptions.map((size) => (
                 <option key={size} value={size}>
@@ -48,7 +48,7 @@ export const Pagination = ({
           type="button"
           disabled={currentPage <= 1}
           onClick={() => onPageChange(1)}
-          className="p-1.5 rounded text-[#52677A] hover:bg-[#F4F7FA] hover:text-[#172B4D] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
+          className="p-1.5 rounded text-[#626981] hover:bg-[#F7F8FC] hover:text-[#202338] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
           title="First Page"
         >
           <ChevronsLeft className="w-4 h-4" />
@@ -57,13 +57,13 @@ export const Pagination = ({
           type="button"
           disabled={currentPage <= 1}
           onClick={() => onPageChange(currentPage - 1)}
-          className="p-1.5 rounded text-[#52677A] hover:bg-[#F4F7FA] hover:text-[#172B4D] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
+          className="p-1.5 rounded text-[#626981] hover:bg-[#F7F8FC] hover:text-[#202338] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
           title="Previous Page"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
 
-        <span className="text-xs px-2.5 font-medium text-[#172B4D] font-mono tabular-nums">
+        <span className="text-xs px-2.5 font-medium text-[#202338] font-mono tabular-nums">
           Page {currentPage} of {Math.max(1, totalPages)}
         </span>
 
@@ -71,7 +71,7 @@ export const Pagination = ({
           type="button"
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange(currentPage + 1)}
-          className="p-1.5 rounded text-[#52677A] hover:bg-[#F4F7FA] hover:text-[#172B4D] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
+          className="p-1.5 rounded text-[#626981] hover:bg-[#F7F8FC] hover:text-[#202338] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
           title="Next Page"
         >
           <ChevronRight className="w-4 h-4" />
@@ -80,7 +80,7 @@ export const Pagination = ({
           type="button"
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange(totalPages)}
-          className="p-1.5 rounded text-[#52677A] hover:bg-[#F4F7FA] hover:text-[#172B4D] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
+          className="p-1.5 rounded text-[#626981] hover:bg-[#F7F8FC] hover:text-[#202338] disabled:opacity-30 disabled:hover:bg-transparent cursor-pointer disabled:cursor-not-allowed"
           title="Last Page"
         >
           <ChevronsRight className="w-4 h-4" />
@@ -100,17 +100,17 @@ export const FilterBar = ({
   className = '',
 }) => {
   return (
-    <div className={`p-3 bg-white border border-[#D8E0E8] rounded-t-lg border-b-0 flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 ${className}`}>
+    <div className={`p-3 bg-white border border-[#E2E5F0] rounded-t-2xl border-b-0 flex flex-col md:flex-row md:items-center md:justify-between gap-2.5 ${className}`}>
       <div className="flex flex-1 flex-wrap items-center gap-2.5">
         {onSearchChange && (
           <div className="relative min-w-[240px] flex-1 max-w-sm">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#748597]" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#7A8197]" />
             <input
               type="text"
               value={searchValue}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={searchPlaceholder}
-              className="w-full h-8.5 pl-9 pr-3 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded-md text-[#172B4D] placeholder:text-[#748597] outline-hidden focus:bg-white focus:border-[#147D83] focus:ring-1 focus:ring-[#147D83]"
+              className="w-full h-8.5 pl-9 pr-3 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg text-[#202338] placeholder:text-[#7A8197] outline-hidden focus:bg-white focus:border-[#4B5694] focus:ring-1 focus:ring-[#4B5694]"
             />
           </div>
         )}
