@@ -31,22 +31,22 @@ export const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#102A43]/60 backdrop-blur-xs animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#202338]/30 backdrop-blur-xs animate-fade-in">
       <div
-        className={`w-full ${maxWidth} bg-white rounded-lg shadow-xl border border-[#D8E0E8] overflow-hidden flex flex-col max-h-[90vh] animate-scale-up ${className}`}
+        className={`w-full ${maxWidth} bg-white rounded-xl shadow-xl border border-[#E2E5F0] overflow-hidden flex flex-col max-h-[90vh] animate-scale-up ${className}`}
         role="dialog"
         aria-modal="true"
       >
         {/* Header */}
-        <div className="px-5 py-4 border-b border-[#D8E0E8] flex items-center justify-between bg-[#F4F7FA]">
+        <div className="px-5 py-4 border-b border-[#E2E5F0] flex items-center justify-between bg-[#F7F8FC]">
           <div>
-            <h3 className="text-base font-semibold text-[#102A43] leading-tight">{title}</h3>
-            {subtitle && <p className="text-xs text-[#52677A] mt-0.5">{subtitle}</p>}
+            <h3 className="text-base font-semibold text-[#202338] leading-tight">{title}</h3>
+            {subtitle && <p className="text-xs text-[#626981] mt-0.5">{subtitle}</p>}
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-md text-[#748597] hover:text-[#172B4D] hover:bg-[#EAEFF5] transition-colors cursor-pointer"
+            className="p-1 rounded-md text-[#7A8197] hover:text-[#202338] hover:bg-[#EEF0FA] transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -54,13 +54,13 @@ export const Modal = ({
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto flex-1 text-sm text-[#172B4D]">
+        <div className="p-5 overflow-y-auto flex-1 text-sm text-[#202338]">
           {children}
         </div>
 
         {/* Footer */}
         {footer && (
-          <div className="px-5 py-3 border-t border-[#D8E0E8] bg-[#F4F7FA] flex items-center justify-end gap-2.5">
+          <div className="px-5 py-3 border-t border-[#E2E5F0] bg-[#F7F8FC] flex items-center justify-end gap-2.5">
             {footer}
           </div>
         )}
@@ -81,9 +81,9 @@ export const ConfirmationDialog = ({
   isLoading = false,
 }) => {
   const iconMap = {
-    danger: <AlertTriangle className="w-6 h-6 text-red-600" />,
-    warning: <AlertTriangle className="w-6 h-6 text-amber-600" />,
-    primary: <Info className="w-6 h-6 text-[#14804A]" />,
+    danger: <AlertTriangle className="w-6 h-6 text-[#C62828]" />,
+    warning: <AlertTriangle className="w-6 h-6 text-[#EF8F22]" />,
+    primary: <Info className="w-6 h-6 text-[#4B5694]" />,
   };
 
   return (
@@ -113,7 +113,7 @@ export const ConfirmationDialog = ({
           {iconMap[tone]}
         </div>
         <div className="flex-1">
-          <p className="text-sm text-[#172B4D] leading-relaxed">{message}</p>
+          <p className="text-sm text-[#202338] leading-relaxed">{message}</p>
         </div>
       </div>
     </Modal>
