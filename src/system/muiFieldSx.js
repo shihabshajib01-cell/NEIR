@@ -1,5 +1,6 @@
 export const muiFieldSx = {
   '& .MuiOutlinedInput-root': {
+    minHeight: '44px',
     borderRadius: 'var(--radius-md)',
     backgroundColor: 'var(--color-surface)',
     color: 'var(--color-text-primary)',
@@ -37,20 +38,13 @@ export const muiFieldSx = {
         opacity: 1,
       },
     },
+    '& .MuiSelect-select': {
+      display: 'flex',
+      alignItems: 'center',
+    },
     '& .MuiInputAdornment-root': {
       color: 'var(--color-text-muted)',
     },
-  },
-  '& .MuiInputLabel-root': {
-    color: 'var(--color-text-secondary)',
-    fontSize: '0.875rem',
-    '&.MuiInputLabel-shrink': {
-      backgroundColor: 'var(--color-surface)',
-      paddingInline: '4px',
-      marginLeft: '-4px',
-    },
-    '&.Mui-focused': { color: 'var(--color-primary-dark)' },
-    '&.Mui-error': { color: 'var(--color-error)' },
   },
   '& .MuiFormHelperText-root': {
     marginLeft: 0,
@@ -62,10 +56,6 @@ export const muiFieldSx = {
 
 export const muiFilterSx = {
   ...muiFieldSx,
-  '& .MuiInputLabel-root': {
-    ...muiFieldSx['& .MuiInputLabel-root'],
-    fontSize: '0.8125rem',
-  },
   '& .MuiFormHelperText-root': {
     ...muiFieldSx['& .MuiFormHelperText-root'],
     fontSize: '0.6875rem',

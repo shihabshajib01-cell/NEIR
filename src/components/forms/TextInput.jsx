@@ -6,6 +6,20 @@ import { muiFieldSx } from '../../system/muiFieldSx.js';
 
 const translated = (t, value) => typeof value === 'string' ? t(value) : value;
 
+const FieldLabel = ({ htmlFor, label, required = false }) => {
+  if (!label) return null;
+
+  return (
+    <label
+      htmlFor={htmlFor}
+      className="text-sm font-medium leading-5 text-[var(--color-text-primary)]"
+    >
+      {label}
+      {required ? <span className="text-[var(--color-error)]" aria-hidden="true"> *</span> : null}
+    </label>
+  );
+};
+
 export const TextInput = ({
   label, id, name, value, onChange, placeholder, type = 'text', error, helperText,
   required = false, disabled = false, readOnly = false, icon: Icon, className = '', inputClassName = '', ...props
@@ -13,47 +27,48 @@ export const TextInput = ({
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
+  const fieldLabel = translated(t, label);
 
   return (
-    <TextField
-      id={inputId}
-      name={name}
-      label={translated(t, label)}
-      value={value ?? ''}
-      onChange={onChange}
-      placeholder={translated(t, placeholder)}
-      type={type}
-      error={Boolean(error)}
-      helperText={translated(t, error || helperText)}
-      required={required}
-      disabled={disabled}
-      variant="outlined"
-      size="small"
-      fullWidth
-      className={className}
-      autoComplete={props.autoComplete}
-      InputLabelProps={{ shrink: true }}
-      InputProps={{
-        readOnly,
-        startAdornment: Icon ? (
-          <InputAdornment position="start">
-            <Icon className="w-4 h-4" />
-          </InputAdornment>
-        ) : undefined,
-      }}
-      inputProps={{
-        maxLength: props.maxLength,
-        min: props.min,
-        max: props.max,
-        inputMode: props.inputMode,
-        className: inputClassName,
-        'aria-invalid': Boolean(error) || undefined,
-        'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
-      }}
-      FormHelperTextProps={{ id: inputId + '-helper' }}
-      sx={muiFieldSx}
-      {...Object.fromEntries(Object.entries(props).filter(([key]) => !['autoComplete','maxLength','min','max','inputMode'].includes(key)))}
-    />
+    <div className={'flex flex-col gap-1.5 ' + className}>
+      <FieldLabel htmlFor={inputId} label={fieldLabel} required={required} />
+      <TextField
+        id={inputId}
+        name={name}
+        value={value ?? ''}
+        onChange={onChange}
+        placeholder={translated(t, placeholder)}
+        type={type}
+        error={Boolean(error)}
+        helperText={translated(t, error || helperText)}
+        required={required}
+        disabled={disabled}
+        variant="outlined"
+        size="small"
+        fullWidth
+        autoComplete={props.autoComplete}
+        InputProps={{
+          readOnly,
+          startAdornment: Icon ? (
+            <InputAdornment position="start">
+              <Icon className="w-4 h-4" />
+            </InputAdornment>
+          ) : undefined,
+        }}
+        inputProps={{
+          maxLength: props.maxLength,
+          min: props.min,
+          max: props.max,
+          inputMode: props.inputMode,
+          className: inputClassName,
+          'aria-invalid': Boolean(error) || undefined,
+          'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+        }}
+        FormHelperTextProps={{ id: inputId + '-helper' }}
+        sx={muiFieldSx}
+        {...Object.fromEntries(Object.entries(props).filter(([key]) => !['autoComplete','maxLength','min','max','inputMode'].includes(key)))}
+      />
+    </div>
   );
 };
 
@@ -65,48 +80,49 @@ export const PasswordInput = ({
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
+  const fieldLabel = translated(t, label);
 
   return (
-    <TextField
-      id={inputId}
-      name={name}
-      label={translated(t, label)}
-      value={value ?? ''}
-      onChange={onChange}
-      placeholder={translated(t, placeholder)}
-      type={showPassword ? 'text' : 'password'}
-      error={Boolean(error)}
-      helperText={translated(t, error || helperText)}
-      required={required}
-      disabled={disabled}
-      variant="outlined"
-      size="small"
-      fullWidth
-      className={className}
-      autoComplete={props.autoComplete}
-      InputLabelProps={{ shrink: true }}
-      InputProps={{
-        endAdornment: (
-          <InputAdornment position="end">
-            <MuiIconButton
-              edge="end"
-              size="small"
-              onClick={() => setShowPassword((visible) => !visible)}
-              aria-label={t(showPassword ? 'Hide password' : 'Show password')}
-            >
-              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-            </MuiIconButton>
-          </InputAdornment>
-        ),
-      }}
-      inputProps={{
-        'aria-invalid': Boolean(error) || undefined,
-        'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
-      }}
-      FormHelperTextProps={{ id: inputId + '-helper' }}
-      sx={muiFieldSx}
-      {...Object.fromEntries(Object.entries(props).filter(([key]) => key !== 'autoComplete'))}
-    />
+    <div className={'flex flex-col gap-1.5 ' + className}>
+      <FieldLabel htmlFor={inputId} label={fieldLabel} required={required} />
+      <TextField
+        id={inputId}
+        name={name}
+        value={value ?? ''}
+        onChange={onChange}
+        placeholder={translated(t, placeholder)}
+        type={showPassword ? 'text' : 'password'}
+        error={Boolean(error)}
+        helperText={translated(t, error || helperText)}
+        required={required}
+        disabled={disabled}
+        variant="outlined"
+        size="small"
+        fullWidth
+        autoComplete={props.autoComplete}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <MuiIconButton
+                edge="end"
+                size="small"
+                onClick={() => setShowPassword((visible) => !visible)}
+                aria-label={t(showPassword ? 'Hide password' : 'Show password')}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </MuiIconButton>
+            </InputAdornment>
+          ),
+        }}
+        inputProps={{
+          'aria-invalid': Boolean(error) || undefined,
+          'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+        }}
+        FormHelperTextProps={{ id: inputId + '-helper' }}
+        sx={muiFieldSx}
+        {...Object.fromEntries(Object.entries(props).filter(([key]) => key !== 'autoComplete'))}
+      />
+    </div>
   );
 };
 
@@ -226,35 +242,36 @@ export const Textarea = ({
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
+  const fieldLabel = translated(t, label);
 
   return (
-    <TextField
-      id={inputId}
-      name={name}
-      label={translated(t, label)}
-      value={value ?? ''}
-      onChange={onChange}
-      placeholder={translated(t, placeholder)}
-      multiline
-      minRows={rows}
-      error={Boolean(error)}
-      helperText={translated(t, error || helperText)}
-      required={required}
-      disabled={disabled}
-      variant="outlined"
-      size="small"
-      fullWidth
-      className={className}
-      InputLabelProps={{ shrink: true }}
-      InputProps={{ readOnly }}
-      inputProps={{
-        'aria-invalid': Boolean(error) || undefined,
-        'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
-      }}
-      FormHelperTextProps={{ id: inputId + '-helper' }}
-      sx={muiFieldSx}
-      {...props}
-    />
+    <div className={'flex flex-col gap-1.5 ' + className}>
+      <FieldLabel htmlFor={inputId} label={fieldLabel} required={required} />
+      <TextField
+        id={inputId}
+        name={name}
+        value={value ?? ''}
+        onChange={onChange}
+        placeholder={translated(t, placeholder)}
+        multiline
+        minRows={rows}
+        error={Boolean(error)}
+        helperText={translated(t, error || helperText)}
+        required={required}
+        disabled={disabled}
+        variant="outlined"
+        size="small"
+        fullWidth
+        InputProps={{ readOnly }}
+        inputProps={{
+          'aria-invalid': Boolean(error) || undefined,
+          'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+        }}
+        FormHelperTextProps={{ id: inputId + '-helper' }}
+        sx={muiFieldSx}
+        {...props}
+      />
+    </div>
   );
 };
 

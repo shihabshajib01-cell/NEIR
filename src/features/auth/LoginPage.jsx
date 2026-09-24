@@ -96,7 +96,7 @@ export const LoginPage = () => {
               <p className="text-sm text-[var(--color-text-secondary)] mt-2 leading-6">{t('Sign in to access your NEIR office workspace.')}</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               <TextInput label="Username" id="username" name="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="Enter username" icon={User} autoComplete="username" />
               <PasswordInput label="Password" id="password" name="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter password" autoComplete="current-password" />
 
