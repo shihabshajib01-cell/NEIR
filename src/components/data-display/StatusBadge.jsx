@@ -1,138 +1,72 @@
 import React from 'react';
-import {
-  CheckCircle2,
-  Clock,
-  XCircle,
-  ShieldAlert,
-  Ban,
-  Activity,
-  HelpCircle,
-} from 'lucide-react';
+import { CheckCircle2, Clock, XCircle, ShieldAlert, Ban, Activity, HelpCircle } from 'lucide-react';
+import { usePreferences } from '../../system/PreferencesContext.jsx';
 
-export const StatusBadge = ({
-  status = 'Active',
-  showIcon = true,
-  size = 'md',
-  className = '',
-}) => {
+export const StatusBadge = ({ status = 'Active', showIcon = true, size = 'md', className = '' }) => {
+  const { t } = usePreferences();
   const norm = (status || '').toLowerCase().trim();
-
-  let config = {
-    bg: 'bg-[#F7F8FC]',
-    text: 'text-[#626981]',
-    border: 'border-[#E2E5F0]',
-    icon: HelpCircle,
-  };
+  let config = { bg: 'bg-[var(--color-background)]', text: 'text-[var(--color-text-secondary)]', border: 'border-[var(--color-border)]', icon: HelpCircle };
 
   if (norm.includes('approved') || norm.includes('accepted') || norm === 'white listed' || norm === 'found' || norm === 'active' || norm.includes('resolved')) {
-    config = {
-      bg: 'bg-[#2E7D32]/10',
-      text: 'text-[#2E7D32]',
-      border: 'border-[#2E7D32]/25',
-      icon: CheckCircle2,
-    };
+    config = { bg: 'bg-[rgba(46,125,50,0.10)]', text: 'text-[var(--color-success)]', border: 'border-[rgba(46,125,50,0.25)]', icon: CheckCircle2 };
   } else if (norm.includes('pending') || norm === 'in queue' || norm.includes('lost') || norm.includes('stolen')) {
-    config = {
-      bg: 'bg-[#EF8F22]/10',
-      text: 'text-[#B96B18]',
-      border: 'border-[#EF8F22]/30',
-      icon: norm.includes('lost') || norm.includes('stolen') ? ShieldAlert : Clock,
-    };
+    config = { bg: 'bg-[rgba(239,143,34,0.10)]', text: 'text-[#B96B18]', border: 'border-[rgba(239,143,34,0.30)]', icon: norm.includes('lost') || norm.includes('stolen') ? ShieldAlert : Clock };
   } else if (norm.includes('progress') || norm.includes('review') || norm.includes('gray')) {
-    config = {
-      bg: 'bg-[#01ADC1]/10',
-      text: 'text-[#01ADC1]',
-      border: 'border-[#01ADC1]/22',
-      icon: Activity,
-    };
-  } else if (norm.includes('rejected') || norm.includes('denied') || norm.includes('failed')) {
-    config = {
-      bg: 'bg-[#C62828]/10',
-      text: 'text-[#C62828]',
-      border: 'border-[#C62828]/25',
-      icon: XCircle,
-    };
-  } else if (norm.includes('blocked') || norm.includes('black list')) {
-    config = {
-      bg: 'bg-[#C62828]/10',
-      text: 'text-[#A91F22]',
-      border: 'border-[#C62828]/25',
-      icon: Ban,
-    };
+    config = { bg: 'bg-[rgba(1,173,193,0.10)]', text: 'text-[var(--color-primary-dark)]', border: 'border-[rgba(1,173,193,0.25)]', icon: Activity };
+  } else if (norm.includes('rejected') || norm.includes('denied') || norm.includes('failed') || norm.includes('blocked') || norm.includes('black list')) {
+    config = { bg: 'bg-[rgba(198,40,40,0.10)]', text: 'text-[var(--color-error)]', border: 'border-[rgba(198,40,40,0.25)]', icon: norm.includes('blocked') || norm.includes('black') ? Ban : XCircle };
   }
 
   const Icon = config.icon;
-  const sizeClasses = size === 'sm'
-    ? 'text-[11px] px-2 py-1 gap-1'
-    : 'text-xs px-2.5 py-1 gap-1.5';
+  const sizeClasses = size === 'sm' ? 'text-[11px] px-2 py-1 gap-1' : 'text-xs px-2.5 py-1 gap-1.5';
 
   return (
-    <span
-      className={'inline-flex items-center font-semibold rounded-full border leading-none shrink-0 ' + config.bg + ' ' + config.text + ' ' + config.border + ' ' + sizeClasses + ' ' + className}
-    >
+    <span className={'inline-flex items-center font-semibold rounded-full border leading-none shrink-0 ' + config.bg + ' ' + config.text + ' ' + config.border + ' ' + sizeClasses + ' ' + className}>
       {showIcon && <Icon className={size === 'sm' ? 'w-3 h-3' : 'w-3.5 h-3.5'} />}
-      <span>{status}</span>
+      <span>{t(status)}</span>
     </span>
   );
 };
 
 export const PriorityBadge = ({ priority = 'Medium' }) => {
+  const { t } = usePreferences();
   const norm = (priority || '').toLowerCase();
   const colors = {
-    high: 'bg-[#C62828]/10 text-[#C62828] border-[#C62828]/25',
-    urgent: 'bg-[#C62828]/10 text-[#A91F22] border-[#C62828]/25',
-    medium: 'bg-[#EF8F22]/10 text-[#B96B18] border-[#EF8F22]/30',
-    low: 'bg-[#F7F8FC] text-[#626981] border-[#E2E5F0]',
+    high: 'bg-[rgba(198,40,40,0.10)] text-[var(--color-error)] border-[rgba(198,40,40,0.25)]',
+    urgent: 'bg-[rgba(198,40,40,0.10)] text-[var(--color-error)] border-[rgba(198,40,40,0.25)]',
+    medium: 'bg-[rgba(239,143,34,0.10)] text-[#B96B18] border-[rgba(239,143,34,0.30)]',
+    low: 'bg-[var(--color-background)] text-[var(--color-text-secondary)] border-[var(--color-border)]',
   };
-
-  return (
-    <span className={'px-2 py-1 rounded-full text-[11px] font-semibold border ' + (colors[norm] || colors.medium)}>
-      {priority}
-    </span>
-  );
+  return <span className={'px-2 py-1 rounded-full text-[11px] font-semibold border ' + (colors[norm] || colors.medium)}>{t(priority)}</span>;
 };
 
-export const MetricCard = ({
-  title,
-  value,
-  change,
-  category,
-  tone = 'neutral',
-  icon: Icon,
-  className = '',
-}) => {
+export const MetricCard = ({ title, value, change, category, tone = 'neutral', icon: Icon, className = '' }) => {
+  const { t } = usePreferences();
   const tones = {
-    success: { dot: 'bg-[#2E7D32]', iconBg: 'bg-[#2E7D32]/10', iconText: 'text-[#2E7D32]' },
-    warning: { dot: 'bg-[#EF8F22]', iconBg: 'bg-[#EF8F22]/10', iconText: 'text-[#B96B18]' },
-    danger: { dot: 'bg-[#C62828]', iconBg: 'bg-[#C62828]/10', iconText: 'text-[#C62828]' },
-    info: { dot: 'bg-[#01ADC1]', iconBg: 'bg-[#01ADC1]/10', iconText: 'text-[#01ADC1]' },
-    neutral: { dot: 'bg-[#7A8197]', iconBg: 'bg-[#626981]/8', iconText: 'text-[#626981]' },
+    success: { dot: 'bg-[var(--color-success)]', iconBg: 'bg-[rgba(46,125,50,0.10)]', iconText: 'text-[var(--color-success)]' },
+    warning: { dot: 'bg-[var(--color-warning)]', iconBg: 'bg-[rgba(239,143,34,0.10)]', iconText: 'text-[#B96B18]' },
+    danger: { dot: 'bg-[var(--color-error)]', iconBg: 'bg-[rgba(198,40,40,0.10)]', iconText: 'text-[var(--color-error)]' },
+    info: { dot: 'bg-[var(--color-primary)]', iconBg: 'bg-[rgba(1,173,193,0.10)]', iconText: 'text-[var(--color-primary-dark)]' },
+    neutral: { dot: 'bg-[var(--color-text-muted)]', iconBg: 'bg-[rgba(98,105,129,0.08)]', iconText: 'text-[var(--color-text-secondary)]' },
   };
-  const t = tones[tone] || tones.neutral;
+  const toneConfig = tones[tone] || tones.neutral;
 
   return (
-    <div className={'bg-white border border-[#E2E5F0] rounded-[14px] p-5 min-h-[116px] shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-all hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:-translate-y-px ' + className}>
+    <div className={'bg-white border border-[var(--color-border)] rounded-xl p-5 min-h-[116px] shadow-[var(--shadow-sm)] flex flex-col justify-between transition-all hover:shadow-[var(--shadow-md)] ' + className}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className={'w-2 h-2 rounded-full shrink-0 ' + t.dot} />
-            <span className="text-sm font-medium text-[#626981] leading-5">{title}</span>
+            <span className={'w-2 h-2 rounded-full shrink-0 ' + toneConfig.dot} />
+            <span className="text-sm font-medium text-[var(--color-text-secondary)] leading-5">{t(title)}</span>
           </div>
-          <div className="text-[28px] leading-[1.1] font-bold tracking-tight text-[#202338] font-mono tabular-nums mt-3">
-            {value}
-          </div>
+          <div className="text-[28px] leading-[1.1] font-bold tracking-tight text-[var(--color-text-primary)] font-mono tabular-nums mt-3">{value}</div>
         </div>
-        {Icon && (
-          <div className={'w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + t.iconBg}>
-            <Icon className={'w-5 h-5 ' + t.iconText} />
-          </div>
-        )}
+        {Icon && <div className={'w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + toneConfig.iconBg}><Icon className={'w-5 h-5 ' + toneConfig.iconText} /></div>}
       </div>
-
       {(change || category) && (
-        <div className="flex items-start justify-between gap-3 text-xs text-[#7A8197] mt-3 pt-2.5 border-t border-[#E2E5F0]/70">
+        <div className="flex items-start justify-between gap-3 text-xs text-[var(--color-text-muted)] mt-3 pt-2.5 border-t border-[var(--color-border-subtle)]">
           <span className="font-medium leading-4">{change}</span>
-          {category && <span className="text-[#7A8197] shrink-0 text-right">{category}</span>}
+          {category && <span className="shrink-0 text-right">{t(category)}</span>}
         </div>
       )}
     </div>

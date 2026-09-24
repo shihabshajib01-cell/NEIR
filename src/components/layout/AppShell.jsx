@@ -3,13 +3,15 @@ import { Outlet } from 'react-router-dom';
 import { Header } from './Header.jsx';
 import { Sidebar } from './Sidebar.jsx';
 import { MobileNavigationDrawer } from './MobileNavigationDrawer.jsx';
+import { usePreferences } from '../../system/PreferencesContext.jsx';
 
 export const AppShell = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const { t } = usePreferences();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F8FC] text-[#202338]">
+    <div className="min-h-screen flex flex-col bg-[var(--color-background)] text-[var(--color-text-primary)]">
       <Header
         onToggleSidebar={() => setIsSidebarCollapsed((collapsed) => !collapsed)}
         onOpenMobileNav={() => setIsMobileNavOpen(true)}
@@ -31,8 +33,8 @@ export const AppShell = () => {
             </div>
           </main>
 
-          <footer className="shrink-0 border-t border-[#E2E5F0] bg-white px-4 sm:px-6 py-3 text-right text-xs text-[#626981]">
-            Powered by <span className="font-semibold text-[#202338]">Synesis IT</span>
+          <footer className="shrink-0 border-t border-[var(--color-border)] bg-white px-4 sm:px-6 py-3 text-right text-xs text-[var(--color-text-secondary)]">
+            {t('Powered by')} <span className="font-semibold text-[var(--color-text-primary)]">Synesis IT</span>
           </footer>
         </div>
       </div>
