@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import { Search, RotateCcw, Download } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
+import { TextInput } from '../forms/TextInput.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
 export const Pagination = ({
@@ -73,14 +74,15 @@ export const FilterBar = ({
         : 'flex flex-1 flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2'}
       >
         {onSearchChange && (
-          <div className="relative min-w-0 sm:min-w-[240px] flex-1 max-w-lg">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" />
-            <input
+          <div className="min-w-0 sm:min-w-[240px] flex-1 max-w-lg">
+            <TextInput
               type="search"
               value={searchValue}
               onChange={(event) => onSearchChange(event.target.value)}
-              placeholder={t(searchPlaceholder)}
-              className="w-full h-10 pl-9 pr-3 type-control bg-white border border-[var(--color-border)] rounded-lg text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[rgba(1,173,193,0.12)]"
+              placeholder={searchPlaceholder}
+              icon={Search}
+              density="compact"
+              aria-label={t(searchPlaceholder)}
             />
           </div>
         )}

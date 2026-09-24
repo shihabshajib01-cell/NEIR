@@ -6,6 +6,7 @@ import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
 import { Button } from '../../components/forms/Button.jsx';
+import { CompactSelect } from '../../components/forms/Select.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
@@ -147,17 +148,19 @@ export const MsisdnImeiPage = () => {
                   }}
                   filters={
                     <div className="w-48">
-                      <select
+                      <CompactSelect
                         value={operatorFilter}
                         onChange={(e) => setOperatorFilter(e.target.value)}
-                        className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
-                      >
-                        <option value="All">All Operators (MNOs)</option>
-                        <option value="Grameenphone">Grameenphone</option>
-                        <option value="Robi Axiata">Robi Axiata</option>
-                        <option value="Banglalink">Banglalink</option>
-                        <option value="Teletalk">Teletalk</option>
-                      </select>
+                        options={[
+                          { value: 'All', label: 'All Operators (MNOs)' },
+                          { value: 'Grameenphone', label: 'Grameenphone' },
+                          { value: 'Robi Axiata', label: 'Robi Axiata' },
+                          { value: 'Banglalink', label: 'Banglalink' },
+                          { value: 'Teletalk', label: 'Teletalk' },
+                        ]}
+                        placeholder=""
+                        aria-label="Filter by operator"
+                      />
                     </div>
                   }
                 />

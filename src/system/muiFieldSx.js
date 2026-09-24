@@ -147,6 +147,7 @@ export const muiFieldSx = {
 
   '& .MuiFormLabel-asterisk': {
     color: 'var(--color-error)',
+    marginLeft: '2px',
   },
 };
 
@@ -156,7 +157,7 @@ export const muiFilterSx = {
     ...muiFieldSx['& .MuiOutlinedInput-root'],
     minHeight: '40px',
     height: '40px',
-    borderRadius: 'var(--radius-md)',
+    borderRadius: 'var(--field-radius)',
     fontSize: 'var(--type-control-size)',
     '&:not(.MuiInputBase-multiline) .MuiInputBase-input': {
       ...muiFieldSx['& .MuiOutlinedInput-root']['&:not(.MuiInputBase-multiline) .MuiInputBase-input'],

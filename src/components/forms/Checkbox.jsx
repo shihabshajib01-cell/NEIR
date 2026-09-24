@@ -63,8 +63,8 @@ export const Checkbox = ({
       control={control}
       label={
         <span className="flex flex-col">
-          {label && <span className="text-sm font-medium text-[var(--color-text-primary)] leading-tight">{t(label)}</span>}
-          {description && <span className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(description)}</span>}
+          {label && <span className="type-label text-[var(--color-text-primary)] leading-tight">{t(label)}</span>}
+          {description && <span className="type-meta text-[var(--color-text-muted)] mt-0.5">{t(description)}</span>}
         </span>
       }
       sx={{
@@ -95,7 +95,7 @@ export const RadioGroup = ({
         <FormLabel
           component="legend"
           sx={{
-            fontSize: '0.875rem',
+            fontSize: 'var(--type-label-size)',
             fontWeight: 500,
             color: 'var(--color-text-primary)',
             mb: 1,
@@ -119,13 +119,13 @@ export const RadioGroup = ({
             control={<Radio size="small" />}
             label={
               <span className="flex flex-col">
-                <span className="text-sm font-medium text-[var(--color-text-primary)]">{t(option.label)}</span>
-                {option.description && <span className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(option.description)}</span>}
+                <span className="type-label text-[var(--color-text-primary)]">{t(option.label)}</span>
+                {option.description && <span className="type-meta text-[var(--color-text-muted)] mt-0.5">{t(option.description)}</span>}
               </span>
             }
             sx={{
               margin: 0,
-              minHeight: 40,
+              minHeight: 44,
               px: 1,
               py: 0.5,
               borderRadius: 'var(--radius-md)',
@@ -167,7 +167,7 @@ export const FileUpload = ({
 
   return (
     <div className={'flex flex-col gap-1.5 ' + className}>
-      {label && <label className="text-sm font-medium text-[var(--color-text-primary)]">{t(label)}</label>}
+      {label && <label className="type-label text-[var(--color-text-primary)]">{t(label)}</label>}
       <div
         onClick={() => fileInputRef.current?.click()}
         className={'border-2 border-dashed rounded-xl p-4 transition-all text-center cursor-pointer flex flex-col items-center justify-center gap-2 ' +
@@ -179,8 +179,8 @@ export const FileUpload = ({
             <div className="flex items-center gap-2.5 text-left truncate">
               <FileText className="w-5 h-5 text-[var(--color-primary)] shrink-0" />
               <div className="truncate">
-                <p className="text-sm font-medium text-[var(--color-text-primary)] truncate">{file.name}</p>
-                <p className="text-xs text-[var(--color-text-muted)]">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                <p className="type-label text-[var(--color-text-primary)] truncate">{file.name}</p>
+                <p className="type-meta text-[var(--color-text-muted)]">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
               </div>
             </div>
             <button type="button" onClick={handleClear} className="w-9 h-9 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-error)] rounded-lg" aria-label={t('Clear')}>
@@ -191,10 +191,10 @@ export const FileUpload = ({
           <>
             <UploadCloud className="w-6 h-6 text-[var(--color-text-muted)]" />
             <div>
-              <span className="text-xs font-semibold text-[var(--color-primary-dark)]">{t('Click to upload')}</span>
-              <span className="text-xs text-[var(--color-text-muted)]">{t(' or drag and drop')}</span>
+              <span className="type-button-sm text-[var(--color-primary-dark)]">{t('Click to upload')}</span>
+              <span className="type-meta text-[var(--color-text-muted)]">{t(' or drag and drop')}</span>
             </div>
-            <p className="text-[11px] text-[var(--color-text-muted)]">{t(helperText)}</p>
+            <p className="type-meta text-[var(--color-text-muted)]">{t(helperText)}</p>
           </>
         )}
       </div>
@@ -256,13 +256,13 @@ export const CSVUpload = ({
             <UploadCloud className="w-6 h-6" />
           </div>
           <div className="text-center">
-            <p className="text-sm font-medium text-[var(--color-text-primary)]">{selectedFile ? selectedFile.name : 'Choose a CSV file or drag and drop here'}</p>
-            <p className="text-xs text-[var(--color-text-muted)] mt-0.5">{selectedFile ? (selectedFile.size / 1024).toFixed(1) + ' KB · Ready to process' : 'Supported format: .csv (UTF-8 encoded)'}</p>
+            <p className="type-label text-[var(--color-text-primary)]">{selectedFile ? selectedFile.name : 'Choose a CSV file or drag and drop here'}</p>
+            <p className="type-meta text-[var(--color-text-muted)] mt-0.5">{selectedFile ? (selectedFile.size / 1024).toFixed(1) + ' KB · Ready to process' : 'Supported format: .csv (UTF-8 encoded)'}</p>
           </div>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2 border-t border-[var(--color-border)]">
-          <div className="text-xs text-[var(--color-text-muted)]">{selectedFile ? 'File verified. Click Process Batch to commit.' : 'No file selected yet.'}</div>
+          <div className="type-meta text-[var(--color-text-muted)]">{selectedFile ? 'File verified. Click Process Batch to commit.' : 'No file selected yet.'}</div>
           <div className="flex items-center gap-2 self-end">
             {selectedFile && (
               <Button

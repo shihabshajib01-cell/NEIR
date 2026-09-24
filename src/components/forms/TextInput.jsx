@@ -2,7 +2,7 @@ import React, { useId, useState } from 'react';
 import { TextField, InputAdornment, IconButton as MuiIconButton } from '@mui/material';
 import { Eye, EyeOff, Smartphone, Hash, Phone, Calendar } from 'lucide-react';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
-import { muiFieldSx } from '../../system/muiFieldSx.js';
+import { muiFieldSx, muiFilterSx } from '../../system/muiFieldSx.js';
 
 const translated = (t, value) => typeof value === 'string' ? t(value) : value;
 
@@ -11,13 +11,15 @@ const passthroughProps = (props, excluded = []) =>
 
 export const TextInput = ({
   label, id, name, value, onChange, placeholder, type = 'text', error, helperText,
-  required = false, disabled = false, readOnly = false, icon: Icon, className = '', inputClassName = '', ...props
+  required = false, disabled = false, readOnly = false, icon: Icon, density = 'standard',
+  className = '', inputClassName = '', ...props
 }) => {
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
   const fieldLabel = translated(t, label);
   const supportingText = translated(t, error || helperText);
+  const fieldSx = density === 'compact' ? muiFilterSx : muiFieldSx;
 
   return (
     <div className={className}>
@@ -58,7 +60,7 @@ export const TextInput = ({
           'aria-describedby': supportingText ? inputId + '-helper' : undefined,
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
-        sx={muiFieldSx}
+        sx={fieldSx}
         {...passthroughProps(props, ['autoComplete', 'maxLength', 'min', 'max', 'inputMode'])}
       />
     </div>
@@ -67,7 +69,7 @@ export const TextInput = ({
 
 export const PasswordInput = ({
   label, id, name, value, onChange, placeholder = '••••••••', error, helperText,
-  required = false, disabled = false, readOnly = false, className = '', ...props
+  required = false, disabled = false, readOnly = false, density = 'standard', className = '', ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const generatedId = useId();
@@ -75,6 +77,7 @@ export const PasswordInput = ({
   const inputId = id || name || generatedId;
   const fieldLabel = translated(t, label);
   const supportingText = translated(t, error || helperText);
+  const fieldSx = density === 'compact' ? muiFilterSx : muiFieldSx;
 
   return (
     <div className={className}>
@@ -118,7 +121,7 @@ export const PasswordInput = ({
           'aria-describedby': supportingText ? inputId + '-helper' : undefined,
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
-        sx={muiFieldSx}
+        sx={fieldSx}
         {...passthroughProps(props, ['autoComplete'])}
       />
     </div>

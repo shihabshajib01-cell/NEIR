@@ -57,7 +57,7 @@ const muiTheme = createTheme({
         paper: {
           marginTop: 4,
           border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-lg)',
+          borderRadius: 'var(--field-radius)',
           boxShadow: 'var(--shadow-lg)',
         },
         list: { padding: 4 },
@@ -66,8 +66,8 @@ const muiTheme = createTheme({
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          minHeight: 40,
-          borderRadius: 'var(--radius-md)',
+          minHeight: 48,
+          borderRadius: 'var(--field-radius)',
           fontSize: 'var(--type-control-size)',
           color: 'var(--color-text-primary)',
           '&:hover': {
@@ -109,6 +109,7 @@ const muiTheme = createTheme({
         },
         asterisk: {
           color: 'var(--color-error)',
+          marginLeft: 2,
         },
       },
     },
@@ -134,12 +135,12 @@ const muiTheme = createTheme({
       styleOverrides: {
         paper: {
           border: '1px solid var(--color-border)',
-          borderRadius: 'var(--radius-lg)',
-          boxShadow: 'var(--shadow-lg)',
+          borderRadius: 'var(--field-radius)',
+          boxShadow: 'var(--shadow-md)',
         },
         option: {
-          minHeight: 40,
-          fontSize: 'var(--type-control-size)',
+          minHeight: 48,
+          fontSize: 'var(--field-font-size)',
           '&[aria-selected="true"]': {
             backgroundColor: 'var(--color-primary-light)',
             color: 'var(--color-primary-dark)',

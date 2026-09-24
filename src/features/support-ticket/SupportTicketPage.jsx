@@ -7,7 +7,7 @@ import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { Drawer } from '../../components/overlays/Drawer.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Textarea, TextInput } from '../../components/forms/TextInput.jsx';
-import { Select } from '../../components/forms/Select.jsx';
+import { Select, CompactSelect } from '../../components/forms/Select.jsx';
 import { StatusBadge, PriorityBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
@@ -284,21 +284,23 @@ export const SupportTicketPage = () => {
           </div>
 
           {/* Reply Form */}
-          <form onSubmit={handleSendReply} className="pt-3 border-t border-[#E2E5F0] space-y-3">
+          <form onSubmit={handleSendReply} className="pt-4 border-t border-[var(--color-border)] space-y-4">
             <div className="flex items-center justify-between">
               <h4 className="text-xs font-semibold uppercase tracking-wider text-[#202338]">
                 Post Official Resolution
               </h4>
-              <div className="w-36">
-                <select
+              <div className="w-40">
+                <CompactSelect
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="w-full h-7 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded text-[#202338] outline-hidden cursor-pointer"
-                >
-                  <option value="In Progress">In Progress</option>
-                  <option value="Resolved">Resolved</option>
-                  <option value="Closed">Closed</option>
-                </select>
+                  options={[
+                    { value: 'In Progress', label: 'In Progress' },
+                    { value: 'Resolved', label: 'Resolved' },
+                    { value: 'Closed', label: 'Closed' },
+                  ]}
+                  placeholder=""
+                  aria-label="Ticket status"
+                />
               </div>
             </div>
 

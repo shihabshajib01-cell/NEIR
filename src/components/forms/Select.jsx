@@ -1,7 +1,7 @@
 import React, { useId } from 'react';
 import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
-import { muiFieldSx } from '../../system/muiFieldSx.js';
+import { muiFieldSx, muiFilterSx } from '../../system/muiFieldSx.js';
 
 const normalizeOptions = (options = []) => options.map((option) =>
   typeof option === 'string' ? { value: option, label: option } : option
@@ -26,7 +26,7 @@ const selectMenuProps = {
   },
 };
 
-const optionSx = {
+const standardOptionSx = {
   minHeight: 48,
   px: 2,
   py: 1,
@@ -48,7 +48,7 @@ const optionSx = {
 
 export const Select = ({
   label, id, name, value, onChange, options = [], placeholder = 'Select option', error, helperText,
-  required = false, disabled = false, readOnly = false, className = '', ...props
+  required = false, disabled = false, readOnly = false, density = 'standard', className = '', ...props
 }) => {
   const generatedId = useId();
   const { t } = usePreferences();
@@ -56,6 +56,10 @@ export const Select = ({
   const normalizedOptions = normalizeOptions(options);
   const fieldLabel = typeof label === 'string' ? t(label) : label;
   const supportingText = typeof (error || helperText) === 'string' ? t(error || helperText) : (error || helperText);
+  const fieldSx = density === 'compact' ? muiFilterSx : muiFieldSx;
+  const optionSx = density === 'compact'
+    ? { ...standardOptionSx, minHeight: 40, py: 0.75, fontSize: 'var(--type-control-size)' }
+    : standardOptionSx;
 
   return (
     <div className={className}>
@@ -86,7 +90,7 @@ export const Select = ({
           },
         }}
         FormHelperTextProps={{ id: selectId + '-helper' }}
-        sx={muiFieldSx}
+        sx={fieldSx}
         {...props}
       >
         {placeholder && (
@@ -106,7 +110,7 @@ export const Select = ({
 
 export const SearchableSelect = ({
   label, id, name, value, onChange, options = [], placeholder = 'Select or search...', error, helperText,
-  required = false, disabled = false, readOnly = false, className = '',
+  required = false, disabled = false, readOnly = false, density = 'standard', className = '',
 }) => {
   const generatedId = useId();
   const { t } = usePreferences();
@@ -115,6 +119,10 @@ export const SearchableSelect = ({
   const selectedOption = normalizedOptions.find((option) => option.value === value) || null;
   const fieldLabel = typeof label === 'string' ? t(label) : label;
   const supportingText = typeof (error || helperText) === 'string' ? t(error || helperText) : (error || helperText);
+  const fieldSx = density === 'compact' ? muiFilterSx : muiFieldSx;
+  const optionSx = density === 'compact'
+    ? { ...standardOptionSx, minHeight: 40, py: 0.75, fontSize: 'var(--type-control-size)' }
+    : standardOptionSx;
 
   return (
     <div className={className}>
@@ -175,10 +183,30 @@ export const SearchableSelect = ({
               'aria-describedby': supportingText ? inputId + '-helper' : undefined,
             }}
             FormHelperTextProps={{ id: inputId + '-helper' }}
-            sx={muiFieldSx}
+            sx={fieldSx}
           />
         )}
       />
     </div>
   );
 };
+
+
+export const CompactSelect = ({
+  value,
+  onChange,
+  options = [],
+  placeholder = 'Select option',
+  className = '',
+  ...props
+}) => (
+  <Select
+    value={value}
+    onChange={onChange}
+    options={options}
+    placeholder={placeholder}
+    density="compact"
+    className={className}
+    {...props}
+  />
+);

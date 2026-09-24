@@ -6,7 +6,7 @@ import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Modal } from '../../components/overlays/Modal.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
-import { Select } from '../../components/forms/Select.jsx';
+import { Select, CompactSelect } from '../../components/forms/Select.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { Plus, Edit2, Award } from 'lucide-react';
@@ -197,18 +197,16 @@ export const DesignationsPage = () => {
                   }}
                   filters={
                     <div className="w-56">
-                      <select
+                      <CompactSelect
                         value={selectedDeptFilter}
                         onChange={(e) => setSelectedDeptFilter(e.target.value)}
-                        className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
-                      >
-                        <option value="All">All Departments</option>
-                        {departments.map((d) => (
-                          <option key={d.id} value={d.id}>
-                            {d.name}
-                          </option>
-                        ))}
-                      </select>
+                        options={[
+                          { value: 'All', label: 'All Departments' },
+                          ...departments.map((d) => ({ value: d.id, label: d.name })),
+                        ]}
+                        placeholder=""
+                        aria-label="Filter by department"
+                      />
                     </div>
                   }
                 />
@@ -237,7 +235,7 @@ export const DesignationsPage = () => {
           </>
         }
       >
-        <form onSubmit={handleSave} className="space-y-3.5">
+        <form onSubmit={handleSave} className="space-y-4">
           <TextInput
             label="Designation Title"
             value={formState.title}

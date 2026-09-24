@@ -6,7 +6,7 @@ import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Modal } from '../../components/overlays/Modal.jsx';
 import { TextInput } from '../../components/forms/TextInput.jsx';
-import { Select, SearchableSelect } from '../../components/forms/Select.jsx';
+import { Select, SearchableSelect, CompactSelect } from '../../components/forms/Select.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { Plus, Edit2, KeyRound } from 'lucide-react';
@@ -204,18 +204,16 @@ export const PermissionPage = () => {
                   }}
                   filters={
                     <div className="w-52">
-                      <select
+                      <CompactSelect
                         value={selectedParentFilter}
                         onChange={(e) => setSelectedParentFilter(e.target.value)}
-                        className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
-                      >
-                        <option value="All">All Parent Modules</option>
-                        {parents.map((p) => (
-                          <option key={p.id} value={p.id}>
-                            {p.name}
-                          </option>
-                        ))}
-                      </select>
+                        options={[
+                          { value: 'All', label: 'All Parent Modules' },
+                          ...parents.map((p) => ({ value: p.id, label: p.name })),
+                        ]}
+                        placeholder=""
+                        aria-label="Filter by parent module"
+                      />
                     </div>
                   }
                 />
