@@ -84,6 +84,12 @@ const muiTheme = createTheme({
         },
       },
     },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'outlined',
+        size: 'medium',
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -92,6 +98,27 @@ const muiTheme = createTheme({
           backgroundColor: 'var(--color-surface)',
           color: 'var(--color-text-primary)',
           fontSize: 'var(--field-font-size)',
+          boxShadow: 'none',
+          '&:hover:not(.Mui-focused):not(.Mui-disabled) .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--color-text-secondary)',
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--color-primary)',
+            borderWidth: 2,
+          },
+          '&.Mui-error .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--color-error)',
+          },
+          '&.Mui-disabled': {
+            backgroundColor: 'var(--field-disabled-bg)',
+          },
+        },
+        input: {
+          fontSize: 'var(--field-font-size)',
+          lineHeight: 1.5,
+          '&::placeholder': {
+            color: 'var(--color-text-muted)',
+          },
         },
         notchedOutline: {
           borderColor: 'var(--color-border-strong, #C8CDD9)',
@@ -118,7 +145,7 @@ const muiTheme = createTheme({
         root: {
           marginLeft: 14,
           marginRight: 14,
-          marginTop: 6,
+          marginTop: 4,
           fontSize: '14px',
           lineHeight: 1.4,
           color: 'var(--color-text-muted)',

@@ -39,9 +39,7 @@ export const TextInput = ({
         size="medium"
         fullWidth
         autoComplete={props.autoComplete}
-        InputLabelProps={{
-          shrink: Boolean(value) || Boolean(placeholder) || type === 'date' || undefined,
-        }}
+        InputLabelProps={type === 'date' ? { shrink: true } : undefined}
         InputProps={{
           readOnly,
           startAdornment: Icon ? (
@@ -97,9 +95,7 @@ export const PasswordInput = ({
         size="medium"
         fullWidth
         autoComplete={props.autoComplete}
-        InputLabelProps={{
-          shrink: Boolean(value) || Boolean(placeholder) || undefined,
-        }}
+        InputLabelProps={undefined}
         InputProps={{
           readOnly,
           endAdornment: (
@@ -265,9 +261,7 @@ export const Textarea = ({
         variant="outlined"
         size="medium"
         fullWidth
-        InputLabelProps={{
-          shrink: Boolean(value) || Boolean(placeholder) || undefined,
-        }}
+        InputLabelProps={undefined}
         InputProps={{ readOnly }}
         inputProps={{
           'aria-invalid': Boolean(error) || undefined,

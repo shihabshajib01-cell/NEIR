@@ -77,9 +77,7 @@ export const Select = ({
         variant="outlined"
         size="medium"
         fullWidth
-        InputLabelProps={{
-          shrink: Boolean(value) || undefined,
-        }}
+        InputLabelProps={undefined}
         SelectProps={{
           displayEmpty: !fieldLabel,
           readOnly,
@@ -173,10 +171,7 @@ export const SearchableSelect = ({
             required={required}
             variant="outlined"
             size="medium"
-            InputLabelProps={{
-              ...params.InputLabelProps,
-              shrink: Boolean(selectedOption) || Boolean(placeholder) || undefined,
-            }}
+            InputLabelProps={params.InputLabelProps}
             inputProps={{
               ...params.inputProps,
               'aria-invalid': Boolean(error) || undefined,
