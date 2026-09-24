@@ -153,21 +153,21 @@ export const ServiceActionPage = () => {
       title: 'Service Action Name',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <Layers className="w-3.5 h-3.5 text-[#147D83]" />
-          <span className="font-semibold text-[#102A43]">{val}</span>
+          <Layers className="w-3.5 h-3.5 text-[#4B5694]" />
+          <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),
     },
     {
       key: 'permissionName',
       title: 'Permission Name',
-      render: (val) => <span className="text-xs text-[#172B4D]">{val}</span>,
+      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
     },
     {
       key: 'parentName',
       title: 'Parent Name',
       render: (val) => (
-        <span className="text-xs text-[#52677A] bg-[#F4F7FA] px-2 py-0.5 rounded border border-[#D8E0E8]">
+        <span className="text-xs text-[#626981] bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0]">
           {val}
         </span>
       ),
@@ -176,7 +176,7 @@ export const ServiceActionPage = () => {
       key: 'path',
       title: 'Path',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#52677A]">{val}</span>,
+      render: (val) => <span className="font-mono text-xs text-[#626981]">{val}</span>,
     },
     {
       key: 'method',

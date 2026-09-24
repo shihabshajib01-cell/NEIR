@@ -94,8 +94,8 @@ export const SupportTicketPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-bold text-[#102A43]">{val}</span>
-          <span className="text-[11px] text-[#52677A] font-sans truncate">{row.category}</span>
+          <span className="font-mono font-bold text-[#202338]">{val}</span>
+          <span className="text-[11px] text-[#626981] font-sans truncate">{row.category}</span>
         </div>
       ),
     },
@@ -104,8 +104,8 @@ export const SupportTicketPage = () => {
       title: 'Subject / Description',
       render: (val, row) => (
         <div className="flex flex-col max-w-sm">
-          <span className="font-semibold text-[#172B4D] truncate">{val}</span>
-          <span className="text-[11px] text-[#748597] truncate">{row.description}</span>
+          <span className="font-semibold text-[#202338] truncate">{val}</span>
+          <span className="text-[11px] text-[#7A8197] truncate">{row.description}</span>
         </div>
       ),
     },
@@ -114,8 +114,8 @@ export const SupportTicketPage = () => {
       title: 'Submitted By',
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-medium text-[#172B4D]">{val}</span>
-          <span className="text-[11px] text-[#748597] font-mono">{row.phone}</span>
+          <span className="font-medium text-[#202338]">{val}</span>
+          <span className="text-[11px] text-[#7A8197] font-mono">{row.phone}</span>
         </div>
       ),
     },
@@ -136,7 +136,7 @@ export const SupportTicketPage = () => {
       title: 'Date',
       isMono: true,
       width: '110px',
-      render: (val) => <span className="text-xs text-[#52677A] font-mono">{val}</span>,
+      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
     },
     {
       key: 'actions',
@@ -225,24 +225,24 @@ export const SupportTicketPage = () => {
           width="w-full sm:w-[540px]"
         >
           {/* Metadata banner */}
-          <div className="p-3.5 bg-[#F4F7FA] border border-[#D8E0E8] rounded-lg space-y-2">
+          <div className="p-3.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#102A43]">{selectedTicket.category}</span>
+              <span className="text-xs font-semibold text-[#202338]">{selectedTicket.category}</span>
               <div className="flex items-center gap-2">
                 <PriorityBadge priority={selectedTicket.priority} />
                 <StatusBadge status={selectedTicket.status} size="sm" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2 text-xs pt-1 text-[#52677A]">
+            <div className="grid grid-cols-2 gap-2 text-xs pt-1 text-[#626981]">
               <div>
-                <span>Citizen:</span> <strong className="text-[#172B4D]">{selectedTicket.submittedBy}</strong>
+                <span>Citizen:</span> <strong className="text-[#202338]">{selectedTicket.submittedBy}</strong>
               </div>
               <div>
-                <span>Phone:</span> <span className="font-mono text-[#172B4D]">{selectedTicket.phone}</span>
+                <span>Phone:</span> <span className="font-mono text-[#202338]">{selectedTicket.phone}</span>
               </div>
               {selectedTicket.imei && (
                 <div className="col-span-2">
-                  <span>Linked IMEI:</span> <span className="font-mono text-[#10683D] font-bold ml-1">{selectedTicket.imei}</span>
+                  <span>Linked IMEI:</span> <span className="font-mono text-[#343D73] font-bold ml-1">{selectedTicket.imei}</span>
                 </div>
               )}
             </div>
@@ -250,7 +250,7 @@ export const SupportTicketPage = () => {
 
           {/* Conversation History Thread */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#52677A]">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#626981]">
               Conversation History
             </h4>
             <div className="space-y-3">
@@ -259,33 +259,33 @@ export const SupportTicketPage = () => {
                   key={msg.id}
                   className={`p-3.5 rounded-lg border text-xs leading-relaxed ${
                     msg.isStaff
-                      ? 'bg-[#102A43]/5 border-[#102A43]/20 ml-4'
-                      : 'bg-white border-[#D8E0E8] mr-4 shadow-xs'
+                      ? 'bg-[#202338]/5 border-[#202338]/20 ml-4'
+                      : 'bg-white border-[#E2E5F0] mr-4 shadow-xs'
                   }`}
                 >
-                  <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#F4F7FA]">
-                    <span className="font-semibold text-[#102A43]">
-                      {msg.sender} {msg.isStaff && <span className="text-[10px] bg-[#14804A] text-white px-1.5 py-0.2 rounded font-normal ml-1">Staff</span>}
+                  <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#F7F8FC]">
+                    <span className="font-semibold text-[#202338]">
+                      {msg.sender} {msg.isStaff && <span className="text-[10px] bg-[#4B5694] text-white px-1.5 py-0.2 rounded font-normal ml-1">Staff</span>}
                     </span>
-                    <span className="text-[10px] text-[#748597] font-mono">{msg.timestamp}</span>
+                    <span className="text-[10px] text-[#7A8197] font-mono">{msg.timestamp}</span>
                   </div>
-                  <p className="text-[#172B4D]">{msg.content}</p>
+                  <p className="text-[#202338]">{msg.content}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Reply Form */}
-          <form onSubmit={handleSendReply} className="pt-3 border-t border-[#D8E0E8] space-y-3">
+          <form onSubmit={handleSendReply} className="pt-3 border-t border-[#E2E5F0] space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#102A43]">
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#202338]">
                 Post Official Resolution
               </h4>
               <div className="w-36">
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value)}
-                  className="w-full h-7 px-2 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded text-[#172B4D] outline-hidden cursor-pointer"
+                  className="w-full h-7 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded text-[#202338] outline-hidden cursor-pointer"
                 >
                   <option value="In Progress">In Progress</option>
                   <option value="Resolved">Resolved</option>

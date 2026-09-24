@@ -60,16 +60,16 @@ export const ImeiCheckPage = () => {
               required
             />
 
-            <div className="p-3 bg-[#F4F7FA] rounded-md border border-[#D8E0E8] text-xs text-[#52677A] space-y-1">
-              <p className="font-semibold text-[#102A43]">Quick Inspection Shortcuts:</p>
+            <div className="p-3 bg-[#F7F8FC] rounded-md border border-[#E2E5F0] text-xs text-[#626981] space-y-1">
+              <p className="font-semibold text-[#202338]">Quick Inspection Shortcuts:</p>
               <ul className="list-disc list-inside space-y-0.5 text-[11px]">
-                <li>Standard 15-digit number: <span className="font-mono text-[#10683D]">862940058912341</span> (White Listed)</li>
+                <li>Standard 15-digit number: <span className="font-mono text-[#343D73]">862940058912341</span> (White Listed)</li>
                 <li>Blocked stolen device: <span className="font-mono text-red-600">864920194820194</span> (Blacklisted)</li>
                 <li>Unregistered terminal: <span className="font-mono text-amber-600">999000111222333</span> (Not Registered)</li>
               </ul>
             </div>
 
-            <div className="pt-2 border-t border-[#D8E0E8] flex justify-end">
+            <div className="pt-2 border-t border-[#E2E5F0] flex justify-end">
               <Button
                 type="submit"
                 variant="primary"
@@ -104,49 +104,49 @@ export const ImeiCheckPage = () => {
         >
           <div className="space-y-4">
             {/* Status Header Strip */}
-            <div className="p-3.5 bg-[#F4F7FA] border border-[#D8E0E8] rounded-lg flex items-center justify-between">
+            <div className="p-3.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-semibold text-[#52677A] uppercase tracking-wider">EIR Verdict</span>
-                <p className="text-base font-mono font-bold text-[#102A43]">{result.imei}</p>
+                <span className="text-[11px] font-semibold text-[#626981] uppercase tracking-wider">EIR Verdict</span>
+                <p className="text-base font-mono font-bold text-[#202338]">{result.imei}</p>
               </div>
               <StatusBadge status={result.status} size="md" />
             </div>
 
             {/* Bilingual Verification Message */}
-            <div className="p-3.5 rounded-lg border border-[#14804A]/30 bg-[#14804A]/10 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#10683D]">
+            <div className="p-3.5 rounded-lg border border-[#4B5694]/30 bg-[#4B5694]/10 space-y-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#343D73]">
                 <Globe className="w-4 h-4" />
                 <span>Official Status Response</span>
               </div>
-              <p className="text-sm font-semibold text-[#102A43] leading-relaxed">
+              <p className="text-sm font-semibold text-[#202338] leading-relaxed">
                 {result.bengaliMessage}
               </p>
-              <p className="text-xs text-[#52677A]">
+              <p className="text-xs text-[#626981]">
                 {result.englishMessage}
               </p>
             </div>
 
             {/* Device Specification Box */}
-            <div className="border border-[#D8E0E8] rounded-lg p-3.5 space-y-2 text-xs">
-              <div className="flex justify-between pb-1.5 border-b border-[#F4F7FA]">
-                <span className="text-[#52677A]">Brand / Manufacturer:</span>
-                <span className="font-semibold text-[#172B4D]">{result.brand}</span>
+            <div className="border border-[#E2E5F0] rounded-lg p-3.5 space-y-2 text-xs">
+              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
+                <span className="text-[#626981]">Brand / Manufacturer:</span>
+                <span className="font-semibold text-[#202338]">{result.brand}</span>
               </div>
-              <div className="flex justify-between pb-1.5 border-b border-[#F4F7FA]">
-                <span className="text-[#52677A]">Model & Tier:</span>
-                <span className="font-medium text-[#172B4D]">{result.model}</span>
+              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
+                <span className="text-[#626981]">Model & Tier:</span>
+                <span className="font-medium text-[#202338]">{result.model}</span>
               </div>
-              <div className="flex justify-between pb-1.5 border-b border-[#F4F7FA]">
-                <span className="text-[#52677A]">GSMA Type Allocation Code (TAC):</span>
-                <span className="font-mono font-semibold text-[#147D83]">{result.tac}</span>
+              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
+                <span className="text-[#626981]">GSMA Type Allocation Code (TAC):</span>
+                <span className="font-mono font-semibold text-[#4B5694]">{result.tac}</span>
               </div>
-              <div className="flex justify-between pb-1.5 border-b border-[#F4F7FA]">
-                <span className="text-[#52677A]">Authorization Category:</span>
-                <span className="text-[#172B4D]">{result.importType}</span>
+              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
+                <span className="text-[#626981]">Authorization Category:</span>
+                <span className="text-[#202338]">{result.importType}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#52677A]">Carrier Attachment:</span>
-                <span className="text-[#10683D] font-medium">{result.mnoAttachment}</span>
+                <span className="text-[#626981]">Carrier Attachment:</span>
+                <span className="text-[#343D73] font-medium">{result.mnoAttachment}</span>
               </div>
             </div>
           </div>

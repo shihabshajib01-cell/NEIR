@@ -259,7 +259,7 @@ export const FileUpload = ({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && <label className="text-sm font-medium text-[#202338]">{label}</label>}
-      <div className="border-2 border-dashed border-[#E2E5F0] rounded-xl p-5 text-center bg-[#FAFCFE] hover:bg-[#F7F8FC] transition-colors relative cursor-pointer">
+      <div className="border-2 border-dashed border-[#E2E5F0] rounded-xl p-5 text-center bg-[#F7F8FC] hover:bg-[#F7F8FC] transition-colors relative cursor-pointer">
         <input
           type="file"
           accept={accept}

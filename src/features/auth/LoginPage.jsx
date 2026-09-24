@@ -35,9 +35,9 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center bg-[#F4F7FA] p-4 sm:p-6 lg:p-8">
-      <div className="max-w-4xl w-full mx-auto bg-white rounded-xl shadow-xl border border-[#D8E0E8] overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[540px]">
-        <div className="lg:col-span-5 bg-[#102A43] text-white p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+    <div className="min-h-screen flex flex-col justify-center bg-[#F7F8FC] p-4 sm:p-6 lg:p-8">
+      <div className="max-w-4xl w-full mx-auto bg-white rounded-xl shadow-xl border border-[#E2E5F0] overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[540px]">
+        <div className="lg:col-span-5 bg-[#202338] text-white p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
 
           <div className="relative z-10">
@@ -55,7 +55,7 @@ export const LoginPage = () => {
               </p>
             </div>
 
-            <div className="mt-8 rounded-lg border border-[#214F73] bg-[#173F5F]/70 p-4">
+            <div className="mt-8 rounded-lg border border-[#7C8BD6] bg-[#4B5694]/70 p-4">
               <div className="flex items-start gap-3">
                 <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
@@ -68,7 +68,7 @@ export const LoginPage = () => {
             </div>
           </div>
 
-          <div className="relative z-10 pt-6 border-t border-[#173F5F] text-xs text-slate-400">
+          <div className="relative z-10 pt-6 border-t border-[#4B5694] text-xs text-slate-400">
             Bangladesh Telecommunication Regulatory Commission (BTRC)
           </div>
         </div>
@@ -76,8 +76,8 @@ export const LoginPage = () => {
         <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-center bg-white">
           <div className="max-w-md w-full mx-auto">
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-[#102A43] tracking-tight">Administrative sign in</h2>
-              <p className="text-sm text-[#52677A] mt-1">
+              <h2 className="text-2xl font-bold text-[#202338] tracking-tight">Administrative sign in</h2>
+              <p className="text-sm text-[#626981] mt-1">
                 Username and password are optional in the current frontend prototype.
               </p>
             </div>
@@ -121,7 +121,7 @@ export const LoginPage = () => {
               </Button>
             </form>
 
-            <div className="mt-8 pt-4 border-t border-[#D8E0E8] text-center text-xs text-[#748597]">
+            <div className="mt-8 pt-4 border-t border-[#E2E5F0] text-center text-xs text-[#7A8197]">
               Click Sign in to continue directly to the dashboard.
             </div>
           </div>

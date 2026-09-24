@@ -51,8 +51,8 @@ export const LostStolenPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-semibold text-[#102A43]">{val}</span>
-          <span className="text-[11px] text-[#52677A] truncate">{row.deviceDetails.brand} {row.deviceDetails.model} ({row.deviceDetails.color})</span>
+          <span className="font-mono font-semibold text-[#202338]">{val}</span>
+          <span className="text-[11px] text-[#626981] truncate">{row.deviceDetails.brand} {row.deviceDetails.model} ({row.deviceDetails.color})</span>
         </div>
       ),
     },
@@ -61,8 +61,8 @@ export const LostStolenPage = () => {
       title: 'Requested By / Thana GD',
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-medium text-[#172B4D]">{val}</span>
-          <span className="text-[11px] text-[#748597] font-mono">{row.thana}</span>
+          <span className="font-medium text-[#202338]">{val}</span>
+          <span className="text-[11px] text-[#7A8197] font-mono">{row.thana}</span>
         </div>
       ),
     },
@@ -70,7 +70,7 @@ export const LostStolenPage = () => {
       key: 'reportDate',
       title: 'Report Date',
       isMono: true,
-      render: (val) => <span className="text-xs text-[#52677A] font-mono">{val}</span>,
+      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
     },
     {
       key: 'status',

@@ -117,8 +117,8 @@ export const PermissionPage = () => {
       title: 'Permission Name',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <KeyRound className="w-3.5 h-3.5 text-[#10683D]" />
-          <span className="font-semibold text-[#102A43]">{val}</span>
+          <KeyRound className="w-3.5 h-3.5 text-[#343D73]" />
+          <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),
     },
@@ -127,13 +127,13 @@ export const PermissionPage = () => {
       title: 'Position',
       isMono: true,
       width: '80px',
-      render: (val) => <span className="font-mono text-center block text-[#52677A]">{val}</span>,
+      render: (val) => <span className="font-mono text-center block text-[#626981]">{val}</span>,
     },
     {
       key: 'parentName',
       title: 'Parent Name',
       render: (val) => (
-        <span className="text-xs font-medium text-[#147D83] bg-[#147D83]/10 px-2 py-0.5 rounded">
+        <span className="text-xs font-medium text-[#4B5694] bg-[#4B5694]/10 px-2 py-0.5 rounded">
           {val}
         </span>
       ),
@@ -142,13 +142,13 @@ export const PermissionPage = () => {
       key: 'path',
       title: 'Path',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#52677A]">{val}</span>,
+      render: (val) => <span className="font-mono text-xs text-[#626981]">{val}</span>,
     },
     {
       key: 'icon',
       title: 'Icon',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#748597]">{val}</span>,
+      render: (val) => <span className="font-mono text-xs text-[#7A8197]">{val}</span>,
     },
     {
       key: 'actions',
@@ -202,7 +202,7 @@ export const PermissionPage = () => {
             <select
               value={selectedParentFilter}
               onChange={(e) => setSelectedParentFilter(e.target.value)}
-              className="w-full h-8.5 px-2 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded-md text-[#172B4D] outline-hidden cursor-pointer"
+              className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
             >
               <option value="All">All Parent Modules</option>
               {parents.map((p) => (

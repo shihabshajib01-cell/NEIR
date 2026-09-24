@@ -238,7 +238,7 @@ export const UserFormPage = () => {
           <Card title="Portal Authentication Credentials">
             <div className="space-y-4">
               {isEditing && (
-                <div className="pb-2 border-b border-[#D8E0E8]">
+                <div className="pb-2 border-b border-[#E2E5F0]">
                   <Checkbox
                     label="Reset / Change Officer Password"
                     description="Check to set a new password for this administrative user"

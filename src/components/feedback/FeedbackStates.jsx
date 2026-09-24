@@ -12,11 +12,11 @@ export const EmptyState = ({
 }) => {
   return (
     <div className={`p-8 text-center flex flex-col items-center justify-center max-w-sm mx-auto ${className}`}>
-      <div className="w-12 h-12 rounded-full bg-[#F4F7FA] border border-[#D8E0E8] flex items-center justify-center text-[#748597] mb-3">
+      <div className="w-12 h-12 rounded-full bg-[#F7F8FC] border border-[#E2E5F0] flex items-center justify-center text-[#7A8197] mb-3">
         <Icon className="w-6 h-6" />
       </div>
-      <h4 className="text-sm font-semibold text-[#172B4D]">{title}</h4>
-      <p className="text-xs text-[#748597] mt-1 leading-relaxed">{description}</p>
+      <h4 className="text-sm font-semibold text-[#202338]">{title}</h4>
+      <p className="text-xs text-[#7A8197] mt-1 leading-relaxed">{description}</p>
       {actionLabel && onAction && (
         <Button variant="outline" size="sm" onClick={onAction} className="mt-4">
           {actionLabel}
@@ -60,8 +60,8 @@ export const LoadingState = ({
 }) => {
   return (
     <div className={`p-10 flex flex-col items-center justify-center gap-2.5 ${className}`}>
-      <Loader2 className="w-6 h-6 animate-spin text-[#14804A]" />
-      <span className="text-xs font-medium text-[#52677A]">{message}</span>
+      <Loader2 className="w-6 h-6 animate-spin text-[#4B5694]" />
+      <span className="text-xs font-medium text-[#626981]">{message}</span>
     </div>
   );
 };
@@ -74,7 +74,7 @@ export const Skeleton = ({ className = 'h-4 w-full', rounded = 'rounded' }) => {
 
 export const TableSkeleton = ({ rows = 5, cols = 5 }) => {
   return (
-    <div className="divide-y divide-[#D8E0E8]">
+    <div className="divide-y divide-[#E2E5F0]">
       {Array.from({ length: rows }).map((_, rIdx) => (
         <div key={rIdx} className="p-3.5 flex items-center gap-4">
           {Array.from({ length: cols }).map((_, cIdx) => (

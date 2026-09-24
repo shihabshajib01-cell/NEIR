@@ -122,13 +122,13 @@ export const DeviceDeregisterPage = () => {
             </div>
 
             {/* Error simulation toggle for testing QA */}
-            <div className="pt-2 border-t border-[#D8E0E8] flex items-center justify-between">
-              <label className="text-xs text-[#748597] flex items-center gap-2 cursor-pointer">
+            <div className="pt-2 border-t border-[#E2E5F0] flex items-center justify-between">
+              <label className="text-xs text-[#7A8197] flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={simulateError}
                   onChange={(e) => setSimulateError(e.target.checked)}
-                  className="rounded border-[#D8E0E8] text-[#14804A]"
+                  className="rounded border-[#E2E5F0] text-[#4B5694]"
                 />
                 <span>Simulate restricted IMEI error scenario</span>
               </label>

@@ -89,7 +89,7 @@ export const AutoRegistrationPage = () => {
               required
             />
 
-            <div className="pt-2 border-t border-[#D8E0E8] flex justify-end">
+            <div className="pt-2 border-t border-[#E2E5F0] flex justify-end">
               <Button
                 type="submit"
                 variant="primary"

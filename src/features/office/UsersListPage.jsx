@@ -65,12 +65,12 @@ export const UsersListPage = () => {
       title: 'Officer Name / Email',
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-[#102A43] text-white flex items-center justify-center font-bold text-xs shrink-0">
+          <div className="w-8 h-8 rounded-full bg-[#202338] text-white flex items-center justify-center font-bold text-xs shrink-0">
             {val.charAt(0)}
           </div>
           <div>
-            <span className="font-semibold text-[#102A43] block">{val}</span>
-            <span className="text-[11px] text-[#52677A] font-mono">{row.email}</span>
+            <span className="font-semibold text-[#202338] block">{val}</span>
+            <span className="text-[11px] text-[#626981] font-mono">{row.email}</span>
           </div>
         </div>
       ),
@@ -79,23 +79,23 @@ export const UsersListPage = () => {
       key: 'username',
       title: 'Username',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#147D83] font-semibold">{val}</span>,
+      render: (val) => <span className="font-mono text-xs text-[#4B5694] font-semibold">{val}</span>,
     },
     {
       key: 'department',
       title: 'Department',
-      render: (val) => <span className="text-xs text-[#172B4D]">{val}</span>,
+      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
     },
     {
       key: 'designation',
       title: 'Designation',
-      render: (val) => <span className="text-xs font-medium text-[#52677A]">{val}</span>,
+      render: (val) => <span className="text-xs font-medium text-[#626981]">{val}</span>,
     },
     {
       key: 'role',
       title: 'Role',
       render: (val) => (
-        <span className="text-xs font-semibold bg-[#14804A]/10 text-[#10683D] px-2 py-0.5 rounded border border-[#14804A]/20">
+        <span className="text-xs font-semibold bg-[#4B5694]/10 text-[#343D73] px-2 py-0.5 rounded border border-[#4B5694]/20">
           {val}
         </span>
       ),
@@ -169,7 +169,7 @@ export const UsersListPage = () => {
             <select
               value={deptFilter}
               onChange={(e) => setDeptFilter(e.target.value)}
-              className="w-full h-8.5 px-2 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded-md text-[#172B4D] outline-hidden cursor-pointer"
+              className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
             >
               <option value="All">All Departments</option>
               {departments.map((d) => (

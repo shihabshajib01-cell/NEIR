@@ -13,9 +13,9 @@ export const mockDashboardData = {
   ],
   imeiSummary: {
     total: 52283412,
-    whiteList: { count: 48291402, percent: 92.4, color: '#14804A' },
-    grayList: { count: 3849120, percent: 7.3, color: '#D97706' },
-    blackList: { count: 142890, percent: 0.3, color: '#DC2626' },
+    whiteList: { count: 48291402, percent: 92.4, color: '#4B5694' },
+    grayList: { count: 3849120, percent: 7.3, color: '#EF8F22' },
+    blackList: { count: 142890, percent: 0.3, color: '#C62828' },
     recentMonthlyTrends: [
       { month: 'Oct 2025', whiteList: 46100000, grayList: 4100000, blackList: 130000 },
       { month: 'Nov 2025', whiteList: 46850000, grayList: 3990000, blackList: 134000 },
@@ -26,8 +26,8 @@ export const mockDashboardData = {
     ]
   },
   registrationSummary: {
-    autoRegistration: { count: 1249020, change: '+5.1% M-o-M', color: '#10683D' },
-    deRegistration: { count: 45830, change: '+1.2% M-o-M', color: '#147D83' },
+    autoRegistration: { count: 1249020, change: '+5.1% M-o-M', color: '#343D73' },
+    deRegistration: { count: 45830, change: '+1.2% M-o-M', color: '#4B5694' },
     operatorBreakdown: [
       { operator: 'Grameenphone', autoCount: '584,200', deRegCount: '21,400', share: '46.8%' },
       { operator: 'Robi Axiata', autoCount: '372,400', deRegCount: '13,800', share: '29.8%' },

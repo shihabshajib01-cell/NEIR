@@ -10,32 +10,32 @@ export const Alert = ({
 }) => {
   const configs = {
     info: {
-      bg: 'bg-[#147D83]/10',
-      border: 'border-[#147D83]/30',
-      text: 'text-[#102A43]',
+      bg: 'bg-[#4B5694]/10',
+      border: 'border-[#4B5694]/30',
+      text: 'text-[#202338]',
       icon: Info,
-      iconColor: 'text-[#147D83]',
+      iconColor: 'text-[#4B5694]',
     },
     success: {
-      bg: 'bg-[#14804A]/10',
-      border: 'border-[#14804A]/30',
-      text: 'text-[#10683D]',
+      bg: 'bg-[#4B5694]/10',
+      border: 'border-[#4B5694]/30',
+      text: 'text-[#343D73]',
       icon: CheckCircle2,
-      iconColor: 'text-[#14804A]',
+      iconColor: 'text-[#4B5694]',
     },
     warning: {
-      bg: 'bg-[#F59E0B]/10',
-      border: 'border-[#F59E0B]/30',
+      bg: 'bg-[#EF8F22]/10',
+      border: 'border-[#EF8F22]/30',
       text: 'text-[#92400E]',
       icon: AlertTriangle,
-      iconColor: 'text-[#D97706]',
+      iconColor: 'text-[#EF8F22]',
     },
     danger: {
-      bg: 'bg-[#DC2626]/10',
-      border: 'border-[#DC2626]/30',
-      text: 'text-[#991B1B]',
+      bg: 'bg-[#C62828]/10',
+      border: 'border-[#C62828]/30',
+      text: 'text-[#8F1D20]',
       icon: AlertCircle,
-      iconColor: 'text-[#DC2626]',
+      iconColor: 'text-[#C62828]',
     },
   };
 

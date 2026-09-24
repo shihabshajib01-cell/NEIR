@@ -106,8 +106,8 @@ export const ParentPage = () => {
       title: 'Parent Name',
       render: (val, row) => (
         <div className="flex items-center gap-2">
-          <FolderTree className="w-4 h-4 text-[#147D83]" />
-          <span className="font-semibold text-[#102A43]">{val}</span>
+          <FolderTree className="w-4 h-4 text-[#4B5694]" />
+          <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),
     },
@@ -115,25 +115,25 @@ export const ParentPage = () => {
       key: 'path',
       title: 'Path',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#52677A]">{val}</span>,
+      render: (val) => <span className="font-mono text-xs text-[#626981]">{val}</span>,
     },
     {
       key: 'icon',
       title: 'Icon',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs bg-[#F4F7FA] px-2 py-0.5 rounded border border-[#D8E0E8]">{val}</span>,
+      render: (val) => <span className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0]">{val}</span>,
     },
     {
       key: 'location',
       title: 'Location',
-      render: (val) => <span className="text-xs text-[#172B4D]">{val}</span>,
+      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
     },
     {
       key: 'position',
       title: 'Position',
       isMono: true,
       width: '80px',
-      render: (val) => <span className="font-mono font-bold text-center block text-[#102A43]">{val}</span>,
+      render: (val) => <span className="font-mono font-bold text-center block text-[#202338]">{val}</span>,
     },
     {
       key: 'actions',

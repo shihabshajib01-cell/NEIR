@@ -115,15 +115,15 @@ export const DesignationsPage = () => {
       title: 'Designation Title',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <Award className="w-4 h-4 text-[#147D83]" />
-          <span className="font-semibold text-[#102A43]">{val}</span>
+          <Award className="w-4 h-4 text-[#4B5694]" />
+          <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),
     },
     {
       key: 'departmentName',
       title: 'Department',
-      render: (val) => <span className="text-xs text-[#172B4D]">{val}</span>,
+      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
     },
     {
       key: 'rankGrade',
@@ -131,7 +131,7 @@ export const DesignationsPage = () => {
       isMono: true,
       width: '130px',
       render: (val) => (
-        <span className="font-mono text-xs bg-[#F4F7FA] px-2 py-0.5 rounded border border-[#D8E0E8] font-semibold text-[#147D83]">
+        <span className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0] font-semibold text-[#4B5694]">
           {val}
         </span>
       ),
@@ -141,7 +141,7 @@ export const DesignationsPage = () => {
       title: 'Staff Assigned',
       width: '120px',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#52677A]">{val} Officers</span>,
+      render: (val) => <span className="font-mono text-xs text-[#626981]">{val} Officers</span>,
     },
     {
       key: 'actions',
@@ -195,7 +195,7 @@ export const DesignationsPage = () => {
             <select
               value={selectedDeptFilter}
               onChange={(e) => setSelectedDeptFilter(e.target.value)}
-              className="w-full h-8.5 px-2 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded-md text-[#172B4D] outline-hidden cursor-pointer"
+              className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
             >
               <option value="All">All Departments</option>
               {departments.map((d) => (

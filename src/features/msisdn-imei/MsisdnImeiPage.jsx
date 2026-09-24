@@ -51,8 +51,8 @@ export const MsisdnImeiPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-bold text-[#102A43]">{val}</span>
-          <span className="text-[11px] text-[#52677A] font-sans font-medium">{row.subscriberName}</span>
+          <span className="font-mono font-bold text-[#202338]">{val}</span>
+          <span className="text-[11px] text-[#626981] font-sans font-medium">{row.subscriberName}</span>
         </div>
       ),
     },
@@ -62,8 +62,8 @@ export const MsisdnImeiPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-semibold text-[#10683D]">{val}</span>
-          <span className="text-[11px] text-[#748597]">{row.deviceModel}</span>
+          <span className="font-mono font-semibold text-[#343D73]">{val}</span>
+          <span className="text-[11px] text-[#7A8197]">{row.deviceModel}</span>
         </div>
       ),
     },
@@ -71,14 +71,14 @@ export const MsisdnImeiPage = () => {
       key: 'imsi',
       title: 'IMSI Identifier',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#52677A]">{val}</span>,
+      render: (val) => <span className="font-mono text-xs text-[#626981]">{val}</span>,
     },
     {
       key: 'operator',
       title: 'Carrier Operator',
       render: (val) => (
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#172B4D]">
-          <Radio className="w-3.5 h-3.5 text-[#147D83]" />
+        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#202338]">
+          <Radio className="w-3.5 h-3.5 text-[#4B5694]" />
           <span>{val}</span>
         </span>
       ),
@@ -87,7 +87,7 @@ export const MsisdnImeiPage = () => {
       key: 'attachedDate',
       title: 'First Active Date',
       isMono: true,
-      render: (val) => <span className="text-xs text-[#52677A] font-mono">{val}</span>,
+      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
     },
     {
       key: 'status',
@@ -145,7 +145,7 @@ export const MsisdnImeiPage = () => {
             <select
               value={operatorFilter}
               onChange={(e) => setOperatorFilter(e.target.value)}
-              className="w-full h-8.5 px-2 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded-md text-[#172B4D] outline-hidden cursor-pointer"
+              className="w-full h-8.5 px-2 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden cursor-pointer"
             >
               <option value="All">All Operators (MNOs)</option>
               <option value="Grameenphone">Grameenphone</option>

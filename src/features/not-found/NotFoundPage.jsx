@@ -12,10 +12,10 @@ export const NotFoundPage = () => {
       <span className="text-xs font-mono font-bold text-red-600 uppercase tracking-wider bg-red-50 px-2.5 py-1 rounded">
         404 — Endpoint Not Found
       </span>
-      <h1 className="text-2xl font-bold text-[#102A43] tracking-tight mt-3">
+      <h1 className="text-2xl font-bold text-[#202338] tracking-tight mt-3">
         Regulatory Route Unavailable
       </h1>
-      <p className="text-xs text-[#52677A] max-w-md mt-1 leading-relaxed">
+      <p className="text-xs text-[#626981] max-w-md mt-1 leading-relaxed">
         The requested administrative route or registry resource could not be located on the BTRC NEIR portal.
       </p>
       <div className="mt-6 flex items-center gap-3">

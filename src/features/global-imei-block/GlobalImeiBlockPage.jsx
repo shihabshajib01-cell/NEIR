@@ -114,7 +114,7 @@ export const GlobalImeiBlockPage = () => {
                   placeholder="864920194820194&#10;862940058912341&#10;354890112458901"
                   rows={4}
                 />
-                <div className="text-center text-xs text-[#748597] font-semibold uppercase">— OR UPLOAD CSV —</div>
+                <div className="text-center text-xs text-[#7A8197] font-semibold uppercase">— OR UPLOAD CSV —</div>
                 <CSVUpload
                   label="Batch Requisition CSV File"
                   onFileSelect={(file) => setSelectedFile(file)}
@@ -146,7 +146,7 @@ export const GlobalImeiBlockPage = () => {
               required
             />
 
-            <div className="pt-2 border-t border-[#D8E0E8] flex justify-end">
+            <div className="pt-2 border-t border-[#E2E5F0] flex justify-end">
               <Button
                 type="submit"
                 variant="danger"

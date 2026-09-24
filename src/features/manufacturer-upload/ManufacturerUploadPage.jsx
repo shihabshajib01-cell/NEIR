@@ -69,7 +69,7 @@ export const ManufacturerUploadPage = () => {
       key: 'status',
       title: 'Validation',
       render: (val) => (
-        <span className="text-xs font-semibold text-[#10683D] bg-[#14804A]/10 px-2 py-0.5 rounded">
+        <span className="text-xs font-semibold text-[#343D73] bg-[#4B5694]/10 px-2 py-0.5 rounded">
           {val || 'Whitelisted'}
         </span>
       ),
@@ -128,7 +128,7 @@ export const ManufacturerUploadPage = () => {
                 onSampleDownload={handleDownloadSample}
               />
 
-              <div className="pt-2 border-t border-[#D8E0E8] flex items-center justify-between">
+              <div className="pt-2 border-t border-[#E2E5F0] flex items-center justify-between">
                 <Button
                   type="button"
                   variant="ghost"
@@ -162,8 +162,8 @@ export const ManufacturerUploadPage = () => {
                 title={`Batch ${uploadResult.batchId} Successfully Ingested`}
               >
                 <div className="mt-1 space-y-1 text-xs">
-                  <p>Manufacturer: <strong className="text-[#102A43]">{uploadResult.manufacturer}</strong></p>
-                  <p>Total Records Processed: <strong className="text-[#10683D] font-mono">{uploadResult.totalProcessed}</strong></p>
+                  <p>Manufacturer: <strong className="text-[#202338]">{uploadResult.manufacturer}</strong></p>
+                  <p>Total Records Processed: <strong className="text-[#343D73] font-mono">{uploadResult.totalProcessed}</strong></p>
                   <p>Broadcast Target: <span className="font-mono">All 4 MNO Central EIR Nodes (GP, Robi, BL, TT)</span></p>
                 </div>
               </Alert>
@@ -178,11 +178,11 @@ export const ManufacturerUploadPage = () => {
             </div>
           ) : (
             <Card title="Batch Validation Guidelines">
-              <div className="space-y-3 text-xs text-[#52677A] leading-relaxed">
+              <div className="space-y-3 text-xs text-[#626981] leading-relaxed">
                 <p>
                   Local assemblers and type-approved importers must submit batch manifests before distributing mobile terminals into retail channels.
                 </p>
-                <div className="p-3 bg-[#F4F7FA] rounded-md border border-[#D8E0E8] space-y-1 font-mono text-[11px] text-[#102A43]">
+                <div className="p-3 bg-[#F7F8FC] rounded-md border border-[#E2E5F0] space-y-1 font-mono text-[11px] text-[#202338]">
                   <p className="font-bold font-sans text-xs">Expected CSV Column Header Structure:</p>
                   <code>imei1,imei2,brand,model,tac</code>
                 </div>

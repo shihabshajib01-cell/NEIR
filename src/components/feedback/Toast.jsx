@@ -34,10 +34,10 @@ export const ToastProvider = ({ children }) => {
               key={toast.id}
               className={`pointer-events-auto p-3.5 rounded-lg shadow-lg border flex items-start gap-2.5 transition-all animate-slide-in ${
                 isSuccess
-                  ? 'bg-[#102A43] text-white border-emerald-500/30'
+                  ? 'bg-[#202338] text-white border-emerald-500/30'
                   : isError
                   ? 'bg-rose-900 text-white border-rose-500/30'
-                  : 'bg-[#173F5F] text-white border-cyan-500/30'
+                  : 'bg-[#4B5694] text-white border-cyan-500/30'
               }`}
             >
               {isSuccess ? (

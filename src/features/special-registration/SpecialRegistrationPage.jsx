@@ -74,23 +74,23 @@ export const SpecialRegistrationPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-semibold text-[#102A43]">{val}</span>
-          <span className="text-[11px] text-[#52677A] truncate">{row.brand} {row.model}</span>
+          <span className="font-mono font-semibold text-[#202338]">{val}</span>
+          <span className="text-[11px] text-[#626981] truncate">{row.brand} {row.model}</span>
         </div>
       ),
     },
     {
       key: 'category',
       title: 'Device Category',
-      render: (val) => <span className="text-xs text-[#172B4D]">{val}</span>,
+      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
     },
     {
       key: 'requesterName',
       title: 'Requester / NID',
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-medium text-[#172B4D]">{val}</span>
-          <span className="text-[11px] text-[#748597] font-mono">{row.requesterNid}</span>
+          <span className="font-medium text-[#202338]">{val}</span>
+          <span className="text-[11px] text-[#7A8197] font-mono">{row.requesterNid}</span>
         </div>
       ),
     },
@@ -103,7 +103,7 @@ export const SpecialRegistrationPage = () => {
       key: 'date',
       title: 'Date',
       isMono: true,
-      render: (val) => <span className="text-xs text-[#52677A] font-mono">{val}</span>,
+      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
     },
     {
       key: 'actions',
@@ -164,20 +164,20 @@ export const SpecialRegistrationPage = () => {
         }}
         filters={
           <div className="flex items-center gap-2">
-            <div className="hidden sm:flex items-center gap-1.5 bg-[#F4F7FA] border border-[#D8E0E8] rounded-md px-2 py-1 text-xs text-[#52677A]">
-              <Calendar className="w-3.5 h-3.5 text-[#748597]" />
+            <div className="hidden sm:flex items-center gap-1.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-md px-2 py-1 text-xs text-[#626981]">
+              <Calendar className="w-3.5 h-3.5 text-[#7A8197]" />
               <input
                 type="date"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
-                className="text-xs bg-transparent text-[#172B4D] outline-hidden cursor-pointer"
+                className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
               />
               <span>to</span>
               <input
                 type="date"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
-                className="text-xs bg-transparent text-[#172B4D] outline-hidden cursor-pointer"
+                className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
               />
             </div>
           </div>

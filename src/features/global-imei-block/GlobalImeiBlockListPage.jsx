@@ -67,7 +67,7 @@ export const GlobalImeiBlockListPage = () => {
       key: 'blockId',
       title: 'Block ID',
       isMono: true,
-      render: (val) => <span className="font-mono font-bold text-[#102A43]">{val}</span>,
+      render: (val) => <span className="font-mono font-bold text-[#202338]">{val}</span>,
     },
     {
       key: 'imei',
@@ -75,8 +75,8 @@ export const GlobalImeiBlockListPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-bold text-[#DC2626]">{val}</span>
-          <span className="text-[11px] text-[#52677A]">{row.blockType}</span>
+          <span className="font-mono font-bold text-[#C62828]">{val}</span>
+          <span className="text-[11px] text-[#626981]">{row.blockType}</span>
         </div>
       ),
     },
@@ -85,8 +85,8 @@ export const GlobalImeiBlockListPage = () => {
       title: 'Reason / Authority',
       render: (val, row) => (
         <div className="flex flex-col max-w-xs">
-          <span className="font-semibold text-[#172B4D] truncate">{val}</span>
-          <span className="text-[11px] text-[#748597] truncate">{row.remarks}</span>
+          <span className="font-semibold text-[#202338] truncate">{val}</span>
+          <span className="text-[11px] text-[#7A8197] truncate">{row.remarks}</span>
         </div>
       ),
     },
@@ -101,7 +101,7 @@ export const GlobalImeiBlockListPage = () => {
       title: 'Block Date',
       isMono: true,
       width: '120px',
-      render: (val) => <span className="text-xs text-[#52677A] font-mono">{val}</span>,
+      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
     },
     {
       key: 'actions',

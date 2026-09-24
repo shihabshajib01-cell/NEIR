@@ -62,20 +62,20 @@ export const DashboardPage = () => {
         breadcrumbs={[{ label: 'Dashboard' }]}
         actions={
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-1.5 bg-white border border-[#D8E0E8] rounded-md px-2.5 py-1 text-xs text-[#52677A]">
-              <Calendar className="w-3.5 h-3.5 text-[#748597]" />
+            <div className="flex items-center gap-1.5 bg-white border border-[#E2E5F0] rounded-md px-2.5 py-1 text-xs text-[#626981]">
+              <Calendar className="w-3.5 h-3.5 text-[#7A8197]" />
               <input
                 type="date"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
-                className="text-xs bg-transparent text-[#172B4D] outline-hidden cursor-pointer"
+                className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
               />
-              <span className="text-[#9AAEC0]">to</span>
+              <span className="text-[#A0A6B8]">to</span>
               <input
                 type="date"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
-                className="text-xs bg-transparent text-[#172B4D] outline-hidden cursor-pointer"
+                className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
               />
             </div>
             <Button
@@ -121,75 +121,75 @@ export const DashboardPage = () => {
             title="IMEI Summary"
             subtitle="Distribution of 52.28 Million registered handsets across EIR compliance tiers"
             headerAction={
-              <span className="text-xs font-mono text-[#52677A] bg-[#F4F7FA] px-2 py-1 rounded border border-[#D8E0E8]">
+              <span className="text-xs font-mono text-[#626981] bg-[#F7F8FC] px-2 py-1 rounded border border-[#E2E5F0]">
                 Total: 52,283,412
               </span>
             }
           >
             {/* Visual Distribution Progress Bar */}
             <div className="space-y-3">
-              <div className="h-4 w-full rounded-full bg-slate-100 overflow-hidden flex border border-[#D8E0E8]">
+              <div className="h-4 w-full rounded-full bg-slate-100 overflow-hidden flex border border-[#E2E5F0]">
                 <div
                   style={{ width: `${data.imeiSummary.whiteList.percent}%` }}
-                  className="bg-[#14804A] transition-all"
+                  className="bg-[#4B5694] transition-all"
                   title={`White List: ${data.imeiSummary.whiteList.percent}%`}
                 />
                 <div
                   style={{ width: `${data.imeiSummary.grayList.percent}%` }}
-                  className="bg-[#D97706] transition-all"
+                  className="bg-[#EF8F22] transition-all"
                   title={`Gray List: ${data.imeiSummary.grayList.percent}%`}
                 />
                 <div
                   style={{ width: `${data.imeiSummary.blackList.percent}%` }}
-                  className="bg-[#DC2626] transition-all"
+                  className="bg-[#C62828] transition-all"
                   title={`Black List: ${data.imeiSummary.blackList.percent}%`}
                 />
               </div>
 
               {/* Legend & Breakdown */}
               <div className="grid grid-cols-3 gap-3 pt-2">
-                <div className="p-3 rounded-lg border border-[#14804A]/20 bg-[#14804A]/5">
+                <div className="p-3 rounded-lg border border-[#4B5694]/20 bg-[#4B5694]/5">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#14804A]" />
-                    <span className="text-xs font-semibold text-[#10683D]">White List</span>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#4B5694]" />
+                    <span className="text-xs font-semibold text-[#343D73]">White List</span>
                   </div>
-                  <div className="text-lg font-bold text-[#172B4D] font-mono tabular-nums mt-1">
+                  <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.whiteList.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#52677A]">{data.imeiSummary.whiteList.percent}% of active fleet</span>
+                  <span className="text-[11px] text-[#626981]">{data.imeiSummary.whiteList.percent}% of active fleet</span>
                 </div>
 
-                <div className="p-3 rounded-lg border border-[#D97706]/20 bg-[#D97706]/5">
+                <div className="p-3 rounded-lg border border-[#EF8F22]/20 bg-[#EF8F22]/5">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#D97706]" />
-                    <span className="text-xs font-semibold text-[#B45309]">Gray List</span>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#EF8F22]" />
+                    <span className="text-xs font-semibold text-[#B96B18]">Gray List</span>
                   </div>
-                  <div className="text-lg font-bold text-[#172B4D] font-mono tabular-nums mt-1">
+                  <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.grayList.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#52677A]">{data.imeiSummary.grayList.percent}% under grace</span>
+                  <span className="text-[11px] text-[#626981]">{data.imeiSummary.grayList.percent}% under grace</span>
                 </div>
 
-                <div className="p-3 rounded-lg border border-[#DC2626]/20 bg-[#DC2626]/5">
+                <div className="p-3 rounded-lg border border-[#C62828]/20 bg-[#C62828]/5">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#DC2626]" />
-                    <span className="text-xs font-semibold text-[#B91C1C]">Black List / Block</span>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#C62828]" />
+                    <span className="text-xs font-semibold text-[#A91F22]">Black List / Block</span>
                   </div>
-                  <div className="text-lg font-bold text-[#172B4D] font-mono tabular-nums mt-1">
+                  <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.blackList.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#52677A]">{data.imeiSummary.blackList.percent}% blocked</span>
+                  <span className="text-[11px] text-[#626981]">{data.imeiSummary.blackList.percent}% blocked</span>
                 </div>
               </div>
 
               {/* Monthly Trend Mini Table */}
-              <div className="mt-4 pt-3 border-t border-[#D8E0E8]">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#52677A] mb-2">
+              <div className="mt-4 pt-3 border-t border-[#E2E5F0]">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#626981] mb-2">
                   Recent 6-Month EIR Trajectory
                 </h4>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs text-left">
-                    <thead className="text-[#748597] border-b border-[#D8E0E8] font-medium">
+                    <thead className="text-[#7A8197] border-b border-[#E2E5F0] font-medium">
                       <tr>
                         <th className="py-1.5">Period</th>
                         <th className="py-1.5">White List</th>
@@ -197,13 +197,13 @@ export const DashboardPage = () => {
                         <th className="py-1.5">Blocked</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#F4F7FA] font-mono">
+                    <tbody className="divide-y divide-[#F7F8FC] font-mono">
                       {data.imeiSummary.recentMonthlyTrends.map((trend) => (
-                        <tr key={trend.month} className="hover:bg-[#F4F7FA]">
-                          <td className="py-1.5 font-sans font-medium text-[#172B4D]">{trend.month}</td>
-                          <td className="py-1.5 text-[#14804A]">{trend.whiteList.toLocaleString()}</td>
-                          <td className="py-1.5 text-[#D97706]">{trend.grayList.toLocaleString()}</td>
-                          <td className="py-1.5 text-[#DC2626]">{trend.blackList.toLocaleString()}</td>
+                        <tr key={trend.month} className="hover:bg-[#F7F8FC]">
+                          <td className="py-1.5 font-sans font-medium text-[#202338]">{trend.month}</td>
+                          <td className="py-1.5 text-[#4B5694]">{trend.whiteList.toLocaleString()}</td>
+                          <td className="py-1.5 text-[#EF8F22]">{trend.grayList.toLocaleString()}</td>
+                          <td className="py-1.5 text-[#C62828]">{trend.blackList.toLocaleString()}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -222,34 +222,34 @@ export const DashboardPage = () => {
           >
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 rounded-lg bg-[#F4F7FA] border border-[#D8E0E8]">
-                  <span className="text-xs text-[#52677A] font-medium">Auto Registered</span>
-                  <div className="text-xl font-bold text-[#10683D] font-mono tabular-nums mt-1">
+                <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
+                  <span className="text-xs text-[#626981] font-medium">Auto Registered</span>
+                  <div className="text-xl font-bold text-[#343D73] font-mono tabular-nums mt-1">
                     {data.registrationSummary.autoRegistration.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#14804A] font-medium">
+                  <span className="text-[11px] text-[#4B5694] font-medium">
                     {data.registrationSummary.autoRegistration.change}
                   </span>
                 </div>
 
-                <div className="p-3 rounded-lg bg-[#F4F7FA] border border-[#D8E0E8]">
-                  <span className="text-xs text-[#52677A] font-medium">De-Registered</span>
-                  <div className="text-xl font-bold text-[#147D83] font-mono tabular-nums mt-1">
+                <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
+                  <span className="text-xs text-[#626981] font-medium">De-Registered</span>
+                  <div className="text-xl font-bold text-[#4B5694] font-mono tabular-nums mt-1">
                     {data.registrationSummary.deRegistration.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#147D83] font-medium">
+                  <span className="text-[11px] text-[#4B5694] font-medium">
                     {data.registrationSummary.deRegistration.change}
                   </span>
                 </div>
               </div>
 
               {/* Operator breakdown table */}
-              <div className="border border-[#D8E0E8] rounded-lg overflow-hidden">
-                <div className="px-3.5 py-2 bg-[#F8FAFC] border-b border-[#D8E0E8] text-xs font-semibold text-[#102A43]">
+              <div className="border border-[#E2E5F0] rounded-lg overflow-hidden">
+                <div className="px-3.5 py-2 bg-[#F7F8FC] border-b border-[#E2E5F0] text-xs font-semibold text-[#202338]">
                   Operator Sync Breakdown
                 </div>
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-white border-b border-[#D8E0E8] text-[#748597]">
+                  <thead className="bg-white border-b border-[#E2E5F0] text-[#7A8197]">
                     <tr>
                       <th className="px-3 py-2 font-medium">Operator</th>
                       <th className="px-3 py-2 font-medium">Auto Sync</th>
@@ -257,13 +257,13 @@ export const DashboardPage = () => {
                       <th className="px-3 py-2 font-medium">Share</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#F4F7FA] font-mono">
+                  <tbody className="divide-y divide-[#F7F8FC] font-mono">
                     {data.registrationSummary.operatorBreakdown.map((row) => (
-                      <tr key={row.operator} className="hover:bg-[#F4F7FA]">
-                        <td className="px-3 py-2 font-sans font-medium text-[#172B4D]">{row.operator}</td>
-                        <td className="px-3 py-2 text-[#10683D]">{row.autoCount}</td>
-                        <td className="px-3 py-2 text-[#147D83]">{row.deRegCount}</td>
-                        <td className="px-3 py-2 font-sans font-semibold text-[#172B4D]">{row.share}</td>
+                      <tr key={row.operator} className="hover:bg-[#F7F8FC]">
+                        <td className="px-3 py-2 font-sans font-medium text-[#202338]">{row.operator}</td>
+                        <td className="px-3 py-2 text-[#343D73]">{row.autoCount}</td>
+                        <td className="px-3 py-2 text-[#4B5694]">{row.deRegCount}</td>
+                        <td className="px-3 py-2 font-sans font-semibold text-[#202338]">{row.share}</td>
                       </tr>
                     ))}
                   </tbody>

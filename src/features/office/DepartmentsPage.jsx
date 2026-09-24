@@ -101,10 +101,10 @@ export const DepartmentsPage = () => {
       title: 'Department Name',
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
-          <Building2 className="w-4 h-4 text-[#147D83]" />
+          <Building2 className="w-4 h-4 text-[#4B5694]" />
           <div>
-            <span className="font-semibold text-[#102A43]">{val}</span>
-            <span className="ml-2 font-mono text-xs text-[#52677A] bg-[#F4F7FA] px-1.5 py-0.2 rounded border border-[#D8E0E8]">
+            <span className="font-semibold text-[#202338]">{val}</span>
+            <span className="ml-2 font-mono text-xs text-[#626981] bg-[#F7F8FC] px-1.5 py-0.2 rounded border border-[#E2E5F0]">
               {row.code}
             </span>
           </div>
@@ -114,14 +114,14 @@ export const DepartmentsPage = () => {
     {
       key: 'head',
       title: 'Head of Department',
-      render: (val) => <span className="text-xs font-medium text-[#172B4D]">{val}</span>,
+      render: (val) => <span className="text-xs font-medium text-[#202338]">{val}</span>,
     },
     {
       key: 'memberCount',
       title: 'Personnel',
       width: '100px',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs font-semibold text-[#172B4D]">{val} Staff</span>,
+      render: (val) => <span className="font-mono text-xs font-semibold text-[#202338]">{val} Staff</span>,
     },
     {
       key: 'status',
