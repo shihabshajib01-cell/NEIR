@@ -22,6 +22,8 @@
     --field-radius: 4px;
     --field-padding-x: 14px;
     --field-font-size: 16px;
+    --textarea-min-height: 112px;
+    --form-field-gap: 16px;
     --field-disabled-bg: #F2F3F6;
     --field-readonly-bg: #FFFFFF;
 
@@ -79,16 +81,11 @@
     font-size: 16px;
   }
 
-  html[data-text-size='compact'] {
-    --field-height: 48px;
-  }
-
-  html[data-text-size='standard'] {
-    --field-height: 56px;
-  }
-
+  /* Form geometry is intentionally stable across text-size preferences. */
+  html[data-text-size='compact'],
+  html[data-text-size='standard'],
   html[data-text-size='large'] {
-    --field-height: 60px;
+    --field-height: 56px;
     --field-font-size: 16px;
   }
 

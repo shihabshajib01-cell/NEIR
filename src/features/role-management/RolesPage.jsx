@@ -214,7 +214,7 @@ export const RolesPage = () => {
           </>
         }
       >
-        <form onSubmit={handleSaveRole} className="space-y-3.5">
+        <form onSubmit={handleSaveRole} className="space-y-4">
           <TextInput
             label="Role Name"
             value={newRoleName}

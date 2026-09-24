@@ -260,7 +260,7 @@ export const ServiceActionPage = () => {
           </>
         }
       >
-        <form onSubmit={handleSave} className="space-y-3.5">
+        <form onSubmit={handleSave} className="space-y-4">
           <Select
             label="Parent Module"
             value={formState.parentId}

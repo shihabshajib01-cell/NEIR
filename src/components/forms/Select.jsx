@@ -7,6 +7,45 @@ const normalizeOptions = (options = []) => options.map((option) =>
   typeof option === 'string' ? { value: option, label: option } : option
 );
 
+const selectMenuProps = {
+  PaperProps: {
+    sx: {
+      mt: 0.5,
+      maxHeight: 304,
+      border: '1px solid var(--color-border)',
+      borderRadius: 'var(--field-radius)',
+      boxShadow: 'var(--shadow-md)',
+      backgroundColor: 'var(--color-surface)',
+      backgroundImage: 'none',
+    },
+  },
+  MenuListProps: {
+    sx: {
+      py: 0.5,
+    },
+  },
+};
+
+const optionSx = {
+  minHeight: 48,
+  px: 2,
+  py: 1,
+  fontSize: 'var(--field-font-size)',
+  lineHeight: 1.45,
+  whiteSpace: 'normal',
+  '&:hover': {
+    backgroundColor: 'var(--color-surface-hover)',
+  },
+  '&.Mui-selected': {
+    backgroundColor: 'var(--color-primary-light)',
+    color: 'var(--color-primary-dark)',
+    fontWeight: 600,
+  },
+  '&.Mui-selected:hover': {
+    backgroundColor: 'var(--color-primary-light)',
+  },
+};
+
 export const Select = ({
   label, id, name, value, onChange, options = [], placeholder = 'Select option', error, helperText,
   required = false, disabled = false, readOnly = false, className = '', ...props
@@ -40,6 +79,7 @@ export const Select = ({
         SelectProps={{
           displayEmpty: !fieldLabel,
           readOnly,
+          MenuProps: selectMenuProps,
           inputProps: {
             'aria-invalid': Boolean(error) || undefined,
             'aria-describedby': supportingText ? selectId + '-helper' : undefined,
@@ -50,12 +90,12 @@ export const Select = ({
         {...props}
       >
         {placeholder && (
-          <MenuItem value="" disabled={required}>
+          <MenuItem value="" disabled={required} sx={optionSx}>
             <span className="text-[var(--color-text-muted)]">{t(placeholder)}</span>
           </MenuItem>
         )}
         {normalizedOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
+          <MenuItem key={option.value} value={option.value} sx={optionSx}>
             {t(option.label)}
           </MenuItem>
         ))}
@@ -90,6 +130,30 @@ export const SearchableSelect = ({
         getOptionLabel={(option) => t(option.label)}
         isOptionEqualToValue={(option, selected) => option.value === selected.value}
         noOptionsText={t('No options found')}
+        slotProps={{
+          paper: {
+            sx: {
+              mt: 0.5,
+              border: '1px solid var(--color-border)',
+              borderRadius: 'var(--field-radius)',
+              boxShadow: 'var(--shadow-md)',
+              backgroundColor: 'var(--color-surface)',
+              backgroundImage: 'none',
+            },
+          },
+          listbox: {
+            sx: {
+              py: 0.5,
+              maxHeight: 304,
+              '& .MuiAutocomplete-option': optionSx,
+            },
+          },
+          popper: {
+            sx: {
+              zIndex: 'var(--z-toast)',
+            },
+          },
+        }}
         renderInput={(params) => (
           <TextField
             {...params}

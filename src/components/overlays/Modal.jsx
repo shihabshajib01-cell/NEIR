@@ -54,7 +54,7 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxW
           </div>
           <button type="button" onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]" aria-label={t('Close modal')}><X className="w-5 h-5" /></button>
         </div>
-        <div className="p-5 overflow-y-auto flex-1 text-sm text-[var(--color-text-primary)]">{children}</div>
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1 type-body text-[var(--color-text-primary)]">{children}</div>
         {footer && <div className="px-5 py-3 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-2.5 shrink-0">{footer}</div>}
       </div>
     </div>

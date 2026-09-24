@@ -211,7 +211,7 @@ export const ParentPage = () => {
           </>
         }
       >
-        <form onSubmit={handleSave} className="space-y-3.5">
+        <form onSubmit={handleSave} className="space-y-4">
           <TextInput
             label="Parent Name"
             value={formState.name}
@@ -228,7 +228,7 @@ export const ParentPage = () => {
             required
           />
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <TextInput
               label="Icon Identifier"
               value={formState.icon}

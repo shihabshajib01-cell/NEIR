@@ -22,20 +22,25 @@ export const muiFieldSx = {
   },
 
   '& .MuiOutlinedInput-root': {
+    height: 'var(--field-height)',
     minHeight: 'var(--field-height)',
     borderRadius: 'var(--field-radius)',
     backgroundColor: 'var(--color-surface)',
     color: 'var(--color-text-primary)',
     fontFamily: 'var(--font-ui)',
     fontSize: 'var(--field-font-size)',
+    boxShadow: 'none',
     transition: 'background-color var(--motion-fast), border-color var(--motion-fast)',
     '& fieldset': {
-      borderColor: 'var(--color-border-strong, #C8CDD9)',
+      borderColor: 'var(--color-border-strong)',
       borderWidth: '1px',
       transition: 'border-color var(--motion-fast), border-width var(--motion-fast)',
     },
     '&:hover:not(.Mui-focused):not(.Mui-disabled) fieldset': {
       borderColor: 'var(--color-text-secondary)',
+    },
+    '&.Mui-focused': {
+      boxShadow: 'none',
     },
     '&.Mui-focused fieldset': {
       borderColor: 'var(--color-primary) !important',
@@ -81,12 +86,14 @@ export const muiFieldSx = {
       },
     },
     '&.MuiInputBase-multiline': {
+      height: 'auto',
+      minHeight: 'var(--textarea-min-height)',
       alignItems: 'flex-start',
-      padding: '16px 14px 12px',
+      padding: '18px 14px 12px',
     },
     '&.MuiInputBase-multiline .MuiInputBase-input': {
       padding: 0,
-      minHeight: '72px',
+      minHeight: '76px',
     },
     '& .MuiSelect-select': {
       minHeight: 'unset !important',
@@ -109,10 +116,27 @@ export const muiFieldSx = {
     },
   },
 
+  '& .MuiAutocomplete-inputRoot': {
+    height: 'var(--field-height)',
+    minHeight: 'var(--field-height)',
+    paddingTop: '0 !important',
+    paddingBottom: '0 !important',
+    paddingLeft: '6px !important',
+    paddingRight: '40px !important',
+    alignItems: 'center',
+  },
+
+  '& .MuiAutocomplete-input': {
+    paddingTop: '0 !important',
+    paddingBottom: '0 !important',
+    fontSize: 'var(--field-font-size) !important',
+  },
+
   '& .MuiFormHelperText-root': {
     marginLeft: '14px',
     marginRight: '14px',
     marginTop: '6px',
+    minHeight: '20px',
     color: 'var(--color-text-muted)',
     fontSize: '14px',
     lineHeight: 1.4,
@@ -139,6 +163,11 @@ export const muiFilterSx = {
       fontSize: 'var(--type-control-size)',
     },
   },
+  '& .MuiAutocomplete-inputRoot': {
+    ...muiFieldSx['& .MuiAutocomplete-inputRoot'],
+    minHeight: '40px',
+    height: '40px',
+  },
   '& .MuiInputLabel-root': {
     ...muiFieldSx['& .MuiInputLabel-root'],
     fontSize: 'var(--type-control-size)',
@@ -146,5 +175,6 @@ export const muiFilterSx = {
   '& .MuiFormHelperText-root': {
     ...muiFieldSx['& .MuiFormHelperText-root'],
     fontSize: 'var(--type-meta-size)',
+    minHeight: 0,
   },
 };

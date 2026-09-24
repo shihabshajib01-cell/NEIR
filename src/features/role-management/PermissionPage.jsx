@@ -245,7 +245,7 @@ export const PermissionPage = () => {
           </>
         }
       >
-        <form onSubmit={handleSave} className="space-y-3.5">
+        <form onSubmit={handleSave} className="space-y-4">
           <SearchableSelect
             label="Parent Module"
             value={formState.parentId}
@@ -270,7 +270,7 @@ export const PermissionPage = () => {
             required
           />
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <TextInput
               label="Icon Identifier"
               value={formState.icon}
