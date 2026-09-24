@@ -76,3 +76,11 @@ Data access is isolated behind the service layer so backend integration can be c
 - Shared responsive table workspace
 - Desktop table to mobile record-card transformation
 - Shared modal, drawer, status, feedback, and pagination patterns
+
+
+### Typography density rule
+
+- No readable UI text is smaller than 14px.
+- Large displays use 16px for primary reading text, not as a blanket size for every label or table cell.
+- Dense administrative UI (navigation, form labels, table headers/cells, badges and metadata) keeps a 14px minimum to preserve hierarchy and information density.
+- Compact / Standard / Large adjust semantic type tokens rather than changing the root document font size.

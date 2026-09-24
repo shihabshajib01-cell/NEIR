@@ -64,16 +64,10 @@
     font-size: 16px;
   }
 
-  html[data-text-size='compact'] {
-    font-size: 15px;
-  }
-
-  html[data-text-size='standard'] {
-    font-size: 16px;
-  }
-
+  html[data-text-size='compact'],
+  html[data-text-size='standard'],
   html[data-text-size='large'] {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   body {
