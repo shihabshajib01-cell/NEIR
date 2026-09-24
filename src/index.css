@@ -15,6 +15,15 @@
     --color-surface-hover: #F3FBFC;
     --color-border: #E2E5F0;
     --color-border-subtle: #EEF0F5;
+    --color-border-strong: #C8CDD9;
+
+    /* Reusable MUI form-control geometry */
+    --field-height: 56px;
+    --field-radius: 4px;
+    --field-padding-x: 14px;
+    --field-font-size: 16px;
+    --field-disabled-bg: #F2F3F6;
+    --field-readonly-bg: #FFFFFF;
 
     --color-text-primary: #202338;
     --color-text-secondary: #626981;
@@ -68,6 +77,19 @@
   html[data-text-size='standard'],
   html[data-text-size='large'] {
     font-size: 16px;
+  }
+
+  html[data-text-size='compact'] {
+    --field-height: 48px;
+  }
+
+  html[data-text-size='standard'] {
+    --field-height: 56px;
+  }
+
+  html[data-text-size='large'] {
+    --field-height: 60px;
+    --field-font-size: 16px;
   }
 
   body {

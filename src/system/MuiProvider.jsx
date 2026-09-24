@@ -87,13 +87,14 @@ const muiTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 'var(--radius-md)',
+          minHeight: 'var(--field-height)',
+          borderRadius: 'var(--field-radius)',
           backgroundColor: 'var(--color-surface)',
           color: 'var(--color-text-primary)',
-          fontSize: 'var(--type-control-size)',
+          fontSize: 'var(--field-font-size)',
         },
         notchedOutline: {
-          borderColor: 'var(--color-border)',
+          borderColor: 'var(--color-border-strong, #C8CDD9)',
         },
       },
     },
@@ -101,17 +102,24 @@ const muiTheme = createTheme({
       styleOverrides: {
         root: {
           color: 'var(--color-text-secondary)',
-          fontSize: 'var(--type-control-size)',
+          fontSize: '16px',
           '&.Mui-focused': { color: 'var(--color-primary-dark)' },
           '&.Mui-error': { color: 'var(--color-error)' },
+          '&.Mui-disabled': { color: 'var(--color-text-muted)' },
+        },
+        asterisk: {
+          color: 'var(--color-error)',
         },
       },
     },
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          marginLeft: 0,
-          fontSize: 'var(--type-meta-size)',
+          marginLeft: 14,
+          marginRight: 14,
+          marginTop: 6,
+          fontSize: '14px',
+          lineHeight: 1.4,
           color: 'var(--color-text-muted)',
           '&.Mui-error': { color: 'var(--color-error)' },
         },

@@ -6,19 +6,8 @@ import { muiFieldSx } from '../../system/muiFieldSx.js';
 
 const translated = (t, value) => typeof value === 'string' ? t(value) : value;
 
-const FieldLabel = ({ htmlFor, label, required = false }) => {
-  if (!label) return null;
-
-  return (
-    <label
-      htmlFor={htmlFor}
-      className="type-label text-[var(--color-text-primary)]"
-    >
-      {label}
-      {required ? <span className="text-[var(--color-error)]" aria-hidden="true"> *</span> : null}
-    </label>
-  );
-};
+const passthroughProps = (props, excluded = []) =>
+  Object.fromEntries(Object.entries(props).filter(([key]) => !excluded.includes(key)));
 
 export const TextInput = ({
   label, id, name, value, onChange, placeholder, type = 'text', error, helperText,
@@ -28,30 +17,34 @@ export const TextInput = ({
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
   const fieldLabel = translated(t, label);
+  const supportingText = translated(t, error || helperText);
 
   return (
-    <div className={'flex flex-col gap-1.5 ' + className}>
-      <FieldLabel htmlFor={inputId} label={fieldLabel} required={required} />
+    <div className={className}>
       <TextField
         id={inputId}
         name={name}
+        label={fieldLabel}
         value={value ?? ''}
         onChange={onChange}
         placeholder={translated(t, placeholder)}
         type={type}
         error={Boolean(error)}
-        helperText={translated(t, error || helperText)}
+        helperText={supportingText}
         required={required}
         disabled={disabled}
         variant="outlined"
-        size="small"
+        size="medium"
         fullWidth
         autoComplete={props.autoComplete}
+        InputLabelProps={{
+          shrink: Boolean(value) || Boolean(placeholder) || type === 'date' || undefined,
+        }}
         InputProps={{
           readOnly,
           startAdornment: Icon ? (
             <InputAdornment position="start">
-              <Icon className="w-4 h-4" />
+              <Icon />
             </InputAdornment>
           ) : undefined,
         }}
@@ -62,11 +55,11 @@ export const TextInput = ({
           inputMode: props.inputMode,
           className: inputClassName,
           'aria-invalid': Boolean(error) || undefined,
-          'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+          'aria-describedby': supportingText ? inputId + '-helper' : undefined,
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
         sx={muiFieldSx}
-        {...Object.fromEntries(Object.entries(props).filter(([key]) => !['autoComplete','maxLength','min','max','inputMode'].includes(key)))}
+        {...passthroughProps(props, ['autoComplete', 'maxLength', 'min', 'max', 'inputMode'])}
       />
     </div>
   );
@@ -74,33 +67,38 @@ export const TextInput = ({
 
 export const PasswordInput = ({
   label, id, name, value, onChange, placeholder = '••••••••', error, helperText,
-  required = false, disabled = false, className = '', ...props
+  required = false, disabled = false, readOnly = false, className = '', ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
   const fieldLabel = translated(t, label);
+  const supportingText = translated(t, error || helperText);
 
   return (
-    <div className={'flex flex-col gap-1.5 ' + className}>
-      <FieldLabel htmlFor={inputId} label={fieldLabel} required={required} />
+    <div className={className}>
       <TextField
         id={inputId}
         name={name}
+        label={fieldLabel}
         value={value ?? ''}
         onChange={onChange}
         placeholder={translated(t, placeholder)}
         type={showPassword ? 'text' : 'password'}
         error={Boolean(error)}
-        helperText={translated(t, error || helperText)}
+        helperText={supportingText}
         required={required}
         disabled={disabled}
         variant="outlined"
-        size="small"
+        size="medium"
         fullWidth
         autoComplete={props.autoComplete}
+        InputLabelProps={{
+          shrink: Boolean(value) || Boolean(placeholder) || undefined,
+        }}
         InputProps={{
+          readOnly,
           endAdornment: (
             <InputAdornment position="end">
               <MuiIconButton
@@ -108,6 +106,7 @@ export const PasswordInput = ({
                 size="small"
                 onClick={() => setShowPassword((visible) => !visible)}
                 aria-label={t(showPassword ? 'Hide password' : 'Show password')}
+                disabled={disabled}
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </MuiIconButton>
@@ -116,11 +115,11 @@ export const PasswordInput = ({
         }}
         inputProps={{
           'aria-invalid': Boolean(error) || undefined,
-          'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+          'aria-describedby': supportingText ? inputId + '-helper' : undefined,
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
         sx={muiFieldSx}
-        {...Object.fromEntries(Object.entries(props).filter(([key]) => key !== 'autoComplete'))}
+        {...passthroughProps(props, ['autoComplete'])}
       />
     </div>
   );
@@ -227,8 +226,8 @@ export const FileUpload = ({ label, helperText, accept, onFileSelect, className 
         <input type="file" accept={accept} onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">
           <Smartphone className="w-6 h-6 text-[var(--color-primary)]" />
-          <span className="text-xs font-semibold text-[var(--color-text-primary)]">{fileName || t('Click or drag file to attach')}</span>
-          <span className="text-[11px] text-[var(--color-text-muted)]">{t(helperText || 'Supported files: PDF, PNG, JPG up to 10MB')}</span>
+          <span className="type-body-strong text-[var(--color-text-primary)]">{fileName || t('Click or drag file to attach')}</span>
+          <span className="type-meta text-[var(--color-text-muted)]">{t(helperText || 'Supported files: PDF, PNG, JPG up to 10MB')}</span>
         </div>
       </div>
     </div>
@@ -243,29 +242,33 @@ export const Textarea = ({
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
   const fieldLabel = translated(t, label);
+  const supportingText = translated(t, error || helperText);
 
   return (
-    <div className={'flex flex-col gap-1.5 ' + className}>
-      <FieldLabel htmlFor={inputId} label={fieldLabel} required={required} />
+    <div className={className}>
       <TextField
         id={inputId}
         name={name}
+        label={fieldLabel}
         value={value ?? ''}
         onChange={onChange}
         placeholder={translated(t, placeholder)}
         multiline
         minRows={rows}
         error={Boolean(error)}
-        helperText={translated(t, error || helperText)}
+        helperText={supportingText}
         required={required}
         disabled={disabled}
         variant="outlined"
-        size="small"
+        size="medium"
         fullWidth
+        InputLabelProps={{
+          shrink: Boolean(value) || Boolean(placeholder) || undefined,
+        }}
         InputProps={{ readOnly }}
         inputProps={{
           'aria-invalid': Boolean(error) || undefined,
-          'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+          'aria-describedby': supportingText ? inputId + '-helper' : undefined,
         }}
         FormHelperTextProps={{ id: inputId + '-helper' }}
         sx={muiFieldSx}
@@ -294,12 +297,12 @@ export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, c
         <input type="file" accept=".csv,text/csv" onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">
           <Hash className="w-6 h-6 text-[var(--color-primary)]" />
-          <span className="text-xs font-bold text-[var(--color-text-primary)]">{fileName || 'Drop CSV batch file here or click to browse'}</span>
-          {helperText && <span className="text-[11px] text-[var(--color-text-muted)]">{t(helperText)}</span>}
+          <span className="type-body-strong text-[var(--color-text-primary)]">{fileName || 'Drop CSV batch file here or click to browse'}</span>
+          {helperText && <span className="type-meta text-[var(--color-text-muted)]">{t(helperText)}</span>}
         </div>
       </div>
       {onSampleDownload && (
-        <button type="button" onClick={onSampleDownload} className="self-start text-xs font-semibold text-[var(--color-primary-dark)] hover:text-[var(--color-primary)]">
+        <button type="button" onClick={onSampleDownload} className="self-start type-button-sm text-[var(--color-primary-dark)] hover:text-[var(--color-primary)]">
           Download sample CSV
         </button>
       )}
