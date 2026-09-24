@@ -82,6 +82,12 @@ export const TablePageWorkspace = ({
   className = '',
 }) => {
   const { t } = usePreferences();
+  const activeTabConfig = tabs.find((tab) => tab.id === activeTab);
+  const firstTab = tabs[0];
+  const showActiveContext = activeTabConfig && firstTab && activeTabConfig.id !== firstTab.id;
+  const resolvedTitle = showActiveContext ? activeTabConfig.label : title;
+  const resolvedCount = showActiveContext && typeof activeTabConfig.count === 'number' ? activeTabConfig.count : count;
+
   const resolvedSummary = summaryItems || (showSummary
     ? tabs.map((tab) => ({
         id: tab.id,
@@ -98,15 +104,15 @@ export const TablePageWorkspace = ({
       <section className="bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden">
         <header className="px-4 sm:px-5 py-3.5 border-b border-[var(--color-border)] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
           <div className="flex items-center gap-2 min-w-0">
-            <h2 className="type-card-title text-[var(--color-text-primary)] truncate">{t(title)}</h2>
-            {typeof count === 'number' && (
+            <h2 className="type-card-title text-[var(--color-text-primary)] truncate">{t(resolvedTitle)}</h2>
+            {typeof resolvedCount === 'number' && (
               <span className="inline-flex items-center rounded-full bg-[var(--color-background-subtle)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
-                {count} {t(count === 1 ? 'record' : 'records')}
+                {resolvedCount} {t(resolvedCount === 1 ? 'record' : 'records')}
               </span>
             )}
           </div>
 
-          {toolbar && <div className="min-w-0 xl:max-w-[72%] w-full xl:w-auto">{toolbar}</div>}
+          {toolbar && <div className="min-w-0 xl:max-w-[76%] w-full xl:w-auto">{toolbar}</div>}
         </header>
 
         {tabs.length > 0 && (

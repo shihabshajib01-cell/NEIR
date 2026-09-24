@@ -164,20 +164,22 @@ export const SpecialRegistrationPage = () => {
                   }}
                   filters={
                     <div className="flex items-center gap-2">
-                      <div className="hidden sm:flex items-center gap-1.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-md px-2 py-1 text-xs text-[#626981]">
-                        <Calendar className="w-3.5 h-3.5 text-[#7A8197]" />
+                      <div className="hidden sm:flex h-10 items-center gap-2 bg-white border border-[var(--color-border)] rounded-lg px-3 type-control text-[var(--color-text-secondary)]">
+                        <Calendar className="w-4 h-4 text-[var(--color-text-muted)] shrink-0" />
                         <input
                           type="date"
                           value={fromDate}
                           onChange={(e) => setFromDate(e.target.value)}
-                          className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
+                          className="bg-transparent text-[var(--color-text-primary)] outline-none cursor-pointer"
+                          aria-label="From date"
                         />
-                        <span>to</span>
+                        <span className="text-[var(--color-text-muted)]">to</span>
                         <input
                           type="date"
                           value={toDate}
                           onChange={(e) => setToDate(e.target.value)}
-                          className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
+                          className="bg-transparent text-[var(--color-text-primary)] outline-none cursor-pointer"
+                          aria-label="To date"
                         />
                       </div>
                     </div>

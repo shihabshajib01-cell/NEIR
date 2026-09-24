@@ -169,6 +169,9 @@ export const DataTable = ({
                   '& .MuiTableCell-root': {
                     whiteSpace: 'nowrap',
                   },
+                  '& .MuiTableBody-root .MuiTableRow-root': {
+                    height: dense ? 44 : 52,
+                  },
                 }}
                 aria-label={t('Records table')}
               >
@@ -188,6 +191,7 @@ export const DataTable = ({
 
                     {columns.map((column) => {
                       const activeSort = sortConfig.key === column.key;
+                      const sortable = column.sortable !== false && column.key !== 'actions';
                       return (
                         <TableCell
                           key={column.key}
@@ -199,7 +203,7 @@ export const DataTable = ({
                             ...(column.maxWidth ? { maxWidth: column.maxWidth } : {}),
                           }}
                         >
-                          {column.sortable ? (
+                          {sortable ? (
                             <TableSortLabel
                               active={activeSort}
                               direction={activeSort ? sortConfig.direction : 'asc'}
@@ -292,6 +296,17 @@ export const DataTable = ({
           sx={{
             borderTop: '1px solid var(--color-border)',
             backgroundColor: 'var(--color-surface)',
+            flexShrink: 0,
+            '& .MuiTablePagination-toolbar': {
+              justifyContent: 'flex-end',
+              gap: '8px',
+            },
+            '& .MuiTablePagination-spacer': {
+              display: 'none',
+            },
+            '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
+              whiteSpace: 'nowrap',
+            },
           }}
         />
       )}

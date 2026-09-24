@@ -173,7 +173,7 @@ const muiTheme = createTheme({
           color: 'var(--color-text-primary)',
           fontSize: 'var(--type-table-cell-size)',
           lineHeight: 'var(--type-body-line)',
-          padding: '12px 16px',
+          padding: '14px 16px',
         },
         head: {
           backgroundColor: 'var(--color-surface)',
@@ -181,13 +181,13 @@ const muiTheme = createTheme({
           fontSize: 'var(--type-table-head-size)',
           fontWeight: 600,
           lineHeight: 'var(--type-compact-line)',
-          paddingTop: 12,
-          paddingBottom: 12,
+          paddingTop: 13,
+          paddingBottom: 13,
           zIndex: 2,
         },
         sizeSmall: {
-          paddingTop: 8,
-          paddingBottom: 8,
+          paddingTop: 9,
+          paddingBottom: 9,
         },
         paddingCheckbox: {
           width: 52,
@@ -238,8 +238,13 @@ const muiTheme = createTheme({
           minHeight: 56,
           paddingLeft: 16,
           paddingRight: 8,
+          justifyContent: 'flex-end',
           flexWrap: 'wrap',
+          columnGap: 8,
           rowGap: 4,
+        },
+        spacer: {
+          display: 'none',
         },
         selectLabel: {
           margin: 0,
@@ -250,6 +255,10 @@ const muiTheme = createTheme({
           margin: 0,
           color: 'var(--color-text-secondary)',
           fontSize: 'var(--type-table-cell-size)',
+          whiteSpace: 'nowrap',
+        },
+        actions: {
+          marginLeft: 4,
         },
       },
     },
