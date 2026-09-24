@@ -10,8 +10,8 @@ export const Card = ({
       {(title || subtitle || headerAction) && (
         <div className="px-5 py-4 border-b border-[var(--color-border)] flex items-center justify-between gap-4 bg-white">
           <div className="min-w-0">
-            {title && <h3 className="text-base font-semibold text-[var(--color-text-primary)] tracking-tight">{t(title)}</h3>}
-            {subtitle && <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">{t(subtitle)}</p>}
+            {title && <h3 className="type-card-title text-[var(--color-text-primary)]">{t(title)}</h3>}
+            {subtitle && <p className="type-body-sm text-[var(--color-text-secondary)] mt-0.5">{t(subtitle)}</p>}
           </div>
           {headerAction && <div className="flex items-center gap-2 shrink-0">{headerAction}</div>}
         </div>
@@ -29,8 +29,8 @@ export const Section = ({ title, description, children, action, className = '' }
       {(title || description || action) && (
         <div className="flex items-start justify-between gap-4">
           <div>
-            {title && <h4 className="text-sm font-semibold text-[var(--color-text-primary)]">{t(title)}</h4>}
-            {description && <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">{t(description)}</p>}
+            {title && <h4 className="type-card-title text-[var(--color-text-primary)]">{t(title)}</h4>}
+            {description && <p className="type-body-sm text-[var(--color-text-secondary)] mt-0.5">{t(description)}</p>}
           </div>
           {action && <div>{action}</div>}
         </div>

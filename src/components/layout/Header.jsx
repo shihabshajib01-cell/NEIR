@@ -84,7 +84,7 @@ export const Header = ({
             title={t('Preferences')}
           >
             <Settings2 className="w-[18px] h-[18px]" />
-            <span className="hidden sm:inline text-xs font-semibold">
+            <span className="hidden sm:inline type-meta font-semibold">
               {language === 'bn' ? 'বাংলা' : 'EN'}
             </span>
           </button>
@@ -113,7 +113,7 @@ export const Header = ({
           {notificationsOpen && (
             <div className="absolute right-0 mt-2 w-72 bg-white text-[var(--color-text-primary)] rounded-xl shadow-[var(--shadow-lg)] border border-[var(--color-border)] py-2 z-50">
               <div className="px-4 py-2.5 border-b border-[var(--color-border)]">
-                <span className="text-sm font-semibold">{t('Notifications')}</span>
+                <span className="type-label font-semibold">{t('Notifications')}</span>
               </div>
               <div className="px-4 py-5 text-sm text-[var(--color-text-secondary)]">
                 {t('No new notifications.')}
@@ -139,10 +139,10 @@ export const Header = ({
               {user?.fullName?.charAt(0)?.toUpperCase() || 'A'}
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="text-sm font-semibold leading-tight truncate max-w-[150px]">
+              <span className="type-label font-semibold leading-tight truncate max-w-[150px]">
                 {user?.fullName || t('Admin user')}
               </span>
-              <span className="text-xs text-[var(--color-text-secondary)] leading-tight truncate max-w-[150px]">
+              <span className="type-meta text-[var(--color-text-secondary)] leading-tight truncate max-w-[150px]">
                 {user?.role || 'Admin'}
               </span>
             </div>
@@ -152,13 +152,13 @@ export const Header = ({
           {profileMenuOpen && (
             <div className="absolute right-0 mt-2 w-60 bg-white rounded-xl shadow-[var(--shadow-lg)] border border-[var(--color-border)] py-1.5 z-50">
               <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
-                <p className="text-sm font-semibold truncate">{user?.fullName || t('Admin user')}</p>
-                <p className="text-xs text-[var(--color-text-secondary)] truncate mt-0.5">
+                <p className="type-label font-semibold truncate">{user?.fullName || t('Admin user')}</p>
+                <p className="type-meta text-[var(--color-text-secondary)] truncate mt-0.5">
                   {user?.email || user?.username || 'NEIR Admin'}
                 </p>
               </div>
 
-              <div className="py-1 text-sm">
+              <div className="py-1 type-body-sm">
                 <Link
                   to="/office/users"
                   onClick={() => setProfileMenuOpen(false)}
@@ -185,7 +185,7 @@ export const Header = ({
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-50 text-[var(--color-error)] text-sm font-medium text-left cursor-pointer"
+                  className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-50 text-[var(--color-error)] type-label text-left cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>{t('Sign out')}</span>

@@ -1,7 +1,7 @@
 const sharedLabelSx = {
   color: 'var(--color-text-secondary)',
   fontFamily: 'var(--font-ui)',
-  fontSize: '16px',
+  fontSize: 'var(--type-form-label-size)',
   lineHeight: 1.25,
   '&.Mui-focused': {
     color: 'var(--color-primary-dark)',
@@ -23,7 +23,7 @@ const sharedHelperSx = {
   marginRight: '14px',
   marginTop: '4px',
   color: 'var(--color-text-muted)',
-  fontSize: '14px',
+  fontSize: 'var(--type-helper-size)',
   lineHeight: 1.4,
   '&.Mui-error': {
     color: 'var(--color-error)',

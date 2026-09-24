@@ -14,21 +14,30 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
 
-    /* Standard desktop/tablet type scale */
-    --type-display-size: 30px;
-    --type-page-title-size: 24px;
+    /*
+     * Standard is the default reading scale.
+     * Compact changes density and selected secondary text, not core form legibility.
+     * Large improves readability without proportionally inflating layout spacing.
+     */
+    --type-display-size: 36px;
+    --type-page-title-size: 28px;
     --type-section-title-size: 18px;
-    --type-card-title-size: 16px;
-    --type-body-lg-size: 16px;
-    --type-body-size: 14px;
-    --type-body-sm-size: 14px;
-    --type-label-size: 14px;
-    --type-control-size: 14px;
-    --type-table-head-size: 14px;
-    --type-table-cell-size: 14px;
+    --type-card-title-size: 18px;
+    --type-body-lg-size: 18px;
+    --type-body-size: 16px;
+    --type-body-sm-size: 16px;
+    --type-label-size: 16px;
+    --type-nav-size: 16px;
+    --type-control-size: 16px;
+    --type-button-size: 16px;
+    --type-button-sm-size: 14px;
+    --type-table-head-size: 16px;
+    --type-table-cell-size: 16px;
     --type-meta-size: 14px;
+    --type-helper-size: 14px;
+    --type-form-label-size: 14px;
     --type-badge-size: 14px;
-    --type-kpi-size: 28px;
+    --type-kpi-size: 32px;
 
     --type-title-line: 1.3;
     --type-body-line: 1.55;
@@ -47,39 +56,70 @@
     --fs-caption: var(--type-meta-size);
   }
 
-  /* Compact keeps dense operational UI compact without going below 14px. */
   html[data-text-size='compact'] {
-    --type-display-size: 28px;
-    --type-page-title-size: 22px;
-    --type-section-title-size: 18px;
+    --type-display-size: 32px;
+    --type-page-title-size: 24px;
+    --type-section-title-size: 16px;
     --type-card-title-size: 16px;
     --type-body-lg-size: 16px;
     --type-body-size: 14px;
     --type-body-sm-size: 14px;
     --type-label-size: 14px;
+    --type-nav-size: 14px;
     --type-control-size: 14px;
+    --type-button-size: 14px;
+    --type-button-sm-size: 14px;
     --type-table-head-size: 14px;
     --type-table-cell-size: 14px;
     --type-meta-size: 14px;
+    --type-helper-size: 14px;
+    --type-form-label-size: 14px;
     --type-badge-size: 14px;
-    --type-kpi-size: 26px;
+    --type-kpi-size: 28px;
   }
 
-  html[data-text-size='large'] {
-    --type-display-size: 34px;
+  html[data-text-size='standard'] {
+    --type-display-size: 36px;
     --type-page-title-size: 28px;
-    --type-section-title-size: 20px;
+    --type-section-title-size: 18px;
     --type-card-title-size: 18px;
     --type-body-lg-size: 18px;
     --type-body-size: 16px;
     --type-body-sm-size: 16px;
     --type-label-size: 16px;
+    --type-nav-size: 16px;
     --type-control-size: 16px;
+    --type-button-size: 16px;
+    --type-button-sm-size: 14px;
     --type-table-head-size: 16px;
     --type-table-cell-size: 16px;
-    --type-meta-size: 16px;
+    --type-meta-size: 14px;
+    --type-helper-size: 14px;
+    --type-form-label-size: 14px;
     --type-badge-size: 14px;
     --type-kpi-size: 32px;
+  }
+
+  html[data-text-size='large'] {
+    --type-display-size: 40px;
+    --type-page-title-size: 32px;
+    --type-section-title-size: 20px;
+    --type-card-title-size: 20px;
+    --type-body-lg-size: 20px;
+    --type-body-size: 18px;
+    --type-body-sm-size: 18px;
+    --type-label-size: 18px;
+    --type-nav-size: 18px;
+    --type-control-size: 16px;
+    --type-button-size: 16px;
+    --type-button-sm-size: 16px;
+    --type-table-head-size: 16px;
+    --type-table-cell-size: 18px;
+    --type-meta-size: 16px;
+    --type-helper-size: 16px;
+    --type-form-label-size: 16px;
+    --type-badge-size: 16px;
+    --type-kpi-size: 36px;
   }
 
   html[lang='bn'] {
@@ -171,6 +211,12 @@
     font-weight: var(--font-weight-medium);
   }
 
+  .type-nav {
+    font-size: var(--type-nav-size);
+    line-height: var(--type-compact-line);
+    font-weight: var(--font-weight-medium);
+  }
+
   .type-control {
     font-size: var(--type-control-size);
     line-height: var(--type-compact-line);
@@ -178,13 +224,13 @@
   }
 
   .type-button {
-    font-size: var(--type-control-size);
+    font-size: var(--type-button-size);
     line-height: var(--type-compact-line);
     font-weight: var(--font-weight-semibold);
   }
 
   .type-button-sm {
-    font-size: var(--type-meta-size);
+    font-size: var(--type-button-sm-size);
     line-height: var(--type-compact-line);
     font-weight: var(--font-weight-semibold);
   }
@@ -213,6 +259,12 @@
     font-weight: var(--font-weight-regular);
   }
 
+  .type-helper {
+    font-size: var(--type-helper-size);
+    line-height: var(--type-compact-line);
+    font-weight: var(--font-weight-regular);
+  }
+
   .type-badge {
     font-size: var(--type-badge-size);
     line-height: 1.25;
@@ -220,7 +272,7 @@
   }
 
   .type-overline {
-    font-size: var(--type-badge-size);
+    font-size: var(--type-meta-size);
     line-height: var(--type-compact-line);
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--type-tracking-wide);
@@ -237,40 +289,40 @@
   }
 }
 
-/*
- * Large display rule:
- * 16px is the reading-text baseline, not a blanket minimum for every
- * operational label. Dense UI (tables, nav, labels, metadata and badges)
- * remains 14px minimum so the admin workspace preserves hierarchy and density.
- */
-@media (min-width: 1600px) {
-  :root,
-  html[data-text-size='compact'],
-  html[data-text-size='standard'] {
-    --type-body-lg-size: 16px;
-    --type-body-size: 16px;
-  }
-}
-
 @media (max-width: 639px) {
-  :root,
-  html[data-text-size='compact'],
-  html[data-text-size='standard'] {
-    --type-display-size: 26px;
+  html[data-text-size='compact'] {
+    --type-display-size: 28px;
     --type-page-title-size: 22px;
-    --type-section-title-size: 18px;
-    --type-kpi-size: 26px;
+  }
+
+  html[data-text-size='standard'] {
+    --type-display-size: 30px;
+    --type-page-title-size: 24px;
+  }
+
+  html[data-text-size='large'] {
+    --type-display-size: 34px;
+    --type-page-title-size: 28px;
   }
 }
 
 @layer utilities {
-  /* Legacy utility guard: no readable UI copy below 14px anywhere. */
+  /*
+   * Compatibility bridge for existing utility-based copy.
+   * Nothing readable drops below 14px, while Standard/Large inherit the
+   * semantic body/meta scale without changing component spacing.
+   */
+  .text-sm {
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-line);
+  }
+
   .text-xs,
   .text-\[10px\],
   .text-\[11px\],
   .text-\[12px\],
   .text-\[13px\] {
-    font-size: 14px;
+    font-size: var(--type-meta-size);
     line-height: var(--type-compact-line);
   }
 }

@@ -81,12 +81,20 @@
     font-size: 16px;
   }
 
-  /* Form geometry is intentionally stable across text-size preferences. */
-  html[data-text-size='compact'],
-  html[data-text-size='standard'],
-  html[data-text-size='large'] {
+  /* Form geometry stays stable; only text/label/helper size responds to preference. */
+  html[data-text-size='compact'] {
     --field-height: 56px;
     --field-font-size: 16px;
+  }
+
+  html[data-text-size='standard'] {
+    --field-height: 56px;
+    --field-font-size: 16px;
+  }
+
+  html[data-text-size='large'] {
+    --field-height: 56px;
+    --field-font-size: 18px;
   }
 
   body {
@@ -104,7 +112,7 @@
   input,
   select,
   textarea {
-    font-size: var(--type-control-size);
+    font-size: var(--field-font-size);
   }
 
   button,

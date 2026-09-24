@@ -25,7 +25,7 @@ const muiTheme = createTheme({
   typography: {
     fontFamily: "var(--font-ui)",
     htmlFontSize: 16,
-    fontSize: 14,
+    fontSize: 16,
     h1: { fontSize: 'var(--type-page-title-size)', lineHeight: 'var(--type-title-line)', fontWeight: 600 },
     h2: { fontSize: 'var(--type-section-title-size)', lineHeight: 'var(--type-title-line)', fontWeight: 600 },
     h3: { fontSize: 'var(--type-card-title-size)', lineHeight: 'var(--type-title-line)', fontWeight: 600 },
@@ -129,7 +129,7 @@ const muiTheme = createTheme({
       styleOverrides: {
         root: {
           color: 'var(--color-text-secondary)',
-          fontSize: '16px',
+          fontSize: 'var(--type-form-label-size)',
           '&.Mui-focused': { color: 'var(--color-primary-dark)' },
           '&.Mui-error': { color: 'var(--color-error)' },
           '&.Mui-disabled': { color: 'var(--color-text-muted)' },
@@ -146,8 +146,8 @@ const muiTheme = createTheme({
           marginLeft: 14,
           marginRight: 14,
           marginTop: 4,
-          fontSize: '14px',
-          lineHeight: 1.4,
+          fontSize: 'var(--type-helper-size)',
+          lineHeight: 'var(--type-compact-line)',
           color: 'var(--color-text-muted)',
           '&.Mui-error': { color: 'var(--color-error)' },
         },

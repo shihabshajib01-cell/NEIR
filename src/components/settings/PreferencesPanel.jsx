@@ -19,12 +19,12 @@ export const PreferencesPanel = ({ className = '' }) => {
   return (
     <div className={'w-72 bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-lg)] overflow-hidden ' + className}>
       <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
-        <p className="text-sm font-semibold text-[var(--color-text-primary)]">{t('Display preferences')}</p>
+        <p className="type-label text-[var(--color-text-primary)]">{t('Display preferences')}</p>
       </div>
 
       <div className="p-4 space-y-5">
         <section>
-          <div className="flex items-center gap-2 mb-2.5 text-sm font-medium text-[var(--color-text-primary)]">
+          <div className="flex items-center gap-2 mb-2.5 type-label text-[var(--color-text-primary)]">
             <Languages className="w-4 h-4 text-[var(--color-primary)]" />
             <span>{t('Language')}</span>
           </div>
@@ -34,7 +34,7 @@ export const PreferencesPanel = ({ className = '' }) => {
                 key={option.id}
                 type="button"
                 onClick={() => setLanguage(option.id)}
-                className={'min-h-10 rounded-lg border px-3 text-sm font-semibold transition-colors ' +
+                className={'min-h-10 rounded-lg border px-3 type-button-sm transition-colors ' +
                   (language === option.id
                     ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                     : 'bg-white border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
@@ -46,7 +46,7 @@ export const PreferencesPanel = ({ className = '' }) => {
         </section>
 
         <section>
-          <div className="flex items-center gap-2 mb-2.5 text-sm font-medium text-[var(--color-text-primary)]">
+          <div className="flex items-center gap-2 mb-2.5 type-label text-[var(--color-text-primary)]">
             <Type className="w-4 h-4 text-[var(--color-primary)]" />
             <span>{t('Text size')}</span>
           </div>
@@ -62,13 +62,13 @@ export const PreferencesPanel = ({ className = '' }) => {
                     : 'bg-white border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
               >
                 <span className={
-                  option.id === 'compact' ? 'text-xs font-semibold' :
-                  option.id === 'large' ? 'text-lg font-semibold' :
-                  'text-sm font-semibold'
+                  option.id === 'compact' ? 'text-[14px] font-semibold leading-none' :
+                  option.id === 'large' ? 'text-[18px] font-semibold leading-none' :
+                  'text-[16px] font-semibold leading-none'
                 }>
                   {option.sample}
                 </span>
-                <span className="text-[11px] font-medium">{t(option.label)}</span>
+                <span className="type-meta font-medium">{t(option.label)}</span>
               </button>
             ))}
           </div>

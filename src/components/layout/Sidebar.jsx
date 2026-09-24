@@ -60,7 +60,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
     <aside
       className={'hidden lg:flex flex-col bg-white text-[var(--color-text-primary)] border-r border-[var(--color-border)] transition-all duration-200 shrink-0 select-none z-20 ' + (isCollapsed ? 'w-16' : 'w-64')}
     >
-      <div className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-[var(--color-text-muted)] border-b border-[var(--color-border)]">
+      <div className="px-4 py-3 type-overline text-[var(--color-text-muted)] border-b border-[var(--color-border)]">
         {isCollapsed ? 'NAV' : t('Navigation')}
       </div>
 
@@ -77,7 +77,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                 <button
                   type="button"
                   onClick={() => toggleSubmenu(item.path)}
-                  className={'w-full min-h-11 flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ' +
+                  className={'w-full min-h-11 flex items-center justify-between px-3 py-2.5 rounded-lg type-nav transition-colors cursor-pointer ' +
                     (activeSection
                       ? 'bg-[var(--color-primary-light)] text-[var(--color-primary-dark)]'
                       : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)] hover:text-[var(--color-primary-dark)]')}
@@ -100,7 +100,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                           key={child.path}
                           to={child.path}
                           end={child.exact}
-                          className={'min-h-10 flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors ' +
+                          className={'min-h-10 flex items-center gap-2.5 px-3 py-2 rounded-lg type-nav transition-colors ' +
                             (activeChild
                               ? 'bg-[var(--color-primary)] text-white font-semibold shadow-[var(--shadow-sm)]'
                               : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)] hover:text-[var(--color-primary-dark)]')}
@@ -122,7 +122,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
               to={item.path}
               title={isCollapsed ? t(item.name) : undefined}
               className={({ isActive }) =>
-                'min-h-11 flex items-center ' + (isCollapsed ? 'justify-center px-2' : 'gap-2.5 px-3') + ' py-2.5 rounded-lg text-sm font-medium transition-colors ' +
+                'min-h-11 flex items-center ' + (isCollapsed ? 'justify-center px-2' : 'gap-2.5 px-3') + ' py-2.5 rounded-lg type-nav transition-colors ' +
                 (isActive
                   ? 'bg-[var(--color-primary)] text-white font-semibold shadow-[var(--shadow-sm)]'
                   : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)] hover:text-[var(--color-primary-dark)]')
