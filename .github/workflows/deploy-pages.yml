@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: neir-static-publish
+  group: neir-static-publish-v2
   cancel-in-progress: true
 
 jobs:
