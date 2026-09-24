@@ -1,0 +1,281 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { PageHeader } from '../../components/navigation/PageHeader.jsx';
+import { DataTable } from '../../components/tables/DataTable.jsx';
+import { FilterBar } from '../../components/tables/FilterBar.jsx';
+import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
+import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
+import { Button } from '../../components/forms/Button.jsx';
+import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
+import { mockApi } from '../../services/mockApi.js';
+import { useToast } from '../../components/feedback/Toast.jsx';
+import { Plus, Edit2, Eye, UserCheck, Shield } from 'lucide-react';
+
+export const UsersListPage = () => {
+  const [users, setUsers] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [deptFilter, setDeptFilter] = useState('All');
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+  const { addToast } = useToast();
+
+  const loadData = async () => {
+    try {
+      setIsLoading(true);
+      const [u, d] = await Promise.all([
+        mockApi.getOfficeUsers(),
+        mockApi.getDepartments(),
+      ]);
+      setUsers(u);
+      setDepartments(d);
+    } catch (err) {
+      addToast('Failed to load user directory.', 'error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const handleOpenDetails = (user) => {
+    setSelectedUser(user);
+    setIsDrawerOpen(true);
+  };
+
+  const filteredUsers = users.filter((u) => {
+    const matchesSearch =
+      u.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.designation.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesDept =
+      deptFilter === 'All' || u.department === deptFilter;
+    return matchesSearch && matchesDept;
+  });
+
+  const columns = [
+    { key: 'sl', title: 'SL', width: '60px', isMono: true },
+    {
+      key: 'fullName',
+      title: 'Officer Name / Email',
+      render: (val, row) => (
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-full bg-[#102A43] text-white flex items-center justify-center font-bold text-xs shrink-0">
+            {val.charAt(0)}
+          </div>
+          <div>
+            <span className="font-semibold text-[#102A43] block">{val}</span>
+            <span className="text-[11px] text-[#52677A] font-mono">{row.email}</span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: 'username',
+      title: 'Username',
+      isMono: true,
+      render: (val) => <span className="font-mono text-xs text-[#147D83] font-semibold">{val}</span>,
+    },
+    {
+      key: 'department',
+      title: 'Department',
+      render: (val) => <span className="text-xs text-[#172B4D]">{val}</span>,
+    },
+    {
+      key: 'designation',
+      title: 'Designation',
+      render: (val) => <span className="text-xs font-medium text-[#52677A]">{val}</span>,
+    },
+    {
+      key: 'role',
+      title: 'Role',
+      render: (val) => (
+        <span className="text-xs font-semibold bg-[#14804A]/10 text-[#10683D] px-2 py-0.5 rounded border border-[#14804A]/20">
+          {val}
+        </span>
+      ),
+    },
+    {
+      key: 'status',
+      title: 'Status',
+      width: '100px',
+      render: (val) => <StatusBadge status={val} size="sm" />,
+    },
+    {
+      key: 'actions',
+      title: 'Action',
+      width: '150px',
+      render: (_, row) => (
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            icon={Eye}
+            onClick={() => handleOpenDetails(row)}
+            className="text-xs h-7 px-2"
+          >
+            Details
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            icon={Edit2}
+            onClick={() => navigate(`/office/users/${row.id}/edit`)}
+            className="text-xs h-7 px-2"
+          >
+            Edit
+          </Button>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <PageHeader
+        title="User"
+        description="Official administrative user accounts, portal privileges, and BTRC personnel access permissions."
+        breadcrumbs={[
+          { label: 'Office' },
+          { label: 'User' }
+        ]}
+        actions={
+          <Button
+            variant="primary"
+            size="sm"
+            icon={Plus}
+            onClick={() => navigate('/office/users/new')}
+          >
+            Create User
+          </Button>
+        }
+      />
+
+      <FilterBar
+        searchPlaceholder="Search officer by name, username, email, or designation..."
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        onReset={() => {
+          setSearchTerm('');
+          setDeptFilter('All');
+        }}
+        filters={
+          <div className="w-56">
+            <select
+              value={deptFilter}
+              onChange={(e) => setDeptFilter(e.target.value)}
+              className="w-full h-8.5 px-2 text-xs bg-[#F4F7FA] border border-[#D8E0E8] rounded-md text-[#172B4D] outline-hidden cursor-pointer"
+            >
+              <option value="All">All Departments</option>
+              {departments.map((d) => (
+                <option key={d.id} value={d.name}>
+                  {d.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        }
+      />
+
+      <DataTable
+        columns={columns}
+        data={filteredUsers}
+        isLoading={isLoading}
+        renderMobileCard={(row) => (
+          <MobileRecordCard
+            title={row.fullName}
+            subtitle={row.email}
+            status={row.status}
+            fields={[
+              { label: 'Username', value: row.username, isMono: true },
+              { label: 'Department', value: row.department },
+              { label: 'Designation', value: row.designation },
+              { label: 'Role', value: row.role },
+            ]}
+            actions={
+              <div className="flex items-center gap-2 w-full">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  icon={Eye}
+                  onClick={() => handleOpenDetails(row)}
+                  className="flex-1 justify-center"
+                >
+                  View Profile
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  icon={Edit2}
+                  onClick={() => navigate(`/office/users/${row.id}/edit`)}
+                  className="flex-1 justify-center"
+                >
+                  Edit Officer
+                </Button>
+              </div>
+            }
+          />
+        )}
+      />
+
+      {/* User Details Drawer */}
+      {selectedUser && (
+        <RecordDetailsDrawer
+          isOpen={isDrawerOpen}
+          onClose={() => {
+            setIsDrawerOpen(false);
+            setSelectedUser(null);
+          }}
+          title="Administrative Officer Dossier"
+          recordId={selectedUser.username}
+          status={selectedUser.status}
+          sections={[
+            {
+              title: 'Personnel Information',
+              items: [
+                { label: 'Full Name', value: selectedUser.fullName },
+                { label: 'Username', value: selectedUser.username, isMono: true },
+                { label: 'Official Email', value: selectedUser.email },
+                { label: 'Contact Phone', value: selectedUser.phone, isMono: true },
+                { label: 'Account Created', value: selectedUser.createdAt, isMono: true },
+              ]
+            },
+            {
+              title: 'Organizational Placement & Role',
+              items: [
+                { label: 'Department', value: selectedUser.department },
+                { label: 'Official Designation', value: selectedUser.designation },
+                { label: 'Assigned Security Role', value: selectedUser.role },
+                { label: 'Account Status', value: selectedUser.status },
+              ]
+            }
+          ]}
+          footerActions={
+            <div className="flex items-center justify-between w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsDrawerOpen(false)}
+              >
+                Close
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                icon={Edit2}
+                onClick={() => navigate(`/office/users/${selectedUser.id}/edit`)}
+              >
+                Edit Account
+              </Button>
+            </div>
+          }
+        />
+      )}
+    </div>
+  );
+};
