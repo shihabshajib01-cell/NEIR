@@ -10,28 +10,31 @@ export const AppShell = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F4F7FA] text-[#172B4D]">
-      {/* Top Application Header */}
       <Header
-        onToggleSidebar={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+        onToggleSidebar={() => setIsSidebarCollapsed((collapsed) => !collapsed)}
         onOpenMobileNav={() => setIsMobileNavOpen(true)}
         isSidebarCollapsed={isSidebarCollapsed}
       />
 
-      {/* Main Structural Body */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Desktop Sidebar Navigation Rail */}
+      <div className="flex-1 flex min-h-0">
         <Sidebar isCollapsed={isSidebarCollapsed} />
 
-        {/* Mobile Navigation Drawer */}
         <MobileNavigationDrawer
           isOpen={isMobileNavOpen}
           onClose={() => setIsMobileNavOpen(false)}
         />
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto">
-          <Outlet />
-        </main>
+        <div className="flex-1 min-w-0 flex flex-col min-h-0">
+          <main className="flex-1 overflow-y-auto">
+            <div className="p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto">
+              <Outlet />
+            </div>
+          </main>
+
+          <footer className="shrink-0 border-t border-[#D8E0E8] bg-white px-4 sm:px-6 py-3 text-right text-xs text-[#52677A]">
+            Powered by <span className="font-semibold text-[#172B4D]">Synesis IT</span>
+          </footer>
+        </div>
       </div>
     </div>
   );
