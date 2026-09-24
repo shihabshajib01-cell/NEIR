@@ -70,7 +70,8 @@ export const DataTable = ({
   onRowClick,
   embedded = false,
   stickyHeader = true,
-  maxHeight = 'min(62vh, 640px)',
+  scrollable = true,
+  maxHeight = 'clamp(320px, 42vh, 400px)',
   className = '',
 }) => {
   const { t, textSize } = usePreferences();
@@ -155,13 +156,32 @@ export const DataTable = ({
               elevation={0}
               square
               sx={{
-                maxHeight: stickyHeader ? maxHeight : 'none',
+                maxHeight: stickyHeader && scrollable ? maxHeight : 'none',
                 overflowX: 'auto',
+                overflowY: stickyHeader && scrollable ? 'auto' : 'visible',
+                overscrollBehavior: 'contain',
+                scrollbarGutter: 'stable',
+                WebkitOverflowScrolling: 'touch',
                 borderRadius: 0,
+                '&::-webkit-scrollbar': {
+                  width: 10,
+                  height: 10,
+                },
+                '&::-webkit-scrollbar-track': {
+                  backgroundColor: 'var(--color-background-subtle)',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  backgroundColor: 'var(--color-border-strong)',
+                  borderRadius: 999,
+                  border: '2px solid var(--color-background-subtle)',
+                },
+                '&::-webkit-scrollbar-thumb:hover': {
+                  backgroundColor: 'var(--color-text-muted)',
+                },
               }}
             >
               <Table
-                stickyHeader={stickyHeader}
+                stickyHeader={stickyHeader && scrollable}
                 size={dense ? 'small' : 'medium'}
                 sx={{
                   minWidth: 720,
