@@ -1,5 +1,13 @@
 import React, { useId, useRef, useState } from 'react';
-import { UploadCloud, FileText, X, Check } from 'lucide-react';
+import {
+  Checkbox as MuiCheckbox,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup as MuiRadioGroup,
+} from '@mui/material';
+import { UploadCloud, FileText, X } from 'lucide-react';
 import { Button } from './Button.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
@@ -11,33 +19,61 @@ export const Checkbox = ({
   onChange,
   disabled = false,
   description,
+  indeterminate = false,
+  ariaLabel,
   className = '',
 }) => {
   const generatedId = useId();
   const inputId = id || name || generatedId;
   const { t } = usePreferences();
 
+  const control = (
+    <MuiCheckbox
+      id={inputId}
+      name={name}
+      checked={checked}
+      indeterminate={indeterminate}
+      onChange={onChange}
+      disabled={disabled}
+      size="small"
+      inputProps={{ 'aria-label': ariaLabel ? t(ariaLabel) : undefined }}
+      sx={{
+        color: 'var(--color-border)',
+        padding: '4px',
+        '& .MuiSvgIcon-root': { fontSize: 20 },
+        '&.Mui-checked': { color: 'var(--color-primary)' },
+        '&.MuiCheckbox-indeterminate': { color: 'var(--color-primary)' },
+        '&.Mui-focusVisible': {
+          outline: '2px solid var(--color-primary)',
+          outlineOffset: '2px',
+          borderRadius: '4px',
+        },
+      }}
+    />
+  );
+
+  if (!label && !description) {
+    return <span className={className}>{control}</span>;
+  }
+
   return (
-    <label htmlFor={inputId} className={'flex items-start gap-2.5 cursor-pointer select-none ' + (disabled ? 'opacity-50 cursor-not-allowed ' : '') + className}>
-      <div className="relative flex items-center justify-center mt-0.5">
-        <input
-          id={inputId}
-          name={name}
-          type="checkbox"
-          checked={checked}
-          onChange={onChange}
-          disabled={disabled}
-          className="sr-only peer"
-        />
-        <div className="w-5 h-5 rounded-md border border-[var(--color-border)] bg-white transition-all peer-checked:bg-[var(--color-primary)] peer-checked:border-[var(--color-primary)] peer-focus-visible:ring-2 peer-focus-visible:ring-[rgba(1,173,193,0.28)] flex items-center justify-center">
-          <Check className={'w-3.5 h-3.5 text-white stroke-[3] transition-opacity ' + (checked ? 'opacity-100' : 'opacity-0')} />
-        </div>
-      </div>
-      <div className="flex flex-col">
-        {label && <span className="text-sm font-medium text-[var(--color-text-primary)] leading-tight">{t(label)}</span>}
-        {description && <span className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(description)}</span>}
-      </div>
-    </label>
+    <FormControlLabel
+      className={className}
+      disabled={disabled}
+      control={control}
+      label={
+        <span className="flex flex-col">
+          {label && <span className="text-sm font-medium text-[var(--color-text-primary)] leading-tight">{t(label)}</span>}
+          {description && <span className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(description)}</span>}
+        </span>
+      }
+      sx={{
+        margin: 0,
+        alignItems: 'flex-start',
+        gap: '6px',
+        '& .MuiFormControlLabel-label': { paddingTop: '3px' },
+      }}
+    />
   );
 };
 
@@ -54,39 +90,51 @@ export const RadioGroup = ({
   const { t } = usePreferences();
 
   return (
-    <fieldset className={'flex flex-col gap-2 ' + className} disabled={disabled}>
-      {label && <legend className="text-sm font-medium text-[var(--color-text-primary)] mb-1">{t(label)}</legend>}
-      <div className={'flex ' + (orientation === 'horizontal' ? 'flex-row flex-wrap gap-3' : 'flex-col gap-2')}>
-        {options.map((option) => {
-          const selected = value === option.value;
-          return (
-            <label
-              key={option.value}
-              className={'flex items-start gap-2.5 cursor-pointer select-none p-3 rounded-lg border transition-all ' +
-                (selected ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)]' : 'border-[var(--color-border)] bg-white hover:bg-[var(--color-background-subtle)]') +
-                (disabled ? ' opacity-50 cursor-not-allowed' : '')}
-            >
-              <input
-                type="radio"
-                name={name}
-                value={option.value}
-                checked={selected}
-                onChange={() => !disabled && onChange?.(option.value)}
-                disabled={disabled}
-                className="sr-only"
-              />
-              <div className={'w-5 h-5 rounded-full border mt-0.5 flex items-center justify-center transition-all ' + (selected ? 'border-[var(--color-primary)] bg-white' : 'border-[var(--color-border)] bg-white')}>
-                {selected && <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" />}
-              </div>
-              <div className="flex flex-col">
-                <span className={'text-sm font-medium ' + (selected ? 'text-[var(--color-primary-dark)]' : 'text-[var(--color-text-primary)]')}>{t(option.label)}</span>
+    <FormControl component="fieldset" disabled={disabled} className={className}>
+      {label && (
+        <FormLabel
+          component="legend"
+          sx={{
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            color: 'var(--color-text-primary)',
+            mb: 1,
+            '&.Mui-focused': { color: 'var(--color-text-primary)' },
+          }}
+        >
+          {t(label)}
+        </FormLabel>
+      )}
+      <MuiRadioGroup
+        name={name}
+        value={value}
+        onChange={(event) => onChange?.(event.target.value)}
+        row={orientation === 'horizontal'}
+        sx={{ gap: orientation === 'horizontal' ? 1 : 0.5 }}
+      >
+        {options.map((option) => (
+          <FormControlLabel
+            key={option.value}
+            value={option.value}
+            control={<Radio size="small" />}
+            label={
+              <span className="flex flex-col">
+                <span className="text-sm font-medium text-[var(--color-text-primary)]">{t(option.label)}</span>
                 {option.description && <span className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(option.description)}</span>}
-              </div>
-            </label>
-          );
-        })}
-      </div>
-    </fieldset>
+              </span>
+            }
+            sx={{
+              margin: 0,
+              minHeight: 40,
+              px: 1,
+              py: 0.5,
+              borderRadius: 'var(--radius-md)',
+              '&:hover': { backgroundColor: 'var(--color-background-subtle)' },
+            }}
+          />
+        ))}
+      </MuiRadioGroup>
+    </FormControl>
   );
 };
 

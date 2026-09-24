@@ -3,6 +3,7 @@ import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { Card } from '../../components/data-display/Card.jsx';
 import { IMEIInput, TextInput, PhoneInput } from '../../components/forms/TextInput.jsx';
 import { Button } from '../../components/forms/Button.jsx';
+import { Checkbox } from '../../components/forms/Checkbox.jsx';
 import { Alert } from '../../components/feedback/Alert.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
@@ -123,15 +124,11 @@ export const DeviceDeregisterPage = () => {
 
             {/* Error simulation toggle for testing QA */}
             <div className="pt-2 border-t border-[#E2E5F0] flex items-center justify-between">
-              <label className="text-xs text-[#7A8197] flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={simulateError}
-                  onChange={(e) => setSimulateError(e.target.checked)}
-                  className="rounded border-[#E2E5F0] text-[#01ADC1]"
-                />
-                <span>Simulate restricted IMEI error scenario</span>
-              </label>
+              <Checkbox
+                label="Simulate restricted IMEI error scenario"
+                checked={simulateError}
+                onChange={(e) => setSimulateError(e.target.checked)}
+              />
 
               <Button
                 type="submit"

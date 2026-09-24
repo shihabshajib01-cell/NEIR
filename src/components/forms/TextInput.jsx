@@ -1,19 +1,10 @@
 import React, { useId, useState } from 'react';
-import { Eye, EyeOff, Smartphone, Hash, Phone, Calendar, AlertCircle } from 'lucide-react';
+import { TextField, InputAdornment, IconButton as MuiIconButton } from '@mui/material';
+import { Eye, EyeOff, Smartphone, Hash, Phone, Calendar } from 'lucide-react';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
+import { muiFieldSx } from '../../system/muiFieldSx.js';
 
-const FieldMessage = ({ error, helperText }) => {
-  const { t } = usePreferences();
-  if (error) {
-    return (
-      <p className="text-xs text-[var(--color-error)] flex items-center gap-1 mt-0.5 font-medium">
-        <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-        <span>{t(error)}</span>
-      </p>
-    );
-  }
-  return helperText ? <p className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(helperText)}</p> : null;
-};
+const translated = (t, value) => typeof value === 'string' ? t(value) : value;
 
 export const TextInput = ({
   label, id, name, value, onChange, placeholder, type = 'text', error, helperText,
@@ -24,100 +15,186 @@ export const TextInput = ({
   const inputId = id || name || generatedId;
 
   return (
-    <div className={'flex flex-col gap-1.5 ' + className}>
-      {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-[var(--color-text-primary)]">
-          {t(label)}{required && <span className="text-[var(--color-error)] ml-0.5">*</span>}
-        </label>
-      )}
-      <div className="relative flex items-center">
-        {Icon && <div className="absolute left-3 pointer-events-none text-[var(--color-text-muted)]"><Icon className="w-4 h-4" /></div>}
-        <input
-          id={inputId}
-          name={name}
-          type={type}
-          value={value}
-          onChange={onChange}
-          placeholder={t(placeholder)}
-          disabled={disabled}
-          readOnly={readOnly}
-          required={required}
-          aria-invalid={Boolean(error)}
-          aria-describedby={error || helperText ? inputId + '-message' : undefined}
-          className={'w-full min-h-10 px-3 rounded-lg bg-white border text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] transition-all ' +
-            (Icon ? 'pl-9 ' : '') +
-            (error ? 'border-[var(--color-error)] focus:ring-2 focus:ring-red-100 ' : 'border-[var(--color-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[rgba(1,173,193,0.18)] ') +
-            (disabled ? 'bg-[var(--color-background)] text-[var(--color-text-muted)] cursor-not-allowed ' : '') +
-            inputClassName}
-          {...props}
-        />
-      </div>
-      <div id={inputId + '-message'}><FieldMessage error={error} helperText={helperText} /></div>
-    </div>
+    <TextField
+      id={inputId}
+      name={name}
+      label={translated(t, label)}
+      value={value ?? ''}
+      onChange={onChange}
+      placeholder={translated(t, placeholder)}
+      type={type}
+      error={Boolean(error)}
+      helperText={translated(t, error || helperText)}
+      required={required}
+      disabled={disabled}
+      variant="outlined"
+      size="small"
+      fullWidth
+      className={className}
+      autoComplete={props.autoComplete}
+      InputLabelProps={type === 'date' ? { shrink: true } : undefined}
+      InputProps={{
+        readOnly,
+        startAdornment: Icon ? (
+          <InputAdornment position="start">
+            <Icon className="w-4 h-4" />
+          </InputAdornment>
+        ) : undefined,
+      }}
+      inputProps={{
+        maxLength: props.maxLength,
+        min: props.min,
+        max: props.max,
+        inputMode: props.inputMode,
+        className: inputClassName,
+        'aria-invalid': Boolean(error) || undefined,
+        'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+      }}
+      FormHelperTextProps={{ id: inputId + '-helper' }}
+      sx={muiFieldSx}
+      {...Object.fromEntries(Object.entries(props).filter(([key]) => !['autoComplete','maxLength','min','max','inputMode'].includes(key)))}
+    />
   );
 };
 
-export const PasswordInput = ({ label, id, name, value, onChange, placeholder = '••••••••', error, helperText, required = false, className = '', ...props }) => {
+export const PasswordInput = ({
+  label, id, name, value, onChange, placeholder = '••••••••', error, helperText,
+  required = false, disabled = false, className = '', ...props
+}) => {
   const [showPassword, setShowPassword] = useState(false);
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
 
   return (
-    <div className={'flex flex-col gap-1.5 ' + className}>
-      {label && <label htmlFor={inputId} className="text-sm font-medium text-[var(--color-text-primary)]">{t(label)}{required && <span className="text-[var(--color-error)] ml-0.5">*</span>}</label>}
-      <div className="relative flex items-center">
-        <input
-          id={inputId}
-          name={name}
-          type={showPassword ? 'text' : 'password'}
-          value={value}
-          onChange={onChange}
-          placeholder={t(placeholder)}
-          required={required}
-          aria-invalid={Boolean(error)}
-          className={'w-full min-h-10 pl-3 pr-11 rounded-lg bg-white border text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] transition-all ' +
-            (error ? 'border-[var(--color-error)] focus:ring-2 focus:ring-red-100' : 'border-[var(--color-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[rgba(1,173,193,0.18)]')}
-          {...props}
-        />
-        <button
-          type="button"
-          onClick={() => setShowPassword((visible) => !visible)}
-          className="absolute right-1.5 w-9 h-9 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] rounded-lg"
-          title={t(showPassword ? 'Hide password' : 'Show password')}
-          aria-label={t(showPassword ? 'Hide password' : 'Show password')}
-        >
-          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-        </button>
-      </div>
-      <FieldMessage error={error} helperText={helperText} />
-    </div>
+    <TextField
+      id={inputId}
+      name={name}
+      label={translated(t, label)}
+      value={value ?? ''}
+      onChange={onChange}
+      placeholder={translated(t, placeholder)}
+      type={showPassword ? 'text' : 'password'}
+      error={Boolean(error)}
+      helperText={translated(t, error || helperText)}
+      required={required}
+      disabled={disabled}
+      variant="outlined"
+      size="small"
+      fullWidth
+      className={className}
+      autoComplete={props.autoComplete}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <MuiIconButton
+              edge="end"
+              size="small"
+              onClick={() => setShowPassword((visible) => !visible)}
+              aria-label={t(showPassword ? 'Hide password' : 'Show password')}
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </MuiIconButton>
+          </InputAdornment>
+        ),
+      }}
+      inputProps={{
+        'aria-invalid': Boolean(error) || undefined,
+        'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+      }}
+      FormHelperTextProps={{ id: inputId + '-helper' }}
+      sx={muiFieldSx}
+      {...Object.fromEntries(Object.entries(props).filter(([key]) => key !== 'autoComplete'))}
+    />
   );
 };
 
-export const IMEIInput = ({ label = 'IMEI Number', value, onChange, placeholder = 'e.g. 862940058912341 (14-16 digits)', error, helperText = 'Standard 15-digit international equipment identity number', required = false, className = '', ...props }) => {
+export const IMEIInput = ({
+  label = 'IMEI Number', value, onChange,
+  placeholder = 'e.g. 862940058912341 (14-16 digits)',
+  error, helperText = 'Standard 15-digit international equipment identity number',
+  required = false, className = '', ...props
+}) => {
   const handleChange = (event) => {
     const cleaned = event.target.value.replace(/\D/g, '').slice(0, 16);
     onChange?.({ ...event, target: { ...event.target, value: cleaned } });
   };
-  return <TextInput label={label} icon={Smartphone} value={value} onChange={handleChange} placeholder={placeholder} error={error} helperText={helperText} required={required} className={className} inputClassName="font-mono tabular-nums tracking-wider" maxLength={16} inputMode="numeric" {...props} />;
+
+  return (
+    <TextInput
+      label={label}
+      icon={Smartphone}
+      value={value}
+      onChange={handleChange}
+      placeholder={placeholder}
+      error={error}
+      helperText={helperText}
+      required={required}
+      className={className}
+      inputClassName="font-mono tabular-nums tracking-wider"
+      maxLength={16}
+      inputMode="numeric"
+      {...props}
+    />
+  );
 };
 
-export const PhoneInput = ({ label = 'Phone Number', value, onChange, placeholder = '+880 1XXXXXXXXX', error, helperText, required = false, className = '', ...props }) => (
-  <TextInput label={label} icon={Phone} type="tel" value={value} onChange={onChange} placeholder={placeholder} error={error} helperText={helperText} required={required} className={className} inputClassName="font-mono tabular-nums" {...props} />
+export const PhoneInput = ({
+  label = 'Phone Number', value, onChange, placeholder = '+880 1XXXXXXXXX',
+  error, helperText, required = false, className = '', ...props
+}) => (
+  <TextInput
+    label={label}
+    icon={Phone}
+    type="tel"
+    value={value}
+    onChange={onChange}
+    placeholder={placeholder}
+    error={error}
+    helperText={helperText}
+    required={required}
+    className={className}
+    inputClassName="font-mono tabular-nums"
+    {...props}
+  />
 );
 
-export const DateInput = ({ label, value, onChange, error, required = false, className = '', ...props }) => (
-  <TextInput label={label} icon={Calendar} type="date" value={value} onChange={onChange} error={error} required={required} className={className} {...props} />
+export const DateInput = ({ label, value, onChange, error, helperText, required = false, className = '', ...props }) => (
+  <TextInput
+    label={label}
+    icon={Calendar}
+    type="date"
+    value={value}
+    onChange={onChange}
+    error={error}
+    helperText={helperText}
+    required={required}
+    className={className}
+    {...props}
+  />
 );
 
-export const NumberInput = ({ label, value, onChange, error, required = false, min, max, className = '', ...props }) => (
-  <TextInput label={label} type="number" value={value} onChange={onChange} error={error} required={required} min={min} max={max} className={className} inputClassName="font-mono tabular-nums" {...props} />
+export const NumberInput = ({ label, value, onChange, error, helperText, required = false, min, max, className = '', ...props }) => (
+  <TextInput
+    label={label}
+    type="number"
+    value={value}
+    onChange={onChange}
+    error={error}
+    helperText={helperText}
+    required={required}
+    min={min}
+    max={max}
+    className={className}
+    inputClassName="font-mono tabular-nums"
+    {...props}
+  />
 );
 
 export const FileUpload = ({ label, helperText, accept, onFileSelect, className = '' }) => {
   const [fileName, setFileName] = useState('');
   const { t } = usePreferences();
+
   const handleChange = (event) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -141,37 +218,48 @@ export const FileUpload = ({ label, helperText, accept, onFileSelect, className 
   );
 };
 
-export const Textarea = ({ label, id, name, value, onChange, placeholder, rows = 3, error, helperText, required = false, disabled = false, className = '', ...props }) => {
+export const Textarea = ({
+  label, id, name, value, onChange, placeholder, rows = 3, error, helperText,
+  required = false, disabled = false, readOnly = false, className = '', ...props
+}) => {
   const generatedId = useId();
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
 
   return (
-    <div className={'flex flex-col gap-1.5 ' + className}>
-      {label && <label htmlFor={inputId} className="text-sm font-medium text-[var(--color-text-primary)]">{t(label)}{required && <span className="text-[var(--color-error)] ml-0.5">*</span>}</label>}
-      <textarea
-        id={inputId}
-        name={name}
-        rows={rows}
-        value={value}
-        onChange={onChange}
-        placeholder={t(placeholder)}
-        disabled={disabled}
-        required={required}
-        aria-invalid={Boolean(error)}
-        className={'w-full p-3 rounded-lg bg-white border text-base text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] transition-all resize-y ' +
-          (error ? 'border-[var(--color-error)] focus:ring-2 focus:ring-red-100 ' : 'border-[var(--color-border)] focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[rgba(1,173,193,0.18)] ') +
-          (disabled ? 'bg-[var(--color-background)] text-[var(--color-text-muted)] cursor-not-allowed' : '')}
-        {...props}
-      />
-      <FieldMessage error={error} helperText={helperText} />
-    </div>
+    <TextField
+      id={inputId}
+      name={name}
+      label={translated(t, label)}
+      value={value ?? ''}
+      onChange={onChange}
+      placeholder={translated(t, placeholder)}
+      multiline
+      minRows={rows}
+      error={Boolean(error)}
+      helperText={translated(t, error || helperText)}
+      required={required}
+      disabled={disabled}
+      variant="outlined"
+      size="small"
+      fullWidth
+      className={className}
+      InputProps={{ readOnly }}
+      inputProps={{
+        'aria-invalid': Boolean(error) || undefined,
+        'aria-describedby': error || helperText ? inputId + '-helper' : undefined,
+      }}
+      FormHelperTextProps={{ id: inputId + '-helper' }}
+      sx={muiFieldSx}
+      {...props}
+    />
   );
 };
 
 export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, className = '' }) => {
   const [fileName, setFileName] = useState('');
   const { t } = usePreferences();
+
   const handleChange = (event) => {
     const file = event.target.files?.[0];
     if (file) {

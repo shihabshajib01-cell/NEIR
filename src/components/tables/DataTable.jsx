@@ -5,6 +5,7 @@ import { Pagination } from './Pagination.jsx';
 import { StatusBadge } from '../data-display/StatusBadge.jsx';
 import { SafeText } from '../data-display/SafeText.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
+import { Checkbox as AppCheckbox } from '../forms/Checkbox.jsx';
 
 export const MobileRecordCard = ({ title, subtitle, status, fields = [], actions, className = '' }) => {
   const { t } = usePreferences();
@@ -80,7 +81,7 @@ export const DataTable = ({
                 <tr>
                   {selectable && (
                     <th className="w-10 px-3.5 py-3 text-center">
-                      <input type="checkbox" checked={allSelected} onChange={handleSelectAll} className="rounded border-[var(--color-border)] accent-[var(--color-primary)] cursor-pointer" aria-label="Select all records" />
+                      <AppCheckbox checked={allSelected} indeterminate={selectedKeys.length > 0 && selectedKeys.length < data.length} onChange={handleSelectAll} ariaLabel="Select all records" />
                     </th>
                   )}
                   {columns.map((column) => (
@@ -115,7 +116,7 @@ export const DataTable = ({
                     >
                       {selectable && (
                         <td className="px-3.5 py-2.5 text-center" onClick={(event) => event.stopPropagation()}>
-                          <input type="checkbox" checked={selected} onChange={() => handleSelectRow(row[keyField])} className="rounded border-[var(--color-border)] accent-[var(--color-primary)] cursor-pointer" aria-label="Select record" />
+                          <AppCheckbox checked={selected} onChange={() => handleSelectRow(row[keyField])} ariaLabel="Select record" />
                         </td>
                       )}
                       {columns.map((column) => {
