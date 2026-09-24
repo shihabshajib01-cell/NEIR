@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { User, AlertCircle, ShieldCheck } from 'lucide-react';
+import { User, ShieldCheck } from 'lucide-react';
 import { BtrcLogo } from '../../components/layout/BtrcLogo.jsx';
 import { TextInput, PasswordInput } from '../../components/forms/TextInput.jsx';
 import { Checkbox } from '../../components/forms/Checkbox.jsx';
@@ -13,7 +13,6 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
 
   const { login } = useAuth();
   const { addToast } = useToast();
@@ -24,25 +23,12 @@ export const LoginPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError('');
-
-    if (!username.trim()) {
-      setError('Please enter your username.');
-      return;
-    }
-
-    if (!password.trim()) {
-      setError('Please enter your password.');
-      return;
-    }
 
     try {
       setIsLoading(true);
       await login(username, password, rememberMe);
-      addToast('Signed in to the NEIR frontend skeleton.', 'success');
+      addToast('Prototype access enabled.', 'success');
       navigate(from, { replace: true });
-    } catch (err) {
-      setError(err.message || 'Unable to sign in.');
     } finally {
       setIsLoading(false);
     }
@@ -73,9 +59,9 @@ export const LoginPage = () => {
               <div className="flex items-start gap-3">
                 <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-semibold text-white">Frontend skeleton</p>
+                  <p className="text-sm font-semibold text-white">Prototype access</p>
                   <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Production authentication and operational APIs are not connected yet.
+                    Authentication is bypassed while we build and review the frontend.
                   </p>
                 </div>
               </div>
@@ -92,16 +78,9 @@ export const LoginPage = () => {
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-[#102A43] tracking-tight">Administrative sign in</h2>
               <p className="text-sm text-[#52677A] mt-1">
-                Use any non-empty username and password while this project is running with mock authentication.
+                Username and password are optional in the current frontend prototype.
               </p>
             </div>
-
-            {error && (
-              <div className="mb-5 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700 flex items-start gap-2.5" role="alert">
-                <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-                <span>{error}</span>
-              </div>
-            )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <TextInput
@@ -110,10 +89,9 @@ export const LoginPage = () => {
                 name="username"
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
-                placeholder="Enter username"
+                placeholder="Optional"
                 icon={User}
                 autoComplete="username"
-                required
               />
 
               <PasswordInput
@@ -122,9 +100,8 @@ export const LoginPage = () => {
                 name="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                placeholder="Enter password"
+                placeholder="Optional"
                 autoComplete="current-password"
-                required
               />
 
               <Checkbox
@@ -145,7 +122,7 @@ export const LoginPage = () => {
             </form>
 
             <div className="mt-8 pt-4 border-t border-[#D8E0E8] text-center text-xs text-[#748597]">
-              Production authentication will replace this mock login during backend integration.
+              Click Sign in to continue directly to the dashboard.
             </div>
           </div>
         </div>
