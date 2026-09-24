@@ -21,6 +21,19 @@ export const TextInput = ({
   const fieldLabel = translated(t, label);
   const supportingText = translated(t, error || helperText);
   const fieldSx = density === 'compact' ? muiFilterSx : muiFieldSx;
+  const shouldShrinkLabel = type === 'date' || focused || Boolean(value);
+  const inputLabelProps = {
+    shrink: shouldShrinkLabel,
+    ...(Icon
+      ? {
+          sx: {
+            '&:not(.MuiInputLabel-shrink)': {
+              transform: `translate(46px, ${density === 'compact' ? '9px' : '16px'}) scale(1)`,
+            },
+          },
+        }
+      : {}),
+  };
 
   return (
     <div className={className}>
@@ -48,9 +61,7 @@ export const TextInput = ({
         size="medium"
         fullWidth
         autoComplete={props.autoComplete}
-        InputLabelProps={{
-          shrink: type === 'date' || focused || Boolean(value),
-        }}
+        InputLabelProps={inputLabelProps}
         InputProps={{
           readOnly,
           startAdornment: Icon ? (
