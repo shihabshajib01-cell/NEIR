@@ -1,12 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+@import "./system/typography.css";
 
 @layer base {
   :root {
-    --font-sans: 'Poppins', 'Noto Sans Bengali', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-bangla: 'Noto Sans Bengali', 'Poppins', 'Noto Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-
     --color-primary: #01ADC1;
     --color-primary-dark: #028A97;
     --color-primary-deep: #0A767E;
@@ -62,13 +58,6 @@
     --z-toast: 70;
     --z-tooltip: 80;
 
-    --fs-h1: 2.5rem;
-    --fs-h2: 1.75rem;
-    --fs-h3: 1.375rem;
-    --fs-body-lg: 1.125rem;
-    --fs-body: 1rem;
-    --fs-body-sm: 0.875rem;
-    --fs-caption: 0.75rem;
   }
 
   html {
@@ -91,23 +80,13 @@
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
-    font-family: var(--font-sans);
     background-color: var(--color-background);
     color: var(--color-text-primary);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
-  html[lang='bn'] body {
-    font-family: var(--font-bangla);
-  }
 
-  button,
-  input,
-  select,
-  textarea {
-    font: inherit;
-  }
 
   input,
   select,
@@ -136,30 +115,6 @@
 
   h1, h2, h3, h4, p {
     margin-top: 0;
-  }
-}
-
-@media (max-width: 1439px) {
-  :root {
-    --fs-h1: 2.25rem;
-    --fs-h2: 1.625rem;
-    --fs-h3: 1.25rem;
-  }
-}
-
-@media (max-width: 1023px) {
-  :root {
-    --fs-h1: 2rem;
-    --fs-h2: 1.5rem;
-    --fs-h3: 1.125rem;
-  }
-}
-
-@media (max-width: 639px) {
-  :root {
-    --fs-h1: 1.75rem;
-    --fs-h2: 1.375rem;
-    --fs-h3: 1.125rem;
   }
 }
 

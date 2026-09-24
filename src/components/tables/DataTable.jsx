@@ -13,16 +13,16 @@ export const MobileRecordCard = ({ title, subtitle, status, fields = [], actions
     <article className={'p-4 bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] flex flex-col gap-3 ' + className}>
       <div className="flex items-start justify-between gap-2 pb-3 border-b border-[var(--color-border-subtle)]">
         <div className="min-w-0">
-          <h4 className="text-sm font-semibold text-[var(--color-text-primary)] leading-tight break-words">{title}</h4>
-          {subtitle && <p className="text-xs text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
+          <h4 className="type-body-strong text-[var(--color-text-primary)] break-words">{title}</h4>
+          {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
         </div>
         {status && <StatusBadge status={status} size="sm" />}
       </div>
       <dl className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
         {fields.map((field, index) => (
           <div key={field.label || index} className="min-w-0">
-            <dt className="text-[11px] text-[var(--color-text-muted)]">{t(field.label)}</dt>
-            <dd className={'mt-0.5 text-sm font-medium text-[var(--color-text-primary)] break-words ' + (field.isMono ? 'font-mono tabular-nums' : '')}>{field.value || '—'}</dd>
+            <dt className="type-badge text-[var(--color-text-muted)]">{t(field.label)}</dt>
+            <dd className={'mt-0.5 type-table-cell font-medium text-[var(--color-text-primary)] break-words ' + (field.isMono ? 'font-mono tabular-nums' : '')}>{field.value || '—'}</dd>
           </div>
         ))}
       </dl>
@@ -77,7 +77,7 @@ export const DataTable = ({
 
           <div className={'overflow-x-auto w-full ' + (renderMobileCard ? 'hidden lg:block' : 'block')}>
             <table className="w-full min-w-max text-left border-collapse">
-              <thead className="bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] text-[var(--color-text-secondary)] text-sm font-semibold select-none">
+              <thead className="bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] text-[var(--color-text-secondary)] type-table-head select-none">
                 <tr>
                   {selectable && (
                     <th className="w-10 px-3.5 py-3 text-center">
@@ -88,7 +88,7 @@ export const DataTable = ({
                     <th
                       key={column.key}
                       style={{ width: column.width }}
-                      className={'px-3.5 py-3 font-semibold whitespace-nowrap ' + (column.sortable ? 'cursor-pointer hover:text-[var(--color-primary-dark)] transition-colors' : '')}
+                      className={'px-3.5 py-3 whitespace-nowrap ' + (column.sortable ? 'cursor-pointer hover:text-[var(--color-primary-dark)] transition-colors' : '')}
                       onClick={() => column.sortable && handleSort(column.key)}
                     >
                       <div className="flex items-center gap-1.5">
@@ -122,7 +122,7 @@ export const DataTable = ({
                       {columns.map((column) => {
                         const cellValue = row[column.key];
                         return (
-                          <td key={column.key} className={'px-3.5 py-2.5 text-sm align-middle ' + (column.isMono ? 'font-mono tabular-nums' : '')}>
+                          <td key={column.key} className={'px-3.5 py-2.5 type-table-cell align-middle ' + (column.isMono ? 'font-mono tabular-nums' : '')}>
                             {column.render ? column.render(cellValue, row, index) : <SafeText value={cellValue} mode={column.truncate || 'normal'} />}
                           </td>
                         );

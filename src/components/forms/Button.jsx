@@ -18,9 +18,9 @@ export const Button = ({
   const { t } = usePreferences();
 
   const sizeClasses = {
-    sm: 'min-h-8 px-3 text-xs gap-1.5 rounded-lg font-semibold',
-    md: 'min-h-10 px-4 text-sm gap-2 rounded-lg font-semibold',
-    lg: 'min-h-11 px-5 text-base gap-2.5 rounded-xl font-semibold',
+    sm: 'min-h-8 px-3 type-button-sm gap-1.5 rounded-lg',
+    md: 'min-h-10 px-4 type-button gap-2 rounded-lg',
+    lg: 'min-h-11 px-5 type-button-lg gap-2.5 rounded-xl',
   };
 
   const variantClasses = {

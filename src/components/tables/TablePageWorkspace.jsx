@@ -53,10 +53,10 @@ export const TableSummaryStrip = ({ items = [], className = '' }) => {
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-2xl font-semibold tracking-tight text-[var(--color-text-primary)] font-mono tabular-nums leading-none">
+                <p className="type-kpi text-[var(--color-text-primary)]">
                   {item.value ?? item.count ?? 0}
                 </p>
-                <p className="text-xs font-medium text-[var(--color-text-secondary)] mt-2 truncate">{t(item.label)}</p>
+                <p className="type-meta font-medium text-[var(--color-text-secondary)] mt-2 truncate">{t(item.label)}</p>
               </div>
               <div className={'w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + config.icon}>
                 <Icon className="w-4 h-4" />
@@ -101,9 +101,9 @@ export const TablePageWorkspace = ({
             <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center shrink-0">
               <Layers3 className="w-4 h-4" />
             </div>
-            <h2 className="text-sm font-semibold text-[var(--color-text-primary)] truncate">{t(title)}</h2>
+            <h2 className="type-body-strong text-[var(--color-text-primary)] truncate">{t(title)}</h2>
             {typeof count === 'number' && (
-              <span className="inline-flex items-center rounded-full border border-[var(--color-border)] bg-[var(--color-background-subtle)] px-2 py-0.5 text-[11px] font-medium text-[var(--color-text-secondary)] whitespace-nowrap">
+              <span className="inline-flex items-center rounded-full border border-[var(--color-border)] bg-[var(--color-background-subtle)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
                 {count} {t(count === 1 ? 'record' : 'records')}
               </span>
             )}
@@ -122,14 +122,14 @@ export const TablePageWorkspace = ({
                     key={tab.id}
                     type="button"
                     onClick={() => onTabChange?.(tab.id)}
-                    className={'min-h-10 px-3 py-2 text-xs font-medium border-b-2 flex items-center gap-1.5 transition-colors whitespace-nowrap ' +
+                    className={'min-h-10 px-3 py-2 type-meta font-medium border-b-2 flex items-center gap-1.5 transition-colors whitespace-nowrap ' +
                       (active
                         ? 'border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                         : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-background-subtle)]')}
                   >
                     <span>{t(tab.label)}</span>
                     {typeof tab.count === 'number' && (
-                      <span className={'min-w-5 h-5 px-1.5 rounded-full inline-flex items-center justify-center text-[10px] font-semibold tabular-nums ' +
+                      <span className={'min-w-5 h-5 px-1.5 rounded-full inline-flex items-center justify-center type-badge tabular-nums ' +
                         (active ? 'bg-[var(--color-primary-light)] text-[var(--color-primary-dark)]' : 'bg-[var(--color-background)] text-[var(--color-text-muted)]')}>
                         {tab.count}
                       </span>

@@ -12,7 +12,7 @@ const FieldLabel = ({ htmlFor, label, required = false }) => {
   return (
     <label
       htmlFor={htmlFor}
-      className="text-sm font-medium leading-5 text-[var(--color-text-primary)]"
+      className="type-label text-[var(--color-text-primary)]"
     >
       {label}
       {required ? <span className="text-[var(--color-error)]" aria-hidden="true"> *</span> : null}
@@ -222,7 +222,7 @@ export const FileUpload = ({ label, helperText, accept, onFileSelect, className 
 
   return (
     <div className={'flex flex-col gap-1.5 ' + className}>
-      {label && <label className="text-sm font-medium text-[var(--color-text-primary)]">{t(label)}</label>}
+      {label && <label className="type-label text-[var(--color-text-primary)]">{t(label)}</label>}
       <div className="border-2 border-dashed border-[var(--color-border)] rounded-xl p-5 text-center bg-[var(--color-background-subtle)] hover:bg-[var(--color-primary-light)] transition-colors relative cursor-pointer">
         <input type="file" accept={accept} onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">
@@ -289,7 +289,7 @@ export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, c
 
   return (
     <div className={'flex flex-col gap-1.5 ' + className}>
-      {label && <label className="text-sm font-medium text-[var(--color-text-primary)]">{t(label)}</label>}
+      {label && <label className="type-label text-[var(--color-text-primary)]">{t(label)}</label>}
       <div className="border-2 border-dashed border-[rgba(1,173,193,0.35)] rounded-xl p-5 text-center bg-[rgba(1,173,193,0.04)] hover:bg-[var(--color-primary-light)] transition-colors relative cursor-pointer">
         <input type="file" accept=".csv,text/csv" onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">

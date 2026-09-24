@@ -11,7 +11,7 @@ const FieldLabel = ({ id, label, required = false }) => {
   if (!label) return null;
 
   return (
-    <label id={id} className="text-sm font-medium leading-5 text-[var(--color-text-primary)]">
+    <label id={id} className="type-label text-[var(--color-text-primary)]">
       {label}
       {required ? <span className="text-[var(--color-error)]" aria-hidden="true"> *</span> : null}
     </label>
