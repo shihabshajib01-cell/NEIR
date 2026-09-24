@@ -54,7 +54,7 @@ function updateFile(filePath) {
   const after = transform(before);
   if (after !== before) {
     fs.writeFileSync(filePath, after);
-    process.stdout.write(\`updated \${path.relative(root, filePath)}\n\`);
+    process.stdout.write('updated ' + path.relative(root, filePath) + '\\n');
   }
 }
 
