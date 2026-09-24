@@ -1,8 +1,6 @@
 {
-  "name": "BTRC NEIR Admin Portal 2",
-  "description": "National Equipment Identity Register (NEIR) Administrative Portal frontend foundation and operational interface for Bangladesh Telecommunication Regulatory Commission.",
+  "name": "BTRC NEIR Admin Portal",
+  "description": "Frontend skeleton for the National Equipment Identity Register administrative portal.",
   "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "majorCapabilities": []
 }
