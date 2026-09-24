@@ -26,7 +26,7 @@ export const AutoRegistrationPage = () => {
       return;
     }
     if (!currentPhone) {
-      setError('Please provide current active phone number (MSISDN).');
+      setError('Please provide the current phone number.');
       return;
     }
 
@@ -83,9 +83,10 @@ export const AutoRegistrationPage = () => {
             />
 
             <PhoneInput
-              label="Current Phone Number (MSISDN)"
+              label="Current Phone Number"
               value={currentPhone}
               onChange={(e) => setCurrentPhone(e.target.value)}
+              helperText="Active MSISDN to pair with this IMEI"
               required
             />
 
