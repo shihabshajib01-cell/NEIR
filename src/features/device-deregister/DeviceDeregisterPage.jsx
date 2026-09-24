@@ -105,17 +105,18 @@ export const DeviceDeregisterPage = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <PhoneInput
-                label="Current Phone Number (MSISDN)"
+                label="Current Phone Number"
                 value={currentPhone}
                 onChange={(e) => setCurrentPhone(e.target.value)}
+                helperText="Registered MSISDN paired with this IMEI"
                 required
               />
 
               <PhoneInput
-                label="New Phone Number (Optional Transfer)"
+                label="New Phone Number"
                 value={newPhone}
                 onChange={(e) => setNewPhone(e.target.value)}
-                helperText="Leave empty to release IMEI to unassigned pool"
+                helperText="Optional. Leave blank to unassign the IMEI"
               />
             </div>
 
