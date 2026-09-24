@@ -199,8 +199,9 @@ export const DataTable = ({
                           align={column.align || 'left'}
                           sx={{
                             width: column.width,
-                            minWidth: column.minWidth,
+                            minWidth: column.minWidth ?? column.width,
                             ...(column.maxWidth ? { maxWidth: column.maxWidth } : {}),
+                            ...(column.width ? { flexShrink: 0 } : {}),
                           }}
                         >
                           {sortable ? (
@@ -259,7 +260,7 @@ export const DataTable = ({
                               align={column.align || 'left'}
                               sx={{
                                 width: column.width,
-                                minWidth: column.minWidth,
+                                minWidth: column.minWidth ?? column.width,
                                 ...(column.maxWidth ? { maxWidth: column.maxWidth } : {}),
                               }}
                               className={column.isMono ? 'font-mono tabular-nums' : ''}
@@ -299,7 +300,9 @@ export const DataTable = ({
             flexShrink: 0,
             '& .MuiTablePagination-toolbar': {
               justifyContent: 'flex-end',
-              gap: '8px',
+              gap: '10px',
+              paddingLeft: '16px',
+              paddingRight: '12px',
             },
             '& .MuiTablePagination-spacer': {
               display: 'none',

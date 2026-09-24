@@ -9,7 +9,9 @@ import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { SpecialRegistrationReviewModal } from './SpecialRegistrationReviewModal.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Eye, Download, Calendar, Filter } from 'lucide-react';
+import { Eye, Download, Calendar } from 'lucide-react';
+
+const DEFAULT_PAGE_SIZE = 10;
 
 export const SpecialRegistrationPage = () => {
   const [data, setData] = useState([]);
@@ -20,7 +22,7 @@ export const SpecialRegistrationPage = () => {
   const [fromDate, setFromDate] = useState('2026-03-01');
   const [toDate, setToDate] = useState('2026-03-24');
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const { addToast } = useToast();
@@ -67,10 +69,11 @@ export const SpecialRegistrationPage = () => {
   };
 
   const columns = [
-    { key: 'sl', title: 'SL', width: '60px', isMono: true },
+    { key: 'sl', title: 'SL', width: '48px', maxWidth: '48px', isMono: true, sortable: false },
     {
       key: 'imei',
       title: 'IMEI Number',
+      minWidth: '250px',
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
@@ -82,11 +85,13 @@ export const SpecialRegistrationPage = () => {
     {
       key: 'category',
       title: 'Device Category',
+      minWidth: '210px',
       render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
     },
     {
       key: 'requesterName',
       title: 'Requester / NID',
+      minWidth: '230px',
       render: (val, row) => (
         <div className="flex flex-col">
           <span className="font-medium text-[#202338]">{val}</span>
@@ -97,17 +102,24 @@ export const SpecialRegistrationPage = () => {
     {
       key: 'status',
       title: 'Status',
+      width: '130px',
+      minWidth: '130px',
       render: (val) => <StatusBadge status={val} size="sm" />,
     },
     {
       key: 'date',
       title: 'Date',
+      width: '170px',
+      minWidth: '170px',
       isMono: true,
       render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
     },
     {
       key: 'actions',
       title: 'Action',
+      width: '132px',
+      minWidth: '132px',
+      sortable: false,
       render: (_, row) => (
         <Button
           variant="outline"
@@ -151,6 +163,7 @@ export const SpecialRegistrationPage = () => {
         onTabChange={(id) => {
           setStatusFilter(id);
           setPage(1);
+          setPageSize(DEFAULT_PAGE_SIZE);
         }}
         showSummary
         toolbar={
@@ -161,6 +174,8 @@ export const SpecialRegistrationPage = () => {
                   onReset={() => {
                     setSearchTerm('');
                     setStatusFilter('All');
+                    setPage(1);
+                    setPageSize(DEFAULT_PAGE_SIZE);
                   }}
                   filters={
                     <div className="flex items-center gap-2">
@@ -197,7 +212,10 @@ export const SpecialRegistrationPage = () => {
                 totalItems={total}
                 pageSize={pageSize}
                 onPageChange={setPage}
-                onPageSizeChange={setPageSize}
+                onPageSizeChange={(size) => {
+                  setPageSize(size);
+                  setPage(1);
+                }}
                 renderMobileCard={(row) => (
                   <MobileRecordCard
                     title={row.imei}

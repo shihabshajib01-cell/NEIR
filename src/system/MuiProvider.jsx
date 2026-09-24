@@ -183,6 +183,7 @@ const muiTheme = createTheme({
           lineHeight: 'var(--type-compact-line)',
           paddingTop: 13,
           paddingBottom: 13,
+          boxShadow: 'inset 0 -1px 0 var(--color-border)',
           zIndex: 2,
         },
         sizeSmall: {
@@ -240,7 +241,7 @@ const muiTheme = createTheme({
           paddingRight: 8,
           justifyContent: 'flex-end',
           flexWrap: 'wrap',
-          columnGap: 8,
+          columnGap: 10,
           rowGap: 4,
         },
         spacer: {
@@ -258,7 +259,10 @@ const muiTheme = createTheme({
           whiteSpace: 'nowrap',
         },
         actions: {
-          marginLeft: 4,
+          marginLeft: 2,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
         },
       },
     },
