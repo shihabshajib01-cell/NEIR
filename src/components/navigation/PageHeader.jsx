@@ -1,15 +1,15 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 
 export const Breadcrumbs = ({ items = [] }) => {
   if (!items || items.length === 0) return null;
 
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#748597] mb-1.5">
+    <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#7A8197] mb-2">
       <Link
         to="/dashboard"
-        className="flex items-center gap-1 hover:text-[#172B4D] transition-colors"
+        className="flex items-center gap-1 hover:text-[#4B5694] transition-colors"
         title="Dashboard"
       >
         <Home className="w-3.5 h-3.5" />
@@ -18,15 +18,15 @@ export const Breadcrumbs = ({ items = [] }) => {
         const isLast = index === items.length - 1;
         return (
           <React.Fragment key={index}>
-            <ChevronRight className="w-3 h-3 text-[#9AAEC0] shrink-0" />
+            <ChevronRight className="w-3 h-3 text-[#A0A6B8] shrink-0" />
             {isLast || !item.href ? (
-              <span className={`font-medium truncate ${isLast ? 'text-[#172B4D]' : 'text-[#748597]'}`}>
+              <span className={'font-medium truncate ' + (isLast ? 'text-[#202338]' : 'text-[#7A8197]')}>
                 {item.label}
               </span>
             ) : (
               <Link
                 to={item.href}
-                className="hover:text-[#172B4D] transition-colors truncate"
+                className="hover:text-[#4B5694] transition-colors truncate"
               >
                 {item.label}
               </Link>
@@ -46,14 +46,14 @@ export const PageHeader = ({
   className = '',
 }) => {
   return (
-    <div className={`pb-4 mb-5 border-b border-[#D8E0E8] flex flex-col md:flex-row md:items-center md:justify-between gap-3 ${className}`}>
-      <div>
+    <div className={'pb-5 mb-6 border-b border-[#E2E5F0] flex flex-col md:flex-row md:items-center md:justify-between gap-4 ' + className}>
+      <div className="min-w-0">
         {breadcrumbs && breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
-        <h1 className="text-2xl font-bold tracking-tight text-[#102A43] leading-tight">
+        <h1 className="text-2xl font-semibold tracking-tight text-[#202338] leading-tight">
           {title}
         </h1>
         {description && (
-          <p className="text-xs text-[#52677A] mt-1 leading-relaxed max-w-3xl">
+          <p className="text-sm text-[#626981] mt-1.5 leading-relaxed max-w-3xl">
             {description}
           </p>
         )}
@@ -68,35 +68,30 @@ export const PageHeader = ({
 };
 
 export const ContextualSecondaryNav = ({
-  tabs = [], // [{ id, label, href, count, icon: Icon }]
+  tabs = [],
   activeId,
   onTabChange,
   className = '',
 }) => {
   return (
-    <div className={`border-b border-[#D8E0E8] mb-5 ${className}`}>
+    <div className={'border-b border-[#E2E5F0] mb-5 ' + className}>
       <nav className="flex items-center gap-1 -mb-px overflow-x-auto" aria-label="Secondary Navigation">
         {tabs.map((tab) => {
           const isActive = activeId ? activeId === tab.id : false;
           const Icon = tab.icon;
+          const classes = 'inline-flex items-center gap-2 py-2.5 px-3.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ' +
+            (isActive
+              ? 'border-[#4B5694] text-[#4B5694] font-semibold bg-[#EEF0FA] rounded-t-lg'
+              : 'border-transparent text-[#626981] hover:text-[#4B5694] hover:border-[#C9CEE0]');
 
           if (tab.href) {
             return (
-              <Link
-                key={tab.id || tab.href}
-                to={tab.href}
-                className={`inline-flex items-center gap-2 py-2.5 px-3.5 text-xs font-medium border-b-2 transition-colors whitespace-nowrap ${
-                  isActive
-                    ? 'border-[#14804A] text-[#10683D] font-semibold bg-[#14804A]/5 rounded-t-md'
-                    : 'border-transparent text-[#52677A] hover:text-[#172B4D] hover:border-[#C1CBD6]'
-                }`}
-              >
+              <Link key={tab.id || tab.href} to={tab.href} className={classes}>
                 {Icon && <Icon className="w-3.5 h-3.5" />}
                 <span>{tab.label}</span>
                 {typeof tab.count === 'number' && (
-                  <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-                    isActive ? 'bg-[#10683D] text-white' : 'bg-[#EAEFF5] text-[#52677A]'
-                  }`}>
+                  <span className={'px-1.5 py-0.5 rounded-full text-[11px] font-medium ' +
+                    (isActive ? 'bg-[#4B5694] text-white' : 'bg-[#EEF0FA] text-[#626981]')}>
                     {tab.count}
                   </span>
                 )}
@@ -105,22 +100,12 @@ export const ContextualSecondaryNav = ({
           }
 
           return (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => onTabChange && onTabChange(tab.id)}
-              className={`inline-flex items-center gap-2 py-2.5 px-3.5 text-xs font-medium border-b-2 transition-colors whitespace-nowrap cursor-pointer ${
-                isActive
-                  ? 'border-[#14804A] text-[#10683D] font-semibold bg-[#14804A]/5 rounded-t-md'
-                  : 'border-transparent text-[#52677A] hover:text-[#172B4D] hover:border-[#C1CBD6]'
-              }`}
-            >
+            <button key={tab.id} type="button" onClick={() => onTabChange && onTabChange(tab.id)} className={classes + ' cursor-pointer'}>
               {Icon && <Icon className="w-3.5 h-3.5" />}
               <span>{tab.label}</span>
               {typeof tab.count === 'number' && (
-                <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
-                  isActive ? 'bg-[#10683D] text-white' : 'bg-[#EAEFF5] text-[#52677A]'
-                }`}>
+                <span className={'px-1.5 py-0.5 rounded-full text-[11px] font-medium ' +
+                  (isActive ? 'bg-[#4B5694] text-white' : 'bg-[#EEF0FA] text-[#626981]')}>
                   {tab.count}
                 </span>
               )}
