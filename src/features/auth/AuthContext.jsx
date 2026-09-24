@@ -1,58 +1,75 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext(null);
 
+const LOCAL_KEY = 'neir_admin_session';
+const SESSION_KEY = 'neir_admin_session';
+
+const readStoredSession = () => {
+  try {
+    const local = localStorage.getItem(LOCAL_KEY);
+    if (local) return JSON.parse(local);
+
+    const session = sessionStorage.getItem(SESSION_KEY);
+    if (session) return JSON.parse(session);
+  } catch {
+    return null;
+  }
+
+  return null;
+};
+
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
-    try {
-      const saved = localStorage.getItem('neir_admin_user');
-      return saved ? JSON.parse(saved) : {
-        id: 'usr-1',
-        fullName: 'Md. Anwarul Kabir',
-        username: 'admin.btrc',
-        email: 'anwarul.kabir@btrc.gov.bd',
-        role: 'Super Admin',
-        designation: 'Director General',
-        department: 'Engineering and Operations Division'
-      };
-    } catch {
-      return null;
-    }
-  });
+  const [session, setSession] = useState(readStoredSession);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return Boolean(localStorage.getItem('neir_admin_auth') || 'true');
-  });
-
-  const login = async (username, password) => {
-    if (!username || !password) {
+  const login = async (username, password, remember = false) => {
+    if (!username?.trim() || !password?.trim()) {
       throw new Error('Please enter both username and password.');
     }
+
     const mockUser = {
-      id: 'usr-1',
-      fullName: username === 'admin' ? 'Md. Anwarul Kabir' : username,
-      username: username,
-      email: `${username}@btrc.gov.bd`,
-      role: 'Super Admin',
-      designation: 'Director General',
-      department: 'Engineering and Operations Division'
+      id: 'mock-admin',
+      fullName: username.trim(),
+      username: username.trim(),
+      email: username.includes('@') ? username.trim() : '',
+      role: 'Admin',
+      designation: '',
+      department: '',
     };
-    setUser(mockUser);
-    setIsAuthenticated(true);
-    localStorage.setItem('neir_admin_user', JSON.stringify(mockUser));
-    localStorage.setItem('neir_admin_auth', 'true');
+
+    const nextSession = {
+      user: mockUser,
+      authenticated: true,
+    };
+
+    localStorage.removeItem(LOCAL_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+
+    if (remember) {
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(nextSession));
+    } else {
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(nextSession));
+    }
+
+    setSession(nextSession);
     return mockUser;
   };
 
   const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    localStorage.removeItem('neir_admin_user');
-    localStorage.removeItem('neir_admin_auth');
+    localStorage.removeItem(LOCAL_KEY);
+    sessionStorage.removeItem(SESSION_KEY);
+    setSession(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{
+        user: session?.user ?? null,
+        isAuthenticated: Boolean(session?.authenticated && session?.user),
+        login,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -60,8 +77,10 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
+
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
+
   return context;
 };
