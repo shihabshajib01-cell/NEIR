@@ -1,14 +1,24 @@
 import React, { useMemo, useState } from 'react';
-import { ArrowUpDown, ChevronUp, ChevronDown } from 'lucide-react';
+import {
+  Checkbox as MuiCheckbox,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination as MuiTablePagination,
+  TableRow,
+  TableSortLabel,
+} from '@mui/material';
 import { TableSkeleton, EmptyState, ErrorState } from '../feedback/FeedbackStates.jsx';
-import { Pagination } from './Pagination.jsx';
 import { StatusBadge } from '../data-display/StatusBadge.jsx';
 import { SafeText } from '../data-display/SafeText.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
-import { Checkbox as AppCheckbox } from '../forms/Checkbox.jsx';
 
 export const MobileRecordCard = ({ title, subtitle, status, fields = [], actions, className = '' }) => {
   const { t } = usePreferences();
+
   return (
     <article className={'p-4 bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] flex flex-col gap-3 ' + className}>
       <div className="flex items-start justify-between gap-2 pb-3 border-b border-[var(--color-border-subtle)]">
@@ -18,51 +28,113 @@ export const MobileRecordCard = ({ title, subtitle, status, fields = [], actions
         </div>
         {status && <StatusBadge status={status} size="sm" />}
       </div>
+
       <dl className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
         {fields.map((field, index) => (
           <div key={field.label || index} className="min-w-0">
             <dt className="type-badge text-[var(--color-text-muted)]">{t(field.label)}</dt>
-            <dd className={'mt-0.5 type-table-cell font-medium text-[var(--color-text-primary)] break-words ' + (field.isMono ? 'font-mono tabular-nums' : '')}>{field.value || '—'}</dd>
+            <dd className={'mt-0.5 type-table-cell font-medium text-[var(--color-text-primary)] break-words ' + (field.isMono ? 'font-mono tabular-nums' : '')}>
+              {field.value || '—'}
+            </dd>
           </div>
         ))}
       </dl>
+
       {actions && <div className="pt-3 border-t border-[var(--color-border-subtle)] flex items-center justify-end gap-2">{actions}</div>}
     </article>
   );
 };
 
 export const DataTable = ({
-  columns = [], data = [], keyField = 'id', isLoading = false, isError = false, errorMessage, onRetry,
-  emptyTitle = 'No records found', emptyDescription = 'There are no records matching your current filter criteria.',
-  selectable = false, selectedKeys = [], onSelectChange, pagination = false, currentPage = 1, totalPages = 1,
-  totalItems = 0, pageSize = 10, onPageChange, onPageSizeChange, renderMobileCard, onRowClick, embedded = false, className = '',
+  columns = [],
+  data = [],
+  keyField = 'id',
+  isLoading = false,
+  isError = false,
+  errorMessage,
+  onRetry,
+  emptyTitle = 'No records found',
+  emptyDescription = 'There are no records matching your current filter criteria.',
+  selectable = false,
+  selectedKeys = [],
+  onSelectChange,
+  pagination = false,
+  currentPage = 1,
+  totalPages = 1,
+  totalItems = 0,
+  pageSize = 10,
+  pageSizeOptions = [5, 10, 25, 50],
+  onPageChange,
+  onPageSizeChange,
+  renderMobileCard,
+  onRowClick,
+  embedded = false,
+  stickyHeader = true,
+  maxHeight = 'min(62vh, 640px)',
+  className = '',
 }) => {
-  const { t } = usePreferences();
+  const { t, textSize } = usePreferences();
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const dense = textSize === 'compact';
 
-  const handleSort = (key) => setSortConfig((previous) => previous.key === key
-    ? { key, direction: previous.direction === 'asc' ? 'desc' : 'asc' }
-    : { key, direction: 'asc' });
+  const handleSort = (key) => {
+    setSortConfig((previous) => previous.key === key
+      ? { key, direction: previous.direction === 'asc' ? 'desc' : 'asc' }
+      : { key, direction: 'asc' });
+  };
 
   const sortedData = useMemo(() => {
     if (!sortConfig.key) return data;
+
     return [...data].sort((a, b) => {
       const av = a?.[sortConfig.key];
       const bv = b?.[sortConfig.key];
+
       if (av == null && bv == null) return 0;
       if (av == null) return 1;
       if (bv == null) return -1;
-      const comparison = String(av).localeCompare(String(bv), undefined, { numeric: true, sensitivity: 'base' });
+
+      const comparison = String(av).localeCompare(String(bv), undefined, {
+        numeric: true,
+        sensitivity: 'base',
+      });
+
       return sortConfig.direction === 'asc' ? comparison : -comparison;
     });
   }, [data, sortConfig]);
 
-  const handleSelectAll = (event) => onSelectChange?.(event.target.checked ? data.map((item) => item[keyField]) : []);
-  const handleSelectRow = (key) => onSelectChange?.(selectedKeys.includes(key) ? selectedKeys.filter((item) => item !== key) : [...selectedKeys, key]);
-  const allSelected = data.length > 0 && selectedKeys.length === data.length;
+  const pageKeys = data.map((item) => item[keyField]);
+  const selectedOnPage = pageKeys.filter((key) => selectedKeys.includes(key));
+  const allSelected = pageKeys.length > 0 && selectedOnPage.length === pageKeys.length;
+  const partiallySelected = selectedOnPage.length > 0 && !allSelected;
+
+  const handleSelectAll = (event) => {
+    if (!onSelectChange) return;
+
+    if (event.target.checked) {
+      onSelectChange([...new Set([...selectedKeys, ...pageKeys])]);
+      return;
+    }
+
+    onSelectChange(selectedKeys.filter((key) => !pageKeys.includes(key)));
+  };
+
+  const handleSelectRow = (key) => {
+    if (!onSelectChange) return;
+    onSelectChange(
+      selectedKeys.includes(key)
+        ? selectedKeys.filter((item) => item !== key)
+        : [...selectedKeys, key]
+    );
+  };
+
+  const desktopVisibleClass = renderMobileCard ? 'hidden lg:block' : 'block';
+  const wrapperClass = embedded
+    ? 'bg-white overflow-hidden flex flex-col'
+    : 'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col';
 
   return (
-    <div className={(embedded ? 'bg-white overflow-hidden flex flex-col ' : 'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col ') + className}>
+    <div className={wrapperClass + ' ' + className}>
       {isLoading && <TableSkeleton rows={pageSize || 5} cols={columns.length} />}
       {!isLoading && isError && <ErrorState message={errorMessage} onRetry={onRetry} />}
       {!isLoading && !isError && data.length === 0 && <EmptyState title={emptyTitle} description={emptyDescription} />}
@@ -71,73 +143,157 @@ export const DataTable = ({
         <>
           {renderMobileCard && (
             <div className="lg:hidden p-3 space-y-3 bg-[var(--color-background)]">
-              {sortedData.map((row, index) => <div key={row[keyField] || index}>{renderMobileCard(row, index)}</div>)}
+              {sortedData.map((row, index) => (
+                <div key={row[keyField] || index}>{renderMobileCard(row, index)}</div>
+              ))}
             </div>
           )}
 
-          <div className={'overflow-x-auto w-full ' + (renderMobileCard ? 'hidden lg:block' : 'block')}>
-            <table className="w-full min-w-max text-left border-collapse">
-              <thead className="bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] text-[var(--color-text-secondary)] type-table-head select-none">
-                <tr>
-                  {selectable && (
-                    <th className="w-10 px-3.5 py-3 text-center">
-                      <AppCheckbox checked={allSelected} indeterminate={selectedKeys.length > 0 && selectedKeys.length < data.length} onChange={handleSelectAll} ariaLabel="Select all records" />
-                    </th>
-                  )}
-                  {columns.map((column) => (
-                    <th
-                      key={column.key}
-                      style={{ width: column.width }}
-                      className={'px-3.5 py-3 whitespace-nowrap ' + (column.sortable ? 'cursor-pointer hover:text-[var(--color-primary-dark)] transition-colors' : '')}
-                      onClick={() => column.sortable && handleSort(column.key)}
-                    >
-                      <div className="flex items-center gap-1.5">
-                        <span>{t(column.title)}</span>
-                        {column.sortable && (
-                          sortConfig.key === column.key
-                            ? sortConfig.direction === 'asc'
-                              ? <ChevronUp className="w-3.5 h-3.5 text-[var(--color-primary)]" />
-                              : <ChevronDown className="w-3.5 h-3.5 text-[var(--color-primary)]" />
-                            : <ArrowUpDown className="w-3 h-3 text-[var(--color-text-muted)] opacity-60" />
+          <div className={desktopVisibleClass}>
+            <TableContainer
+              component={Paper}
+              elevation={0}
+              square
+              sx={{
+                maxHeight: stickyHeader ? maxHeight : 'none',
+                overflowX: 'auto',
+                borderRadius: 0,
+              }}
+            >
+              <Table
+                stickyHeader={stickyHeader}
+                size={dense ? 'small' : 'medium'}
+                sx={{
+                  minWidth: 720,
+                  tableLayout: 'auto',
+                  '& .MuiTableCell-root': {
+                    whiteSpace: 'nowrap',
+                  },
+                }}
+                aria-label={t('Records table')}
+              >
+                <TableHead>
+                  <TableRow>
+                    {selectable && (
+                      <TableCell padding="checkbox" align="center">
+                        <MuiCheckbox
+                          size="small"
+                          checked={allSelected}
+                          indeterminate={partiallySelected}
+                          onChange={handleSelectAll}
+                          inputProps={{ 'aria-label': t('Select all records') }}
+                        />
+                      </TableCell>
+                    )}
+
+                    {columns.map((column) => {
+                      const activeSort = sortConfig.key === column.key;
+                      return (
+                        <TableCell
+                          key={column.key}
+                          sortDirection={activeSort ? sortConfig.direction : false}
+                          align={column.align || 'left'}
+                          sx={{
+                            width: column.width,
+                            minWidth: column.minWidth,
+                            ...(column.maxWidth ? { maxWidth: column.maxWidth } : {}),
+                          }}
+                        >
+                          {column.sortable ? (
+                            <TableSortLabel
+                              active={activeSort}
+                              direction={activeSort ? sortConfig.direction : 'asc'}
+                              onClick={() => handleSort(column.key)}
+                            >
+                              {t(column.title)}
+                            </TableSortLabel>
+                          ) : (
+                            t(column.title)
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                </TableHead>
+
+                <TableBody>
+                  {sortedData.map((row, index) => {
+                    const key = row[keyField] ?? index;
+                    const selected = selectedKeys.includes(key);
+
+                    return (
+                      <TableRow
+                        hover
+                        key={key}
+                        selected={selected}
+                        onClick={() => onRowClick?.(row)}
+                        sx={{
+                          cursor: onRowClick ? 'pointer' : 'default',
+                          '&:last-child td, &:last-child th': { borderBottom: 0 },
+                        }}
+                      >
+                        {selectable && (
+                          <TableCell
+                            padding="checkbox"
+                            align="center"
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            <MuiCheckbox
+                              size="small"
+                              checked={selected}
+                              onChange={() => handleSelectRow(key)}
+                              inputProps={{ 'aria-label': t('Select record') }}
+                            />
+                          </TableCell>
                         )}
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[var(--color-border-subtle)] bg-white text-[var(--color-text-primary)]">
-                {sortedData.map((row, index) => {
-                  const selected = selectedKeys.includes(row[keyField]);
-                  return (
-                    <tr
-                      key={row[keyField] || index}
-                      onClick={() => onRowClick?.(row)}
-                      className={'transition-colors hover:bg-[rgba(1,173,193,0.045)] ' + (onRowClick ? 'cursor-pointer ' : '') + (selected ? 'bg-[var(--color-primary-light)]' : index % 2 === 1 ? 'bg-[rgba(32,35,56,0.012)]' : 'bg-white')}
-                    >
-                      {selectable && (
-                        <td className="px-3.5 py-2.5 text-center" onClick={(event) => event.stopPropagation()}>
-                          <AppCheckbox checked={selected} onChange={() => handleSelectRow(row[keyField])} ariaLabel="Select record" />
-                        </td>
-                      )}
-                      {columns.map((column) => {
-                        const cellValue = row[column.key];
-                        return (
-                          <td key={column.key} className={'px-3.5 py-2.5 type-table-cell align-middle ' + (column.isMono ? 'font-mono tabular-nums' : '')}>
-                            {column.render ? column.render(cellValue, row, index) : <SafeText value={cellValue} mode={column.truncate || 'normal'} />}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+
+                        {columns.map((column) => {
+                          const cellValue = row[column.key];
+                          return (
+                            <TableCell
+                              key={column.key}
+                              align={column.align || 'left'}
+                              sx={{
+                                width: column.width,
+                                minWidth: column.minWidth,
+                                ...(column.maxWidth ? { maxWidth: column.maxWidth } : {}),
+                              }}
+                              className={column.isMono ? 'font-mono tabular-nums' : ''}
+                            >
+                              {column.render
+                                ? column.render(cellValue, row, index)
+                                : <SafeText value={cellValue} mode={column.truncate || 'normal'} />}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         </>
       )}
 
       {!isLoading && !isError && pagination && totalItems > 0 && (
-        <Pagination currentPage={currentPage} totalPages={totalPages} totalItems={totalItems} pageSize={pageSize} onPageChange={onPageChange} onPageSizeChange={onPageSizeChange} />
+        <MuiTablePagination
+          component="div"
+          count={totalItems}
+          page={Math.max(0, currentPage - 1)}
+          rowsPerPage={pageSize}
+          rowsPerPageOptions={onPageSizeChange ? pageSizeOptions : []}
+          onPageChange={(_, page) => onPageChange?.(page + 1)}
+          onRowsPerPageChange={(event) => onPageSizeChange?.(Number(event.target.value))}
+          labelRowsPerPage={t('Rows per page:')}
+          labelDisplayedRows={({ from, to, count }) => `${from}–${to} ${t('of')} ${count}`}
+          showFirstButton={false}
+          showLastButton={false}
+          sx={{
+            borderTop: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface)',
+          }}
+        />
       )}
     </div>
   );

@@ -21,6 +21,7 @@ import { DateInput } from '../../components/forms/TextInput.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { LoadingState } from '../../components/feedback/FeedbackStates.jsx';
 import { useToast } from '../../components/feedback/Toast.jsx';
+import { DataTable } from '../../components/tables/DataTable.jsx';
 
 export const DashboardPage = () => {
   const [data, setData] = useState(null);
@@ -52,6 +53,49 @@ export const DashboardPage = () => {
   if (isLoading || !data) {
     return <LoadingState message="Loading NEIR Executive Dashboard..." />;
   }
+
+  const trendColumns = [
+    { key: 'month', title: 'Period' },
+    {
+      key: 'whiteList',
+      title: 'White List',
+      isMono: true,
+      render: (value) => <span className="text-[#2E7D32]">{value.toLocaleString()}</span>,
+    },
+    {
+      key: 'grayList',
+      title: 'Gray List',
+      isMono: true,
+      render: (value) => <span className="text-[#B96B18]">{value.toLocaleString()}</span>,
+    },
+    {
+      key: 'blackList',
+      title: 'Blocked',
+      isMono: true,
+      render: (value) => <span className="text-[#C62828]">{value.toLocaleString()}</span>,
+    },
+  ];
+
+  const operatorColumns = [
+    { key: 'operator', title: 'Operator' },
+    {
+      key: 'autoCount',
+      title: 'Auto Sync',
+      isMono: true,
+      render: (value) => <span className="text-[#028A97]">{value}</span>,
+    },
+    {
+      key: 'deRegCount',
+      title: 'De-Reg',
+      isMono: true,
+      render: (value) => <span className="text-[#01ADC1]">{value}</span>,
+    },
+    {
+      key: 'share',
+      title: 'Share',
+      render: (value) => <span className="font-semibold">{value}</span>,
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -187,27 +231,14 @@ export const DashboardPage = () => {
                 <h4 className="text-xs font-semibold uppercase tracking-wider text-[#626981] mb-2">
                   Recent 6-Month EIR Trajectory
                 </h4>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-xs text-left">
-                    <thead className="text-[#7A8197] border-b border-[#E2E5F0] font-medium">
-                      <tr>
-                        <th className="py-1.5">Period</th>
-                        <th className="py-1.5">White List</th>
-                        <th className="py-1.5">Gray List</th>
-                        <th className="py-1.5">Blocked</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#F7F8FC] font-mono">
-                      {data.imeiSummary.recentMonthlyTrends.map((trend) => (
-                        <tr key={trend.month} className="hover:bg-[#F7F8FC]">
-                          <td className="py-1.5 font-sans font-medium text-[#202338]">{trend.month}</td>
-                          <td className="py-1.5 text-[#2E7D32]">{trend.whiteList.toLocaleString()}</td>
-                          <td className="py-1.5 text-[#EF8F22]">{trend.grayList.toLocaleString()}</td>
-                          <td className="py-1.5 text-[#C62828]">{trend.blackList.toLocaleString()}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="border border-[var(--color-border)] rounded-lg overflow-hidden">
+                  <DataTable
+                    embedded
+                    stickyHeader={false}
+                    keyField="month"
+                    columns={trendColumns}
+                    data={data.imeiSummary.recentMonthlyTrends}
+                  />
                 </div>
               </div>
             </div>
@@ -248,26 +279,13 @@ export const DashboardPage = () => {
                 <div className="px-3.5 py-2 bg-[#F7F8FC] border-b border-[#E2E5F0] text-xs font-semibold text-[#202338]">
                   Operator Sync Breakdown
                 </div>
-                <table className="w-full text-xs text-left">
-                  <thead className="bg-white border-b border-[#E2E5F0] text-[#7A8197]">
-                    <tr>
-                      <th className="px-3 py-2 font-medium">Operator</th>
-                      <th className="px-3 py-2 font-medium">Auto Sync</th>
-                      <th className="px-3 py-2 font-medium">De-Reg</th>
-                      <th className="px-3 py-2 font-medium">Share</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#F7F8FC] font-mono">
-                    {data.registrationSummary.operatorBreakdown.map((row) => (
-                      <tr key={row.operator} className="hover:bg-[#F7F8FC]">
-                        <td className="px-3 py-2 font-sans font-medium text-[#202338]">{row.operator}</td>
-                        <td className="px-3 py-2 text-[#028A97]">{row.autoCount}</td>
-                        <td className="px-3 py-2 text-[#01ADC1]">{row.deRegCount}</td>
-                        <td className="px-3 py-2 font-sans font-semibold text-[#202338]">{row.share}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <DataTable
+                  embedded
+                  stickyHeader={false}
+                  keyField="operator"
+                  columns={operatorColumns}
+                  data={data.registrationSummary.operatorBreakdown}
+                />
               </div>
 
               <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center gap-2">

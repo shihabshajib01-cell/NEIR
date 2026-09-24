@@ -166,6 +166,93 @@ const muiTheme = createTheme({
         },
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          borderBottom: '1px solid var(--color-border)',
+          color: 'var(--color-text-primary)',
+          fontSize: 'var(--type-table-cell-size)',
+          lineHeight: 'var(--type-body-line)',
+          padding: '12px 16px',
+        },
+        head: {
+          backgroundColor: 'var(--color-surface)',
+          color: 'var(--color-text-primary)',
+          fontSize: 'var(--type-table-head-size)',
+          fontWeight: 600,
+          lineHeight: 'var(--type-compact-line)',
+          paddingTop: 12,
+          paddingBottom: 12,
+          zIndex: 2,
+        },
+        sizeSmall: {
+          paddingTop: 8,
+          paddingBottom: 8,
+        },
+        paddingCheckbox: {
+          width: 52,
+          paddingLeft: 12,
+          paddingRight: 8,
+        },
+      },
+    },
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          '&.MuiTableRow-hover:hover': {
+            backgroundColor: 'rgba(1, 173, 193, 0.045)',
+          },
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(1, 173, 193, 0.08)',
+          },
+          '&.Mui-selected:hover': {
+            backgroundColor: 'rgba(1, 173, 193, 0.11)',
+          },
+        },
+      },
+    },
+    MuiTableSortLabel: {
+      styleOverrides: {
+        root: {
+          color: 'var(--color-text-primary)',
+          fontWeight: 600,
+          '&:hover': {
+            color: 'var(--color-primary-dark)',
+          },
+          '&.Mui-active': {
+            color: 'var(--color-text-primary)',
+          },
+          '&.Mui-active .MuiTableSortLabel-icon': {
+            color: 'var(--color-text-secondary)',
+          },
+        },
+      },
+    },
+    MuiTablePagination: {
+      styleOverrides: {
+        root: {
+          color: 'var(--color-text-primary)',
+          fontSize: 'var(--type-table-cell-size)',
+        },
+        toolbar: {
+          minHeight: 56,
+          paddingLeft: 16,
+          paddingRight: 8,
+          flexWrap: 'wrap',
+          rowGap: 4,
+        },
+        selectLabel: {
+          margin: 0,
+          color: 'var(--color-text-secondary)',
+          fontSize: 'var(--type-table-cell-size)',
+        },
+        displayedRows: {
+          margin: 0,
+          color: 'var(--color-text-secondary)',
+          fontSize: 'var(--type-table-cell-size)',
+        },
+      },
+    },
   },
 });
 

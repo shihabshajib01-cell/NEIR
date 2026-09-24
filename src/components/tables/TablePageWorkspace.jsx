@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart3, CheckCircle2, Clock3, XCircle, Layers3 } from 'lucide-react';
+import { BarChart3, CheckCircle2, Clock3, XCircle } from 'lucide-react';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
 const getTone = (id = '') => {
@@ -96,14 +96,11 @@ export const TablePageWorkspace = ({
       <TableSummaryStrip items={resolvedSummary} />
 
       <section className="bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden">
-        <header className="px-3.5 sm:px-4 py-3 border-b border-[var(--color-border)] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
+        <header className="px-4 sm:px-5 py-3.5 border-b border-[var(--color-border)] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
           <div className="flex items-center gap-2 min-w-0">
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center shrink-0">
-              <Layers3 className="w-4 h-4" />
-            </div>
-            <h2 className="type-body-strong text-[var(--color-text-primary)] truncate">{t(title)}</h2>
+            <h2 className="type-card-title text-[var(--color-text-primary)] truncate">{t(title)}</h2>
             {typeof count === 'number' && (
-              <span className="inline-flex items-center rounded-full border border-[var(--color-border)] bg-[var(--color-background-subtle)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
+              <span className="inline-flex items-center rounded-full bg-[var(--color-background-subtle)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
                 {count} {t(count === 1 ? 'record' : 'records')}
               </span>
             )}
