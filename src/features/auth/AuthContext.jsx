@@ -22,16 +22,14 @@ const readStoredSession = () => {
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(readStoredSession);
 
-  const login = async (username, password, remember = false) => {
-    if (!username?.trim() || !password?.trim()) {
-      throw new Error('Please enter both username and password.');
-    }
+  const login = async (username = '', password = '', remember = false) => {
+    const normalizedUsername = username?.trim() || 'neir-admin';
 
     const mockUser = {
       id: 'mock-admin',
-      fullName: username.trim(),
-      username: username.trim(),
-      email: username.includes('@') ? username.trim() : '',
+      fullName: normalizedUsername === 'neir-admin' ? 'NEIR Admin' : normalizedUsername,
+      username: normalizedUsername,
+      email: normalizedUsername.includes('@') ? normalizedUsername : '',
       role: 'Admin',
       designation: '',
       department: '',
