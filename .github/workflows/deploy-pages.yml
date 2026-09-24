@@ -1,4 +1,4 @@
-name: Deploy NEIR to GitHub Pages
+name: Build NEIR static site
 
 on:
   push:
@@ -7,26 +7,30 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: neir-pages
+  group: neir-static-publish
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-publish:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Restore Vite source index
+        run: cp index.source.html index.html
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
@@ -34,22 +38,22 @@ jobs:
       - name: Build production site
         run: npm run build
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Publish compiled output to Pages branch source
+        run: |
+          rm -rf assets
+          cp -R dist/assets ./assets
+          cp dist/index.html ./index.html
+          cp dist/logo.png ./logo.png
+          touch .nojekyll
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit compiled site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets logo.png .nojekyll
+          if git diff --cached --quiet; then
+            echo "Compiled site is already current."
+          else
+            git commit -m "chore: publish compiled NEIR site [skip ci]"
+            git push origin HEAD:main
+          fi
