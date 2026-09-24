@@ -127,7 +127,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
     >
       {/* Navigation rail label */}
       <div className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-[#173F5F]/60">
-        {isCollapsed ? 'NAV' : 'OPERATIONAL MODULES'}
+        {isCollapsed ? 'NAV' : 'NAVIGATION'}
       </div>
 
       {/* Nav links scroll area */}
@@ -223,11 +223,10 @@ export const Sidebar = ({ isCollapsed = false }) => {
         })}
       </nav>
 
-      {/* Footer Info */}
       {!isCollapsed && (
         <div className="p-3 border-t border-[#173F5F] text-[11px] text-slate-400 bg-[#0B1E30]/40">
-          <p className="font-semibold text-slate-300">BTRC NEIR Server</p>
-          <p className="text-[10px] text-slate-400 font-mono mt-0.5">EIR Sync: Online (All 4 MNOs)</p>
+          <p className="font-semibold text-slate-300">BTRC NEIR</p>
+          <p className="text-[10px] text-slate-400 mt-0.5">Frontend skeleton · mock data</p>
         </div>
       )}
     </aside>
