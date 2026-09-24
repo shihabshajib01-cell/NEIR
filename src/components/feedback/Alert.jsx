@@ -10,18 +10,18 @@ export const Alert = ({
 }) => {
   const configs = {
     info: {
-      bg: 'bg-[#4B5694]/10',
-      border: 'border-[#4B5694]/30',
+      bg: 'bg-[#01ADC1]/10',
+      border: 'border-[#01ADC1]/30',
       text: 'text-[#202338]',
       icon: Info,
-      iconColor: 'text-[#4B5694]',
+      iconColor: 'text-[#01ADC1]',
     },
     success: {
-      bg: 'bg-[#4B5694]/10',
-      border: 'border-[#4B5694]/30',
-      text: 'text-[#343D73]',
+      bg: 'bg-[#01ADC1]/10',
+      border: 'border-[#01ADC1]/30',
+      text: 'text-[#028A97]',
       icon: CheckCircle2,
-      iconColor: 'text-[#4B5694]',
+      iconColor: 'text-[#01ADC1]',
     },
     warning: {
       bg: 'bg-[#EF8F22]/10',

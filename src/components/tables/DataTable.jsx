@@ -128,7 +128,7 @@ export const DataTable = ({
                         type="checkbox"
                         checked={allSelected}
                         onChange={handleSelectAll}
-                        className="rounded border-[#E2E5F0] text-[#4B5694] focus:ring-[#4B5694] cursor-pointer"
+                        className="rounded border-[#E2E5F0] text-[#01ADC1] focus:ring-[#01ADC1] cursor-pointer"
                       />
                     </th>
                   )}
@@ -136,7 +136,7 @@ export const DataTable = ({
                     <th
                       key={col.key}
                       style={{ width: col.width }}
-                      className={'px-3.5 py-3 font-semibold whitespace-nowrap ' + (col.sortable ? 'cursor-pointer hover:text-[#4B5694] transition-colors' : '')}
+                      className={'px-3.5 py-3 font-semibold whitespace-nowrap ' + (col.sortable ? 'cursor-pointer hover:text-[#01ADC1] transition-colors' : '')}
                       onClick={() => col.sortable && handleSort(col.key)}
                     >
                       <div className="flex items-center gap-1.5">
@@ -145,8 +145,8 @@ export const DataTable = ({
                           <span className="text-[#A0A6B8]">
                             {sortConfig.key === col.key ? (
                               sortConfig.direction === 'asc'
-                                ? <ChevronUp className="w-3.5 h-3.5 text-[#4B5694]" />
-                                : <ChevronDown className="w-3.5 h-3.5 text-[#4B5694]" />
+                                ? <ChevronUp className="w-3.5 h-3.5 text-[#01ADC1]" />
+                                : <ChevronDown className="w-3.5 h-3.5 text-[#01ADC1]" />
                             ) : (
                               <ArrowUpDown className="w-3 h-3 opacity-60" />
                             )}
@@ -164,8 +164,8 @@ export const DataTable = ({
                     <tr
                       key={row[keyField] || index}
                       className={
-                        'transition-colors hover:bg-[rgba(75,86,148,0.045)] ' +
-                        (isSelected ? 'bg-[#EEF0FA]' : index % 2 === 1 ? 'bg-[rgba(32,35,56,0.012)]' : 'bg-white')
+                        'transition-colors hover:bg-[rgba(1,173,193,0.045)] ' +
+                        (isSelected ? 'bg-[#E1F7FB]' : index % 2 === 1 ? 'bg-[rgba(32,35,56,0.012)]' : 'bg-white')
                       }
                     >
                       {selectable && (
@@ -174,7 +174,7 @@ export const DataTable = ({
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => handleSelectRow(row[keyField])}
-                            className="rounded border-[#E2E5F0] text-[#4B5694] focus:ring-[#4B5694] cursor-pointer"
+                            className="rounded border-[#E2E5F0] text-[#01ADC1] focus:ring-[#01ADC1] cursor-pointer"
                           />
                         </td>
                       )}

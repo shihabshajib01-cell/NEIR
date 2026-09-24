@@ -46,7 +46,7 @@ export const Modal = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-md text-[#7A8197] hover:text-[#202338] hover:bg-[#EEF0FA] transition-colors cursor-pointer"
+            className="p-1 rounded-md text-[#7A8197] hover:text-[#202338] hover:bg-[#E1F7FB] transition-colors cursor-pointer"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -83,7 +83,7 @@ export const ConfirmationDialog = ({
   const iconMap = {
     danger: <AlertTriangle className="w-6 h-6 text-[#C62828]" />,
     warning: <AlertTriangle className="w-6 h-6 text-[#EF8F22]" />,
-    primary: <Info className="w-6 h-6 text-[#4B5694]" />,
+    primary: <Info className="w-6 h-6 text-[#01ADC1]" />,
   };
 
   return (

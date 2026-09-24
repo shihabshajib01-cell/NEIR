@@ -26,7 +26,7 @@ export const Checkbox = ({
           disabled={disabled}
           className="sr-only peer"
         />
-        <div className="w-4 h-4 rounded border border-[#E2E5F0] bg-white transition-all peer-checked:bg-[#4B5694] peer-checked:border-[#4B5694] peer-focus-visible:ring-2 peer-focus-visible:ring-[#4B5694]/30 flex items-center justify-center">
+        <div className="w-4 h-4 rounded border border-[#E2E5F0] bg-white transition-all peer-checked:bg-[#01ADC1] peer-checked:border-[#01ADC1] peer-focus-visible:ring-2 peer-focus-visible:ring-[#01ADC1]/30 flex items-center justify-center">
           <Check className={`w-3 h-3 text-white stroke-[3] transition-opacity ${checked ? 'opacity-100' : 'opacity-0'}`} />
         </div>
       </div>
@@ -58,7 +58,7 @@ export const RadioGroup = ({
             <label
               key={opt.value}
               className={`flex items-start gap-2.5 cursor-pointer select-none p-2.5 rounded-md border transition-all ${
-                isSelected ? 'border-[#4B5694] bg-[#4B5694]/5' : 'border-[#E2E5F0] bg-white hover:bg-[#F7F8FC]'
+                isSelected ? 'border-[#01ADC1] bg-[#01ADC1]/5' : 'border-[#E2E5F0] bg-white hover:bg-[#F7F8FC]'
               } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <input
@@ -71,12 +71,12 @@ export const RadioGroup = ({
                 className="sr-only"
               />
               <div className={`w-4 h-4 rounded-full border mt-0.5 flex items-center justify-center transition-all ${
-                isSelected ? 'border-[#4B5694] bg-white' : 'border-[#E2E5F0] bg-white'
+                isSelected ? 'border-[#01ADC1] bg-white' : 'border-[#E2E5F0] bg-white'
               }`}>
-                {isSelected && <div className="w-2 h-2 rounded-full bg-[#4B5694]" />}
+                {isSelected && <div className="w-2 h-2 rounded-full bg-[#01ADC1]" />}
               </div>
               <div className="flex flex-col">
-                <span className={`text-sm font-medium ${isSelected ? 'text-[#343D73]' : 'text-[#202338]'}`}>
+                <span className={`text-sm font-medium ${isSelected ? 'text-[#028A97]' : 'text-[#202338]'}`}>
                   {opt.label}
                 </span>
                 {opt.description && (
@@ -123,7 +123,7 @@ export const FileUpload = ({
       <div
         onClick={() => fileInputRef.current?.click()}
         className={`border-2 border-dashed rounded-lg p-4 transition-all text-center cursor-pointer flex flex-col items-center justify-center gap-2 ${
-          file ? 'border-[#4B5694] bg-[#4B5694]/5' : 'border-[#E2E5F0] bg-[#F7F8FC] hover:bg-[#EEF0FA]'
+          file ? 'border-[#01ADC1] bg-[#01ADC1]/5' : 'border-[#E2E5F0] bg-[#F7F8FC] hover:bg-[#E1F7FB]'
         }`}
       >
         <input
@@ -136,7 +136,7 @@ export const FileUpload = ({
         {file ? (
           <div className="flex items-center justify-between w-full px-2">
             <div className="flex items-center gap-2.5 text-left truncate">
-              <FileText className="w-5 h-5 text-[#4B5694] shrink-0" />
+              <FileText className="w-5 h-5 text-[#01ADC1] shrink-0" />
               <div className="truncate">
                 <p className="text-sm font-medium text-[#202338] truncate">{file.name}</p>
                 <p className="text-xs text-[#7A8197]">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
@@ -154,7 +154,7 @@ export const FileUpload = ({
           <>
             <UploadCloud className="w-6 h-6 text-[#7A8197]" />
             <div>
-              <span className="text-xs font-semibold text-[#4B5694]">Click to upload</span>
+              <span className="text-xs font-semibold text-[#01ADC1]">Click to upload</span>
               <span className="text-xs text-[#7A8197]"> or drag and drop</span>
             </div>
             <p className="text-[11px] text-[#7A8197]">{helperText}</p>
@@ -214,7 +214,7 @@ export const CSVUpload = ({
         <div>
           <h3 className="text-base font-semibold text-[#202338]">Upload Manufacturer CSV Batch</h3>
           <p className="text-xs text-[#626981] mt-0.5">
-            Select a verified .CSV file formatted with mandatory columns: <code className="bg-[#F7F8FC] px-1 py-0.5 rounded text-[#4B5694] font-mono">IMEI, BRAND, MODEL, TAC</code>
+            Select a verified .CSV file formatted with mandatory columns: <code className="bg-[#F7F8FC] px-1 py-0.5 rounded text-[#01ADC1] font-mono">IMEI, BRAND, MODEL, TAC</code>
           </p>
         </div>
 
@@ -225,7 +225,7 @@ export const CSVUpload = ({
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
           className={`border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center gap-3 transition-colors cursor-pointer ${
-            dragActive ? 'border-[#4B5694] bg-[#4B5694]/5' : 'border-[#E2E5F0] bg-[#F7F8FC] hover:bg-[#EEF0FA]'
+            dragActive ? 'border-[#01ADC1] bg-[#01ADC1]/5' : 'border-[#E2E5F0] bg-[#F7F8FC] hover:bg-[#E1F7FB]'
           }`}
         >
           <input
@@ -235,7 +235,7 @@ export const CSVUpload = ({
             onChange={handleFileChange}
             className="hidden"
           />
-          <div className="w-12 h-12 rounded-full bg-white border border-[#E2E5F0] flex items-center justify-center text-[#4B5694] shadow-xs">
+          <div className="w-12 h-12 rounded-full bg-white border border-[#E2E5F0] flex items-center justify-center text-[#01ADC1] shadow-xs">
             <UploadCloud className="w-6 h-6" />
           </div>
           <div className="text-center">

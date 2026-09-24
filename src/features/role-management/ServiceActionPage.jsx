@@ -153,7 +153,7 @@ export const ServiceActionPage = () => {
       title: 'Service Action Name',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <Layers className="w-3.5 h-3.5 text-[#4B5694]" />
+          <Layers className="w-3.5 h-3.5 text-[#01ADC1]" />
           <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),

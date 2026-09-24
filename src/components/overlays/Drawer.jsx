@@ -48,7 +48,7 @@ export const Drawer = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-1 rounded-md text-[#7A8197] hover:text-[#202338] hover:bg-[#EEF0FA] transition-colors cursor-pointer shrink-0"
+              className="p-1 rounded-md text-[#7A8197] hover:text-[#202338] hover:bg-[#E1F7FB] transition-colors cursor-pointer shrink-0"
               aria-label="Close drawer"
             >
               <X className="w-5 h-5" />
@@ -166,7 +166,7 @@ export const FullScreenWorkspace = ({
               <h2 className="text-base font-semibold text-[#202338] leading-tight flex items-center gap-2">
                 <span>{title}</span>
                 {identifier && (
-                  <span className="text-xs font-mono font-normal text-[#626981] bg-[#EEF0FA] px-2 py-0.5 rounded">
+                  <span className="text-xs font-mono font-normal text-[#626981] bg-[#E1F7FB] px-2 py-0.5 rounded">
                     {identifier}
                   </span>
                 )}
@@ -178,7 +178,7 @@ export const FullScreenWorkspace = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-1 rounded-md text-[#626981] hover:text-[#4B5694] hover:bg-[#EEF0FA] transition-colors cursor-pointer"
+              className="p-1 rounded-md text-[#626981] hover:text-[#01ADC1] hover:bg-[#E1F7FB] transition-colors cursor-pointer"
               aria-label="Close review workspace"
             >
               <X className="w-5 h-5" />

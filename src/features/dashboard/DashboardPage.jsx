@@ -234,10 +234,10 @@ export const DashboardPage = () => {
 
                 <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
                   <span className="text-xs text-[#626981] font-medium">De-Registered</span>
-                  <div className="text-xl font-bold text-[#4B5694] font-mono tabular-nums mt-1">
+                  <div className="text-xl font-bold text-[#01ADC1] font-mono tabular-nums mt-1">
                     {data.registrationSummary.deRegistration.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#4B5694] font-medium">
+                  <span className="text-[11px] text-[#01ADC1] font-medium">
                     {data.registrationSummary.deRegistration.change}
                   </span>
                 </div>
@@ -261,8 +261,8 @@ export const DashboardPage = () => {
                     {data.registrationSummary.operatorBreakdown.map((row) => (
                       <tr key={row.operator} className="hover:bg-[#F7F8FC]">
                         <td className="px-3 py-2 font-sans font-medium text-[#202338]">{row.operator}</td>
-                        <td className="px-3 py-2 text-[#343D73]">{row.autoCount}</td>
-                        <td className="px-3 py-2 text-[#4B5694]">{row.deRegCount}</td>
+                        <td className="px-3 py-2 text-[#028A97]">{row.autoCount}</td>
+                        <td className="px-3 py-2 text-[#01ADC1]">{row.deRegCount}</td>
                         <td className="px-3 py-2 font-sans font-semibold text-[#202338]">{row.share}</td>
                       </tr>
                     ))}

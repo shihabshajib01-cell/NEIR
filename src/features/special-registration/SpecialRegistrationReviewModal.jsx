@@ -72,7 +72,7 @@ export const SpecialRegistrationReviewModal = ({
         footer={
           <div className="flex items-center justify-between w-full">
             <div className="text-xs text-[#626981] flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#4B5694]" />
+              <ShieldCheck className="w-4 h-4 text-[#01ADC1]" />
               <span>BTRC Spectrum Management & Customs Validation Protocol</span>
             </div>
             <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export const SpecialRegistrationReviewModal = ({
             {/* Requester Profile Card */}
             <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338] pb-2 border-b border-[#E2E5F0]">
-                <User className="w-4 h-4 text-[#4B5694]" />
+                <User className="w-4 h-4 text-[#01ADC1]" />
                 <span>Requester & Citizen Identity</span>
               </div>
               <div className="mt-3 space-y-2 text-xs">
@@ -136,13 +136,13 @@ export const SpecialRegistrationReviewModal = ({
             {/* Device Specification Card */}
             <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338] pb-2 border-b border-[#E2E5F0]">
-                <Smartphone className="w-4 h-4 text-[#4B5694]" />
+                <Smartphone className="w-4 h-4 text-[#01ADC1]" />
                 <span>Device Specifications</span>
               </div>
               <div className="mt-3 space-y-2 text-xs">
                 <div className="flex justify-between">
                   <span className="text-[#626981]">IMEI Number:</span>
-                  <span className="font-mono font-bold text-[#343D73] bg-[#343D73]/10 px-1.5 py-0.5 rounded">
+                  <span className="font-mono font-bold text-[#028A97] bg-[#028A97]/10 px-1.5 py-0.5 rounded">
                     {registration.imei}
                   </span>
                 </div>
@@ -168,7 +168,7 @@ export const SpecialRegistrationReviewModal = ({
                 </div>
                 <div className="flex justify-between">
                   <span className="text-[#626981]">Customs Challan / Baggage No:</span>
-                  <span className="font-mono text-[#4B5694] font-semibold">{registration.customsChallanNo}</span>
+                  <span className="font-mono text-[#01ADC1] font-semibold">{registration.customsChallanNo}</span>
                 </div>
               </div>
             </div>
@@ -177,7 +177,7 @@ export const SpecialRegistrationReviewModal = ({
             <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
               <div className="flex items-center justify-between pb-2 border-b border-[#E2E5F0]">
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338]">
-                  <FileText className="w-4 h-4 text-[#4B5694]" />
+                  <FileText className="w-4 h-4 text-[#01ADC1]" />
                   <span>Dossier Attachments ({registration.attachments?.length || 0})</span>
                 </div>
                 <span className="text-[11px] text-[#7A8197]">Click to preview</span>

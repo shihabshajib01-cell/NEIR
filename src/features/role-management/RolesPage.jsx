@@ -111,7 +111,7 @@ export const RolesPage = () => {
       title: 'Role Name',
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded bg-[#343D73]/10 text-[#343D73] flex items-center justify-center font-bold text-xs">
+          <div className="w-7 h-7 rounded bg-[#028A97]/10 text-[#028A97] flex items-center justify-center font-bold text-xs">
             <Shield className="w-3.5 h-3.5" />
           </div>
           <div>
@@ -130,7 +130,7 @@ export const RolesPage = () => {
       isMono: true,
       render: (val) => (
         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F7F8FC] text-[#202338] font-mono text-xs font-semibold border border-[#E2E5F0]">
-          <KeyRound className="w-3 h-3 text-[#4B5694]" />
+          <KeyRound className="w-3 h-3 text-[#01ADC1]" />
           <span>{val} Actions</span>
         </span>
       ),

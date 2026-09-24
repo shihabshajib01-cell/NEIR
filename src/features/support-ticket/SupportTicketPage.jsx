@@ -242,7 +242,7 @@ export const SupportTicketPage = () => {
               </div>
               {selectedTicket.imei && (
                 <div className="col-span-2">
-                  <span>Linked IMEI:</span> <span className="font-mono text-[#343D73] font-bold ml-1">{selectedTicket.imei}</span>
+                  <span>Linked IMEI:</span> <span className="font-mono text-[#028A97] font-bold ml-1">{selectedTicket.imei}</span>
                 </div>
               )}
             </div>
@@ -265,7 +265,7 @@ export const SupportTicketPage = () => {
                 >
                   <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#F7F8FC]">
                     <span className="font-semibold text-[#202338]">
-                      {msg.sender} {msg.isStaff && <span className="text-[10px] bg-[#4B5694] text-white px-1.5 py-0.2 rounded font-normal ml-1">Staff</span>}
+                      {msg.sender} {msg.isStaff && <span className="text-[10px] bg-[#01ADC1] text-white px-1.5 py-0.2 rounded font-normal ml-1">Staff</span>}
                     </span>
                     <span className="text-[10px] text-[#7A8197] font-mono">{msg.timestamp}</span>
                   </div>

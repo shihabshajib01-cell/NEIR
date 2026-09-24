@@ -39,7 +39,7 @@ export const Select = ({
           disabled={disabled}
           required={required}
           className={`w-full h-10 pl-3 pr-8 rounded-lg bg-white border text-sm text-[#202338] transition-all appearance-none cursor-pointer outline-hidden
-            ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}
+            ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#01ADC1] focus:ring-2 focus:ring-[#01ADC1]/20'}
             ${disabled ? 'bg-[#F7F8FC] text-[#7A8197] cursor-not-allowed' : ''}`}
           {...props}
         >
@@ -114,7 +114,7 @@ export const SearchableSelect = ({
         disabled={disabled}
         onClick={() => !disabled && setIsOpen(!isOpen)}
         className={`w-full h-10 px-3 rounded-lg bg-white border text-sm text-left flex items-center justify-between transition-all outline-hidden
-          ${error ? 'border-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}
+          ${error ? 'border-red-500' : 'border-[#E2E5F0] focus:border-[#01ADC1] focus:ring-2 focus:ring-[#01ADC1]/20'}
           ${disabled ? 'bg-[#F7F8FC] text-[#7A8197] cursor-not-allowed' : 'cursor-pointer'}`}
       >
         <span className={selectedOption ? 'text-[#202338]' : 'text-[#7A8197]'}>
@@ -133,7 +133,7 @@ export const SearchableSelect = ({
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search..."
-                className="w-full h-7 pl-7 pr-2 text-xs bg-white border border-[#E2E5F0] rounded outline-hidden focus:border-[#4B5694]"
+                className="w-full h-7 pl-7 pr-2 text-xs bg-white border border-[#E2E5F0] rounded outline-hidden focus:border-[#01ADC1]"
                 autoFocus
               />
             </div>
@@ -152,11 +152,11 @@ export const SearchableSelect = ({
                     setSearchTerm('');
                   }}
                   className={`w-full px-2.5 py-1.5 text-left text-xs rounded flex items-center justify-between hover:bg-[#F7F8FC] cursor-pointer ${
-                    opt.value === value ? 'bg-[#343D73]/10 text-[#343D73] font-medium' : 'text-[#202338]'
+                    opt.value === value ? 'bg-[#028A97]/10 text-[#028A97] font-medium' : 'text-[#202338]'
                   }`}
                 >
                   <span className="truncate">{opt.label}</span>
-                  {opt.value === value && <Check className="w-3.5 h-3.5 text-[#343D73] shrink-0 ml-2" />}
+                  {opt.value === value && <Check className="w-3.5 h-3.5 text-[#028A97] shrink-0 ml-2" />}
                 </button>
               ))
             )}

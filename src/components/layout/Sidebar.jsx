@@ -148,13 +148,13 @@ export const Sidebar = ({ isCollapsed = false }) => {
                   onClick={() => toggleSubmenu(item.path)}
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                     isCurrentSectionActive
-                      ? 'bg-[#EEF0FA] text-[#4B5694]'
-                      : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
+                      ? 'bg-[#E1F7FB] text-[#01ADC1]'
+                      : 'text-[#626981] hover:bg-[#E1F7FB] hover:text-[#01ADC1]'
                   }`}
                   aria-expanded={isSubmenuOpen}
                 >
                   <div className="flex items-center gap-2.5 truncate">
-                    <Icon className={`w-4 h-4 shrink-0 ${isCurrentSectionActive ? 'text-[#4B5694]' : 'text-[#7A8197]'}`} />
+                    <Icon className={`w-4 h-4 shrink-0 ${isCurrentSectionActive ? 'text-[#01ADC1]' : 'text-[#7A8197]'}`} />
                     <span className="truncate">{item.name}</span>
                   </div>
                   {isSubmenuOpen ? (
@@ -180,8 +180,8 @@ export const Sidebar = ({ isCollapsed = false }) => {
                           className={({ isActive }) =>
                             `flex items-center gap-2 px-2.5 py-2 rounded-lg text-sm transition-colors ${
                               isActive || isChildActive
-                                ? 'bg-[#4B5694] text-white font-medium shadow-xs'
-                                : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
+                                ? 'bg-[#01ADC1] text-white font-medium shadow-xs'
+                                : 'text-[#626981] hover:bg-[#E1F7FB] hover:text-[#01ADC1]'
                             }`
                           }
                         >
@@ -204,8 +204,8 @@ export const Sidebar = ({ isCollapsed = false }) => {
               className={({ isActive }) =>
                 `flex items-center gap-2.5 px-3 py-2 rounded-md text-sm font-medium transition-colors relative ${
                   isActive || isCurrentSectionActive
-                    ? 'bg-[#4B5694] text-white font-semibold shadow-[0_1px_3px_rgba(75,86,148,0.22)]'
-                    : 'text-[#626981] hover:bg-[#EEF0FA] hover:text-[#4B5694]'
+                    ? 'bg-[#01ADC1] text-white font-semibold shadow-[0_1px_3px_rgba(1,173,193,0.22)]'
+                    : 'text-[#626981] hover:bg-[#E1F7FB] hover:text-[#01ADC1]'
                 } ${isCollapsed ? 'justify-center px-2' : ''}`
               }
             >
@@ -214,7 +214,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                   <Icon className={`w-4 h-4 shrink-0 ${(isActive || isCurrentSectionActive) ? 'text-white' : 'text-[#7A8197]'}`} />
                   {!isCollapsed && <span className="truncate">{item.name}</span>}
                   {(isActive || isCurrentSectionActive) && (
-                    <div className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#4B5694] rounded-r" />
+                    <div className="absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#01ADC1] rounded-r" />
                   )}
                 </>
               )}

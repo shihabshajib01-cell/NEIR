@@ -106,7 +106,7 @@ export const ParentPage = () => {
       title: 'Parent Name',
       render: (val, row) => (
         <div className="flex items-center gap-2">
-          <FolderTree className="w-4 h-4 text-[#4B5694]" />
+          <FolderTree className="w-4 h-4 text-[#01ADC1]" />
           <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),

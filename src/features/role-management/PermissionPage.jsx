@@ -117,7 +117,7 @@ export const PermissionPage = () => {
       title: 'Permission Name',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <KeyRound className="w-3.5 h-3.5 text-[#343D73]" />
+          <KeyRound className="w-3.5 h-3.5 text-[#028A97]" />
           <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),
@@ -133,7 +133,7 @@ export const PermissionPage = () => {
       key: 'parentName',
       title: 'Parent Name',
       render: (val) => (
-        <span className="text-xs font-medium text-[#4B5694] bg-[#4B5694]/10 px-2 py-0.5 rounded">
+        <span className="text-xs font-medium text-[#01ADC1] bg-[#01ADC1]/10 px-2 py-0.5 rounded">
           {val}
         </span>
       ),

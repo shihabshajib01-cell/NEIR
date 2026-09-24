@@ -49,7 +49,7 @@ export const TextInput = ({
           required={required}
           className={`w-full h-10 px-3 rounded-lg bg-white border text-sm text-[#202338] placeholder:text-[#7A8197] transition-all outline-hidden
             ${Icon ? 'pl-9' : ''}
-            ${error ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}
+            ${error ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#01ADC1] focus:ring-2 focus:ring-[#01ADC1]/20'}
             ${disabled ? 'bg-[#F7F8FC] text-[#7A8197] cursor-not-allowed' : ''}
             ${inputClassName}`}
           {...props}
@@ -102,7 +102,7 @@ export const PasswordInput = ({
           placeholder={placeholder}
           required={required}
           className={`w-full h-10 pl-3 pr-10 rounded-lg bg-white border text-sm text-[#202338] placeholder:text-[#7A8197] transition-all outline-hidden
-            ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}`}
+            ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#01ADC1] focus:ring-2 focus:ring-[#01ADC1]/20'}`}
           {...props}
         />
         <button
@@ -267,7 +267,7 @@ export const FileUpload = ({
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
         />
         <div className="flex flex-col items-center justify-center gap-1.5">
-          <Smartphone className="w-6 h-6 text-[#4B5694]" />
+          <Smartphone className="w-6 h-6 text-[#01ADC1]" />
           <span className="text-xs font-semibold text-[#202338]">
             {fileName || 'Click or drag file to attach'}
           </span>
@@ -314,7 +314,7 @@ export const Textarea = ({
         disabled={disabled}
         required={required}
         className={`w-full p-3 rounded-md bg-white border text-sm text-[#202338] placeholder:text-[#7A8197] transition-all outline-hidden resize-y
-          ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}
+          ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#01ADC1] focus:ring-2 focus:ring-[#01ADC1]/20'}
           ${disabled ? 'bg-[#F7F8FC] text-[#7A8197] cursor-not-allowed' : ''}`}
         {...props}
       />
@@ -344,7 +344,7 @@ export const CSVUpload = ({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && <label className="text-sm font-medium text-[#202338]">{label}</label>}
-      <div className="border-2 border-dashed border-[#4B5694]/40 rounded-xl p-5 text-center bg-[#4B5694]/5 hover:bg-[#4B5694]/10 transition-colors relative cursor-pointer">
+      <div className="border-2 border-dashed border-[#01ADC1]/40 rounded-xl p-5 text-center bg-[#01ADC1]/5 hover:bg-[#01ADC1]/10 transition-colors relative cursor-pointer">
         <input
           type="file"
           accept=".csv,text/csv"
@@ -352,7 +352,7 @@ export const CSVUpload = ({
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
         />
         <div className="flex flex-col items-center justify-center gap-1.5">
-          <Hash className="w-6 h-6 text-[#4B5694]" />
+          <Hash className="w-6 h-6 text-[#01ADC1]" />
           <span className="text-xs font-bold text-[#202338]">
             {fileName || 'Drop CSV batch file here or click to browse'}
           </span>

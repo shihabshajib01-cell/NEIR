@@ -37,13 +37,13 @@ export const LoginPage = () => {
   return (
     <div className="min-h-screen bg-[#F7F8FC] flex items-center justify-center px-4 py-6 sm:px-6 lg:px-8 lg:py-16">
       <div className="w-full max-w-[1280px] flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
-        <section className="hidden lg:flex flex-1 min-h-[560px] rounded-2xl border border-[#E2E5F0] bg-[#EEF0FA] relative overflow-hidden p-10 flex-col justify-between">
-          <div className="absolute -right-20 -top-24 w-72 h-72 rounded-full bg-[#7C8BD6]/16" />
-          <div className="absolute -left-24 bottom-0 w-64 h-64 rounded-full bg-[#4B5694]/8" />
-          <div className="absolute inset-0 opacity-50 pointer-events-none bg-[radial-gradient(rgba(75,86,148,0.16)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <section className="hidden lg:flex flex-1 min-h-[560px] rounded-2xl border border-[#E2E5F0] bg-[#E1F7FB] relative overflow-hidden p-10 flex-col justify-between">
+          <div className="absolute -right-20 -top-24 w-72 h-72 rounded-full bg-[#80C2C6]/16" />
+          <div className="absolute -left-24 bottom-0 w-64 h-64 rounded-full bg-[#01ADC1]/8" />
+          <div className="absolute inset-0 opacity-50 pointer-events-none bg-[radial-gradient(rgba(1,173,193,0.16)_1px,transparent_1px)] [background-size:22px_22px]" />
 
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#E2E5F0] text-xs font-semibold text-[#4B5694] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#E2E5F0] text-xs font-semibold text-[#01ADC1] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
               <ShieldCheck className="w-4 h-4" />
               BTRC Administrative Portal
             </div>
@@ -60,7 +60,7 @@ export const LoginPage = () => {
 
           <div className="relative z-10 grid grid-cols-1 gap-3 max-w-md">
             <div className="flex items-center gap-3 p-4 bg-white/85 border border-white rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
-              <div className="w-10 h-10 rounded-xl bg-[#4B5694]/10 flex items-center justify-center text-[#4B5694] shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-[#01ADC1]/10 flex items-center justify-center text-[#01ADC1] shrink-0">
                 <LayoutDashboard className="w-5 h-5" />
               </div>
               <div>

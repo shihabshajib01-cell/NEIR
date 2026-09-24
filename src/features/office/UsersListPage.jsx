@@ -79,7 +79,7 @@ export const UsersListPage = () => {
       key: 'username',
       title: 'Username',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#4B5694] font-semibold">{val}</span>,
+      render: (val) => <span className="font-mono text-xs text-[#01ADC1] font-semibold">{val}</span>,
     },
     {
       key: 'department',
@@ -95,7 +95,7 @@ export const UsersListPage = () => {
       key: 'role',
       title: 'Role',
       render: (val) => (
-        <span className="text-xs font-semibold bg-[#4B5694]/10 text-[#343D73] px-2 py-0.5 rounded border border-[#4B5694]/20">
+        <span className="text-xs font-semibold bg-[#01ADC1]/10 text-[#028A97] px-2 py-0.5 rounded border border-[#01ADC1]/20">
           {val}
         </span>
       ),

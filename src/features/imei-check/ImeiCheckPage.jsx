@@ -63,7 +63,7 @@ export const ImeiCheckPage = () => {
             <div className="p-3 bg-[#F7F8FC] rounded-md border border-[#E2E5F0] text-xs text-[#626981] space-y-1">
               <p className="font-semibold text-[#202338]">Quick Inspection Shortcuts:</p>
               <ul className="list-disc list-inside space-y-0.5 text-[11px]">
-                <li>Standard 15-digit number: <span className="font-mono text-[#343D73]">862940058912341</span> (White Listed)</li>
+                <li>Standard 15-digit number: <span className="font-mono text-[#028A97]">862940058912341</span> (White Listed)</li>
                 <li>Blocked stolen device: <span className="font-mono text-red-600">864920194820194</span> (Blacklisted)</li>
                 <li>Unregistered terminal: <span className="font-mono text-amber-600">999000111222333</span> (Not Registered)</li>
               </ul>
@@ -113,8 +113,8 @@ export const ImeiCheckPage = () => {
             </div>
 
             {/* Bilingual Verification Message */}
-            <div className="p-3.5 rounded-lg border border-[#4B5694]/30 bg-[#4B5694]/10 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#343D73]">
+            <div className="p-3.5 rounded-lg border border-[#01ADC1]/30 bg-[#01ADC1]/10 space-y-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#028A97]">
                 <Globe className="w-4 h-4" />
                 <span>Official Status Response</span>
               </div>
@@ -138,7 +138,7 @@ export const ImeiCheckPage = () => {
               </div>
               <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
                 <span className="text-[#626981]">GSMA Type Allocation Code (TAC):</span>
-                <span className="font-mono font-semibold text-[#4B5694]">{result.tac}</span>
+                <span className="font-mono font-semibold text-[#01ADC1]">{result.tac}</span>
               </div>
               <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
                 <span className="text-[#626981]">Authorization Category:</span>
@@ -146,7 +146,7 @@ export const ImeiCheckPage = () => {
               </div>
               <div className="flex justify-between">
                 <span className="text-[#626981]">Carrier Attachment:</span>
-                <span className="text-[#343D73] font-medium">{result.mnoAttachment}</span>
+                <span className="text-[#028A97] font-medium">{result.mnoAttachment}</span>
               </div>
             </div>
           </div>

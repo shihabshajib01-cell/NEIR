@@ -128,7 +128,7 @@ export const DeviceDeregisterPage = () => {
                   type="checkbox"
                   checked={simulateError}
                   onChange={(e) => setSimulateError(e.target.checked)}
-                  className="rounded border-[#E2E5F0] text-[#4B5694]"
+                  className="rounded border-[#E2E5F0] text-[#01ADC1]"
                 />
                 <span>Simulate restricted IMEI error scenario</span>
               </label>

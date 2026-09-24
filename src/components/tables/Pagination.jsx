@@ -110,7 +110,7 @@ export const FilterBar = ({
               value={searchValue}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={searchPlaceholder}
-              className="w-full h-8.5 pl-9 pr-3 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg text-[#202338] placeholder:text-[#7A8197] outline-hidden focus:bg-white focus:border-[#4B5694] focus:ring-1 focus:ring-[#4B5694]"
+              className="w-full h-8.5 pl-9 pr-3 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg text-[#202338] placeholder:text-[#7A8197] outline-hidden focus:bg-white focus:border-[#01ADC1] focus:ring-1 focus:ring-[#01ADC1]"
             />
           </div>
         )}

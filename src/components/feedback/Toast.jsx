@@ -37,7 +37,7 @@ export const ToastProvider = ({ children }) => {
                   ? 'bg-[#202338] text-white border-emerald-500/30'
                   : isError
                   ? 'bg-rose-900 text-white border-rose-500/30'
-                  : 'bg-[#4B5694] text-white border-cyan-500/30'
+                  : 'bg-[#01ADC1] text-white border-cyan-500/30'
               }`}
             >
               {isSuccess ? (

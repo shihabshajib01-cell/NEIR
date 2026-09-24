@@ -9,7 +9,7 @@ export const Breadcrumbs = ({ items = [] }) => {
     <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-[#7A8197] mb-2">
       <Link
         to="/dashboard"
-        className="flex items-center gap-1 hover:text-[#4B5694] transition-colors"
+        className="flex items-center gap-1 hover:text-[#01ADC1] transition-colors"
         title="Dashboard"
       >
         <Home className="w-3.5 h-3.5" />
@@ -26,7 +26,7 @@ export const Breadcrumbs = ({ items = [] }) => {
             ) : (
               <Link
                 to={item.href}
-                className="hover:text-[#4B5694] transition-colors truncate"
+                className="hover:text-[#01ADC1] transition-colors truncate"
               >
                 {item.label}
               </Link>
@@ -81,8 +81,8 @@ export const ContextualSecondaryNav = ({
           const Icon = tab.icon;
           const classes = 'inline-flex items-center gap-2 py-2.5 px-3.5 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ' +
             (isActive
-              ? 'border-[#4B5694] text-[#4B5694] font-semibold bg-[#EEF0FA] rounded-t-lg'
-              : 'border-transparent text-[#626981] hover:text-[#4B5694] hover:border-[#C9CEE0]');
+              ? 'border-[#01ADC1] text-[#01ADC1] font-semibold bg-[#E1F7FB] rounded-t-lg'
+              : 'border-transparent text-[#626981] hover:text-[#01ADC1] hover:border-[#C9CEE0]');
 
           if (tab.href) {
             return (
@@ -91,7 +91,7 @@ export const ContextualSecondaryNav = ({
                 <span>{tab.label}</span>
                 {typeof tab.count === 'number' && (
                   <span className={'px-1.5 py-0.5 rounded-full text-[11px] font-medium ' +
-                    (isActive ? 'bg-[#4B5694] text-white' : 'bg-[#EEF0FA] text-[#626981]')}>
+                    (isActive ? 'bg-[#01ADC1] text-white' : 'bg-[#E1F7FB] text-[#626981]')}>
                     {tab.count}
                   </span>
                 )}
@@ -105,7 +105,7 @@ export const ContextualSecondaryNav = ({
               <span>{tab.label}</span>
               {typeof tab.count === 'number' && (
                 <span className={'px-1.5 py-0.5 rounded-full text-[11px] font-medium ' +
-                  (isActive ? 'bg-[#4B5694] text-white' : 'bg-[#EEF0FA] text-[#626981]')}>
+                  (isActive ? 'bg-[#01ADC1] text-white' : 'bg-[#E1F7FB] text-[#626981]')}>
                   {tab.count}
                 </span>
               )}

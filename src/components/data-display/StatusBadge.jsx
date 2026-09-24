@@ -40,9 +40,9 @@ export const StatusBadge = ({
     };
   } else if (norm.includes('progress') || norm.includes('review') || norm.includes('gray')) {
     config = {
-      bg: 'bg-[#4B5694]/10',
-      text: 'text-[#4B5694]',
-      border: 'border-[#4B5694]/22',
+      bg: 'bg-[#01ADC1]/10',
+      text: 'text-[#01ADC1]',
+      border: 'border-[#01ADC1]/22',
       icon: Activity,
     };
   } else if (norm.includes('rejected') || norm.includes('denied') || norm.includes('failed')) {
@@ -105,7 +105,7 @@ export const MetricCard = ({
     success: { dot: 'bg-[#2E7D32]', iconBg: 'bg-[#2E7D32]/10', iconText: 'text-[#2E7D32]' },
     warning: { dot: 'bg-[#EF8F22]', iconBg: 'bg-[#EF8F22]/10', iconText: 'text-[#B96B18]' },
     danger: { dot: 'bg-[#C62828]', iconBg: 'bg-[#C62828]/10', iconText: 'text-[#C62828]' },
-    info: { dot: 'bg-[#4B5694]', iconBg: 'bg-[#4B5694]/10', iconText: 'text-[#4B5694]' },
+    info: { dot: 'bg-[#01ADC1]', iconBg: 'bg-[#01ADC1]/10', iconText: 'text-[#01ADC1]' },
     neutral: { dot: 'bg-[#7A8197]', iconBg: 'bg-[#626981]/8', iconText: 'text-[#626981]' },
   };
   const t = tones[tone] || tones.neutral;

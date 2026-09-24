@@ -101,7 +101,7 @@ export const DepartmentsPage = () => {
       title: 'Department Name',
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
-          <Building2 className="w-4 h-4 text-[#4B5694]" />
+          <Building2 className="w-4 h-4 text-[#01ADC1]" />
           <div>
             <span className="font-semibold text-[#202338]">{val}</span>
             <span className="ml-2 font-mono text-xs text-[#626981] bg-[#F7F8FC] px-1.5 py-0.2 rounded border border-[#E2E5F0]">

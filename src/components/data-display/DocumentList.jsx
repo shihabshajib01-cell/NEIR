@@ -19,18 +19,18 @@ export const DocumentList = ({
             onClick={() => onSelectDoc && onSelectDoc(doc)}
             className={`w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between cursor-pointer ${
               isSelected
-                ? 'border-[#4B5694] bg-[#4B5694]/5 shadow-xs'
+                ? 'border-[#01ADC1] bg-[#01ADC1]/5 shadow-xs'
                 : 'border-[#E2E5F0] bg-white hover:bg-[#F7F8FC]'
             }`}
           >
             <div className="flex items-center gap-3 min-w-0">
               <div className={`w-8 h-8 rounded-md flex items-center justify-center shrink-0 ${
-                isSelected ? 'bg-[#4B5694] text-white' : 'bg-[#EEF0FA] text-[#4B5694]'
+                isSelected ? 'bg-[#01ADC1] text-white' : 'bg-[#E1F7FB] text-[#01ADC1]'
               }`}>
                 <FileText className="w-4 h-4" />
               </div>
               <div className="truncate">
-                <div className="text-xs font-semibold uppercase tracking-wider text-[#4B5694]">
+                <div className="text-xs font-semibold uppercase tracking-wider text-[#01ADC1]">
                   {doc.type}
                 </div>
                 <div className="text-sm font-medium text-[#202338] truncate mt-0.5">
@@ -46,7 +46,7 @@ export const DocumentList = ({
 
             <div className="flex items-center gap-1 shrink-0 ml-2">
               <span className={`text-xs px-2 py-1 rounded font-medium ${
-                isSelected ? 'bg-[#4B5694] text-white' : 'text-[#626981] bg-[#F7F8FC]'
+                isSelected ? 'bg-[#01ADC1] text-white' : 'text-[#626981] bg-[#F7F8FC]'
               }`}>
                 {isSelected ? 'Viewing' : 'Inspect'}
               </span>
@@ -103,16 +103,16 @@ export const DocumentViewerPlaceholder = ({
       {/* Viewer Simulated Document Canvas */}
       <div className="flex-1 min-h-[380px] p-6 bg-[#E5E9EE] flex items-center justify-center overflow-auto">
         <div className="w-full max-w-lg bg-white rounded-md shadow-md p-6 border border-[#C9CEE0] flex flex-col gap-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#EEF0FA]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E1F7FB]">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded bg-[#343D73] flex items-center justify-center text-white text-[10px] font-bold">
+              <div className="w-6 h-6 rounded bg-[#028A97] flex items-center justify-center text-white text-[10px] font-bold">
                 BD
               </div>
               <span className="text-xs font-bold text-[#202338] tracking-wide">
                 GOVERNMENT / CUSTOMS VERIFICATION RECORD
               </span>
             </div>
-            <div className="flex items-center gap-1 text-[11px] text-[#343D73] font-medium bg-[#343D73]/10 px-2 py-0.5 rounded">
+            <div className="flex items-center gap-1 text-[11px] text-[#028A97] font-medium bg-[#028A97]/10 px-2 py-0.5 rounded">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>Dossier Match Verified</span>
             </div>
@@ -125,7 +125,7 @@ export const DocumentViewerPlaceholder = ({
             </div>
             <div className="p-2.5 bg-[#F7F8FC] rounded border border-[#E2E5F0] flex justify-between">
               <span className="text-[#626981]">Document Category:</span>
-              <span className="font-semibold text-[#4B5694]">{document.type}</span>
+              <span className="font-semibold text-[#01ADC1]">{document.type}</span>
             </div>
             <div className="p-2.5 bg-[#F7F8FC] rounded border border-[#E2E5F0] flex justify-between">
               <span className="text-[#626981]">File Footprint:</span>
@@ -135,7 +135,7 @@ export const DocumentViewerPlaceholder = ({
 
           {/* Graphical placeholder representing scanned passport / customs invoice */}
           <div className="border border-[#E2E5F0] rounded bg-[#F7F8FC] p-4 text-center flex flex-col items-center justify-center gap-2">
-            <div className="w-12 h-12 rounded-full bg-[#4B5694]/10 flex items-center justify-center text-[#4B5694]">
+            <div className="w-12 h-12 rounded-full bg-[#01ADC1]/10 flex items-center justify-center text-[#01ADC1]">
               <FileText className="w-6 h-6" />
             </div>
             <div>

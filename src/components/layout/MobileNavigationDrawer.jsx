@@ -56,7 +56,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded text-[#626981] hover:text-[#4B5694] cursor-pointer"
+            className="p-1 rounded text-[#626981] hover:text-[#01ADC1] cursor-pointer"
             aria-label="Close navigation"
           >
             <X className="w-5 h-5" />
@@ -86,7 +86,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                     type="button"
                     onClick={() => toggleSubmenu(item.path)}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-xs font-medium transition-colors ${
-                      isCurrentSectionActive ? 'bg-[#EEF0FA] text-[#4B5694]' : 'text-[#626981] hover:bg-[#EEF0FA]'
+                      isCurrentSectionActive ? 'bg-[#E1F7FB] text-[#01ADC1]' : 'text-[#626981] hover:bg-[#E1F7FB]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -110,7 +110,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                             to={child.path}
                             end={child.exact}
                             className={`flex items-center gap-2 px-2.5 py-2 rounded text-xs transition-colors ${
-                              isChildActive ? 'bg-[#4B5694] text-white font-semibold' : 'text-[#626981] hover:bg-[#EEF0FA]'
+                              isChildActive ? 'bg-[#01ADC1] text-white font-semibold' : 'text-[#626981] hover:bg-[#E1F7FB]'
                             }`}
                           >
                             <ChildIcon className="w-3.5 h-3.5" />
@@ -130,7 +130,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                 to={item.path}
                 className={({ isActive }) =>
                   `flex items-center gap-2.5 px-3 py-2.5 rounded-md text-xs font-medium transition-colors ${
-                    isActive ? 'bg-[#4B5694] text-white font-semibold' : 'text-[#626981] hover:bg-[#EEF0FA]'
+                    isActive ? 'bg-[#01ADC1] text-white font-semibold' : 'text-[#626981] hover:bg-[#E1F7FB]'
                   }`
                 }
               >

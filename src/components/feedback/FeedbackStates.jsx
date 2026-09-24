@@ -60,7 +60,7 @@ export const LoadingState = ({
 }) => {
   return (
     <div className={`p-10 flex flex-col items-center justify-center gap-2.5 ${className}`}>
-      <Loader2 className="w-6 h-6 animate-spin text-[#4B5694]" />
+      <Loader2 className="w-6 h-6 animate-spin text-[#01ADC1]" />
       <span className="text-xs font-medium text-[#626981]">{message}</span>
     </div>
   );

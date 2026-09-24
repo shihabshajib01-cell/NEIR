@@ -69,7 +69,7 @@ export const ManufacturerUploadPage = () => {
       key: 'status',
       title: 'Validation',
       render: (val) => (
-        <span className="text-xs font-semibold text-[#343D73] bg-[#4B5694]/10 px-2 py-0.5 rounded">
+        <span className="text-xs font-semibold text-[#028A97] bg-[#01ADC1]/10 px-2 py-0.5 rounded">
           {val || 'Whitelisted'}
         </span>
       ),
@@ -163,7 +163,7 @@ export const ManufacturerUploadPage = () => {
               >
                 <div className="mt-1 space-y-1 text-xs">
                   <p>Manufacturer: <strong className="text-[#202338]">{uploadResult.manufacturer}</strong></p>
-                  <p>Total Records Processed: <strong className="text-[#343D73] font-mono">{uploadResult.totalProcessed}</strong></p>
+                  <p>Total Records Processed: <strong className="text-[#028A97] font-mono">{uploadResult.totalProcessed}</strong></p>
                   <p>Broadcast Target: <span className="font-mono">All 4 MNO Central EIR Nodes (GP, Robi, BL, TT)</span></p>
                 </div>
               </Alert>

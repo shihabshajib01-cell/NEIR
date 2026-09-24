@@ -115,7 +115,7 @@ export const DesignationsPage = () => {
       title: 'Designation Title',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <Award className="w-4 h-4 text-[#4B5694]" />
+          <Award className="w-4 h-4 text-[#01ADC1]" />
           <span className="font-semibold text-[#202338]">{val}</span>
         </div>
       ),
@@ -131,7 +131,7 @@ export const DesignationsPage = () => {
       isMono: true,
       width: '130px',
       render: (val) => (
-        <span className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0] font-semibold text-[#4B5694]">
+        <span className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0] font-semibold text-[#01ADC1]">
           {val}
         </span>
       ),

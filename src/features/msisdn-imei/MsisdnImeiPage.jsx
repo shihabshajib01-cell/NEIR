@@ -62,7 +62,7 @@ export const MsisdnImeiPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-semibold text-[#343D73]">{val}</span>
+          <span className="font-mono font-semibold text-[#028A97]">{val}</span>
           <span className="text-[11px] text-[#7A8197]">{row.deviceModel}</span>
         </div>
       ),
@@ -78,7 +78,7 @@ export const MsisdnImeiPage = () => {
       title: 'Carrier Operator',
       render: (val) => (
         <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#202338]">
-          <Radio className="w-3.5 h-3.5 text-[#4B5694]" />
+          <Radio className="w-3.5 h-3.5 text-[#01ADC1]" />
           <span>{val}</span>
         </span>
       ),
