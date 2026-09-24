@@ -24,7 +24,7 @@ export const TextInput = ({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-[#172B4D] flex items-center justify-between">
+        <label htmlFor={inputId} className="text-sm font-medium text-[#202338] flex items-center justify-between">
           <span>
             {label}
             {required && <span className="text-red-500 ml-0.5">*</span>}
@@ -33,7 +33,7 @@ export const TextInput = ({
       )}
       <div className="relative flex items-center">
         {Icon && (
-          <div className="absolute left-3 pointer-events-none text-[#748597]">
+          <div className="absolute left-3 pointer-events-none text-[#7A8197]">
             <Icon className="w-4 h-4" />
           </div>
         )}
@@ -47,10 +47,10 @@ export const TextInput = ({
           disabled={disabled}
           readOnly={readOnly}
           required={required}
-          className={`w-full h-9 px-3 rounded-md bg-white border text-sm text-[#172B4D] placeholder:text-[#748597] transition-all outline-hidden
+          className={`w-full h-10 px-3 rounded-lg bg-white border text-sm text-[#202338] placeholder:text-[#7A8197] transition-all outline-hidden
             ${Icon ? 'pl-9' : ''}
-            ${error ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#D8E0E8] focus:border-[#147D83] focus:ring-2 focus:ring-[#147D83]/20'}
-            ${disabled ? 'bg-[#F4F7FA] text-[#748597] cursor-not-allowed' : ''}
+            ${error ? 'border-red-500 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}
+            ${disabled ? 'bg-[#F7F8FC] text-[#7A8197] cursor-not-allowed' : ''}
             ${inputClassName}`}
           {...props}
         />
@@ -62,7 +62,7 @@ export const TextInput = ({
         </p>
       )}
       {helperText && !error && (
-        <p className="text-xs text-[#748597] mt-0.5">{helperText}</p>
+        <p className="text-xs text-[#7A8197] mt-0.5">{helperText}</p>
       )}
     </div>
   );
@@ -87,7 +87,7 @@ export const PasswordInput = ({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-[#172B4D]">
+        <label htmlFor={inputId} className="text-sm font-medium text-[#202338]">
           {label}
           {required && <span className="text-red-500 ml-0.5">*</span>}
         </label>
@@ -101,22 +101,22 @@ export const PasswordInput = ({
           onChange={onChange}
           placeholder={placeholder}
           required={required}
-          className={`w-full h-9 pl-3 pr-10 rounded-md bg-white border text-sm text-[#172B4D] placeholder:text-[#748597] transition-all outline-hidden
-            ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#D8E0E8] focus:border-[#147D83] focus:ring-2 focus:ring-[#147D83]/20'}`}
+          className={`w-full h-10 pl-3 pr-10 rounded-lg bg-white border text-sm text-[#202338] placeholder:text-[#7A8197] transition-all outline-hidden
+            ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}`}
           {...props}
         />
         <button
           type="button"
           tabIndex={-1}
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-2.5 p-1 text-[#748597] hover:text-[#172B4D] transition-colors cursor-pointer"
+          className="absolute right-2.5 p-1 text-[#7A8197] hover:text-[#202338] transition-colors cursor-pointer"
           title={showPassword ? 'Hide password' : 'Show password'}
         >
           {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
         </button>
       </div>
       {error && <p className="text-xs text-red-600 mt-0.5">{error}</p>}
-      {helperText && !error && <p className="text-xs text-[#748597] mt-0.5">{helperText}</p>}
+      {helperText && !error && <p className="text-xs text-[#7A8197] mt-0.5">{helperText}</p>}
     </div>
   );
 };
@@ -258,8 +258,8 @@ export const FileUpload = ({
 
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
-      {label && <label className="text-sm font-medium text-[#172B4D]">{label}</label>}
-      <div className="border-2 border-dashed border-[#D8E0E8] rounded-lg p-5 text-center bg-[#FAFCFE] hover:bg-[#F4F7FA] transition-colors relative cursor-pointer">
+      {label && <label className="text-sm font-medium text-[#202338]">{label}</label>}
+      <div className="border-2 border-dashed border-[#E2E5F0] rounded-xl p-5 text-center bg-[#FAFCFE] hover:bg-[#F7F8FC] transition-colors relative cursor-pointer">
         <input
           type="file"
           accept={accept}
@@ -267,11 +267,11 @@ export const FileUpload = ({
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
         />
         <div className="flex flex-col items-center justify-center gap-1.5">
-          <Smartphone className="w-6 h-6 text-[#147D83]" />
-          <span className="text-xs font-semibold text-[#102A43]">
+          <Smartphone className="w-6 h-6 text-[#4B5694]" />
+          <span className="text-xs font-semibold text-[#202338]">
             {fileName || 'Click or drag file to attach'}
           </span>
-          <span className="text-[11px] text-[#748597]">
+          <span className="text-[11px] text-[#7A8197]">
             {helperText || 'Supported files: PDF, PNG, JPG up to 10MB'}
           </span>
         </div>
@@ -299,7 +299,7 @@ export const Textarea = ({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && (
-        <label htmlFor={inputId} className="text-sm font-medium text-[#172B4D]">
+        <label htmlFor={inputId} className="text-sm font-medium text-[#202338]">
           {label}
           {required && <span className="text-red-500 ml-0.5">*</span>}
         </label>
@@ -313,13 +313,13 @@ export const Textarea = ({
         placeholder={placeholder}
         disabled={disabled}
         required={required}
-        className={`w-full p-3 rounded-md bg-white border text-sm text-[#172B4D] placeholder:text-[#748597] transition-all outline-hidden resize-y
-          ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#D8E0E8] focus:border-[#147D83] focus:ring-2 focus:ring-[#147D83]/20'}
-          ${disabled ? 'bg-[#F4F7FA] text-[#748597] cursor-not-allowed' : ''}`}
+        className={`w-full p-3 rounded-md bg-white border text-sm text-[#202338] placeholder:text-[#7A8197] transition-all outline-hidden resize-y
+          ${error ? 'border-red-500 focus:ring-1 focus:ring-red-500' : 'border-[#E2E5F0] focus:border-[#4B5694] focus:ring-2 focus:ring-[#4B5694]/20'}
+          ${disabled ? 'bg-[#F7F8FC] text-[#7A8197] cursor-not-allowed' : ''}`}
         {...props}
       />
       {error && <p className="text-xs text-red-600 mt-0.5">{error}</p>}
-      {helperText && !error && <p className="text-xs text-[#748597] mt-0.5">{helperText}</p>}
+      {helperText && !error && <p className="text-xs text-[#7A8197] mt-0.5">{helperText}</p>}
     </div>
   );
 };
@@ -343,8 +343,8 @@ export const CSVUpload = ({
 
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
-      {label && <label className="text-sm font-medium text-[#172B4D]">{label}</label>}
-      <div className="border-2 border-dashed border-[#147D83]/40 rounded-lg p-5 text-center bg-[#147D83]/5 hover:bg-[#147D83]/10 transition-colors relative cursor-pointer">
+      {label && <label className="text-sm font-medium text-[#202338]">{label}</label>}
+      <div className="border-2 border-dashed border-[#4B5694]/40 rounded-xl p-5 text-center bg-[#4B5694]/5 hover:bg-[#4B5694]/10 transition-colors relative cursor-pointer">
         <input
           type="file"
           accept=".csv,text/csv"
@@ -352,11 +352,11 @@ export const CSVUpload = ({
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
         />
         <div className="flex flex-col items-center justify-center gap-1.5">
-          <Hash className="w-6 h-6 text-[#147D83]" />
-          <span className="text-xs font-bold text-[#102A43]">
+          <Hash className="w-6 h-6 text-[#4B5694]" />
+          <span className="text-xs font-bold text-[#202338]">
             {fileName || 'Drop CSV batch file here or click to browse'}
           </span>
-          <span className="text-[11px] text-[#52677A]">
+          <span className="text-[11px] text-[#626981]">
             {helperText || 'Standard comma-delimited format (UTF-8)'}
           </span>
         </div>
