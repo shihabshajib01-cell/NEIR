@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { UploadCloud, FileText, CheckCircle2, AlertCircle, X, Check } from 'lucide-react';
+import React, { useId, useRef, useState } from 'react';
+import { UploadCloud, FileText, X, Check } from 'lucide-react';
 import { Button } from './Button.jsx';
+import { usePreferences } from '../../system/PreferencesContext.jsx';
 
 export const Checkbox = ({
   label,
@@ -12,10 +13,12 @@ export const Checkbox = ({
   description,
   className = '',
 }) => {
-  const inputId = id || name || Math.random().toString(36).substring(2, 9);
+  const generatedId = useId();
+  const inputId = id || name || generatedId;
+  const { t } = usePreferences();
 
   return (
-    <label htmlFor={inputId} className={`flex items-start gap-2.5 cursor-pointer select-none ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}>
+    <label htmlFor={inputId} className={'flex items-start gap-2.5 cursor-pointer select-none ' + (disabled ? 'opacity-50 cursor-not-allowed ' : '') + className}>
       <div className="relative flex items-center justify-center mt-0.5">
         <input
           id={inputId}
@@ -26,13 +29,13 @@ export const Checkbox = ({
           disabled={disabled}
           className="sr-only peer"
         />
-        <div className="w-4 h-4 rounded border border-[#E2E5F0] bg-white transition-all peer-checked:bg-[#01ADC1] peer-checked:border-[#01ADC1] peer-focus-visible:ring-2 peer-focus-visible:ring-[#01ADC1]/30 flex items-center justify-center">
-          <Check className={`w-3 h-3 text-white stroke-[3] transition-opacity ${checked ? 'opacity-100' : 'opacity-0'}`} />
+        <div className="w-5 h-5 rounded-md border border-[var(--color-border)] bg-white transition-all peer-checked:bg-[var(--color-primary)] peer-checked:border-[var(--color-primary)] peer-focus-visible:ring-2 peer-focus-visible:ring-[rgba(1,173,193,0.28)] flex items-center justify-center">
+          <Check className={'w-3.5 h-3.5 text-white stroke-[3] transition-opacity ' + (checked ? 'opacity-100' : 'opacity-0')} />
         </div>
       </div>
       <div className="flex flex-col">
-        {label && <span className="text-sm font-medium text-[#202338] leading-tight">{label}</span>}
-        {description && <span className="text-xs text-[#7A8197] mt-0.5">{description}</span>}
+        {label && <span className="text-sm font-medium text-[var(--color-text-primary)] leading-tight">{t(label)}</span>}
+        {description && <span className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(description)}</span>}
       </div>
     </label>
   );
@@ -43,51 +46,47 @@ export const RadioGroup = ({
   name,
   value,
   onChange,
-  options = [], // [{ value, label, description }]
-  orientation = 'vertical', // 'vertical' | 'horizontal'
+  options = [],
+  orientation = 'vertical',
   disabled = false,
   className = '',
 }) => {
+  const { t } = usePreferences();
+
   return (
-    <div className={`flex flex-col gap-2 ${className}`}>
-      {label && <span className="text-sm font-medium text-[#202338]">{label}</span>}
-      <div className={`flex ${orientation === 'horizontal' ? 'flex-row flex-wrap gap-4' : 'flex-col gap-2'}`}>
-        {options.map((opt) => {
-          const isSelected = value === opt.value;
+    <fieldset className={'flex flex-col gap-2 ' + className} disabled={disabled}>
+      {label && <legend className="text-sm font-medium text-[var(--color-text-primary)] mb-1">{t(label)}</legend>}
+      <div className={'flex ' + (orientation === 'horizontal' ? 'flex-row flex-wrap gap-3' : 'flex-col gap-2')}>
+        {options.map((option) => {
+          const selected = value === option.value;
           return (
             <label
-              key={opt.value}
-              className={`flex items-start gap-2.5 cursor-pointer select-none p-2.5 rounded-md border transition-all ${
-                isSelected ? 'border-[#01ADC1] bg-[#01ADC1]/5' : 'border-[#E2E5F0] bg-white hover:bg-[#F7F8FC]'
-              } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+              key={option.value}
+              className={'flex items-start gap-2.5 cursor-pointer select-none p-3 rounded-lg border transition-all ' +
+                (selected ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)]' : 'border-[var(--color-border)] bg-white hover:bg-[var(--color-background-subtle)]') +
+                (disabled ? ' opacity-50 cursor-not-allowed' : '')}
             >
               <input
                 type="radio"
                 name={name}
-                value={opt.value}
-                checked={isSelected}
-                onChange={() => !disabled && onChange(opt.value)}
+                value={option.value}
+                checked={selected}
+                onChange={() => !disabled && onChange?.(option.value)}
                 disabled={disabled}
                 className="sr-only"
               />
-              <div className={`w-4 h-4 rounded-full border mt-0.5 flex items-center justify-center transition-all ${
-                isSelected ? 'border-[#01ADC1] bg-white' : 'border-[#E2E5F0] bg-white'
-              }`}>
-                {isSelected && <div className="w-2 h-2 rounded-full bg-[#01ADC1]" />}
+              <div className={'w-5 h-5 rounded-full border mt-0.5 flex items-center justify-center transition-all ' + (selected ? 'border-[var(--color-primary)] bg-white' : 'border-[var(--color-border)] bg-white')}>
+                {selected && <div className="w-2.5 h-2.5 rounded-full bg-[var(--color-primary)]" />}
               </div>
               <div className="flex flex-col">
-                <span className={`text-sm font-medium ${isSelected ? 'text-[#028A97]' : 'text-[#202338]'}`}>
-                  {opt.label}
-                </span>
-                {opt.description && (
-                  <span className="text-xs text-[#7A8197] mt-0.5">{opt.description}</span>
-                )}
+                <span className={'text-sm font-medium ' + (selected ? 'text-[var(--color-primary-dark)]' : 'text-[var(--color-text-primary)]')}>{t(option.label)}</span>
+                {option.description && <span className="text-xs text-[var(--color-text-muted)] mt-0.5">{t(option.description)}</span>}
               </div>
             </label>
           );
         })}
       </div>
-    </div>
+    </fieldset>
   );
 };
 
@@ -99,65 +98,55 @@ export const FileUpload = ({
   helperText = 'Allowed formats: PDF, JPG, PNG (Max 5MB)',
   className = '',
 }) => {
+  const { t } = usePreferences();
   const [file, setFile] = useState(null);
   const fileInputRef = useRef(null);
 
-  const handleFileChange = (e) => {
-    const selected = e.target.files?.[0];
+  const handleFileChange = (event) => {
+    const selected = event.target.files?.[0];
     if (selected) {
       setFile(selected);
-      if (onFileSelect) onFileSelect(selected);
+      onFileSelect?.(selected);
     }
   };
 
-  const handleClear = (e) => {
-    e.stopPropagation();
+  const handleClear = (event) => {
+    event.stopPropagation();
     setFile(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
-    if (onFileSelect) onFileSelect(null);
+    onFileSelect?.(null);
   };
 
   return (
-    <div className={`flex flex-col gap-1.5 ${className}`}>
-      {label && <label className="text-sm font-medium text-[#202338]">{label}</label>}
+    <div className={'flex flex-col gap-1.5 ' + className}>
+      {label && <label className="text-sm font-medium text-[var(--color-text-primary)]">{t(label)}</label>}
       <div
         onClick={() => fileInputRef.current?.click()}
-        className={`border-2 border-dashed rounded-lg p-4 transition-all text-center cursor-pointer flex flex-col items-center justify-center gap-2 ${
-          file ? 'border-[#01ADC1] bg-[#01ADC1]/5' : 'border-[#E2E5F0] bg-[#F7F8FC] hover:bg-[#E1F7FB]'
-        }`}
+        className={'border-2 border-dashed rounded-xl p-4 transition-all text-center cursor-pointer flex flex-col items-center justify-center gap-2 ' +
+          (file ? 'border-[var(--color-primary)] bg-[rgba(1,173,193,0.05)]' : 'border-[var(--color-border)] bg-[var(--color-background-subtle)] hover:bg-[var(--color-primary-light)]')}
       >
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept={accept}
-          onChange={handleFileChange}
-          className="hidden"
-        />
+        <input ref={fileInputRef} type="file" accept={accept} onChange={handleFileChange} className="hidden" />
         {file ? (
           <div className="flex items-center justify-between w-full px-2">
             <div className="flex items-center gap-2.5 text-left truncate">
-              <FileText className="w-5 h-5 text-[#01ADC1] shrink-0" />
+              <FileText className="w-5 h-5 text-[var(--color-primary)] shrink-0" />
               <div className="truncate">
-                <p className="text-sm font-medium text-[#202338] truncate">{file.name}</p>
-                <p className="text-xs text-[#7A8197]">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
+                <p className="text-sm font-medium text-[var(--color-text-primary)] truncate">{file.name}</p>
+                <p className="text-xs text-[var(--color-text-muted)]">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
               </div>
             </div>
-            <button
-              type="button"
-              onClick={handleClear}
-              className="p-1 text-[#7A8197] hover:text-red-600 rounded cursor-pointer"
-            >
+            <button type="button" onClick={handleClear} className="w-9 h-9 flex items-center justify-center text-[var(--color-text-muted)] hover:text-[var(--color-error)] rounded-lg" aria-label={t('Clear')}>
               <X className="w-4 h-4" />
             </button>
           </div>
         ) : (
           <>
-            <UploadCloud className="w-6 h-6 text-[#7A8197]" />
+            <UploadCloud className="w-6 h-6 text-[var(--color-text-muted)]" />
             <div>
-              <span className="text-xs font-semibold text-[#01ADC1]">Click to upload</span>
-              <span className="text-xs text-[#7A8197]"> or drag and drop</span>
+              <span className="text-xs font-semibold text-[var(--color-primary-dark)]">{t('Click to upload')}</span>
+              <span className="text-xs text-[var(--color-text-muted)]">{t(' or drag and drop')}</span>
             </div>
-            <p className="text-[11px] text-[#7A8197]">{helperText}</p>
+            <p className="text-[11px] text-[var(--color-text-muted)]">{t(helperText)}</p>
           </>
         )}
       </div>
@@ -170,51 +159,38 @@ export const CSVUpload = ({
   isProcessing = false,
   className = '',
 }) => {
+  const { t } = usePreferences();
   const [selectedFile, setSelectedFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
 
-  const handleDrag = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
-      setDragActive(true);
-    } else if (e.type === 'dragleave') {
-      setDragActive(false);
-    }
+  const handleDrag = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.type === 'dragenter' || event.type === 'dragover') setDragActive(true);
+    if (event.type === 'dragleave') setDragActive(false);
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleDrop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      const file = e.dataTransfer.files[0];
-      if (file.name.endsWith('.csv')) {
-        setSelectedFile(file);
-      }
-    }
+    const file = event.dataTransfer.files?.[0];
+    if (file?.name.endsWith('.csv')) setSelectedFile(file);
   };
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
-
-  const handleStartUpload = () => {
-    if (selectedFile && onUpload) {
-      onUpload(selectedFile);
-    }
+  const handleFileChange = (event) => {
+    const file = event.target.files?.[0];
+    if (file) setSelectedFile(file);
   };
 
   return (
-    <div className={`bg-white border border-[#E2E5F0] rounded-lg p-5 ${className}`}>
+    <div className={'bg-white border border-[var(--color-border)] rounded-xl p-5 ' + className}>
       <div className="flex flex-col gap-4">
         <div>
-          <h3 className="text-base font-semibold text-[#202338]">Upload Manufacturer CSV Batch</h3>
-          <p className="text-xs text-[#626981] mt-0.5">
-            Select a verified .CSV file formatted with mandatory columns: <code className="bg-[#F7F8FC] px-1 py-0.5 rounded text-[#01ADC1] font-mono">IMEI, BRAND, MODEL, TAC</code>
+          <h3 className="text-base font-semibold text-[var(--color-text-primary)]">Upload Manufacturer CSV Batch</h3>
+          <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">
+            Select a verified .CSV file formatted with mandatory columns: <code className="bg-[var(--color-background)] px-1 py-0.5 rounded text-[var(--color-primary-dark)] font-mono">IMEI, BRAND, MODEL, TAC</code>
           </p>
         </div>
 
@@ -224,35 +200,22 @@ export const CSVUpload = ({
           onDragOver={handleDrag}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`border-2 border-dashed rounded-lg p-6 flex flex-col items-center justify-center gap-3 transition-colors cursor-pointer ${
-            dragActive ? 'border-[#01ADC1] bg-[#01ADC1]/5' : 'border-[#E2E5F0] bg-[#F7F8FC] hover:bg-[#E1F7FB]'
-          }`}
+          className={'border-2 border-dashed rounded-xl p-6 flex flex-col items-center justify-center gap-3 transition-colors cursor-pointer ' +
+            (dragActive ? 'border-[var(--color-primary)] bg-[rgba(1,173,193,0.05)]' : 'border-[var(--color-border)] bg-[var(--color-background-subtle)] hover:bg-[var(--color-primary-light)]')}
         >
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".csv"
-            onChange={handleFileChange}
-            className="hidden"
-          />
-          <div className="w-12 h-12 rounded-full bg-white border border-[#E2E5F0] flex items-center justify-center text-[#01ADC1] shadow-xs">
+          <input ref={fileInputRef} type="file" accept=".csv" onChange={handleFileChange} className="hidden" />
+          <div className="w-12 h-12 rounded-full bg-white border border-[var(--color-border)] flex items-center justify-center text-[var(--color-primary)] shadow-[var(--shadow-sm)]">
             <UploadCloud className="w-6 h-6" />
           </div>
           <div className="text-center">
-            <p className="text-sm font-medium text-[#202338]">
-              {selectedFile ? selectedFile.name : 'Choose a CSV file or drag and drop here'}
-            </p>
-            <p className="text-xs text-[#7A8197] mt-0.5">
-              {selectedFile ? `${(selectedFile.size / 1024).toFixed(1)} KB · Ready to process` : 'Supported format: .csv (UTF-8 encoded)'}
-            </p>
+            <p className="text-sm font-medium text-[var(--color-text-primary)]">{selectedFile ? selectedFile.name : 'Choose a CSV file or drag and drop here'}</p>
+            <p className="text-xs text-[var(--color-text-muted)] mt-0.5">{selectedFile ? (selectedFile.size / 1024).toFixed(1) + ' KB · Ready to process' : 'Supported format: .csv (UTF-8 encoded)'}</p>
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-2 border-t border-[#E2E5F0]">
-          <div className="text-xs text-[#7A8197]">
-            {selectedFile ? 'File verified. Click Process Batch to commit.' : 'No file selected yet.'}
-          </div>
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2 border-t border-[var(--color-border)]">
+          <div className="text-xs text-[var(--color-text-muted)]">{selectedFile ? 'File verified. Click Process Batch to commit.' : 'No file selected yet.'}</div>
+          <div className="flex items-center gap-2 self-end">
             {selectedFile && (
               <Button
                 variant="ghost"
@@ -265,13 +228,7 @@ export const CSVUpload = ({
                 Clear
               </Button>
             )}
-            <Button
-              variant="primary"
-              size="md"
-              disabled={!selectedFile || isProcessing}
-              isLoading={isProcessing}
-              onClick={handleStartUpload}
-            >
+            <Button variant="primary" size="md" disabled={!selectedFile || isProcessing} isLoading={isProcessing} onClick={() => selectedFile && onUpload?.(selectedFile)}>
               Process Batch & Commit
             </Button>
           </div>
