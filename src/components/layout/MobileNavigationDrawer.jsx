@@ -45,18 +45,18 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-[#102A43]/70 backdrop-blur-xs transition-opacity animate-fade-in"
+        className="fixed inset-0 bg-[#202338]/35 backdrop-blur-xs transition-opacity animate-fade-in"
       />
 
       {/* Navigation Drawer */}
-      <div className="relative w-4/5 max-w-xs bg-[#102A43] text-white flex flex-col h-full z-10 shadow-2xl animate-slide-left">
+      <div className="relative w-4/5 max-w-xs bg-white text-[#202338] flex flex-col h-full z-10 shadow-2xl animate-slide-left">
         {/* Drawer Header */}
-        <div className="p-4 border-b border-[#173F5F] flex items-center justify-between">
-          <BtrcLogo className="h-7 w-7" inverted showText={true} />
+        <div className="p-4 border-b border-[#E2E5F0] flex items-center justify-between">
+          <BtrcLogo className="h-7 w-7" showText={true} />
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded text-slate-300 hover:text-white cursor-pointer"
+            className="p-1 rounded text-[#626981] hover:text-[#4B5694] cursor-pointer"
             aria-label="Close navigation"
           >
             <X className="w-5 h-5" />
@@ -64,9 +64,9 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
         </div>
 
         {/* User Card inside Mobile Drawer */}
-        <div className="px-4 py-3 bg-[#173F5F]/60 border-b border-[#173F5F]">
-          <p className="text-xs font-semibold text-white">{user?.fullName || 'BTRC Operator'}</p>
-          <p className="text-[11px] text-slate-300">{user?.role || 'Super Admin'}</p>
+        <div className="px-4 py-3 bg-[#F7F8FC] border-b border-[#E2E5F0]">
+          <p className="text-xs font-semibold text-[#202338]">{user?.fullName || 'BTRC Operator'}</p>
+          <p className="text-[11px] text-[#626981]">{user?.role || 'Super Admin'}</p>
         </div>
 
         {/* Scrollable Navigation Items */}
@@ -86,18 +86,18 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                     type="button"
                     onClick={() => toggleSubmenu(item.path)}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-md text-xs font-medium transition-colors ${
-                      isCurrentSectionActive ? 'bg-[#173F5F] text-white' : 'text-slate-300 hover:bg-[#173F5F]/50'
+                      isCurrentSectionActive ? 'bg-[#EEF0FA] text-[#4B5694]' : 'text-[#626981] hover:bg-[#EEF0FA]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <Icon className="w-4 h-4 text-slate-400" />
+                      <Icon className="w-4 h-4 text-[#7A8197]" />
                       <span>{item.name}</span>
                     </div>
                     {isSubmenuOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
                   </button>
 
                   {isSubmenuOpen && (
-                    <div className="pl-6 space-y-1 border-l border-[#173F5F] ml-4 py-1">
+                    <div className="pl-6 space-y-1 border-l border-[#E2E5F0] ml-4 py-1">
                       {item.children.map((child) => {
                         const ChildIcon = child.icon;
                         const isChildActive = child.exact
@@ -110,7 +110,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                             to={child.path}
                             end={child.exact}
                             className={`flex items-center gap-2 px-2.5 py-2 rounded text-xs transition-colors ${
-                              isChildActive ? 'bg-[#14804A] text-white font-semibold' : 'text-slate-300 hover:bg-[#173F5F]'
+                              isChildActive ? 'bg-[#4B5694] text-white font-semibold' : 'text-[#626981] hover:bg-[#EEF0FA]'
                             }`}
                           >
                             <ChildIcon className="w-3.5 h-3.5" />
@@ -130,7 +130,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                 to={item.path}
                 className={({ isActive }) =>
                   `flex items-center gap-2.5 px-3 py-2.5 rounded-md text-xs font-medium transition-colors ${
-                    isActive ? 'bg-[#14804A] text-white font-semibold' : 'text-slate-300 hover:bg-[#173F5F]/50'
+                    isActive ? 'bg-[#4B5694] text-white font-semibold' : 'text-[#626981] hover:bg-[#EEF0FA]'
                   }`
                 }
               >
@@ -142,11 +142,11 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
         </nav>
 
         {/* Bottom sign out */}
-        <div className="p-3 border-t border-[#173F5F]">
+        <div className="p-3 border-t border-[#E2E5F0]">
           <button
             type="button"
             onClick={logout}
-            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded bg-red-900/40 text-red-200 text-xs font-medium hover:bg-red-900/60 transition-colors cursor-pointer"
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded bg-red-50 text-[#C62828] border border-red-100 text-xs font-medium hover:bg-red-100 transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
             <span>Sign Out</span>
