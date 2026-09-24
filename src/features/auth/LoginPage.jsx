@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { User, ShieldCheck } from 'lucide-react';
+import { User, ShieldCheck, MonitorCheck, LayoutDashboard } from 'lucide-react';
 import { BtrcLogo } from '../../components/layout/BtrcLogo.jsx';
 import { TextInput, PasswordInput } from '../../components/forms/TextInput.jsx';
 import { Checkbox } from '../../components/forms/Checkbox.jsx';
@@ -35,61 +35,79 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center bg-[#F7F8FC] p-4 sm:p-6 lg:p-8">
-      <div className="max-w-4xl w-full mx-auto bg-white rounded-xl shadow-xl border border-[#E2E5F0] overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[540px]">
-        <div className="lg:col-span-5 bg-[#202338] text-white p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]" />
+    <div className="min-h-screen bg-[#F7F8FC] flex items-center justify-center px-4 py-6 sm:px-6 lg:px-8 lg:py-16">
+      <div className="w-full max-w-[1280px] flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
+        <section className="hidden lg:flex flex-1 min-h-[560px] rounded-2xl border border-[#E2E5F0] bg-[#EEF0FA] relative overflow-hidden p-10 flex-col justify-between">
+          <div className="absolute -right-20 -top-24 w-72 h-72 rounded-full bg-[#7C8BD6]/16" />
+          <div className="absolute -left-24 bottom-0 w-64 h-64 rounded-full bg-[#4B5694]/8" />
+          <div className="absolute inset-0 opacity-50 pointer-events-none bg-[radial-gradient(rgba(75,86,148,0.16)_1px,transparent_1px)] [background-size:22px_22px]" />
 
           <div className="relative z-10">
-            <BtrcLogo className="h-14 w-14" inverted showText />
-
-            <div className="mt-8 space-y-3">
-              <span className="inline-flex text-[11px] font-semibold uppercase tracking-widest text-emerald-300 bg-emerald-400/10 px-2.5 py-1 rounded border border-emerald-400/20">
-                Administrative Portal
-              </span>
-              <h1 className="text-xl font-bold tracking-tight text-white leading-snug">
-                National Equipment Identity Register (NEIR)
-              </h1>
-              <p className="text-sm text-slate-300 leading-relaxed">
-                Secure administrative access to the NEIR frontend workspace.
-              </p>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#E2E5F0] text-xs font-semibold text-[#4B5694] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <ShieldCheck className="w-4 h-4" />
+              BTRC Administrative Portal
             </div>
 
-            <div className="mt-8 rounded-lg border border-[#7C8BD6] bg-[#4B5694]/70 p-4">
-              <div className="flex items-start gap-3">
-                <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-semibold text-white">Prototype access</p>
-                  <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                    Authentication is bypassed while we build and review the frontend.
-                  </p>
-                </div>
+            <div className="mt-10 max-w-lg">
+              <h1 className="text-[34px] leading-[1.18] font-semibold tracking-tight text-[#202338]">
+                National Equipment Identity Register
+              </h1>
+              <p className="text-base text-[#626981] leading-7 mt-4 max-w-md">
+                A focused administrative workspace for NEIR operations, review, device services, and system management.
+              </p>
+            </div>
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 gap-3 max-w-md">
+            <div className="flex items-center gap-3 p-4 bg-white/85 border border-white rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+              <div className="w-10 h-10 rounded-xl bg-[#4B5694]/10 flex items-center justify-center text-[#4B5694] shrink-0">
+                <LayoutDashboard className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#202338]">Unified administration</p>
+                <p className="text-xs text-[#626981] mt-0.5">One consistent workspace across NEIR modules.</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-4 bg-white/85 border border-white rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+              <div className="w-10 h-10 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#2E7D32] shrink-0">
+                <MonitorCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#202338]">Prototype review mode</p>
+                <p className="text-xs text-[#626981] mt-0.5">Credentials are bypassed while the frontend is being reviewed.</p>
               </div>
             </div>
           </div>
+        </section>
 
-          <div className="relative z-10 pt-6 border-t border-[#4B5694] text-xs text-slate-400">
-            Bangladesh Telecommunication Regulatory Commission (BTRC)
+        <section className="w-full lg:w-[540px] shrink-0">
+          <div className="flex items-start justify-between gap-6 mb-5 px-1">
+            <div className="min-w-0">
+              <h2 className="text-xl font-semibold text-[#202338]">NEIR Admin Portal</h2>
+              <p className="text-sm text-[#626981] mt-1">Bangladesh Telecommunication Regulatory Commission</p>
+            </div>
+            <BtrcLogo className="h-14 w-14" showText={false} />
           </div>
-        </div>
 
-        <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-center bg-white">
-          <div className="max-w-md w-full mx-auto">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-[#202338] tracking-tight">Administrative sign in</h2>
-              <p className="text-sm text-[#626981] mt-1">
-                Username and password are optional in the current frontend prototype.
+          <div className="bg-white rounded-2xl border border-[#E2E5F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] p-6 sm:p-8">
+            <div className="mb-7">
+              <h1 className="text-[30px] leading-tight font-semibold tracking-tight text-[#202338]">
+                Administrative sign in
+              </h1>
+              <p className="text-sm text-[#626981] mt-2 leading-6">
+                Sign in to access your NEIR office workspace.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <TextInput
                 label="Username"
                 id="username"
                 name="username"
                 value={username}
                 onChange={(event) => setUsername(event.target.value)}
-                placeholder="Optional"
+                placeholder="Enter username"
                 icon={User}
                 autoComplete="username"
               />
@@ -100,15 +118,18 @@ export const LoginPage = () => {
                 name="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                placeholder="Optional"
+                placeholder="Enter password"
                 autoComplete="current-password"
               />
 
-              <Checkbox
-                label="Remember this browser"
-                checked={rememberMe}
-                onChange={(event) => setRememberMe(event.target.checked)}
-              />
+              <div className="flex items-center justify-between gap-4">
+                <Checkbox
+                  label="Remember this browser"
+                  checked={rememberMe}
+                  onChange={(event) => setRememberMe(event.target.checked)}
+                />
+                <span className="text-xs text-[#7A8197]">Prototype access</span>
+              </div>
 
               <Button
                 type="submit"
@@ -121,11 +142,11 @@ export const LoginPage = () => {
               </Button>
             </form>
 
-            <div className="mt-8 pt-4 border-t border-[#E2E5F0] text-center text-xs text-[#7A8197]">
-              Click Sign in to continue directly to the dashboard.
-            </div>
+            <p className="mt-5 text-center text-xs text-[#7A8197] leading-5">
+              For this frontend prototype, credentials are optional. Click Sign in to continue to the dashboard.
+            </p>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
