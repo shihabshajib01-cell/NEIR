@@ -197,6 +197,7 @@ export const PermissionPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Filter permissions..."
                   searchValue={searchTerm}
+                  searchSuggestions={permissions.flatMap((item) => [item.name, item.path, item.parentName])}
                   onSearchChange={setSearchTerm}
                   onReset={() => {
                     setSearchTerm('');

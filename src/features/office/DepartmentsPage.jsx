@@ -176,6 +176,7 @@ export const DepartmentsPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Search departments by name, code, or department head..."
                   searchValue={searchTerm}
+                  searchSuggestions={departments.flatMap((item) => [item.name, item.code, item.head])}
                   onSearchChange={setSearchTerm}
                   onReset={() => setSearchTerm('')}
                 />

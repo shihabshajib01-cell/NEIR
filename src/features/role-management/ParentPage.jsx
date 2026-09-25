@@ -182,6 +182,7 @@ export const ParentPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Filter by parent name or route path..."
                   searchValue={searchTerm}
+                  searchSuggestions={data.flatMap((item) => [item.name, item.path])}
                   onSearchChange={setSearchTerm}
                   onReset={() => setSearchTerm('')}
                 />

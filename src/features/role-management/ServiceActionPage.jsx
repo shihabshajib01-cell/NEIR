@@ -231,6 +231,7 @@ export const ServiceActionPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Filter service actions..."
                   searchValue={searchTerm}
+                  searchSuggestions={serviceActions.flatMap((item) => [item.name, item.path, item.permissionName, item.parentName])}
                   onSearchChange={setSearchTerm}
                   onReset={() => setSearchTerm('')}
                 />

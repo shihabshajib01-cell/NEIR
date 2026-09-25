@@ -190,6 +190,7 @@ export const DesignationsPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Filter designations..."
                   searchValue={searchTerm}
+                  searchSuggestions={designations.flatMap((item) => [item.title, item.departmentName])}
                   onSearchChange={setSearchTerm}
                   onReset={() => {
                     setSearchTerm('');

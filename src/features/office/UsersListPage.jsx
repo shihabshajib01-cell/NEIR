@@ -165,6 +165,7 @@ export const UsersListPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Search officer by name, username, email, or designation..."
                   searchValue={searchTerm}
+                  searchSuggestions={users.flatMap((item) => [item.fullName, item.username, item.email, item.designation])}
                   onSearchChange={setSearchTerm}
                   onReset={() => {
                     setSearchTerm('');
