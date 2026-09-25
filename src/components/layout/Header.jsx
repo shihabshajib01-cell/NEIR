@@ -84,9 +84,9 @@ export const Header = ({
             title={t('Preferences')}
           >
             <Settings2 className="w-[18px] h-[18px]" />
-            <span className="hidden sm:inline type-meta font-semibold">
+            <p className="hidden sm:inline type-meta font-semibold">
               {language === 'bn' ? 'বাংলা' : 'EN'}
-            </span>
+            </p>
           </button>
           {preferencesOpen && (
             <div className="absolute right-0 mt-2 z-50">
@@ -113,7 +113,7 @@ export const Header = ({
           {notificationsOpen && (
             <div className="absolute right-0 mt-2 w-72 bg-white text-[var(--color-text-primary)] rounded-xl shadow-[var(--shadow-lg)] border border-[var(--color-border)] py-2 z-50">
               <div className="px-4 py-2.5 border-b border-[var(--color-border)]">
-                <span className="type-label font-semibold">{t('Notifications')}</span>
+                <p className="type-label font-semibold">{t('Notifications')}</p>
               </div>
               <div className="px-4 py-5 text-sm text-[var(--color-text-secondary)]">
                 {t('No new notifications.')}
@@ -139,12 +139,12 @@ export const Header = ({
               {user?.fullName?.charAt(0)?.toUpperCase() || 'A'}
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="type-label font-semibold leading-tight truncate max-w-[150px]">
+              <p className="type-label font-semibold leading-tight truncate max-w-[150px]">
                 {user?.fullName || t('Admin user')}
-              </span>
-              <span className="type-meta text-[var(--color-text-secondary)] leading-tight truncate max-w-[150px]">
+              </p>
+              <p className="type-meta text-[var(--color-text-secondary)] leading-tight truncate max-w-[150px]">
                 {user?.role || 'Admin'}
-              </span>
+              </p>
             </div>
             <ChevronDown className="w-3.5 h-3.5 text-[var(--color-text-secondary)] hidden sm:block" />
           </button>
@@ -165,7 +165,7 @@ export const Header = ({
                   className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-primary-light)]"
                 >
                   <User className="w-4 h-4 text-[var(--color-text-secondary)]" />
-                  <span>{t('User directory')}</span>
+                  <p>{t('User directory')}</p>
                 </Link>
 
                 <button
@@ -177,7 +177,7 @@ export const Header = ({
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-primary-light)] text-left cursor-pointer"
                 >
                   <KeyRound className="w-4 h-4 text-[var(--color-text-secondary)]" />
-                  <span>{t('Change password')}</span>
+                  <p>{t('Change password')}</p>
                 </button>
               </div>
 
@@ -188,7 +188,7 @@ export const Header = ({
                   className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-50 text-[var(--color-error)] type-label text-left cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
-                  <span>{t('Sign out')}</span>
+                  <p>{t('Sign out')}</p>
                 </button>
               </div>
             </div>

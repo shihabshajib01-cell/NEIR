@@ -261,8 +261,8 @@ export const FileUpload = ({ label, helperText, accept, onFileSelect, className 
         <input type="file" accept={accept} onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">
           <Smartphone className="w-6 h-6 text-[var(--color-primary)]" />
-          <span className="type-body-strong text-[var(--color-text-primary)]">{fileName || t('Click or drag file to attach')}</span>
-          <span className="type-meta text-[var(--color-text-muted)]">{t(helperText || 'Supported files: PDF, PNG, JPG up to 10MB')}</span>
+          <p className="type-body-strong text-[var(--color-text-primary)]">{fileName || t('Click or drag file to attach')}</p>
+          <p className="type-meta text-[var(--color-text-muted)]">{t(helperText || 'Supported files: PDF, PNG, JPG up to 10MB')}</p>
         </div>
       </div>
     </div>
@@ -339,8 +339,8 @@ export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, c
         <input type="file" accept=".csv,text/csv" onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">
           <Hash className="w-6 h-6 text-[var(--color-primary)]" />
-          <span className="type-body-strong text-[var(--color-text-primary)]">{fileName || 'Drop CSV batch file here or click to browse'}</span>
-          {helperText && <span className="type-meta text-[var(--color-text-muted)]">{t(helperText)}</span>}
+          <p className="type-body-strong text-[var(--color-text-primary)]">{fileName || 'Drop CSV batch file here or click to browse'}</p>
+          {helperText && <p className="type-meta text-[var(--color-text-muted)]">{t(helperText)}</p>}
         </div>
       </div>
       {onSampleDownload && (

@@ -81,7 +81,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon className="w-4 h-4 text-[var(--color-text-muted)]" />
-                      <span>{t(item.name)}</span>
+                      <p>{t(item.name)}</p>
                     </div>
                     {submenuOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
                   </button>
@@ -100,7 +100,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                               (activeChild ? 'bg-[var(--color-primary)] text-white font-semibold' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)]')}
                           >
                             <ChildIcon className="w-3.5 h-3.5" />
-                            <span>{t(child.name)}</span>
+                            <p>{t(child.name)}</p>
                           </NavLink>
                         );
                       })}
@@ -120,7 +120,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                 }
               >
                 <Icon className="w-4 h-4" />
-                <span>{t(item.name)}</span>
+                <p>{t(item.name)}</p>
               </NavLink>
             );
           })}
@@ -133,7 +133,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
             className="w-full min-h-11 flex items-center justify-center gap-2 px-3 rounded-lg bg-red-50 text-[var(--color-error)] border border-red-100 text-sm font-medium hover:bg-red-100"
           >
             <LogOut className="w-4 h-4" />
-            <span>{t('Sign Out')}</span>
+            <p>{t('Sign Out')}</p>
           </button>
         </div>
       </div>

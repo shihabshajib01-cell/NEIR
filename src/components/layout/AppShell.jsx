@@ -34,7 +34,7 @@ export const AppShell = () => {
           </main>
 
           <footer className="shrink-0 border-t border-[var(--color-border)] bg-white px-4 sm:px-6 py-3 text-right text-xs text-[var(--color-text-secondary)]">
-            {t('Powered by')} <span className="font-semibold text-[var(--color-text-primary)]">Synesis IT</span>
+            <p>{t('Powered by')} <strong className="font-semibold text-[var(--color-text-primary)]">Synesis IT</strong></p>
           </footer>
         </div>
       </div>

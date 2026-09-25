@@ -81,7 +81,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                 >
                   <div className="flex items-center gap-2.5 truncate">
                     <Icon className={'w-4 h-4 shrink-0 ' + (activeSection ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-muted)]')} />
-                    <span className="truncate">{t(item.name)}</span>
+                    <p className="truncate">{t(item.name)}</p>
                   </div>
                   {submenuOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
                 </button>
@@ -102,7 +102,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                               : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)] hover:text-[var(--color-primary-dark)]')}
                         >
                           <ChildIcon className="w-3.5 h-3.5 shrink-0" />
-                          <span className="truncate">{t(child.name)}</span>
+                          <p className="truncate">{t(child.name)}</p>
                         </NavLink>
                       );
                     })}
@@ -125,7 +125,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
               }
             >
               <Icon className="w-4 h-4 shrink-0" />
-              {!isCollapsed && <span className="truncate">{t(item.name)}</span>}
+              {!isCollapsed && <p className="truncate">{t(item.name)}</p>}
             </NavLink>
           );
         })}

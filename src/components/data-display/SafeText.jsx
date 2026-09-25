@@ -16,12 +16,12 @@ export const SafeText = ({
   const text = value === null || value === undefined || value === '' ? fallback : String(value);
 
   return (
-    <span
+    <p
       className={'block truncate ' + (widths[mode] || widths.normal) + ' ' + className}
       title={text}
     >
       {text}
-    </span>
+    </p>
   );
 };
 
@@ -48,7 +48,7 @@ export const ExpandableText = ({
           onClick={() => setExpanded((current) => !current)}
           className="mt-1 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
         >
-          {expanded ? t('Show less') : t('Show more')}
+          <p>{expanded ? t('Show less') : t('Show more')}</p>
         </button>
       )}
     </div>

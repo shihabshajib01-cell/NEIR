@@ -26,13 +26,13 @@ export const DocumentList = ({ documents = [], selectedDocId, onSelectDoc, class
                 <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-primary-dark)]">{doc.type}</div>
                 <div className="text-sm font-medium text-[var(--color-text-primary)] truncate mt-0.5">{doc.title}</div>
                 <div className="text-xs text-[var(--color-text-muted)] flex items-center gap-2 mt-0.5 font-mono">
-                  <span className="truncate">{doc.filename}</span><span>·</span><span>{doc.size}</span>
+                  <p className="truncate">{doc.filename}</p><p>·</p><p>{doc.size}</p>
                 </div>
               </div>
             </div>
-            <span className={'text-xs px-2 py-1 rounded-lg font-medium shrink-0 ml-2 ' + (selected ? 'bg-[var(--color-primary)] text-white' : 'text-[var(--color-text-secondary)] bg-[var(--color-background)]')}>
+            <p className={'text-xs px-2 py-1 rounded-lg font-medium shrink-0 ml-2 ' + (selected ? 'bg-[var(--color-primary)] text-white' : 'text-[var(--color-text-secondary)] bg-[var(--color-background)]')}>
               {selected ? t('Viewing') : t('Inspect')}
-            </span>
+            </p>
           </button>
         );
       })}
@@ -59,8 +59,8 @@ export const DocumentViewerPlaceholder = ({ document, className = '' }) => {
         <div className="flex items-center gap-2 min-w-0">
           <FileText className="w-4 h-4 text-cyan-100 shrink-0" />
           <div className="truncate">
-            <span className="text-xs font-semibold uppercase tracking-wider text-cyan-100 mr-2">[{document.type}]</span>
-            <span className="text-sm font-medium text-white truncate">{document.title}</span>
+            <p className="text-xs font-semibold uppercase tracking-wider text-cyan-100 mr-2">[{document.type}]</p>
+            <p className="text-sm font-medium text-white truncate">{document.title}</p>
           </div>
         </div>
         <Button variant="ghost" size="sm" className="text-white hover:bg-white/10" onClick={() => alert('Document "' + document.filename + '" downloaded.')} icon={Download}>
@@ -72,11 +72,11 @@ export const DocumentViewerPlaceholder = ({ document, className = '' }) => {
         <div className="w-full max-w-lg bg-white rounded-xl shadow-[var(--shadow-md)] p-5 sm:p-6 border border-[var(--color-border)] flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-[var(--color-border)]">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-[var(--color-primary-dark)] flex items-center justify-center text-white text-[10px] font-bold">BD</div>
-              <span className="text-xs font-bold text-[var(--color-text-primary)] tracking-wide">GOVERNMENT / CUSTOMS VERIFICATION RECORD</span>
+              <div className="w-7 h-7 rounded-lg bg-[var(--color-primary-dark)] flex items-center justify-center text-white text-[10px] font-bold"><p>BD</p></div>
+              <p className="text-xs font-bold text-[var(--color-text-primary)] tracking-wide">GOVERNMENT / CUSTOMS VERIFICATION RECORD</p>
             </div>
             <div className="flex items-center gap-1 text-[11px] text-[#1B5E20] font-medium bg-[rgba(46,125,50,0.10)] px-2 py-1 rounded-lg">
-              <ShieldCheck className="w-3.5 h-3.5" /><span>Dossier Match Verified</span>
+              <ShieldCheck className="w-3.5 h-3.5" /><p>Dossier Match Verified</p>
             </div>
           </div>
 
@@ -87,8 +87,8 @@ export const DocumentViewerPlaceholder = ({ document, className = '' }) => {
               ['File Footprint:', document.size + ' (Signed & Stamped)'],
             ].map(([label, value]) => (
               <div key={label} className="p-2.5 bg-[var(--color-background-subtle)] rounded-lg border border-[var(--color-border)] flex flex-col sm:flex-row sm:justify-between gap-1">
-                <span className="text-[var(--color-text-secondary)]">{label}</span>
-                <span className="font-semibold text-[var(--color-text-primary)] break-all">{value}</span>
+                <p className="text-[var(--color-text-secondary)]">{label}</p>
+                <p className="font-semibold text-[var(--color-text-primary)] break-all">{value}</p>
               </div>
             ))}
           </div>
@@ -101,13 +101,13 @@ export const DocumentViewerPlaceholder = ({ document, className = '' }) => {
             </div>
           </div>
 
-          <div className="text-[11px] text-[var(--color-text-muted)] text-center italic">Watermarked for internal BTRC administrative verification purposes only.</div>
+          <div className="text-[11px] text-[var(--color-text-muted)] text-center italic"><p>Watermarked for internal BTRC administrative verification purposes only.</p></div>
         </div>
       </div>
 
       <div className="px-4 py-2 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-xs text-[var(--color-text-secondary)]">
-        <span>Uploaded: {document.date || '2026-03-20'}</span>
-        <span>Status: Stored on BTRC Gov Cloud</span>
+        <p>Uploaded: {document.date || '2026-03-20'}</p>
+        <p>Status: Stored on BTRC Gov Cloud</p>
       </div>
     </div>
   );

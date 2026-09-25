@@ -21,10 +21,10 @@ export const StatusBadge = ({ status = 'Active', showIcon = true, size = 'md', c
   const sizeClasses = size === 'sm' ? 'type-badge px-2 py-1 gap-1' : 'type-badge px-2.5 py-1 gap-1.5';
 
   return (
-    <span className={'inline-flex items-center font-semibold rounded-full border leading-none shrink-0 ' + config.bg + ' ' + config.text + ' ' + config.border + ' ' + sizeClasses + ' ' + className}>
+    <div className={'inline-flex items-center font-semibold rounded-full border leading-none shrink-0 ' + config.bg + ' ' + config.text + ' ' + config.border + ' ' + sizeClasses + ' ' + className}>
       {showIcon && <Icon className={size === 'sm' ? 'w-3 h-3' : 'w-3.5 h-3.5'} />}
-      <span>{t(status)}</span>
-    </span>
+      <p>{t(status)}</p>
+    </div>
   );
 };
 
@@ -37,7 +37,7 @@ export const PriorityBadge = ({ priority = 'Medium' }) => {
     medium: 'bg-[rgba(239,143,34,0.10)] text-[#B96B18] border-[rgba(239,143,34,0.30)]',
     low: 'bg-[var(--color-background)] text-[var(--color-text-secondary)] border-[var(--color-border)]',
   };
-  return <span className={'px-2 py-1 rounded-full type-badge border ' + (colors[norm] || colors.medium)}>{t(priority)}</span>;
+  return <p className={'px-2 py-1 rounded-full type-badge border ' + (colors[norm] || colors.medium)}>{t(priority)}</p>;
 };
 
 export const MetricCard = ({ title, value, change, category, tone = 'neutral', icon: Icon, className = '' }) => {
@@ -56,8 +56,8 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
-            <span className={'w-2 h-2 rounded-full shrink-0 ' + toneConfig.dot} />
-            <span className="type-label text-[var(--color-text-secondary)]">{t(title)}</span>
+            <div className={'w-2 h-2 rounded-full shrink-0 ' + toneConfig.dot} />
+            <p className="type-label text-[var(--color-text-secondary)]">{t(title)}</p>
           </div>
           <div className="type-kpi text-[var(--color-text-primary)] mt-3">{value}</div>
         </div>
@@ -65,8 +65,8 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
       </div>
       {(change || category) && (
         <div className="flex items-start justify-between gap-3 type-meta text-[var(--color-text-muted)] mt-3 pt-2.5 border-t border-[var(--color-border-subtle)]">
-          <span className="font-medium leading-4">{change}</span>
-          {category && <span className="shrink-0 text-right">{t(category)}</span>}
+          <p className="font-medium leading-4">{change}</p>
+          {category && <p className="shrink-0 text-right">{t(category)}</p>}
         </div>
       )}
     </div>

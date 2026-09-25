@@ -53,7 +53,7 @@ export const Checkbox = ({
   );
 
   if (!label && !description) {
-    return <span className={className}>{control}</span>;
+    return <p className={className}>{control}</p>;
   }
 
   return (
@@ -62,10 +62,10 @@ export const Checkbox = ({
       disabled={disabled}
       control={control}
       label={
-        <span className="flex flex-col">
-          {label && <span className="type-label text-[var(--color-text-primary)] leading-tight">{t(label)}</span>}
-          {description && <span className="type-meta text-[var(--color-text-muted)] mt-0.5">{t(description)}</span>}
-        </span>
+        <div className="flex flex-col">
+          {label && <p className="type-label text-[var(--color-text-primary)] leading-tight">{t(label)}</p>}
+          {description && <p className="type-meta text-[var(--color-text-muted)] mt-0.5">{t(description)}</p>}
+        </div>
       }
       sx={{
         margin: 0,
@@ -118,10 +118,10 @@ export const RadioGroup = ({
             value={option.value}
             control={<Radio size="small" />}
             label={
-              <span className="flex flex-col">
-                <span className="type-label text-[var(--color-text-primary)]">{t(option.label)}</span>
-                {option.description && <span className="type-meta text-[var(--color-text-muted)] mt-0.5">{t(option.description)}</span>}
-              </span>
+              <div className="flex flex-col">
+                <p className="type-label text-[var(--color-text-primary)]">{t(option.label)}</p>
+                {option.description && <p className="type-meta text-[var(--color-text-muted)] mt-0.5">{t(option.description)}</p>}
+              </div>
             }
             sx={{
               margin: 0,
@@ -191,8 +191,8 @@ export const FileUpload = ({
           <>
             <UploadCloud className="w-6 h-6 text-[var(--color-text-muted)]" />
             <div>
-              <span className="type-button-sm text-[var(--color-primary-dark)]">{t('Click to upload')}</span>
-              <span className="type-meta text-[var(--color-text-muted)]">{t(' or drag and drop')}</span>
+              <p className="type-button-sm text-[var(--color-primary-dark)]">{t('Click to upload')}</p>
+              <p className="type-meta text-[var(--color-text-muted)]">{t(' or drag and drop')}</p>
             </div>
             <p className="type-meta text-[var(--color-text-muted)]">{t(helperText)}</p>
           </>

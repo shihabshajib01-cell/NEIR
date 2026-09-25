@@ -32,7 +32,7 @@ export const LoadingState = ({ message = 'Loading NEIR registry records...', cla
   return (
     <div className={'p-10 flex flex-col items-center justify-center gap-2.5 ' + className}>
       <Loader2 className="w-6 h-6 animate-spin text-[var(--color-primary)]" />
-      <span className="text-xs font-medium text-[var(--color-text-secondary)]">{t(message)}</span>
+      <p className="text-xs font-medium text-[var(--color-text-secondary)]">{t(message)}</p>
     </div>
   );
 };

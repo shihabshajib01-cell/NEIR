@@ -93,7 +93,7 @@ export const Select = ({
       >
         {placeholder && (
           <MenuItem value="" disabled={required} sx={optionSx}>
-            <span className="text-[var(--color-text-muted)]">{t(placeholder)}</span>
+            <p className="text-[var(--color-text-muted)]">{t(placeholder)}</p>
           </MenuItem>
         )}
         {normalizedOptions.map((option) => (

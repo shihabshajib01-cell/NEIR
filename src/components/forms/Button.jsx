@@ -71,7 +71,7 @@ export const Button = ({
       ) : (
         Icon && iconPosition === 'left' && <Icon className="w-4 h-4 shrink-0" />
       )}
-      <span>{label}</span>
+      <p>{label}</p>
       {!isLoading && Icon && iconPosition === 'right' && <Icon className="w-4 h-4 shrink-0" />}
     </button>
   );

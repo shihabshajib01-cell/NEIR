@@ -18,7 +18,7 @@ export const Breadcrumbs = ({ items = [] }) => {
           <React.Fragment key={item.href || item.label || index}>
             <ChevronRight className="w-3 h-3 text-[#A0A6B8] shrink-0" />
             {isLast || !item.href ? (
-              <span className={'font-medium whitespace-nowrap ' + (isLast ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-muted)]')}>{t(item.label)}</span>
+              <p className={'font-medium whitespace-nowrap ' + (isLast ? 'text-[var(--color-text-primary)]' : 'text-[var(--color-text-muted)]')}>{t(item.label)}</p>
             ) : (
               <Link to={item.href} className="hover:text-[var(--color-primary)] transition-colors whitespace-nowrap">{t(item.label)}</Link>
             )}
@@ -57,8 +57,8 @@ export const ContextualSecondaryNav = ({ tabs = [], activeId, onTabChange, class
           const content = (
             <>
               {Icon && <Icon className="w-3.5 h-3.5" />}
-              <span>{t(tab.label)}</span>
-              {typeof tab.count === 'number' && <span className={'px-1.5 py-0.5 rounded-full type-badge ' + (isActive ? 'bg-[var(--color-primary)] text-white' : 'bg-[var(--color-primary-light)] text-[var(--color-text-secondary)]')}>{tab.count}</span>}
+              <p>{t(tab.label)}</p>
+              {typeof tab.count === 'number' && <p className={'px-1.5 py-0.5 rounded-full type-badge ' + (isActive ? 'bg-[var(--color-primary)] text-white' : 'bg-[var(--color-primary-light)] text-[var(--color-text-secondary)]')}>{tab.count}</p>}
             </>
           );
 
