@@ -58,7 +58,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
 
   return (
     <aside
-      className={'hidden lg:flex flex-col bg-white text-[var(--color-text-primary)] border-r border-[var(--color-border)] transition-all duration-200 shrink-0 select-none z-20 ' + (isCollapsed ? 'w-16' : 'w-64')}
+      className={'hidden lg:flex h-full min-h-0 flex-col bg-white text-[var(--color-text-primary)] border-r border-[var(--color-border)] transition-all duration-200 shrink-0 select-none z-20 ' + (isCollapsed ? 'w-16' : 'w-64')}
     >
       <div className="px-4 py-3 type-overline text-[var(--color-text-muted)] border-b border-[var(--color-border)]">
         {isCollapsed ? 'NAV' : t('Navigation')}
