@@ -138,13 +138,13 @@ export const ServiceActionPage = () => {
       DELETE: 'bg-rose-50 text-rose-700 border-rose-200',
     };
     return (
-      <span
+      <p
         className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold border ${
           colors[method] || 'bg-slate-100 text-slate-700 border-slate-200'
         }`}
       >
         {method}
-      </span>
+      </p>
     );
   };
 
@@ -155,29 +155,29 @@ export const ServiceActionPage = () => {
       render: (val) => (
         <div className="flex items-center gap-2">
           <Layers className="w-3.5 h-3.5 text-[#01ADC1]" />
-          <span className="font-semibold text-[#202338]">{val}</span>
+          <p className="font-semibold text-[#202338]">{val}</p>
         </div>
       ),
     },
     {
       key: 'permissionName',
       title: 'Permission Name',
-      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
+      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
     },
     {
       key: 'parentName',
       title: 'Parent Name',
       render: (val) => (
-        <span className="text-xs text-[#626981] bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0]">
+        <p className="text-xs text-[#626981] bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0]">
           {val}
-        </span>
+        </p>
       ),
     },
     {
       key: 'path',
       title: 'Path',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#626981]">{val}</span>,
+      render: (val) => <p className="font-mono text-xs text-[#626981]">{val}</p>,
     },
     {
       key: 'method',

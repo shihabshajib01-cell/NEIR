@@ -94,8 +94,8 @@ export const SupportTicketPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-bold text-[#202338]">{val}</span>
-          <span className="text-[11px] text-[#626981] font-sans truncate">{row.category}</span>
+          <p className="font-mono font-bold text-[#202338]">{val}</p>
+          <p className="text-[11px] text-[#626981] font-sans truncate">{row.category}</p>
         </div>
       ),
     },
@@ -104,8 +104,8 @@ export const SupportTicketPage = () => {
       title: 'Subject / Description',
       render: (val, row) => (
         <div className="flex flex-col max-w-sm">
-          <span className="font-semibold text-[#202338] truncate">{val}</span>
-          <span className="text-[11px] text-[#7A8197] truncate">{row.description}</span>
+          <p className="font-semibold text-[#202338] truncate">{val}</p>
+          <p className="text-[11px] text-[#7A8197] truncate">{row.description}</p>
         </div>
       ),
     },
@@ -114,8 +114,8 @@ export const SupportTicketPage = () => {
       title: 'Submitted By',
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-medium text-[#202338]">{val}</span>
-          <span className="text-[11px] text-[#7A8197] font-mono">{row.phone}</span>
+          <p className="font-medium text-[#202338]">{val}</p>
+          <p className="text-[11px] text-[#7A8197] font-mono">{row.phone}</p>
         </div>
       ),
     },
@@ -136,7 +136,7 @@ export const SupportTicketPage = () => {
       title: 'Date',
       isMono: true,
       width: '110px',
-      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
+      render: (val) => <p className="text-xs text-[#626981] font-mono">{val}</p>,
     },
     {
       key: 'actions',
@@ -236,7 +236,7 @@ export const SupportTicketPage = () => {
           {/* Metadata banner */}
           <div className="p-3.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#202338]">{selectedTicket.category}</span>
+              <p className="text-xs font-semibold text-[#202338]">{selectedTicket.category}</p>
               <div className="flex items-center gap-2">
                 <PriorityBadge priority={selectedTicket.priority} />
                 <StatusBadge status={selectedTicket.status} size="sm" />
@@ -244,14 +244,14 @@ export const SupportTicketPage = () => {
             </div>
             <div className="grid grid-cols-2 gap-2 text-xs pt-1 text-[#626981]">
               <div>
-                <span>Citizen:</span> <strong className="text-[#202338]">{selectedTicket.submittedBy}</strong>
+                <p>Citizen: <strong className="text-[#202338]">{selectedTicket.submittedBy}</strong></p>
               </div>
               <div>
-                <span>Phone:</span> <span className="font-mono text-[#202338]">{selectedTicket.phone}</span>
+                <p>Phone: <code className="font-mono text-[#202338]">{selectedTicket.phone}</code></p>
               </div>
               {selectedTicket.imei && (
                 <div className="col-span-2">
-                  <span>Linked IMEI:</span> <span className="font-mono text-[#028A97] font-bold ml-1">{selectedTicket.imei}</span>
+                  <p>Linked IMEI: <code className="font-mono text-[#028A97] font-bold ml-1">{selectedTicket.imei}</code></p>
                 </div>
               )}
             </div>
@@ -273,10 +273,11 @@ export const SupportTicketPage = () => {
                   }`}
                 >
                   <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#F7F8FC]">
-                    <span className="font-semibold text-[#202338]">
-                      {msg.sender} {msg.isStaff && <span className="text-[10px] bg-[#01ADC1] text-white px-1.5 py-0.2 rounded font-normal ml-1">Staff</span>}
-                    </span>
-                    <span className="text-[10px] text-[#7A8197] font-mono">{msg.timestamp}</span>
+                    <div className="flex items-center gap-1.5 min-w-0">
+                      <p className="font-semibold text-[#202338] truncate">{msg.sender}</p>
+                      {msg.isStaff && <p className="text-[10px] bg-[#01ADC1] text-white px-1.5 py-0.2 rounded font-normal">Staff</p>}
+                    </div>
+                    <p className="text-[10px] text-[#7A8197] font-mono">{msg.timestamp}</p>
                   </div>
                   <p className="text-[#202338]">{msg.content}</p>
                 </div>

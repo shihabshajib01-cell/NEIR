@@ -49,7 +49,9 @@ export const Alert = ({
       <Icon className={'w-5 h-5 shrink-0 mt-0.5 ' + config.iconColor} />
       <div className="flex-1 min-w-0">
         {title && <h5 className={'text-sm font-semibold leading-tight ' + config.text}>{t(title)}</h5>}
-        <div className={'text-xs mt-1 leading-relaxed ' + config.text + ' opacity-90'}>{typeof children === 'string' ? t(children) : children}</div>
+        {typeof children === 'string'
+          ? <p className={'text-xs mt-1 leading-relaxed ' + config.text + ' opacity-90'}>{t(children)}</p>
+          : <div className={'text-xs mt-1 leading-relaxed ' + config.text + ' opacity-90'}>{children}</div>}
       </div>
       {onClose && (
         <button type="button" onClick={onClose} className="w-9 h-9 -m-1 flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-white/60" aria-label={t('Close')}>

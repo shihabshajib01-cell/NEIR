@@ -77,8 +77,8 @@ export const SpecialRegistrationPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-semibold text-[#202338]">{val}</span>
-          <span className="text-[11px] text-[#626981] truncate">{row.brand} {row.model}</span>
+          <p className="font-mono font-semibold text-[#202338]">{val}</p>
+          <p className="text-[11px] text-[#626981] truncate">{row.brand} {row.model}</p>
         </div>
       ),
     },
@@ -86,7 +86,7 @@ export const SpecialRegistrationPage = () => {
       key: 'category',
       title: 'Device Category',
       minWidth: '210px',
-      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
+      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
     },
     {
       key: 'requesterName',
@@ -94,8 +94,8 @@ export const SpecialRegistrationPage = () => {
       minWidth: '230px',
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-medium text-[#202338]">{val}</span>
-          <span className="text-[11px] text-[#7A8197] font-mono">{row.requesterNid}</span>
+          <p className="font-medium text-[#202338]">{val}</p>
+          <p className="text-[11px] text-[#7A8197] font-mono">{row.requesterNid}</p>
         </div>
       ),
     },
@@ -112,7 +112,7 @@ export const SpecialRegistrationPage = () => {
       width: '170px',
       minWidth: '170px',
       isMono: true,
-      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
+      render: (val) => <p className="text-xs text-[#626981] font-mono">{val}</p>,
     },
     {
       key: 'actions',
@@ -189,7 +189,7 @@ export const SpecialRegistrationPage = () => {
                           className="bg-transparent text-[var(--color-text-primary)] outline-none cursor-pointer"
                           aria-label="From date"
                         />
-                        <span className="text-[var(--color-text-muted)]">to</span>
+                        <p className="text-[var(--color-text-muted)]">to</p>
                         <input
                           type="date"
                           value={toDate}

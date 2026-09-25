@@ -32,7 +32,7 @@ export const ToastProvider = ({ children }) => {
           return (
             <div key={toastItem.id} className={'pointer-events-auto p-3.5 rounded-xl shadow-[var(--shadow-lg)] border flex items-start gap-2.5 text-white ' + shell}>
               {isSuccess ? <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" /> : isError ? <AlertCircle className="w-4 h-4 text-rose-200 shrink-0 mt-0.5" /> : <Info className="w-4 h-4 text-cyan-100 shrink-0 mt-0.5" />}
-              <div className="flex-1 text-xs font-medium leading-normal">{t(toastItem.message)}</div>
+              <p className="flex-1 text-xs font-medium leading-normal">{t(toastItem.message)}</p>
               <button type="button" onClick={() => removeToast(toastItem.id)} className="text-white/75 hover:text-white p-0.5 shrink-0" aria-label={t('Close')}><X className="w-3.5 h-3.5" /></button>
             </div>
           );

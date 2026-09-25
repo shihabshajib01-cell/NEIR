@@ -116,7 +116,7 @@ export const RolesPage = () => {
             <Shield className="w-3.5 h-3.5" />
           </div>
           <div>
-            <span className="font-bold text-[#202338] text-sm">{val}</span>
+            <p className="font-bold text-[#202338] text-sm">{val}</p>
             {row.description && (
               <p className="text-xs text-[#626981] mt-0.5 max-w-md">{row.description}</p>
             )}
@@ -130,10 +130,10 @@ export const RolesPage = () => {
       width: '180px',
       isMono: true,
       render: (val) => (
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F7F8FC] text-[#202338] font-mono text-xs font-semibold border border-[#E2E5F0]">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F7F8FC] text-[#202338] font-mono text-xs font-semibold border border-[#E2E5F0]">
           <KeyRound className="w-3 h-3 text-[#01ADC1]" />
-          <span>{val} Actions</span>
-        </span>
+          <p>{val} Actions</p>
+        </div>
       ),
     },
     {

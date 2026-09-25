@@ -73,7 +73,7 @@ export const SpecialRegistrationReviewModal = ({
           <div className="flex items-center justify-between w-full">
             <div className="text-xs text-[#626981] flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#01ADC1]" />
-              <span>BTRC Spectrum Management & Customs Validation Protocol</span>
+              <p>BTRC Spectrum Management & Customs Validation Protocol</p>
             </div>
             <div className="flex items-center gap-3">
               <Button
@@ -111,24 +111,24 @@ export const SpecialRegistrationReviewModal = ({
             <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338] pb-2 border-b border-[#E2E5F0]">
                 <User className="w-4 h-4 text-[#01ADC1]" />
-                <span>Requester & Citizen Identity</span>
+                <p>Requester & Citizen Identity</p>
               </div>
               <div className="mt-3 space-y-2 text-xs">
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Full Name:</span>
-                  <span className="font-semibold text-[#202338]">{registration.requesterName}</span>
+                  <p className="text-[#626981]">Full Name:</p>
+                  <p className="font-semibold text-[#202338]">{registration.requesterName}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">National ID / Passport:</span>
-                  <span className="font-mono text-[#202338]">{registration.requesterNid}</span>
+                  <p className="text-[#626981]">National ID / Passport:</p>
+                  <p className="font-mono text-[#202338]">{registration.requesterNid}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Contact Phone:</span>
-                  <span className="font-mono text-[#202338]">{registration.requesterPhone}</span>
+                  <p className="text-[#626981]">Contact Phone:</p>
+                  <p className="font-mono text-[#202338]">{registration.requesterPhone}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Application Date:</span>
-                  <span className="font-mono text-[#202338]">{registration.date}</span>
+                  <p className="text-[#626981]">Application Date:</p>
+                  <p className="font-mono text-[#202338]">{registration.date}</p>
                 </div>
               </div>
             </div>
@@ -137,38 +137,38 @@ export const SpecialRegistrationReviewModal = ({
             <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
               <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338] pb-2 border-b border-[#E2E5F0]">
                 <Smartphone className="w-4 h-4 text-[#01ADC1]" />
-                <span>Device Specifications</span>
+                <p>Device Specifications</p>
               </div>
               <div className="mt-3 space-y-2 text-xs">
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">IMEI Number:</span>
-                  <span className="font-mono font-bold text-[#028A97] bg-[#028A97]/10 px-1.5 py-0.5 rounded">
+                  <p className="text-[#626981]">IMEI Number:</p>
+                  <p className="font-mono font-bold text-[#028A97] bg-[#028A97]/10 px-1.5 py-0.5 rounded">
                     {registration.imei}
-                  </span>
+                  </p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Brand / Make:</span>
-                  <span className="font-semibold text-[#202338]">{registration.brand}</span>
+                  <p className="text-[#626981]">Brand / Make:</p>
+                  <p className="font-semibold text-[#202338]">{registration.brand}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Model:</span>
-                  <span className="font-medium text-[#202338]">{registration.model}</span>
+                  <p className="text-[#626981]">Model:</p>
+                  <p className="font-medium text-[#202338]">{registration.model}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Device Type:</span>
-                  <span className="text-[#202338]">{registration.deviceType}</span>
+                  <p className="text-[#626981]">Device Type:</p>
+                  <p className="text-[#202338]">{registration.deviceType}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Serial Number:</span>
-                  <span className="font-mono text-[#202338]">{registration.serialNumber}</span>
+                  <p className="text-[#626981]">Serial Number:</p>
+                  <p className="font-mono text-[#202338]">{registration.serialNumber}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Purchase Country:</span>
-                  <span className="text-[#202338]">{registration.purchaseCountry}</span>
+                  <p className="text-[#626981]">Purchase Country:</p>
+                  <p className="text-[#202338]">{registration.purchaseCountry}</p>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#626981]">Customs Challan / Baggage No:</span>
-                  <span className="font-mono text-[#01ADC1] font-semibold">{registration.customsChallanNo}</span>
+                  <p className="text-[#626981]">Customs Challan / Baggage No:</p>
+                  <p className="font-mono text-[#01ADC1] font-semibold">{registration.customsChallanNo}</p>
                 </div>
               </div>
             </div>
@@ -178,9 +178,9 @@ export const SpecialRegistrationReviewModal = ({
               <div className="flex items-center justify-between pb-2 border-b border-[#E2E5F0]">
                 <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338]">
                   <FileText className="w-4 h-4 text-[#01ADC1]" />
-                  <span>Dossier Attachments ({registration.attachments?.length || 0})</span>
+                  <p>Dossier Attachments ({registration.attachments?.length || 0})</p>
                 </div>
-                <span className="text-[11px] text-[#7A8197]">Click to preview</span>
+                <p className="text-[11px] text-[#7A8197]">Click to preview</p>
               </div>
               <div className="mt-3">
                 <DocumentList
@@ -228,7 +228,7 @@ export const SpecialRegistrationReviewModal = ({
           <div className="w-full max-w-md bg-white rounded-lg shadow-xl border border-[#E2E5F0] p-5">
             <h3 className="text-base font-semibold text-red-700 flex items-center gap-2">
               <XCircle className="w-5 h-5 text-red-600" />
-              <span>Reject Special Registration</span>
+              <p>Reject Special Registration</p>
             </h3>
             <p className="text-xs text-[#626981] mt-1">
               Please enter the official regulatory reason for rejecting application {registration.id}. This will be communicated to the applicant.
