@@ -76,6 +76,11 @@ const sharedOutlinedRootSx = {
     '&.Mui-disabled': {
       WebkitTextFillColor: 'var(--color-text-muted)',
     },
+    '&[type="search"]::-webkit-search-cancel-button, &[type="search"]::-webkit-search-decoration, &[type="search"]::-webkit-search-results-button, &[type="search"]::-webkit-search-results-decoration': {
+      WebkitAppearance: 'none',
+      appearance: 'none',
+      display: 'none',
+    },
   },
   '& .MuiInputAdornment-root': {
     color: 'var(--color-text-muted)',
