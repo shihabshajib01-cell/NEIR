@@ -106,9 +106,9 @@ export const TablePageWorkspace = ({
           <div className="flex items-center gap-2 min-w-0">
             <h2 className="type-card-title text-[var(--color-text-primary)] truncate">{t(resolvedTitle)}</h2>
             {typeof resolvedCount === 'number' && (
-              <span className="inline-flex items-center rounded-full bg-[var(--color-background-subtle)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
+              <p className="inline-flex items-center rounded-full bg-[var(--color-background-subtle)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
                 {resolvedCount} {t(resolvedCount === 1 ? 'record' : 'records')}
-              </span>
+              </p>
             )}
           </div>
 
@@ -130,12 +130,12 @@ export const TablePageWorkspace = ({
                         ? 'border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                         : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-background-subtle)]')}
                   >
-                    <span>{t(tab.label)}</span>
+                    <p>{t(tab.label)}</p>
                     {typeof tab.count === 'number' && (
-                      <span className={'min-w-5 h-5 px-1.5 rounded-full inline-flex items-center justify-center type-badge tabular-nums ' +
+                      <p className={'min-w-5 h-5 px-1.5 rounded-full inline-flex items-center justify-center type-badge tabular-nums ' +
                         (active ? 'bg-[var(--color-primary-light)] text-[var(--color-primary-dark)]' : 'bg-[var(--color-background)] text-[var(--color-text-muted)]')}>
                         {tab.count}
-                      </span>
+                      </p>
                     )}
                   </button>
                 );

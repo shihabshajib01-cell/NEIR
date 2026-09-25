@@ -91,8 +91,8 @@ export const RecordDetailsDrawer = ({
     >
       <div className="p-3.5 bg-[var(--color-background-subtle)] border border-[var(--color-border)] rounded-xl flex items-center justify-between gap-3">
         <div className="flex flex-col min-w-0">
-          <span className="text-[11px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">{t('Record Status')}</span>
-          <span className="text-sm font-semibold text-[var(--color-text-primary)] font-mono mt-0.5 truncate">{recordId || 'NEIR-REC'}</span>
+          <p className="text-[11px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">{t('Record Status')}</p>
+          <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono mt-0.5 truncate">{recordId || 'NEIR-REC'}</p>
         </div>
         {status && <StatusBadge status={status} size="md" />}
       </div>
@@ -103,7 +103,7 @@ export const RecordDetailsDrawer = ({
           <dl className="p-3.5 space-y-2.5">
             {section.items.map((item, itemIndex) => (
               <div key={item.label || itemIndex} className="grid grid-cols-[minmax(110px,0.8fr)_minmax(0,1.2fr)] gap-3 text-xs">
-                <dt className="text-[var(--color-text-secondary)]">{t(item.label)}</dt>
+                <dt className="text-[var(--color-text-secondary)]"><p>{t(item.label)}</p></dt>
                 <dd className={'font-medium text-[var(--color-text-primary)] text-right min-w-0 ' + (item.isMono ? 'font-mono tabular-nums' : '')}>
                   <SafeText value={item.value} mode="long" className="ml-auto" />
                 </dd>
@@ -127,8 +127,8 @@ export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status
       <div ref={panelRef} className={'w-full max-w-[92vw] h-[88vh] bg-[var(--color-background)] rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden ' + className}>
         <div className="px-6 py-4 bg-white text-[var(--color-text-primary)] flex items-center justify-between border-b border-[var(--color-border)] shrink-0">
           <h2 className="text-base font-semibold leading-tight flex items-center gap-2 min-w-0">
-            <span className="truncate">{t(title)}</span>
-            {identifier && <span className="text-xs font-mono font-normal text-[var(--color-text-secondary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded">{identifier}</span>}
+            <p className="truncate">{t(title)}</p>
+            {identifier && <p className="text-xs font-mono font-normal text-[var(--color-text-secondary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded">{identifier}</p>}
           </h2>
           <div className="flex items-center gap-3 shrink-0">
             {status && <StatusBadge status={status} size="sm" />}

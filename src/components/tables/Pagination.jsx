@@ -255,7 +255,7 @@ export const FilterBar = ({
                           : 'text-[var(--color-text-primary)] hover:bg-[var(--color-background-subtle)]')}
                     >
                       <Search className="w-4 h-4 shrink-0 text-[var(--color-text-muted)]" />
-                      <span className="truncate">{suggestion.label}</span>
+                      <p className="truncate">{suggestion.label}</p>
                     </button>
                   );
                 })}

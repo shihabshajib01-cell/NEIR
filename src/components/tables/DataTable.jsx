@@ -32,9 +32,9 @@ export const MobileRecordCard = ({ title, subtitle, status, fields = [], actions
       <dl className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
         {fields.map((field, index) => (
           <div key={field.label || index} className="min-w-0">
-            <dt className="type-badge text-[var(--color-text-muted)]">{t(field.label)}</dt>
+            <dt className="type-badge text-[var(--color-text-muted)]"><p>{t(field.label)}</p></dt>
             <dd className={'mt-0.5 type-table-cell font-medium text-[var(--color-text-primary)] break-words ' + (field.isMono ? 'font-mono tabular-nums' : '')}>
-              {field.value || '—'}
+              <p>{field.value || '—'}</p>
             </dd>
           </div>
         ))}
@@ -230,10 +230,10 @@ export const DataTable = ({
                               direction={activeSort ? sortConfig.direction : 'asc'}
                               onClick={() => handleSort(column.key)}
                             >
-                              {t(column.title)}
+                              <p>{t(column.title)}</p>
                             </TableSortLabel>
                           ) : (
-                            t(column.title)
+                            <p>{t(column.title)}</p>
                           )}
                         </TableCell>
                       );

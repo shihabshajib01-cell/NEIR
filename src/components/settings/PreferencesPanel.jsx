@@ -31,7 +31,7 @@ export const PreferencesPanel = ({ className = '' }) => {
         <section>
           <div className="flex items-center gap-2 mb-2.5 type-label text-[var(--color-text-primary)]">
             <Languages className="w-4 h-4 text-[var(--color-primary)]" />
-            <span>{t('Language')}</span>
+            <p>{t('Language')}</p>
           </div>
           <div className="grid grid-cols-2 gap-2" role="group" aria-label={t('Language')}>
             {languageOptions.map((option) => (
@@ -55,7 +55,7 @@ export const PreferencesPanel = ({ className = '' }) => {
             {theme === 'dark'
               ? <Moon className="w-4 h-4 text-[var(--color-primary)]" />
               : <Sun className="w-4 h-4 text-[var(--color-primary)]" />}
-            <span>{t('Theme')}</span>
+            <p>{t('Theme')}</p>
           </div>
           <div className="grid grid-cols-2 gap-2" role="group" aria-label={t('Theme')}>
             {themeOptions.map((option) => {
@@ -72,7 +72,7 @@ export const PreferencesPanel = ({ className = '' }) => {
                   aria-pressed={theme === option.id}
                 >
                   <Icon className="w-4 h-4" />
-                  <span>{t(option.label)}</span>
+                  <p>{t(option.label)}</p>
                 </button>
               );
             })}
@@ -82,7 +82,7 @@ export const PreferencesPanel = ({ className = '' }) => {
         <section>
           <div className="flex items-center gap-2 mb-2.5 type-label text-[var(--color-text-primary)]">
             <Type className="w-4 h-4 text-[var(--color-primary)]" />
-            <span>{t('Text size')}</span>
+            <p>{t('Text size')}</p>
           </div>
           <div className="grid grid-cols-3 gap-2" role="group" aria-label={t('Text size')}>
             {sizeOptions.map((option) => (
@@ -95,14 +95,14 @@ export const PreferencesPanel = ({ className = '' }) => {
                     ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                     : 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
               >
-                <span className={
+                <p className={
                   option.id === 'compact' ? 'text-[14px] font-semibold leading-none' :
                   option.id === 'large' ? 'text-[18px] font-semibold leading-none' :
                   'text-[16px] font-semibold leading-none'
                 }>
                   {option.sample}
-                </span>
-                <span className="type-meta font-medium">{t(option.label)}</span>
+                </p>
+                <p className="type-meta font-medium">{t(option.label)}</p>
               </button>
             ))}
           </div>
