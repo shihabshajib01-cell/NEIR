@@ -60,10 +60,6 @@ export const Sidebar = ({ isCollapsed = false }) => {
     <aside
       className={'hidden lg:flex h-full min-h-0 flex-col bg-white text-[var(--color-text-primary)] border-r border-[var(--color-border)] transition-all duration-200 shrink-0 select-none z-20 ' + (isCollapsed ? 'w-16' : 'w-64')}
     >
-      <div className="px-4 py-3 type-overline text-[var(--color-text-muted)] border-b border-[var(--color-border)]">
-        {isCollapsed ? 'NAV' : t('Navigation')}
-      </div>
-
       <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-1" aria-label={t('Navigation')}>
         {navigationItems.map((item) => {
           const Icon = item.icon;
