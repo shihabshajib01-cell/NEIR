@@ -149,7 +149,7 @@ export const UsersListPage = () => {
         actions={
           <Button
             variant="primary"
-            size="sm"
+            size="md"
             icon={Plus}
             onClick={() => navigate('/office/users/new')}
           >
@@ -272,7 +272,7 @@ export const UsersListPage = () => {
               </Button>
               <Button
                 variant="primary"
-                size="sm"
+                size="md"
                 icon={Edit2}
                 onClick={() => navigate(`/office/users/${selectedUser.id}/edit`)}
               >

@@ -215,7 +215,7 @@ export const ServiceActionPage = () => {
         actions={
           <Button
             variant="primary"
-            size="sm"
+            size="md"
             icon={Plus}
             onClick={handleOpenCreate}
           >
@@ -251,10 +251,10 @@ export const ServiceActionPage = () => {
         subtitle="Granular API action and HTTP verb mapping"
         footer={
           <>
-            <Button variant="outline" size="sm" onClick={() => setIsModalOpen(false)}>
+            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
-            <Button variant="primary" size="sm" onClick={handleSave}>
+            <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Service Action'}
             </Button>
           </>

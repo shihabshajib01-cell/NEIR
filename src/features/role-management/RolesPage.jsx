@@ -177,7 +177,7 @@ export const RolesPage = () => {
         actions={
           <Button
             variant="primary"
-            size="sm"
+            size="md"
             icon={Plus}
             onClick={handleOpenCreate}
           >
@@ -205,10 +205,10 @@ export const RolesPage = () => {
         subtitle="Define new operational role designation"
         footer={
           <>
-            <Button variant="outline" size="sm" onClick={() => setIsCreateModalOpen(false)}>
+            <Button variant="secondary" size="md" onClick={() => setIsCreateModalOpen(false)}>
               Cancel
             </Button>
-            <Button variant="primary" size="sm" onClick={handleSaveRole}>
+            <Button variant="primary" size="md" onClick={handleSaveRole}>
               {editingRole ? 'Save Changes' : 'Create Role'}
             </Button>
           </>

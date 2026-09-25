@@ -174,7 +174,7 @@ export const DesignationsPage = () => {
         actions={
           <Button
             variant="primary"
-            size="sm"
+            size="md"
             icon={Plus}
             onClick={handleOpenCreate}
           >
@@ -226,10 +226,10 @@ export const DesignationsPage = () => {
         subtitle="Rank and organizational title definition"
         footer={
           <>
-            <Button variant="outline" size="sm" onClick={() => setIsModalOpen(false)}>
+            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
-            <Button variant="primary" size="sm" onClick={handleSave}>
+            <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Designation'}
             </Button>
           </>
