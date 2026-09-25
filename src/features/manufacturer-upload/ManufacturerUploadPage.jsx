@@ -69,9 +69,9 @@ export const ManufacturerUploadPage = () => {
       key: 'status',
       title: 'Validation',
       render: (val) => (
-        <span className="text-xs font-semibold text-[#028A97] bg-[#01ADC1]/10 px-2 py-0.5 rounded">
+        <p className="text-xs font-semibold text-[#028A97] bg-[#01ADC1]/10 px-2 py-0.5 rounded">
           {val || 'Whitelisted'}
-        </span>
+        </p>
       ),
     },
   ];
@@ -164,7 +164,7 @@ export const ManufacturerUploadPage = () => {
                 <div className="mt-1 space-y-1 text-xs">
                   <p>Manufacturer: <strong className="text-[#202338]">{uploadResult.manufacturer}</strong></p>
                   <p>Total Records Processed: <strong className="text-[#028A97] font-mono">{uploadResult.totalProcessed}</strong></p>
-                  <p>Broadcast Target: <span className="font-mono">All 4 MNO Central EIR Nodes (GP, Robi, BL, TT)</span></p>
+                  <p>Broadcast Target: <code className="font-mono">All 4 MNO Central EIR Nodes (GP, Robi, BL, TT)</code></p>
                 </div>
               </Alert>
 
@@ -185,12 +185,12 @@ export const ManufacturerUploadPage = () => {
                 </p>
                 <div className="p-3 bg-[#F7F8FC] rounded-md border border-[#E2E5F0] space-y-1 font-mono text-[11px] text-[#202338]">
                   <p className="font-bold font-sans text-xs">Expected CSV Column Header Structure:</p>
-                  <code>imei1,imei2,brand,model,tac</code>
+                  <p><code>imei1,imei2,brand,model,tac</code></p>
                 </div>
                 <ul className="list-disc list-inside space-y-1 pt-1 text-[11px]">
-                  <li>All IMEI numbers must pass the standard Luhn algorithm checksum.</li>
-                  <li>Type Allocation Code (TAC) first 8 digits must match GSMA master allocations.</li>
-                  <li>Duplicate IMEIs previously allocated will trigger duplicate rejection alerts.</li>
+                  <li><p>All IMEI numbers must pass the standard Luhn algorithm checksum.</p></li>
+                  <li><p>Type Allocation Code (TAC) first 8 digits must match GSMA master allocations.</p></li>
+                  <li><p>Duplicate IMEIs previously allocated will trigger duplicate rejection alerts.</p></li>
                 </ul>
               </div>
             </Card>

@@ -71,8 +71,8 @@ export const UsersListPage = () => {
             {val.charAt(0)}
           </div>
           <div>
-            <span className="font-semibold text-[#202338] block">{val}</span>
-            <span className="text-[11px] text-[#626981] font-mono">{row.email}</span>
+            <p className="font-semibold text-[#202338] block">{val}</p>
+            <p className="text-[11px] text-[#626981] font-mono">{row.email}</p>
           </div>
         </div>
       ),
@@ -81,25 +81,25 @@ export const UsersListPage = () => {
       key: 'username',
       title: 'Username',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#01ADC1] font-semibold">{val}</span>,
+      render: (val) => <p className="font-mono text-xs text-[#01ADC1] font-semibold">{val}</p>,
     },
     {
       key: 'department',
       title: 'Department',
-      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
+      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
     },
     {
       key: 'designation',
       title: 'Designation',
-      render: (val) => <span className="text-xs font-medium text-[#626981]">{val}</span>,
+      render: (val) => <p className="text-xs font-medium text-[#626981]">{val}</p>,
     },
     {
       key: 'role',
       title: 'Role',
       render: (val) => (
-        <span className="text-xs font-semibold bg-[#01ADC1]/10 text-[#028A97] px-2 py-0.5 rounded border border-[#01ADC1]/20">
+        <p className="text-xs font-semibold bg-[#01ADC1]/10 text-[#028A97] px-2 py-0.5 rounded border border-[#01ADC1]/20">
           {val}
-        </span>
+        </p>
       ),
     },
     {

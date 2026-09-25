@@ -119,7 +119,7 @@ export const PermissionPage = () => {
       render: (val) => (
         <div className="flex items-center gap-2">
           <KeyRound className="w-3.5 h-3.5 text-[#028A97]" />
-          <span className="font-semibold text-[#202338]">{val}</span>
+          <p className="font-semibold text-[#202338]">{val}</p>
         </div>
       ),
     },
@@ -128,28 +128,28 @@ export const PermissionPage = () => {
       title: 'Position',
       isMono: true,
       width: '80px',
-      render: (val) => <span className="font-mono text-center block text-[#626981]">{val}</span>,
+      render: (val) => <p className="font-mono text-center block text-[#626981]">{val}</p>,
     },
     {
       key: 'parentName',
       title: 'Parent Name',
       render: (val) => (
-        <span className="text-xs font-medium text-[#01ADC1] bg-[#01ADC1]/10 px-2 py-0.5 rounded">
+        <p className="text-xs font-medium text-[#01ADC1] bg-[#01ADC1]/10 px-2 py-0.5 rounded">
           {val}
-        </span>
+        </p>
       ),
     },
     {
       key: 'path',
       title: 'Path',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#626981]">{val}</span>,
+      render: (val) => <p className="font-mono text-xs text-[#626981]">{val}</p>,
     },
     {
       key: 'icon',
       title: 'Icon',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#7A8197]">{val}</span>,
+      render: (val) => <p className="font-mono text-xs text-[#7A8197]">{val}</p>,
     },
     {
       key: 'actions',

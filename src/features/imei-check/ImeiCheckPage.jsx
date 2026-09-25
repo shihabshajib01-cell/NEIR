@@ -63,9 +63,9 @@ export const ImeiCheckPage = () => {
             <div className="p-3 bg-[#F7F8FC] rounded-md border border-[#E2E5F0] text-xs text-[#626981] space-y-1">
               <p className="font-semibold text-[#202338]">Quick Inspection Shortcuts:</p>
               <ul className="list-disc list-inside space-y-0.5 text-[11px]">
-                <li>Standard 15-digit number: <span className="font-mono text-[#028A97]">862940058912341</span> (White Listed)</li>
-                <li>Blocked stolen device: <span className="font-mono text-red-600">864920194820194</span> (Blacklisted)</li>
-                <li>Unregistered terminal: <span className="font-mono text-amber-600">999000111222333</span> (Not Registered)</li>
+                <li><p>Standard 15-digit number: <code className="font-mono text-[#028A97]">862940058912341</code> (White Listed)</p></li>
+                <li><p>Blocked stolen device: <code className="font-mono text-red-600">864920194820194</code> (Blacklisted)</p></li>
+                <li><p>Unregistered terminal: <code className="font-mono text-amber-600">999000111222333</code> (Not Registered)</p></li>
               </ul>
             </div>
 
@@ -106,7 +106,7 @@ export const ImeiCheckPage = () => {
             {/* Status Header Strip */}
             <div className="p-3.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg flex items-center justify-between">
               <div>
-                <span className="text-[11px] font-semibold text-[#626981] uppercase tracking-wider">EIR Verdict</span>
+                <p className="text-[11px] font-semibold text-[#626981] uppercase tracking-wider">EIR Verdict</p>
                 <p className="text-base font-mono font-bold text-[#202338]">{result.imei}</p>
               </div>
               <StatusBadge status={result.status} size="md" />
@@ -116,7 +116,7 @@ export const ImeiCheckPage = () => {
             <div className="p-3.5 rounded-lg border border-[#01ADC1]/30 bg-[#01ADC1]/10 space-y-2">
               <div className="flex items-center gap-2 text-xs font-bold text-[#028A97]">
                 <Globe className="w-4 h-4" />
-                <span>Official Status Response</span>
+                <p>Official Status Response</p>
               </div>
               <p className="text-sm font-semibold text-[#202338] leading-relaxed">
                 {result.bengaliMessage}
@@ -129,24 +129,24 @@ export const ImeiCheckPage = () => {
             {/* Device Specification Box */}
             <div className="border border-[#E2E5F0] rounded-lg p-3.5 space-y-2 text-xs">
               <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <span className="text-[#626981]">Brand / Manufacturer:</span>
-                <span className="font-semibold text-[#202338]">{result.brand}</span>
+                <p className="text-[#626981]">Brand / Manufacturer:</p>
+                <p className="font-semibold text-[#202338]">{result.brand}</p>
               </div>
               <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <span className="text-[#626981]">Model & Tier:</span>
-                <span className="font-medium text-[#202338]">{result.model}</span>
+                <p className="text-[#626981]">Model & Tier:</p>
+                <p className="font-medium text-[#202338]">{result.model}</p>
               </div>
               <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <span className="text-[#626981]">GSMA Type Allocation Code (TAC):</span>
-                <span className="font-mono font-semibold text-[#01ADC1]">{result.tac}</span>
+                <p className="text-[#626981]">GSMA Type Allocation Code (TAC):</p>
+                <p className="font-mono font-semibold text-[#01ADC1]">{result.tac}</p>
               </div>
               <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <span className="text-[#626981]">Authorization Category:</span>
-                <span className="text-[#202338]">{result.importType}</span>
+                <p className="text-[#626981]">Authorization Category:</p>
+                <p className="text-[#202338]">{result.importType}</p>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#626981]">Carrier Attachment:</span>
-                <span className="text-[#028A97] font-medium">{result.mnoAttachment}</span>
+                <p className="text-[#626981]">Carrier Attachment:</p>
+                <p className="text-[#028A97] font-medium">{result.mnoAttachment}</p>
               </div>
             </div>
           </div>

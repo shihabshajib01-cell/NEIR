@@ -52,7 +52,7 @@ export const LoginPage = () => {
           className="min-h-10 px-3 flex items-center gap-2 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
         >
           <Languages className="w-4 h-4" />
-          <span>{language === 'en' ? 'বাংলা' : 'EN'}</span>
+          <p>{language === 'en' ? 'বাংলা' : 'EN'}</p>
         </button>
       </div>
 

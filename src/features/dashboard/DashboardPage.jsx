@@ -60,19 +60,19 @@ export const DashboardPage = () => {
       key: 'whiteList',
       title: 'White List',
       isMono: true,
-      render: (value) => <span className="text-[#2E7D32]">{value.toLocaleString()}</span>,
+      render: (value) => <p className="text-[#2E7D32]">{value.toLocaleString()}</p>,
     },
     {
       key: 'grayList',
       title: 'Gray List',
       isMono: true,
-      render: (value) => <span className="text-[#B96B18]">{value.toLocaleString()}</span>,
+      render: (value) => <p className="text-[#B96B18]">{value.toLocaleString()}</p>,
     },
     {
       key: 'blackList',
       title: 'Blocked',
       isMono: true,
-      render: (value) => <span className="text-[#C62828]">{value.toLocaleString()}</span>,
+      render: (value) => <p className="text-[#C62828]">{value.toLocaleString()}</p>,
     },
   ];
 
@@ -82,18 +82,18 @@ export const DashboardPage = () => {
       key: 'autoCount',
       title: 'Auto Sync',
       isMono: true,
-      render: (value) => <span className="text-[#028A97]">{value}</span>,
+      render: (value) => <p className="text-[#028A97]">{value}</p>,
     },
     {
       key: 'deRegCount',
       title: 'De-Reg',
       isMono: true,
-      render: (value) => <span className="text-[#01ADC1]">{value}</span>,
+      render: (value) => <p className="text-[#01ADC1]">{value}</p>,
     },
     {
       key: 'share',
       title: 'Share',
-      render: (value) => <span className="font-semibold">{value}</span>,
+      render: (value) => <p className="font-semibold">{value}</p>,
     },
   ];
 
@@ -114,7 +114,7 @@ export const DashboardPage = () => {
                 onChange={(e) => setFromDate(e.target.value)}
                 className="text-xs bg-transparent text-[#202338] outline-hidden cursor-pointer"
               />
-              <span className="text-[#A0A6B8]">to</span>
+              <p className="text-[#A0A6B8]">to</p>
               <input
                 type="date"
                 value={toDate}
@@ -165,9 +165,9 @@ export const DashboardPage = () => {
             title="IMEI Summary"
             subtitle="Distribution of 52.28 Million registered handsets across EIR compliance tiers"
             headerAction={
-              <span className="text-xs font-mono text-[#626981] bg-[#F7F8FC] px-2 py-1 rounded border border-[#E2E5F0]">
+              <p className="text-xs font-mono text-[#626981] bg-[#F7F8FC] px-2 py-1 rounded border border-[#E2E5F0]">
                 Total: 52,283,412
-              </span>
+              </p>
             }
           >
             {/* Visual Distribution Progress Bar */}
@@ -195,34 +195,34 @@ export const DashboardPage = () => {
                 <div className="p-3 rounded-lg border border-[#2E7D32]/20 bg-[#2E7D32]/5">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#2E7D32]" />
-                    <span className="text-xs font-semibold text-[#2E7D32]">White List</span>
+                    <p className="text-xs font-semibold text-[#2E7D32]">White List</p>
                   </div>
                   <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.whiteList.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#626981]">{data.imeiSummary.whiteList.percent}% of active fleet</span>
+                  <p className="text-[11px] text-[#626981]">{data.imeiSummary.whiteList.percent}% of active fleet</p>
                 </div>
 
                 <div className="p-3 rounded-lg border border-[#EF8F22]/20 bg-[#EF8F22]/5">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#EF8F22]" />
-                    <span className="text-xs font-semibold text-[#B96B18]">Gray List</span>
+                    <p className="text-xs font-semibold text-[#B96B18]">Gray List</p>
                   </div>
                   <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.grayList.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#626981]">{data.imeiSummary.grayList.percent}% under grace</span>
+                  <p className="text-[11px] text-[#626981]">{data.imeiSummary.grayList.percent}% under grace</p>
                 </div>
 
                 <div className="p-3 rounded-lg border border-[#C62828]/20 bg-[#C62828]/5">
                   <div className="flex items-center gap-1.5">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#C62828]" />
-                    <span className="text-xs font-semibold text-[#A91F22]">Black List / Block</span>
+                    <p className="text-xs font-semibold text-[#A91F22]">Black List / Block</p>
                   </div>
                   <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.blackList.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#626981]">{data.imeiSummary.blackList.percent}% blocked</span>
+                  <p className="text-[11px] text-[#626981]">{data.imeiSummary.blackList.percent}% blocked</p>
                 </div>
               </div>
 
@@ -254,23 +254,23 @@ export const DashboardPage = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
-                  <span className="text-xs text-[#626981] font-medium">Auto Registered</span>
+                  <p className="text-xs text-[#626981] font-medium">Auto Registered</p>
                   <div className="text-xl font-bold text-[#2E7D32] font-mono tabular-nums mt-1">
                     {data.registrationSummary.autoRegistration.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#2E7D32] font-medium">
+                  <p className="text-[11px] text-[#2E7D32] font-medium">
                     {data.registrationSummary.autoRegistration.change}
-                  </span>
+                  </p>
                 </div>
 
                 <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
-                  <span className="text-xs text-[#626981] font-medium">De-Registered</span>
+                  <p className="text-xs text-[#626981] font-medium">De-Registered</p>
                   <div className="text-xl font-bold text-[#01ADC1] font-mono tabular-nums mt-1">
                     {data.registrationSummary.deRegistration.count.toLocaleString()}
                   </div>
-                  <span className="text-[11px] text-[#01ADC1] font-medium">
+                  <p className="text-[11px] text-[#01ADC1] font-medium">
                     {data.registrationSummary.deRegistration.change}
-                  </span>
+                  </p>
                 </div>
               </div>
 
@@ -290,7 +290,7 @@ export const DashboardPage = () => {
 
               <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>All 4 MNO SS7/Diameter EIR interfaces operating within 12ms sync latency.</span>
+                <p>All 4 MNO SS7/Diameter EIR interfaces operating within 12ms sync latency.</p>
               </div>
             </div>
           </Card>

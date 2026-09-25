@@ -9,9 +9,9 @@ export const NotFoundPage = () => {
       <div className="w-16 h-16 rounded-full bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mb-4">
         <ShieldAlert className="w-8 h-8" />
       </div>
-      <span className="text-xs font-mono font-bold text-red-600 uppercase tracking-wider bg-red-50 px-2.5 py-1 rounded">
+      <p className="text-xs font-mono font-bold text-red-600 uppercase tracking-wider bg-red-50 px-2.5 py-1 rounded">
         404 — Endpoint Not Found
-      </span>
+      </p>
       <h1 className="text-2xl font-bold text-[#202338] tracking-tight mt-3">
         Regulatory Route Unavailable
       </h1>

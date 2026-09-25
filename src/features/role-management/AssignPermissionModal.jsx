@@ -99,8 +99,8 @@ export const AssignPermissionModal = ({
       footer={
         <div className="flex items-center justify-between w-full">
           <div className="text-xs text-[#626981] font-medium">
-            <span className="font-mono font-bold text-[#01ADC1]">{selectedActionIds.size}</span> of{' '}
-            <span className="font-mono">{serviceActions.length}</span> actions selected
+            <p className="font-mono font-bold text-[#01ADC1]">{selectedActionIds.size}</p> of{' '}
+            <p className="font-mono">{serviceActions.length}</p> actions selected
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={onClose}>
@@ -184,12 +184,12 @@ export const AssignPermissionModal = ({
                       <ChevronRight className="w-4 h-4 text-[#7A8197] shrink-0" />
                     )}
                     <FolderTree className="w-4 h-4 text-[#01ADC1] shrink-0" />
-                    <span className="text-xs font-bold text-[#202338] truncate">
+                    <p className="text-xs font-bold text-[#202338] truncate">
                       {parent.name}
-                    </span>
-                    <span className="text-[11px] text-[#7A8197] font-mono">
+                    </p>
+                    <p className="text-[11px] text-[#7A8197] font-mono">
                       ({selectedParentActions.length}/{allParentActions.length})
-                    </span>
+                    </p>
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -219,20 +219,20 @@ export const AssignPermissionModal = ({
                           {/* Level 2: Permission Node */}
                           <div className="flex items-center gap-2 pb-1.5 border-b border-[#F7F8FC]">
                             <KeyRound className="w-3.5 h-3.5 text-[#028A97] shrink-0" />
-                            <span className="text-xs font-semibold text-[#202338]">
+                            <p className="text-xs font-semibold text-[#202338]">
                               {perm.name}
-                            </span>
-                            <span className="text-[11px] font-mono text-[#7A8197] ml-auto">
+                            </p>
+                            <p className="text-[11px] font-mono text-[#7A8197] ml-auto">
                               {perm.path}
-                            </span>
+                            </p>
                           </div>
 
                           {/* Level 3: Service Actions Checkboxes */}
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 pl-4">
                             {actionsForPerm.length === 0 ? (
-                              <span className="text-[11px] text-[#7A8197] italic">
+                              <p className="text-[11px] text-[#7A8197] italic">
                                 No granular API endpoints configured
-                              </span>
+                              </p>
                             ) : (
                               actionsForPerm.map((action) => {
                                 const isChecked = selectedActionIds.has(action.id);
@@ -254,10 +254,10 @@ export const AssignPermissionModal = ({
                                     <div className="truncate">
                                       <p className="font-medium truncate">{action.name}</p>
                                       <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#7A8197] mt-0.5">
-                                        <span className="font-bold uppercase text-[#01ADC1]">
+                                        <p className="font-bold uppercase text-[#01ADC1]">
                                           {action.method}
-                                        </span>
-                                        <span className="truncate">{action.path}</span>
+                                        </p>
+                                        <p className="truncate">{action.path}</p>
                                       </div>
                                     </div>
                                   </label>

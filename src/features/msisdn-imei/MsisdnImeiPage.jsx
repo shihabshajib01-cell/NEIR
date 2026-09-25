@@ -53,8 +53,8 @@ export const MsisdnImeiPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-bold text-[#202338]">{val}</span>
-          <span className="text-[11px] text-[#626981] font-sans font-medium">{row.subscriberName}</span>
+          <p className="font-mono font-bold text-[#202338]">{val}</p>
+          <p className="text-[11px] text-[#626981] font-sans font-medium">{row.subscriberName}</p>
         </div>
       ),
     },
@@ -64,8 +64,8 @@ export const MsisdnImeiPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <span className="font-mono font-semibold text-[#028A97]">{val}</span>
-          <span className="text-[11px] text-[#7A8197]">{row.deviceModel}</span>
+          <p className="font-mono font-semibold text-[#028A97]">{val}</p>
+          <p className="text-[11px] text-[#7A8197]">{row.deviceModel}</p>
         </div>
       ),
     },
@@ -73,23 +73,23 @@ export const MsisdnImeiPage = () => {
       key: 'imsi',
       title: 'IMSI Identifier',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#626981]">{val}</span>,
+      render: (val) => <p className="font-mono text-xs text-[#626981]">{val}</p>,
     },
     {
       key: 'operator',
       title: 'Carrier Operator',
       render: (val) => (
-        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#202338]">
+        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#202338]">
           <Radio className="w-3.5 h-3.5 text-[#01ADC1]" />
-          <span>{val}</span>
-        </span>
+          <p>{val}</p>
+        </div>
       ),
     },
     {
       key: 'attachedDate',
       title: 'First Active Date',
       isMono: true,
-      render: (val) => <span className="text-xs text-[#626981] font-mono">{val}</span>,
+      render: (val) => <p className="text-xs text-[#626981] font-mono">{val}</p>,
     },
     {
       key: 'status',

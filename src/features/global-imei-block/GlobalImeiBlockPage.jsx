@@ -80,7 +80,7 @@ export const GlobalImeiBlockPage = () => {
         {lastBlockedResult && (
           <Alert variant="danger" title="IMEI Block Active">
             <p>Target: <strong className="font-mono">{lastBlockedResult.record.imei}</strong></p>
-            <p className="mt-0.5">Reference Directive: <span className="font-mono">{lastBlockedResult.record.blockId}</span></p>
+            <p className="mt-0.5">Reference Directive: <code className="font-mono">{lastBlockedResult.record.blockId}</code></p>
           </Alert>
         )}
 
@@ -114,7 +114,7 @@ export const GlobalImeiBlockPage = () => {
                   placeholder="864920194820194&#10;862940058912341&#10;354890112458901"
                   rows={4}
                 />
-                <div className="text-center text-xs text-[#7A8197] font-semibold uppercase">— OR UPLOAD CSV —</div>
+                <div className="text-center text-xs text-[#7A8197] font-semibold uppercase"><p>— OR UPLOAD CSV —</p></div>
                 <CSVUpload
                   label="Batch Requisition CSV File"
                   onFileSelect={(file) => setSelectedFile(file)}

@@ -117,14 +117,14 @@ export const DesignationsPage = () => {
       render: (val) => (
         <div className="flex items-center gap-2">
           <Award className="w-4 h-4 text-[#01ADC1]" />
-          <span className="font-semibold text-[#202338]">{val}</span>
+          <p className="font-semibold text-[#202338]">{val}</p>
         </div>
       ),
     },
     {
       key: 'departmentName',
       title: 'Department',
-      render: (val) => <span className="text-xs text-[#202338]">{val}</span>,
+      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
     },
     {
       key: 'rankGrade',
@@ -132,9 +132,9 @@ export const DesignationsPage = () => {
       isMono: true,
       width: '130px',
       render: (val) => (
-        <span className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0] font-semibold text-[#01ADC1]">
+        <p className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0] font-semibold text-[#01ADC1]">
           {val}
-        </span>
+        </p>
       ),
     },
     {
@@ -142,7 +142,7 @@ export const DesignationsPage = () => {
       title: 'Staff Assigned',
       width: '120px',
       isMono: true,
-      render: (val) => <span className="font-mono text-xs text-[#626981]">{val} Officers</span>,
+      render: (val) => <p className="font-mono text-xs text-[#626981]">{val} Officers</p>,
     },
     {
       key: 'actions',
