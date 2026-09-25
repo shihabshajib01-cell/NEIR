@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { User, ShieldCheck, LayoutDashboard, Languages } from 'lucide-react';
+import { User, ShieldCheck, LayoutDashboard, Languages, Moon, Sun } from 'lucide-react';
 import { BtrcLogo } from '../../components/layout/BtrcLogo.jsx';
 import { TextInput, PasswordInput } from '../../components/forms/TextInput.jsx';
 import { Checkbox } from '../../components/forms/Checkbox.jsx';
@@ -17,7 +17,7 @@ export const LoginPage = () => {
 
   const { login } = useAuth();
   const { addToast } = useToast();
-  const { language, setLanguage, t } = usePreferences();
+  const { language, setLanguage, theme, setTheme, t } = usePreferences();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/dashboard';
@@ -36,14 +36,25 @@ export const LoginPage = () => {
 
   return (
     <div className="min-h-screen bg-[var(--color-background)] flex items-center justify-center px-4 py-6 sm:px-6 lg:px-8 lg:py-16 relative">
-      <button
-        type="button"
-        onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-        className="absolute top-4 right-4 min-h-10 px-3 flex items-center gap-2 rounded-lg bg-white border border-[var(--color-border)] text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
-      >
-        <Languages className="w-4 h-4" />
-        <span>{language === 'en' ? 'বাংলা' : 'EN'}</span>
-      </button>
+      <div className="absolute top-4 right-4 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className="w-10 h-10 flex items-center justify-center rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
+          aria-label={t(theme === 'dark' ? 'Use light theme' : 'Use dark theme')}
+          title={t(theme === 'dark' ? 'Use light theme' : 'Use dark theme')}
+        >
+          {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+        </button>
+        <button
+          type="button"
+          onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
+          className="min-h-10 px-3 flex items-center gap-2 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
+        >
+          <Languages className="w-4 h-4" />
+          <span>{language === 'en' ? 'বাংলা' : 'EN'}</span>
+        </button>
+      </div>
 
       <div className="w-full max-w-[1280px] flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
         <section className="hidden lg:flex flex-1 min-h-[560px] rounded-2xl border border-[var(--color-border)] bg-[var(--color-primary-light)] relative overflow-hidden p-10 flex-col justify-between">

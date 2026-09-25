@@ -1,13 +1,18 @@
 import React from 'react';
-import { Languages, Type } from 'lucide-react';
+import { Languages, Moon, Sun, Type } from 'lucide-react';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
 export const PreferencesPanel = ({ className = '' }) => {
-  const { language, setLanguage, textSize, setTextSize, t } = usePreferences();
+  const { language, setLanguage, textSize, setTextSize, theme, setTheme, t } = usePreferences();
 
   const languageOptions = [
     { id: 'en', label: 'English' },
     { id: 'bn', label: 'Bangla' },
+  ];
+
+  const themeOptions = [
+    { id: 'light', label: 'Light', icon: Sun },
+    { id: 'dark', label: 'Dark', icon: Moon },
   ];
 
   const sizeOptions = [
@@ -17,7 +22,7 @@ export const PreferencesPanel = ({ className = '' }) => {
   ];
 
   return (
-    <div className={'w-72 bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-lg)] overflow-hidden ' + className}>
+    <div className={'w-72 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-lg)] overflow-hidden ' + className}>
       <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
         <p className="type-label text-[var(--color-text-primary)]">{t('Display preferences')}</p>
       </div>
@@ -37,11 +42,40 @@ export const PreferencesPanel = ({ className = '' }) => {
                 className={'min-h-10 rounded-lg border px-3 type-button-sm transition-colors ' +
                   (language === option.id
                     ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)]'
-                    : 'bg-white border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
+                    : 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
               >
                 {t(option.label)}
               </button>
             ))}
+          </div>
+        </section>
+
+        <section>
+          <div className="flex items-center gap-2 mb-2.5 type-label text-[var(--color-text-primary)]">
+            {theme === 'dark'
+              ? <Moon className="w-4 h-4 text-[var(--color-primary)]" />
+              : <Sun className="w-4 h-4 text-[var(--color-primary)]" />}
+            <span>{t('Theme')}</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2" role="group" aria-label={t('Theme')}>
+            {themeOptions.map((option) => {
+              const Icon = option.icon;
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  onClick={() => setTheme(option.id)}
+                  className={'min-h-10 rounded-lg border px-3 type-button-sm flex items-center justify-center gap-2 transition-colors ' +
+                    (theme === option.id
+                      ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)]'
+                      : 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
+                  aria-pressed={theme === option.id}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{t(option.label)}</span>
+                </button>
+              );
+            })}
           </div>
         </section>
 
@@ -59,7 +93,7 @@ export const PreferencesPanel = ({ className = '' }) => {
                 className={'min-h-14 rounded-lg border px-2 flex flex-col items-center justify-center gap-1 transition-colors ' +
                   (textSize === option.id
                     ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)]'
-                    : 'bg-white border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
+                    : 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
               >
                 <span className={
                   option.id === 'compact' ? 'text-[14px] font-semibold leading-none' :

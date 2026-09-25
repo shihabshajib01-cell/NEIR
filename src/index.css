@@ -8,6 +8,7 @@
     --color-primary-deep: #0A767E;
     --color-primary-light: #E1F7FB;
     --color-secondary: #80C2C6;
+    --color-on-primary: #FFFFFF;
 
     --color-background: #F7F8FC;
     --color-background-subtle: #FBFCFE;
@@ -69,6 +70,45 @@
     --z-toast: 70;
     --z-tooltip: 80;
 
+  }
+
+  html[data-theme='dark'] {
+    color-scheme: dark;
+
+    --color-primary: #8AB4F8;
+    --color-primary-dark: #669DF6;
+    --color-primary-deep: #4F7FD8;
+    --color-primary-light: rgba(138, 180, 248, 0.12);
+    --color-secondary: #AECBFA;
+    --color-on-primary: #202124;
+
+    --color-background: #202124;
+    --color-background-subtle: #252629;
+    --color-surface: #2B2C2F;
+    --color-surface-hover: #303134;
+    --color-border: #3C4043;
+    --color-border-subtle: #35373A;
+    --color-border-strong: #5F6368;
+
+    --field-disabled-bg: #303134;
+    --field-readonly-bg: #2B2C2F;
+
+    --color-text-primary: #E8EAED;
+    --color-text-secondary: #BDC1C6;
+    --color-text-muted: #9AA0A6;
+
+    --color-success: #81C995;
+    --color-warning: #FDD663;
+    --color-error: #F28B82;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.28);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.34);
+    --shadow-lg: 0 4px 14px rgba(0, 0, 0, 0.40);
+    --shadow-overlay: 0 16px 56px rgba(0, 0, 0, 0.52);
+  }
+
+  html[data-theme='light'] {
+    color-scheme: light;
   }
 
   html {
@@ -137,6 +177,148 @@
   h1, h2, h3, h4, p {
     margin-top: 0;
   }
+}
+
+/* Dark-mode compatibility layer for legacy hard-coded utility colors.
+   New/shared UI should continue using the semantic CSS variables above. */
+html[data-theme='dark'] .bg-white {
+  background-color: var(--color-surface);
+}
+
+html[data-theme='dark'] [class~="bg-white/85"] {
+  background-color: rgba(43, 44, 47, 0.92);
+}
+
+html[data-theme='dark'] .border-white {
+  border-color: var(--color-border);
+}
+
+html[data-theme='dark'] [class~="bg-[#F7F8FC]"] {
+  background-color: var(--color-background-subtle);
+}
+
+html[data-theme='dark'] [class~="text-[#202338]"] {
+  color: var(--color-text-primary);
+}
+
+html[data-theme='dark'] [class~="text-[#626981]"] {
+  color: var(--color-text-secondary);
+}
+
+html[data-theme='dark'] [class~="text-[#7A8197]"],
+html[data-theme='dark'] [class~="text-[#A0A6B8]"] {
+  color: var(--color-text-muted);
+}
+
+html[data-theme='dark'] [class~="border-[#E2E5F0]"],
+html[data-theme='dark'] [class~="border-[#C8CDD9]"] {
+  border-color: var(--color-border);
+}
+
+html[data-theme='dark'] [class~="text-[#01ADC1]"] {
+  color: var(--color-primary);
+}
+
+html[data-theme='dark'] [class~="text-[#028A97]"] {
+  color: var(--color-primary-dark);
+}
+
+html[data-theme='dark'] [class~="bg-[#01ADC1]"] {
+  background-color: var(--color-primary);
+}
+
+html[data-theme='dark'] [class~="border-[#01ADC1]"] {
+  border-color: var(--color-primary);
+}
+
+html[data-theme='dark'] [class~="text-[#2E7D32]"],
+html[data-theme='dark'] [class~="text-[#1B5E20]"] {
+  color: var(--color-success);
+}
+
+html[data-theme='dark'] [class~="text-[#B96B18]"],
+html[data-theme='dark'] [class~="text-[#B85F00]"],
+html[data-theme='dark'] [class~="text-[#92400E]"] {
+  color: var(--color-warning);
+}
+
+html[data-theme='dark'] [class~="text-[#C62828]"],
+html[data-theme='dark'] [class~="text-[#8F1D20]"],
+html[data-theme='dark'] [class~="text-[#A91F22]"] {
+  color: var(--color-error);
+}
+
+html[data-theme='dark'] .bg-red-50,
+html[data-theme='dark'] .bg-red-100,
+html[data-theme='dark'] [class~="hover:bg-red-50"]:hover,
+html[data-theme='dark'] [class~="hover:bg-red-100"]:hover {
+  background-color: rgba(242, 139, 130, 0.12);
+}
+
+html[data-theme='dark'] .border-red-100 {
+  border-color: rgba(242, 139, 130, 0.28);
+}
+
+html[data-theme='dark'] .bg-blue-50 {
+  background-color: var(--color-primary-light);
+}
+
+html[data-theme='dark'] .text-blue-700 {
+  color: var(--color-primary);
+}
+
+html[data-theme='dark'] .border-blue-200 {
+  border-color: rgba(138, 180, 248, 0.28);
+}
+
+html[data-theme='dark'] .bg-emerald-50 {
+  background-color: rgba(129, 201, 149, 0.12);
+}
+
+html[data-theme='dark'] .text-emerald-700,
+html[data-theme='dark'] .text-emerald-800,
+html[data-theme='dark'] .text-emerald-900 {
+  color: var(--color-success);
+}
+
+html[data-theme='dark'] .border-emerald-200,
+html[data-theme='dark'] .border-emerald-300 {
+  border-color: rgba(129, 201, 149, 0.28);
+}
+
+html[data-theme='dark'] .bg-amber-50 {
+  background-color: rgba(253, 214, 99, 0.12);
+}
+
+html[data-theme='dark'] .text-amber-600,
+html[data-theme='dark'] .text-amber-700 {
+  color: var(--color-warning);
+}
+
+html[data-theme='dark'] .border-amber-200 {
+  border-color: rgba(253, 214, 99, 0.30);
+}
+
+html[data-theme='dark'] .bg-rose-50 {
+  background-color: rgba(242, 139, 130, 0.12);
+}
+
+html[data-theme='dark'] .text-rose-700 {
+  color: var(--color-error);
+}
+
+html[data-theme='dark'] .border-rose-200 {
+  border-color: rgba(242, 139, 130, 0.28);
+}
+
+html[data-theme='dark'] [class~="bg-[var(--color-primary)]"][class~="text-white"],
+html[data-theme='dark'] [class~="bg-[var(--color-primary-dark)]"][class~="text-white"] {
+  color: var(--color-on-primary);
+}
+
+html[data-theme='dark'] ::selection {
+  background: rgba(138, 180, 248, 0.22);
+  color: var(--color-text-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {

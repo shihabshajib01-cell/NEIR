@@ -5,6 +5,7 @@ const PreferencesContext = createContext(null);
 
 const LANGUAGE_KEY = 'neir.language';
 const TEXT_SIZE_KEY = 'neir.textSize';
+const THEME_KEY = 'neir.theme';
 
 const getStoredValue = (key, fallback) => {
   try {
@@ -17,6 +18,7 @@ const getStoredValue = (key, fallback) => {
 export const PreferencesProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => getStoredValue(LANGUAGE_KEY, 'en'));
   const [textSize, setTextSizeState] = useState(() => getStoredValue(TEXT_SIZE_KEY, 'standard'));
+  const [theme, setThemeState] = useState(() => getStoredValue(THEME_KEY, 'light'));
 
   useEffect(() => {
     document.documentElement.lang = language === 'bn' ? 'bn' : 'en';
@@ -33,12 +35,25 @@ export const PreferencesProvider = ({ children }) => {
     } catch {}
   }, [textSize]);
 
+  useEffect(() => {
+    const resolvedTheme = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.dataset.theme = resolvedTheme;
+    document.documentElement.style.colorScheme = resolvedTheme;
+    try {
+      window.localStorage.setItem(THEME_KEY, resolvedTheme);
+    } catch {}
+  }, [theme]);
+
   const setLanguage = useCallback((nextLanguage) => {
     setLanguageState(nextLanguage === 'bn' ? 'bn' : 'en');
   }, []);
 
   const setTextSize = useCallback((nextSize) => {
     setTextSizeState(['compact', 'standard', 'large'].includes(nextSize) ? nextSize : 'standard');
+  }, []);
+
+  const setTheme = useCallback((nextTheme) => {
+    setThemeState(nextTheme === 'dark' ? 'dark' : 'light');
   }, []);
 
   const t = useCallback((value, variables) => translate(language, value, variables), [language]);
@@ -48,9 +63,11 @@ export const PreferencesProvider = ({ children }) => {
     setLanguage,
     textSize,
     setTextSize,
+    theme,
+    setTheme,
     t,
     locale: language === 'bn' ? 'bn-BD' : 'en-BD',
-  }), [language, setLanguage, textSize, setTextSize, t]);
+  }), [language, setLanguage, textSize, setTextSize, theme, setTheme, t]);
 
   return (
     <PreferencesContext.Provider value={value}>
