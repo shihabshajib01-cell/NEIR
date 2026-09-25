@@ -12,7 +12,7 @@ const passthroughProps = (props, excluded = []) =>
 export const TextInput = ({
   label, id, name, value, onChange, placeholder, type = 'text', error, helperText,
   required = false, disabled = false, readOnly = false, icon: Icon, density = 'standard',
-  className = '', inputClassName = '', ...props
+  endAdornment = null, className = '', inputClassName = '', ...props
 }) => {
   const [focused, setFocused] = useState(false);
   const generatedId = useId();
@@ -67,6 +67,11 @@ export const TextInput = ({
           startAdornment: Icon ? (
             <InputAdornment position="start">
               <Icon />
+            </InputAdornment>
+          ) : undefined,
+          endAdornment: endAdornment ? (
+            <InputAdornment position="end">
+              {endAdornment}
             </InputAdornment>
           ) : undefined,
         }}

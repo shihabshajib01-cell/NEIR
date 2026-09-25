@@ -181,6 +181,7 @@ export const SupportTicketPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Search by Ticket ID, citizen name, phone, or IMEI..."
                   searchValue={searchTerm}
+                  searchSuggestions={tickets.flatMap((ticket) => [ticket.ticketNumber, ticket.submittedBy, ticket.phone, ticket.imei, ticket.subject])}
                   onSearchChange={setSearchTerm}
                   onReset={() => {
                     setSearchTerm('');

@@ -170,6 +170,7 @@ export const SpecialRegistrationPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Search by IMEI, Requester name, or NID..."
                   searchValue={searchTerm}
+                  searchSuggestions={data.flatMap((item) => [item.imei, item.requesterName, item.requesterNid])}
                   onSearchChange={setSearchTerm}
                   onReset={() => {
                     setSearchTerm('');

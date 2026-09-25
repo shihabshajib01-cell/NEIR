@@ -141,6 +141,7 @@ export const MsisdnImeiPage = () => {
           <FilterBar embedded
                   searchPlaceholder="Search by phone number, IMEI, IMSI, or subscriber name..."
                   searchValue={searchTerm}
+                  searchSuggestions={data.flatMap((item) => [item.msisdn, item.imei, item.imsi, item.subscriberName])}
                   onSearchChange={setSearchTerm}
                   onReset={() => {
                     setSearchTerm('');
