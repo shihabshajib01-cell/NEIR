@@ -104,7 +104,7 @@ export const LoginPage = () => {
                 <Checkbox label="Remember this browser" checked={rememberMe} onChange={(event) => setRememberMe(event.target.checked)} />
               </div>
 
-              <Button type="submit" variant="primary" size="lg" isLoading={isLoading} className="w-full justify-center">Sign in</Button>
+              <Button type="submit" variant="primary" isLoading={isLoading} className="w-full justify-center">Sign in</Button>
             </form>
 
           </div>

@@ -105,8 +105,8 @@ export const LostStolenPage = () => {
         ]}
         actions={
           <Button
-            variant="outline"
-            size="sm"
+            variant="secondary"
+            size="md"
             icon={Download}
             onClick={() => addToast('Downloading Lost/Stolen EIR police extract...', 'info')}
           >
@@ -213,7 +213,7 @@ export const LostStolenPage = () => {
               </Button>
               <Button
                 variant="danger"
-                size="sm"
+                size="md"
                 icon={Ban}
                 onClick={() => {
                   addToast(`Re-broadcasted Blacklist command for IMEI ${selectedRecord.imei}`, 'success');

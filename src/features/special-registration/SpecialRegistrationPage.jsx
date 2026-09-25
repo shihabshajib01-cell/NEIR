@@ -145,8 +145,8 @@ export const SpecialRegistrationPage = () => {
         ]}
         actions={
           <Button
-            variant="outline"
-            size="sm"
+            variant="secondary"
+            size="md"
             icon={Download}
             onClick={() => addToast('Exporting Special Registration CSV batch...', 'info')}
           >

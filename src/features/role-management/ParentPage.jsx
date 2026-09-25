@@ -166,7 +166,7 @@ export const ParentPage = () => {
         actions={
           <Button
             variant="primary"
-            size="sm"
+            size="md"
             icon={Plus}
             onClick={handleOpenCreate}
           >
@@ -202,10 +202,10 @@ export const ParentPage = () => {
         subtitle="Structural navigation grouping configuration"
         footer={
           <>
-            <Button variant="outline" size="sm" onClick={() => setIsModalOpen(false)}>
+            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
               Cancel
             </Button>
-            <Button variant="primary" size="sm" onClick={handleSave}>
+            <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Parent'}
             </Button>
           </>

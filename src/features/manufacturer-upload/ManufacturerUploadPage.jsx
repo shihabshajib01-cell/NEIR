@@ -87,8 +87,8 @@ export const ManufacturerUploadPage = () => {
         ]}
         actions={
           <Button
-            variant="outline"
-            size="sm"
+            variant="secondary"
+            size="md"
             icon={Download}
             onClick={handleDownloadSample}
           >
@@ -132,7 +132,7 @@ export const ManufacturerUploadPage = () => {
                 <Button
                   type="button"
                   variant="ghost"
-                  size="sm"
+                  size="md"
                   icon={RotateCcw}
                   onClick={handleReset}
                 >

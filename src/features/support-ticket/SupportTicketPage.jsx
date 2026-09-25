@@ -316,7 +316,7 @@ export const SupportTicketPage = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="sm"
+                size="md"
                 icon={Send}
                 isLoading={isReplying}
               >

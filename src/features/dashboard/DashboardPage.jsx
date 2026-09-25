@@ -123,8 +123,8 @@ export const DashboardPage = () => {
               />
             </div>
             <Button
-              variant="outline"
-              size="sm"
+              variant="secondary"
+              size="md"
               icon={RefreshCw}
               onClick={loadData}
               title="Refresh statistics"
@@ -133,7 +133,7 @@ export const DashboardPage = () => {
             </Button>
             <Button
               variant="primary"
-              size="sm"
+              size="md"
               icon={Download}
               onClick={handleDownloadReport}
             >
