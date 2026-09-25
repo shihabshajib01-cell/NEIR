@@ -3,6 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        try {
+          const storedTheme = window.localStorage.getItem('neir.theme');
+          const theme = storedTheme === 'dark' ? 'dark' : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
     <title>BTRC NEIR Admin Portal | National Equipment Identity Register</title>
     <meta name="description" content="National Equipment Identity Register (NEIR) administrative portal frontend for Bangladesh Telecommunication Regulatory Commission." />
     <meta property="og:title" content="BTRC NEIR Admin Portal" />
@@ -13,10 +25,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/NEIR/assets/index-CIQmZM4c.js"></script>
-    <link rel="stylesheet" crossorigin href="/NEIR/assets/index-CwS7bMXM.css">
+    <script type="module" crossorigin src="/NEIR/assets/index-D9hx_cbB.js"></script>
+    <link rel="stylesheet" crossorigin href="/NEIR/assets/index-Bxsifk44.css">
   </head>
-  <body class="bg-[#F7F8FC] text-[#202338] font-sans antialiased min-h-screen">
+  <body class="font-sans antialiased min-h-screen">
     <div id="root"></div>
   </body>
 </html>
