@@ -59,7 +59,7 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
             <div className={'w-2 h-2 rounded-full shrink-0 ' + toneConfig.dot} />
             <p className="type-label text-[var(--color-text-secondary)]">{t(title)}</p>
           </div>
-          <div className="type-kpi text-[var(--color-text-primary)] mt-3">{value}</div>
+          <p className="type-kpi text-[var(--color-text-primary)] mt-3">{value}</p>
         </div>
         {Icon && <div className={'w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + toneConfig.iconBg}><Icon className={'w-5 h-5 ' + toneConfig.iconText} /></div>}
       </div>

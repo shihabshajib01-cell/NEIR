@@ -262,7 +262,7 @@ export const CSVUpload = ({
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-2 border-t border-[var(--color-border)]">
-          <div className="type-meta text-[var(--color-text-muted)]">{selectedFile ? 'File verified. Click Process Batch to commit.' : 'No file selected yet.'}</div>
+          <p className="type-meta text-[var(--color-text-muted)]">{selectedFile ? 'File verified. Click Process Batch to commit.' : 'No file selected yet.'}</p>
           <div className="flex items-center gap-2 self-end">
             {selectedFile && (
               <Button

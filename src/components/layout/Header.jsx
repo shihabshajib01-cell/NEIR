@@ -136,7 +136,7 @@ export const Header = ({
             aria-expanded={profileMenuOpen}
           >
             <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center text-xs font-bold border border-[var(--color-border)]">
-              {user?.fullName?.charAt(0)?.toUpperCase() || 'A'}
+              <p>{user?.fullName?.charAt(0)?.toUpperCase() || 'A'}</p>
             </div>
             <div className="hidden sm:flex flex-col">
               <p className="type-label font-semibold leading-tight truncate max-w-[150px]">

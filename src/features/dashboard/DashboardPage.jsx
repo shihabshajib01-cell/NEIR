@@ -197,9 +197,9 @@ export const DashboardPage = () => {
                     <div className="w-2.5 h-2.5 rounded-full bg-[#2E7D32]" />
                     <p className="text-xs font-semibold text-[#2E7D32]">White List</p>
                   </div>
-                  <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
+                  <p className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.whiteList.count.toLocaleString()}
-                  </div>
+                  </p>
                   <p className="text-[11px] text-[#626981]">{data.imeiSummary.whiteList.percent}% of active fleet</p>
                 </div>
 
@@ -208,9 +208,9 @@ export const DashboardPage = () => {
                     <div className="w-2.5 h-2.5 rounded-full bg-[#EF8F22]" />
                     <p className="text-xs font-semibold text-[#B96B18]">Gray List</p>
                   </div>
-                  <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
+                  <p className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.grayList.count.toLocaleString()}
-                  </div>
+                  </p>
                   <p className="text-[11px] text-[#626981]">{data.imeiSummary.grayList.percent}% under grace</p>
                 </div>
 
@@ -219,9 +219,9 @@ export const DashboardPage = () => {
                     <div className="w-2.5 h-2.5 rounded-full bg-[#C62828]" />
                     <p className="text-xs font-semibold text-[#A91F22]">Black List / Block</p>
                   </div>
-                  <div className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
+                  <p className="text-lg font-bold text-[#202338] font-mono tabular-nums mt-1">
                     {data.imeiSummary.blackList.count.toLocaleString()}
-                  </div>
+                  </p>
                   <p className="text-[11px] text-[#626981]">{data.imeiSummary.blackList.percent}% blocked</p>
                 </div>
               </div>
@@ -255,9 +255,9 @@ export const DashboardPage = () => {
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
                   <p className="text-xs text-[#626981] font-medium">Auto Registered</p>
-                  <div className="text-xl font-bold text-[#2E7D32] font-mono tabular-nums mt-1">
+                  <p className="text-xl font-bold text-[#2E7D32] font-mono tabular-nums mt-1">
                     {data.registrationSummary.autoRegistration.count.toLocaleString()}
-                  </div>
+                  </p>
                   <p className="text-[11px] text-[#2E7D32] font-medium">
                     {data.registrationSummary.autoRegistration.change}
                   </p>
@@ -265,9 +265,9 @@ export const DashboardPage = () => {
 
                 <div className="p-3 rounded-lg bg-[#F7F8FC] border border-[#E2E5F0]">
                   <p className="text-xs text-[#626981] font-medium">De-Registered</p>
-                  <div className="text-xl font-bold text-[#01ADC1] font-mono tabular-nums mt-1">
+                  <p className="text-xl font-bold text-[#01ADC1] font-mono tabular-nums mt-1">
                     {data.registrationSummary.deRegistration.count.toLocaleString()}
-                  </div>
+                  </p>
                   <p className="text-[11px] text-[#01ADC1] font-medium">
                     {data.registrationSummary.deRegistration.change}
                   </p>
@@ -277,7 +277,7 @@ export const DashboardPage = () => {
               {/* Operator breakdown table */}
               <div className="border border-[#E2E5F0] rounded-lg overflow-hidden">
                 <div className="px-3.5 py-2 bg-[#F7F8FC] border-b border-[#E2E5F0] text-xs font-semibold text-[#202338]">
-                  Operator Sync Breakdown
+                  <p>Operator Sync Breakdown</p>
                 </div>
                 <DataTable
                   embedded

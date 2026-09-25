@@ -68,7 +68,7 @@ export const UsersListPage = () => {
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full bg-[#202338] text-white flex items-center justify-center font-bold text-xs shrink-0">
-            {val.charAt(0)}
+            <p>{val.charAt(0)}</p>
           </div>
           <div>
             <p className="font-semibold text-[#202338] block">{val}</p>
