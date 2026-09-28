@@ -16,7 +16,7 @@ export const NotFoundPage = () => {
         Regulatory Route Unavailable
       </h1>
       <p className="text-xs text-[#626981] max-w-md mt-1 leading-relaxed">
-        The requested administrative route or registry resource could not be located on the BTRC NEIR portal.
+        This page could not be found.
       </p>
       <div className="mt-6 flex items-center gap-3">
         <Link to="/dashboard">
