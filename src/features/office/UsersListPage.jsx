@@ -192,6 +192,7 @@ export const UsersListPage = () => {
                 columns={columns}
                 data={filteredUsers}
                 isLoading={isLoading}
+                onRowClick={handleOpenDetails}
                 renderMobileCard={(row) => (
                   <MobileRecordCard
                     title={row.fullName}

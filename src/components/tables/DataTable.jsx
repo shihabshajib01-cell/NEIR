@@ -251,9 +251,25 @@ export const DataTable = ({
                         hover
                         key={key}
                         selected={selected}
-                        onClick={() => onRowClick?.(row)}
+                        tabIndex={onRowClick ? 0 : undefined}
+                        onClick={(event) => {
+                          if (!onRowClick) return;
+                          if (event.target.closest?.('button, a, input, select, textarea, [role="button"], [role="checkbox"], [role="link"]')) return;
+                          onRowClick(row);
+                        }}
+                        onKeyDown={(event) => {
+                          if (!onRowClick || event.target !== event.currentTarget) return;
+                          if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            onRowClick(row);
+                          }
+                        }}
                         sx={{
                           cursor: onRowClick ? 'pointer' : 'default',
+                          '&:focus-visible': onRowClick ? {
+                            outline: '2px solid var(--color-primary)',
+                            outlineOffset: '-2px',
+                          } : undefined,
                           '&:last-child td, &:last-child th': { borderBottom: 0 },
                         }}
                       >
@@ -278,6 +294,7 @@ export const DataTable = ({
                             <TableCell
                               key={column.key}
                               align={column.align || 'left'}
+                              onClick={column.key === 'actions' ? (event) => event.stopPropagation() : undefined}
                               sx={{
                                 width: column.width,
                                 minWidth: column.minWidth ?? column.width,

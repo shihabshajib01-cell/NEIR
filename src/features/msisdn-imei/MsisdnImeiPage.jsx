@@ -171,6 +171,7 @@ export const MsisdnImeiPage = () => {
                 columns={columns}
                 data={data}
                 isLoading={isLoading}
+                onRowClick={handleOpenDetails}
                 renderMobileCard={(row) => (
                   <MobileRecordCard
                     title={row.msisdn}

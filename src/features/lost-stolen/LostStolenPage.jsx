@@ -132,6 +132,7 @@ export const LostStolenPage = () => {
                 columns={columns}
                 data={data}
                 isLoading={isLoading}
+                onRowClick={handleOpenDetails}
                 isError={Boolean(loadError)}
                 errorMessage={loadError}
                 onRetry={loadData}

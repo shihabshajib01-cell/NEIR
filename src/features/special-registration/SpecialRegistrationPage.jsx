@@ -206,6 +206,7 @@ export const SpecialRegistrationPage = () => {
                 columns={columns}
                 data={data}
                 isLoading={isLoading}
+                onRowClick={handleOpenReview}
                 pagination
                 currentPage={page}
                 totalPages={Math.ceil(total / pageSize) || 1}

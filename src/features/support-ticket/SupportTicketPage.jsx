@@ -193,6 +193,7 @@ export const SupportTicketPage = () => {
                 columns={columns}
                 data={tickets}
                 isLoading={isLoading}
+                onRowClick={handleOpenTicket}
                 renderMobileCard={(row) => (
                   <MobileRecordCard
                     title={row.ticketNumber}
