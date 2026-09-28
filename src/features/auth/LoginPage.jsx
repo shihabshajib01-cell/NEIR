@@ -70,7 +70,7 @@ export const LoginPage = () => {
 
             <div className="mt-10 max-w-lg">
               <h1 className="text-[34px] leading-[1.18] font-semibold tracking-tight text-[var(--color-text-primary)]">National Equipment Identity Register</h1>
-              <p className="text-base text-[var(--color-text-secondary)] leading-7 mt-4 max-w-md">A focused administrative workspace for NEIR operations, review, device services, and system management.</p>
+              <p className="text-base text-[var(--color-text-secondary)] leading-7 mt-4 max-w-md">NEIR administrative workspace.</p>
             </div>
           </div>
 
@@ -79,14 +79,12 @@ export const LoginPage = () => {
               <div className="w-10 h-10 rounded-xl bg-[rgba(1,173,193,0.10)] flex items-center justify-center text-[var(--color-primary-dark)] shrink-0"><LayoutDashboard className="w-5 h-5" /></div>
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">Unified administration</p>
-                <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">One consistent workspace across NEIR modules.</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-4 bg-white/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
               <div className="w-10 h-10 rounded-xl bg-[rgba(46,125,50,0.10)] flex items-center justify-center text-[var(--color-success)] shrink-0"><ShieldCheck className="w-5 h-5" /></div>
               <div>
                 <p className="text-sm font-semibold text-[var(--color-text-primary)]">Administrative workspace</p>
-                <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">Access NEIR operations, review queues, device services, and system management.</p>
               </div>
             </div>
           </div>
@@ -104,7 +102,6 @@ export const LoginPage = () => {
           <div className="bg-white rounded-2xl border border-[var(--color-border)] shadow-[var(--shadow-md)] p-6 sm:p-8">
             <div className="mb-7">
               <h1 className="text-[30px] leading-tight font-semibold tracking-tight text-[var(--color-text-primary)]">{t('Administrative sign in')}</h1>
-              <p className="text-sm text-[var(--color-text-secondary)] mt-2 leading-6">{t('Sign in to access your NEIR office workspace.')}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
