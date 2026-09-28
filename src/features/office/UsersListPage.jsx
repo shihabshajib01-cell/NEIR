@@ -161,7 +161,7 @@ export const UsersListPage = () => {
         count={filteredUsers.length}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Search officer by name, username, email, or designation..."
+                  searchPlaceholder="Search users..."
                   searchValue={searchTerm}
                   searchSuggestions={users.flatMap((item) => [item.fullName, item.username, item.email, item.designation])}
                   onSearchChange={setSearchTerm}
