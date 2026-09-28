@@ -195,6 +195,7 @@ export const RolesPage = () => {
           columns={columns}
           data={roles}
           isLoading={isLoading}
+          pagination
           onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard

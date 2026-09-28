@@ -11,7 +11,7 @@ import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { Eye, Download } from 'lucide-react';
 
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 5;
 
 export const SpecialRegistrationPage = () => {
   const [data, setData] = useState([]);

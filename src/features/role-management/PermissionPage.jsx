@@ -226,6 +226,7 @@ export const PermissionPage = () => {
           columns={columns}
           data={filteredData}
           isLoading={isLoading}
+          pagination
           onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard

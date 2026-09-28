@@ -144,7 +144,7 @@ export const FilterBar = ({
         {onSearchChange && (
           <div
             ref={searchContainerRef}
-            className="relative min-w-0 sm:min-w-[240px] flex-1 max-w-lg"
+            className="relative min-w-0 sm:min-w-[280px] xl:min-w-[320px] flex-1 max-w-2xl"
           >
             <TextInput
               type="search"

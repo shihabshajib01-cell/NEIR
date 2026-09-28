@@ -170,6 +170,7 @@ export const MsisdnImeiPage = () => {
                 columns={columns}
                 data={data}
                 isLoading={isLoading}
+          pagination
                 onRowClick={handleOpenDetails}
                 renderMobileCard={(row) => (
                   <MobileRecordCard

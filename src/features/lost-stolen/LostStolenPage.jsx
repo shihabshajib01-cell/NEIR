@@ -131,6 +131,7 @@ export const LostStolenPage = () => {
                 columns={columns}
                 data={data}
                 isLoading={isLoading}
+          pagination
                 onRowClick={handleOpenDetails}
                 isError={Boolean(loadError)}
                 errorMessage={loadError}

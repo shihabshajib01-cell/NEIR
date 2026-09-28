@@ -192,6 +192,7 @@ export const SupportTicketPage = () => {
                 columns={columns}
                 data={tickets}
                 isLoading={isLoading}
+          pagination
                 onRowClick={handleOpenTicket}
                 renderMobileCard={(row) => (
                   <MobileRecordCard

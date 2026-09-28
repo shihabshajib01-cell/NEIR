@@ -187,6 +187,7 @@ export const DepartmentsPage = () => {
           columns={columns}
           data={filteredData}
           isLoading={isLoading}
+          pagination
           onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard

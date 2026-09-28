@@ -131,11 +131,11 @@ export const DesignationsPage = () => {
       title: 'Pay Grade / Rank',
       isMono: true,
       width: '130px',
-      render: (val) => (
+      render: (val) => val ? (
         <p className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0] font-semibold text-[#01ADC1]">
           {val}
         </p>
-      ),
+      ) : <p className="text-xs text-[var(--color-text-muted)]">—</p>,
     },
     {
       key: 'userCount',
@@ -218,6 +218,7 @@ export const DesignationsPage = () => {
           columns={columns}
           data={filteredData}
           isLoading={isLoading}
+          pagination
           onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard

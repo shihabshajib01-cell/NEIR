@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Checkbox as MuiCheckbox,
   Paper,
@@ -77,7 +77,7 @@ export const DataTable = ({
   currentPage = 1,
   totalPages = 1,
   totalItems = 0,
-  pageSize = 10,
+  pageSize = 5,
   pageSizeOptions = [5, 10, 25, 50],
   onPageChange,
   onPageSizeChange,
@@ -85,8 +85,8 @@ export const DataTable = ({
   onMobileCardClick,
   onRowClick,
   embedded = false,
-  stickyHeader = true,
-  scrollable = true,
+  stickyHeader = false,
+  scrollable = false,
   maxHeight = 'clamp(320px, 42vh, 400px)',
   className = '',
 }) => {
@@ -120,7 +120,36 @@ export const DataTable = ({
     });
   }, [data, sortConfig]);
 
-  const pageKeys = data.map((item) => item[keyField]);
+  const usesControlledPagination = Boolean(onPageChange || onPageSizeChange);
+  const [internalPage, setInternalPage] = useState(1);
+  const [internalPageSize, setInternalPageSize] = useState(pageSize);
+
+  const effectivePage = usesControlledPagination ? currentPage : internalPage;
+  const effectivePageSize = usesControlledPagination ? pageSize : internalPageSize;
+  const effectiveTotalItems = usesControlledPagination
+    ? (totalItems || sortedData.length)
+    : sortedData.length;
+  const effectiveTotalPages = Math.max(1, Math.ceil(effectiveTotalItems / effectivePageSize));
+
+  useEffect(() => {
+    if (!pagination || usesControlledPagination) return;
+    setInternalPage((previous) => Math.min(previous, effectiveTotalPages));
+  }, [pagination, usesControlledPagination, effectiveTotalPages]);
+
+  useEffect(() => {
+    if (!pagination || usesControlledPagination) return;
+    setInternalPage(1);
+  }, [pagination, usesControlledPagination, data.length, sortConfig.key, sortConfig.direction, internalPageSize]);
+
+  const shouldSliceLocally = pagination && sortedData.length > effectivePageSize;
+  const visibleData = shouldSliceLocally
+    ? sortedData.slice(
+        (effectivePage - 1) * effectivePageSize,
+        effectivePage * effectivePageSize
+      )
+    : sortedData;
+
+  const pageKeys = visibleData.map((item) => item[keyField]);
   const selectedOnPage = pageKeys.filter((key) => selectedKeys.includes(key));
   const allSelected = pageKeys.length > 0 && selectedOnPage.length === pageKeys.length;
   const partiallySelected = selectedOnPage.length > 0 && !allSelected;
@@ -161,7 +190,7 @@ export const DataTable = ({
         <>
           {renderMobileCard && (
             <div className="lg:hidden bg-white divide-y divide-[var(--color-border)]">
-              {sortedData.map((row, index) => {
+              {visibleData.map((row, index) => {
                 const key = row[keyField] || index;
                 return (
                   <div
@@ -229,6 +258,13 @@ export const DataTable = ({
                   tableLayout: 'auto',
                   '& .MuiTableCell-root': {
                     whiteSpace: 'nowrap',
+                    paddingLeft: '12px',
+                    paddingRight: '12px',
+                    paddingTop: dense ? '8px' : '10px',
+                    paddingBottom: dense ? '8px' : '10px',
+                  },
+                  '& .MuiTableHead-root .MuiTableRow-root': {
+                    height: 40,
                   },
                   '& .MuiTableBody-root .MuiTableRow-root': {
                     height: dense ? 44 : 52,
@@ -283,7 +319,7 @@ export const DataTable = ({
                 </TableHead>
 
                 <TableBody>
-                  {sortedData.map((row, index) => {
+                  {visibleData.map((row, index) => {
                     const key = row[keyField] ?? index;
                     const selected = selectedKeys.includes(key);
 
@@ -359,15 +395,29 @@ export const DataTable = ({
         </>
       )}
 
-      {!isLoading && !isError && pagination && totalItems > 0 && (
+      {!isLoading && !isError && pagination && effectiveTotalItems > 0 && (
         <MuiTablePagination
           component="div"
-          count={totalItems}
-          page={Math.max(0, currentPage - 1)}
-          rowsPerPage={pageSize}
-          rowsPerPageOptions={onPageSizeChange ? pageSizeOptions : []}
-          onPageChange={(_, page) => onPageChange?.(page + 1)}
-          onRowsPerPageChange={(event) => onPageSizeChange?.(Number(event.target.value))}
+          count={effectiveTotalItems}
+          page={Math.max(0, Math.min(effectivePage - 1, effectiveTotalPages - 1))}
+          rowsPerPage={effectivePageSize}
+          rowsPerPageOptions={pageSizeOptions}
+          onPageChange={(_, nextPage) => {
+            if (usesControlledPagination) {
+              onPageChange?.(nextPage + 1);
+            } else {
+              setInternalPage(nextPage + 1);
+            }
+          }}
+          onRowsPerPageChange={(event) => {
+            const nextSize = Number(event.target.value);
+            if (usesControlledPagination) {
+              onPageSizeChange?.(nextSize);
+            } else {
+              setInternalPageSize(nextSize);
+              setInternalPage(1);
+            }
+          }}
           labelRowsPerPage={t('Rows per page:')}
           labelDisplayedRows={({ from, to, count }) => `${from}–${to} ${t('of')} ${count}`}
           showFirstButton={false}
