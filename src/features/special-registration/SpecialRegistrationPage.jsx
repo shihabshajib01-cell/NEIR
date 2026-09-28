@@ -141,7 +141,6 @@ export const SpecialRegistrationPage = () => {
       {/* Page Header */}
       <PageHeader
         title="Special Registration"
-        description="Review and evaluate individual import quotas, overseas gifts, and testing sample whitelist requests."
         breadcrumbs={[
           { label: 'Special Registration' }
         ]}
