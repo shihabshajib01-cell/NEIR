@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
-import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
+import { Card } from '../../components/data-display/Card.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { CompactSelect } from '../../components/forms/Select.jsx';
+import { Select, CompactSelect } from '../../components/forms/Select.jsx';
+import { TextInput } from '../../components/forms/TextInput.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Search, Eye, Download, Calendar, Radio } from 'lucide-react';
+import { Search, Eye, Download, Radio } from 'lucide-react';
 
 export const MsisdnImeiPage = () => {
-  const [data, setData] = useState([]);
+  const [records, setRecords] = useState([]);
+  const [lookupResults, setLookupResults] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [lookupType, setLookupType] = useState('MSISDN');
+  const [lookupQuery, setLookupQuery] = useState('');
   const [operatorFilter, setOperatorFilter] = useState('All');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -23,11 +26,8 @@ export const MsisdnImeiPage = () => {
   const loadData = async () => {
     try {
       setIsLoading(true);
-      const res = await mockApi.getMsisdnImeiList({
-        search: searchTerm,
-        operator: operatorFilter,
-      });
-      setData(res.items);
+      const res = await mockApi.getMsisdnImeiList();
+      setRecords(res.items);
     } catch (err) {
       addToast('Failed to load MSISDN-IMEI records.', 'error');
     } finally {
@@ -37,7 +37,41 @@ export const MsisdnImeiPage = () => {
 
   useEffect(() => {
     loadData();
-  }, [searchTerm, operatorFilter]);
+  }, []);
+
+  const visibleRecords = useMemo(() => {
+    const source = lookupResults ?? records;
+    if (operatorFilter === 'All') return source;
+    return source.filter((record) => record.operator === operatorFilter);
+  }, [lookupResults, records, operatorFilter]);
+
+  const handleLookup = async (event) => {
+    event.preventDefault();
+    const query = lookupQuery.trim();
+
+    if (!query) {
+      addToast(lookupType === 'MSISDN' ? 'Enter a phone number to search.' : 'Enter a device IMEI to search.', 'error');
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const result = await mockApi.lookupMsisdnImei(lookupType, query);
+      setLookupResults(result);
+      if (!result.length) addToast('No matching MSISDN-IMEI record found.', 'info');
+    } catch (err) {
+      addToast('MSISDN-IMEI lookup failed.', 'error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResetLookup = () => {
+    setLookupType('MSISDN');
+    setLookupQuery('');
+    setOperatorFilter('All');
+    setLookupResults(null);
+  };
 
   const handleOpenDetails = (record) => {
     setSelectedRecord(record);
@@ -47,58 +81,48 @@ export const MsisdnImeiPage = () => {
   const columns = [
     { key: 'sl', title: 'SL', width: '60px', isMono: true },
     {
-      key: 'msisdn',
-      title: 'Phone Number (MSISDN)',
-      isMono: true,
-      render: (val, row) => (
-        <div className="flex flex-col">
-          <p className="font-mono font-bold text-[#202338]">{val}</p>
-          <p className="text-[11px] text-[#626981] font-sans font-medium">{row.subscriberName}</p>
-        </div>
-      ),
-    },
-    {
       key: 'imei',
-      title: 'Active IMEI Number',
+      title: 'IMEI',
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <p className="font-mono font-semibold text-[#028A97]">{val}</p>
-          <p className="text-[11px] text-[#7A8197]">{row.deviceModel}</p>
+          <p className="font-mono font-semibold text-[var(--color-primary-dark)]">{val}</p>
+          <p className="text-[11px] text-[var(--color-text-muted)]">{row.deviceModel}</p>
         </div>
       ),
     },
     {
-      key: 'imsi',
-      title: 'IMSI Identifier',
+      key: 'msisdn',
+      title: 'MSISDN',
       isMono: true,
-      render: (val) => <p className="font-mono text-xs text-[#626981]">{val}</p>,
+      render: (val) => <p className="font-mono font-semibold text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'operator',
-      title: 'Carrier Operator',
+      title: 'Operator',
       render: (val) => (
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#202338]">
-          <Radio className="w-3.5 h-3.5 text-[#01ADC1]" />
+        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-text-primary)]">
+          <Radio className="w-3.5 h-3.5 text-[var(--color-primary)]" />
           <p>{val}</p>
         </div>
       ),
     },
     {
-      key: 'attachedDate',
-      title: 'First Active Date',
+      key: 'lastRegistrationDate',
+      title: 'Last Registration Date',
       isMono: true,
-      render: (val) => <p className="text-xs text-[#626981] font-mono">{val}</p>,
+      render: (val) => <p className="text-xs text-[var(--color-text-secondary)] font-mono">{val}</p>,
     },
     {
       key: 'status',
-      title: 'Pairing Status',
+      title: 'Status',
       render: (val) => <StatusBadge status={val} size="sm" />,
     },
     {
       key: 'actions',
       title: 'Action',
       width: '100px',
+      sortable: false,
       render: (_, row) => (
         <Button
           variant="outline"
@@ -117,10 +141,8 @@ export const MsisdnImeiPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="MSISDN IMEI List"
-        description="Active cellular binding registry between subscriber identity modules (SIM) and physical terminals across Bangladesh."
-        breadcrumbs={[
-          { label: 'MSISDN IMEI' }
-        ]}
+        description="Search and review subscriber-to-device registration records in the NEIR registry."
+        breadcrumbs={[{ label: 'MSISDN IMEI' }]}
         actions={
           <Button
             variant="outline"
@@ -133,62 +155,90 @@ export const MsisdnImeiPage = () => {
         }
       />
 
+      <Card
+        title="Search MSISDN/IMEI"
+        subtitle="Search the registry by subscriber number or device IMEI."
+        bodyClassName="p-4 sm:p-5"
+      >
+        <form onSubmit={handleLookup} className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:items-end">
+          <div className="lg:col-span-3">
+            <Select
+              label="Search By"
+              value={lookupType}
+              onChange={(event) => setLookupType(event.target.value)}
+              options={[
+                { value: 'MSISDN', label: 'MSISDN' },
+                { value: 'IMEI', label: 'IMEI' },
+              ]}
+              placeholder=""
+            />
+          </div>
+
+          <div className="lg:col-span-5">
+            <TextInput
+              label="MSISDN / IMEI"
+              value={lookupQuery}
+              onChange={(event) => setLookupQuery(event.target.value)}
+              placeholder={lookupType === 'MSISDN' ? 'Enter MSISDN' : 'Enter IMEI'}
+              icon={Search}
+              inputMode="numeric"
+            />
+          </div>
+
+          <div className="lg:col-span-4 grid grid-cols-2 gap-2">
+            <Button type="submit" variant="primary" size="md" icon={Search} className="w-full" isLoading={isLoading}>
+              Search
+            </Button>
+            <Button type="button" variant="outline" size="md" onClick={handleResetLookup} className="w-full">
+              Reset
+            </Button>
+          </div>
+        </form>
+      </Card>
+
       <TablePageWorkspace
         title="MSISDN IMEI List"
-        count={data.length}
+        count={visibleRecords.length}
         toolbar={
-          <FilterBar embedded
-                  searchPlaceholder="Search by phone number, IMEI, IMSI, or subscriber name..."
-                  searchValue={searchTerm}
-                  searchSuggestions={data.flatMap((item) => [item.msisdn, item.imei, item.imsi, item.subscriberName])}
-                  onSearchChange={setSearchTerm}
-                  onReset={() => {
-                    setSearchTerm('');
-                    setOperatorFilter('All');
-                  }}
-                  filters={
-                    <div className="w-48">
-                      <CompactSelect
-                        value={operatorFilter}
-                        onChange={(e) => setOperatorFilter(e.target.value)}
-                        options={[
-                          { value: 'All', label: 'All Operators (MNOs)' },
-                          { value: 'Grameenphone', label: 'Grameenphone' },
-                          { value: 'Robi Axiata', label: 'Robi Axiata' },
-                          { value: 'Banglalink', label: 'Banglalink' },
-                          { value: 'Teletalk', label: 'Teletalk' },
-                        ]}
-                        placeholder=""
-                        aria-label="Filter by operator"
-                      />
-                    </div>
-                  }
-                />
+          <div className="w-full sm:w-56">
+            <CompactSelect
+              value={operatorFilter}
+              onChange={(event) => setOperatorFilter(event.target.value)}
+              options={[
+                { value: 'All', label: 'All Operators' },
+                { value: 'Grameenphone', label: 'Grameenphone' },
+                { value: 'Robi', label: 'Robi' },
+                { value: 'Banglalink', label: 'Banglalink' },
+                { value: 'Teletalk', label: 'Teletalk' },
+              ]}
+              placeholder=""
+              aria-label="Filter by operator"
+            />
+          </div>
         }
       >
-        <DataTable embedded
-                columns={columns}
-                data={data}
-                isLoading={isLoading}
+        <DataTable
+          embedded
+          columns={columns}
+          data={visibleRecords}
+          isLoading={isLoading}
           pagination
-                onRowClick={handleOpenDetails}
-                renderMobileCard={(row) => (
-                  <MobileRecordCard
-                    title={row.msisdn}
-                    subtitle={row.subscriberName}
-                    status={row.status}
-                    fields={[
-                      { label: 'Active IMEI', value: row.imei, isMono: true },
-                      { label: 'Operator', value: row.operator },
-                      { label: 'Device', value: row.deviceModel },
-                    ]}
-                    footerMeta={row.attachedDate}
-                  />
-                )}
-              />
+          onRowClick={handleOpenDetails}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.imei}
+              subtitle={row.msisdn}
+              status={row.status}
+              fields={[
+                { label: 'Operator', value: row.operator },
+                { label: 'Device', value: row.deviceModel },
+              ]}
+              footerMeta={row.lastRegistrationDate}
+            />
+          )}
+        />
       </TablePageWorkspace>
 
-      {/* Record Details Drawer */}
       {selectedRecord && (
         <RecordDetailsDrawer
           isOpen={isDrawerOpen}
@@ -196,28 +246,26 @@ export const MsisdnImeiPage = () => {
             setIsDrawerOpen(false);
             setSelectedRecord(null);
           }}
-          title="Subscriber Cellular Binding"
+          title="Subscriber Device Registration"
           recordId={selectedRecord.msisdn}
           status={selectedRecord.status}
           sections={[
             {
-              title: 'Subscriber & SIM Identity',
+              title: 'Registration Details',
               items: [
-                { label: 'Subscriber Name', value: selectedRecord.subscriberName },
-                { label: 'MSISDN Phone', value: selectedRecord.msisdn, isMono: true },
-                { label: 'IMSI Number', value: selectedRecord.imsi, isMono: true },
-                { label: 'Carrier Network', value: selectedRecord.operator },
-                { label: 'First Cell Attachment', value: selectedRecord.attachedDate, isMono: true },
-              ]
+                { label: 'MSISDN', value: selectedRecord.msisdn, isMono: true },
+                { label: 'IMEI', value: selectedRecord.imei, isMono: true },
+                { label: 'Operator', value: selectedRecord.operator },
+                { label: 'Last Registration Date', value: selectedRecord.lastRegistrationDate, isMono: true },
+              ],
             },
             {
-              title: 'Bound Hardware Terminal',
+              title: 'Device Details',
               items: [
-                { label: 'Hardware IMEI', value: selectedRecord.imei, isMono: true },
                 { label: 'Device Model', value: selectedRecord.deviceModel },
-                { label: 'EIR Compliance', value: 'White List (Authorized)' },
-              ]
-            }
+                { label: 'Registration Status', value: selectedRecord.status },
+              ],
+            },
           ]}
         />
       )}
