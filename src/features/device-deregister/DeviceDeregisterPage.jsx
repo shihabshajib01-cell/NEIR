@@ -59,7 +59,6 @@ export const DeviceDeregisterPage = () => {
     <div className="space-y-6">
       <PageHeader
         title="Device De-Registration"
-        description="Disassociate existing citizen SIM-IMEI pairing to permit handset re-sale or primary subscriber transfer."
         breadcrumbs={[
           { label: 'Device Operations' },
           { label: 'De-Registration' }
@@ -70,7 +69,6 @@ export const DeviceDeregisterPage = () => {
       <div className="w-full">
         <Card
           title="Handset De-Registration Request"
-          subtitle="All fields are validated against the citizen NID biometric database"
         >
           {error && (
             <Alert
@@ -103,7 +101,6 @@ export const DeviceDeregisterPage = () => {
               onChange={(e) => setNidLast4(e.target.value.replace(/\D/g, '').slice(0, 4))}
               placeholder="e.g. 7192"
               maxLength={4}
-              helperText="Security verification against voter biometric KYC"
               required
             />
 
@@ -112,7 +109,6 @@ export const DeviceDeregisterPage = () => {
                 label="Current Phone Number"
                 value={currentPhone}
                 onChange={(e) => setCurrentPhone(e.target.value)}
-                helperText="Registered MSISDN paired with this IMEI"
                 required
               />
 
