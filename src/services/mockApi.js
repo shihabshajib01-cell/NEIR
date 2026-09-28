@@ -15,6 +15,53 @@ import {
 // Simulated delay helper
 const delay = (ms = 120) => new Promise(resolve => setTimeout(resolve, ms));
 
+
+const normalizeDepartment = (department) => {
+  const name = department.name ?? department.fullName ?? '';
+  const code = department.code ?? department.shortName ?? '';
+
+  return {
+    ...department,
+    name,
+    code,
+    head: department.head ?? '',
+    description: department.description ?? '',
+    memberCount:
+      department.memberCount ??
+      mockUsers.filter((user) => user.department === name).length,
+    status: department.status ?? 'Active',
+  };
+};
+
+const normalizeDesignation = (designation) => {
+  const title = designation.title ?? designation.fullName ?? '';
+  const matchingUser = mockUsers.find((user) => user.designation === title);
+  const departmentName =
+    designation.departmentName ?? matchingUser?.department ?? '';
+  const matchingDepartment = mockDepartments.find(
+    (department) =>
+      (department.name ?? department.fullName ?? '') === departmentName
+  );
+
+  return {
+    ...designation,
+    title,
+    departmentId: designation.departmentId ?? matchingDepartment?.id ?? '',
+    departmentName,
+    rankGrade: designation.rankGrade ?? '',
+    userCount:
+      designation.userCount ??
+      mockUsers.filter((user) => user.designation === title).length,
+    description: designation.description ?? '',
+  };
+};
+
+const normalizeOfficeUser = (user) => ({
+  ...user,
+  sl: user.sl ?? user.no ?? 0,
+  phone: user.phone ?? user.phoneNumber ?? '',
+});
+
 export const mockApi = {
   // Dashboard
   async getDashboardSummary() {
@@ -205,11 +252,44 @@ export const mockApi = {
   // Office Administration
   async getDepartments() {
     await delay(100);
-    return [...mockDepartments];
+    return mockDepartments.map(normalizeDepartment);
   },
   async getDesignations() {
     await delay(100);
-    return [...mockDesignations];
+    return mockDesignations.map(normalizeDesignation);
+  },
+  async getOfficeUsers() {
+    await delay(100);
+    return mockUsers.map(normalizeOfficeUser);
+  },
+  async saveOfficeUser(userData) {
+    await delay(200);
+
+    const normalizedPayload = {
+      ...userData,
+      phoneNumber: userData.phone ?? userData.phoneNumber ?? '',
+    };
+
+    if (userData.id) {
+      const index = mockUsers.findIndex((user) => user.id === userData.id);
+      if (index !== -1) {
+        mockUsers[index] = {
+          ...mockUsers[index],
+          ...normalizedPayload,
+        };
+        return normalizeOfficeUser(mockUsers[index]);
+      }
+    }
+
+    const newUser = {
+      ...normalizedPayload,
+      id: `usr-${Date.now().toString().slice(-4)}`,
+      no: mockUsers.length + 1,
+      createdAt: new Date().toISOString().slice(0, 10),
+    };
+
+    mockUsers.push(newUser);
+    return normalizeOfficeUser(newUser);
   },
   async getUsers(filters = {}) {
     await delay(120);
