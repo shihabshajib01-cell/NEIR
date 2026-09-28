@@ -9,6 +9,7 @@ const normalizeOptions = (options = []) => options.map((option) =>
 
 const selectMenuProps = {
   PaperProps: {
+    className: 'mobile-bottom-sheet',
     sx: {
       mt: 0.5,
       maxHeight: 304,
@@ -17,6 +18,24 @@ const selectMenuProps = {
       boxShadow: 'var(--shadow-md)',
       backgroundColor: 'var(--color-surface)',
       backgroundImage: 'none',
+      '@media (max-width:639px)': {
+        position: 'fixed !important',
+        top: 'auto !important',
+        left: '0 !important',
+        right: '0 !important',
+        bottom: '0 !important',
+        transform: 'none !important',
+        width: '100vw !important',
+        minWidth: '100vw !important',
+        maxWidth: '100vw !important',
+        maxHeight: '70dvh',
+        mt: 0,
+        borderLeft: 0,
+        borderRight: 0,
+        borderBottom: 0,
+        borderRadius: '20px 20px 0 0',
+        boxShadow: 'var(--shadow-overlay)',
+      },
     },
   },
   MenuListProps: {
@@ -138,6 +157,7 @@ export const SearchableSelect = ({
         noOptionsText={t('No options found')}
         slotProps={{
           paper: {
+            className: 'mobile-bottom-sheet',
             sx: {
               mt: 0.5,
               border: '1px solid var(--color-border)',
@@ -145,18 +165,42 @@ export const SearchableSelect = ({
               boxShadow: 'var(--shadow-md)',
               backgroundColor: 'var(--color-surface)',
               backgroundImage: 'none',
+              '@media (max-width:639px)': {
+                mt: 0,
+                borderLeft: 0,
+                borderRight: 0,
+                borderBottom: 0,
+                borderRadius: '20px 20px 0 0',
+                boxShadow: 'var(--shadow-overlay)',
+              },
             },
           },
           listbox: {
             sx: {
               py: 0.5,
               maxHeight: 304,
+              '@media (max-width:639px)': {
+                maxHeight: '60dvh',
+                py: 1,
+                pb: 'max(8px, env(safe-area-inset-bottom))',
+              },
               '& .MuiAutocomplete-option': optionSx,
             },
           },
           popper: {
             sx: {
               zIndex: 'var(--z-toast)',
+              '@media (max-width:639px)': {
+                position: 'fixed !important',
+                top: 'auto !important',
+                left: '0 !important',
+                right: '0 !important',
+                bottom: '0 !important',
+                transform: 'none !important',
+                width: '100vw !important',
+                minWidth: '100vw !important',
+                maxWidth: '100vw !important',
+              },
             },
           },
         }}
