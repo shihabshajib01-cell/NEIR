@@ -189,7 +189,7 @@ export const DataTable = ({
       {!isLoading && !isError && data.length > 0 && (
         <>
           {renderMobileCard && (
-            <div className="lg:hidden bg-[var(--color-background)] flex flex-col gap-1">
+            <div className="lg:hidden flex flex-col gap-[4px] bg-[var(--color-background)]">
               {sortedData.map((row, index) => {
                 const key = row[keyField] || index;
                 return (
