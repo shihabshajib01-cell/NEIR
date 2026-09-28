@@ -71,7 +71,7 @@ export const GlobalImeiBlockPage = () => {
         ]}
       />
 
-      <div className="max-w-2xl mx-auto space-y-4">
+      <div className="w-full space-y-4">
         {/* Warning banner */}
         <Alert variant="warning" title="Critical Regulatory Action">
           Executing a Global IMEI Block immediately propagates the terminal identifier to the Central Equipment Identity Register (EIR) Blacklist of Grameenphone, Robi Axiata, Banglalink, and Teletalk. Network attachment will be barred within 60 seconds.
