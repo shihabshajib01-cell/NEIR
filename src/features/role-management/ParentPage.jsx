@@ -158,7 +158,6 @@ export const ParentPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Parent"
-        description="Configure high-level structural menu groupings and parent navigation modules for NEIR."
         breadcrumbs={[
           { label: 'Role Management', href: '/role-management/roles' },
           { label: 'Parent' }
@@ -180,7 +179,7 @@ export const ParentPage = () => {
         count={filteredData.length}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Filter by parent name or route path..."
+                  searchPlaceholder="Search parents..."
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.name, item.path])}
                   onSearchChange={setSearchTerm}
@@ -214,7 +213,6 @@ export const ParentPage = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Parent Module' : 'Create Parent Module'}
-        subtitle="Structural navigation grouping configuration"
         footer={
           <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Parent'}
@@ -270,7 +268,6 @@ export const ParentPage = () => {
           <div className="pt-2">
             <Checkbox
               label="Has Nested Child Routes"
-              description="Check if this parent houses sub-menus and permissions"
               checked={formState.hasChildren}
               onChange={(e) => setFormState({ ...formState, hasChildren: e.target.checked })}
             />
