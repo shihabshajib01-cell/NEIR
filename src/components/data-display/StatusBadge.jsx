@@ -40,7 +40,7 @@ export const PriorityBadge = ({ priority = 'Medium' }) => {
   return <p className={'px-2 py-1 rounded-full type-badge border ' + (colors[norm] || colors.medium)}>{t(priority)}</p>;
 };
 
-export const MetricCard = ({ title, value, change, category, tone = 'neutral', icon: Icon, className = '' }) => {
+export const MetricCard = ({ title, value, change, category, tone = 'neutral', icon: Icon, compact = false, className = '' }) => {
   const { t } = usePreferences();
   const tones = {
     success: { dot: 'bg-[var(--color-success)]', iconBg: 'bg-[rgba(46,125,50,0.10)]', iconText: 'text-[var(--color-success)]' },
@@ -52,22 +52,30 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
   const toneConfig = tones[tone] || tones.neutral;
 
   return (
-    <div className={'bg-white border border-[var(--color-border)] rounded-xl p-5 min-h-[116px] shadow-[var(--shadow-sm)] flex flex-col justify-between transition-all hover:shadow-[var(--shadow-md)] ' + className}>
+    <div className={'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] flex flex-col ' + (compact ? 'p-4 min-h-[124px]' : 'p-5 min-h-[116px] justify-between transition-all hover:shadow-[var(--shadow-md)]') + ' ' + className}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <div className={'w-2 h-2 rounded-full shrink-0 ' + toneConfig.dot} />
-            <p className="type-label text-[var(--color-text-secondary)]">{t(title)}</p>
+            <p className={(compact ? 'type-meta font-medium' : 'type-label') + ' text-[var(--color-text-secondary)]'}>{t(title)}</p>
           </div>
-          <p className="type-kpi text-[var(--color-text-primary)] mt-3">{value}</p>
+          <p className={(compact ? 'text-[28px] leading-[1.15] font-semibold font-mono tabular-nums mt-2.5' : 'type-kpi mt-3') + ' text-[var(--color-text-primary)]'}>{value}</p>
         </div>
         {Icon && <div className={'w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + toneConfig.iconBg}><Icon className={'w-5 h-5 ' + toneConfig.iconText} /></div>}
       </div>
       {(change || category) && (
-        <div className="flex items-start justify-between gap-3 type-meta text-[var(--color-text-muted)] mt-3 pt-2.5 border-t border-[var(--color-border-subtle)]">
-          <p className="font-medium leading-4">{change}</p>
-          {category && <p className="shrink-0 text-right">{t(category)}</p>}
-        </div>
+        compact ? (
+          <p className="type-meta text-[var(--color-text-muted)] mt-3 leading-5">
+            <span className="font-medium">{change}</span>
+            {change && category ? <span aria-hidden="true"> · </span> : null}
+            {category ? t(category) : null}
+          </p>
+        ) : (
+          <div className="flex items-start justify-between gap-3 type-meta text-[var(--color-text-muted)] mt-3 pt-2.5 border-t border-[var(--color-border-subtle)]">
+            <p className="font-medium leading-4">{change}</p>
+            {category && <p className="shrink-0 text-right">{t(category)}</p>}
+          </div>
+        )
       )}
     </div>
   );
