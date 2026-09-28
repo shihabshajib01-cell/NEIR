@@ -152,7 +152,6 @@ export const DepartmentsPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Department"
-        description="BTRC organizational divisions, engineering branches, and spectrum enforcement departments."
         breadcrumbs={[
           { label: 'Office' },
           { label: 'Department' }
@@ -207,7 +206,6 @@ export const DepartmentsPage = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingDept ? 'Edit Department' : 'Create Department'}
-        subtitle="Organizational hierarchy configuration"
         footer={
           <Button variant="primary" size="md" onClick={handleSave}>
               {editingDept ? 'Save Changes' : 'Create Department'}
