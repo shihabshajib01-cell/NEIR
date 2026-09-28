@@ -284,7 +284,7 @@ export const DashboardPage = () => {
 
               <div className="flex items-start gap-2.5 type-meta text-[var(--color-success)]">
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
-                <p>All 4 MNO SS7/Diameter EIR interfaces operating within 12ms sync latency.</p>
+                <p>All operator interfaces are healthy.</p>
               </div>
             </div>
           </Card>
