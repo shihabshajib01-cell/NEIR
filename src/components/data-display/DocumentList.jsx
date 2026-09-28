@@ -55,65 +55,84 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
 
   return (
     <div className={'flex flex-col h-full bg-white border border-[var(--color-border)] rounded-xl overflow-hidden shadow-[var(--shadow-sm)] ' + className}>
-      <div className="px-4 py-3 bg-[var(--color-primary-dark)] text-white flex items-center justify-between">
+      <div className="px-4 py-3 bg-[var(--color-primary-dark)] text-white flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <FileText className="w-4 h-4 text-cyan-100 shrink-0" />
-          <div className="truncate">
-            <p className="text-xs font-semibold text-cyan-100 mr-2">[{document.type}]</p>
+          <div className="min-w-0">
+            <p className="text-xs font-semibold text-cyan-100">[{document.type}]</p>
             <p className="text-sm font-medium text-white truncate">{document.title}</p>
           </div>
         </div>
-        <div className="flex items-center gap-1">
+
+        <div className="flex items-center gap-1 shrink-0">
           {onClosePreview && (
-            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10" onClick={onClosePreview} icon={X}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-white hover:bg-white/10"
+              onClick={onClosePreview}
+              icon={X}
+            >
               Close preview
             </Button>
           )}
-          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10" onClick={() => alert('Document "' + document.filename + '" downloaded.')} icon={Download}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-white hover:bg-white/10"
+            onClick={() => alert('Document "' + document.filename + '" downloaded.')}
+            icon={Download}
+          >
             Download
           </Button>
         </div>
       </div>
 
-      <div className="flex-1 min-h-[380px] p-4 sm:p-6 bg-[var(--color-background)] flex items-center justify-center overflow-auto">
-        <div className="w-full max-w-lg bg-white rounded-xl shadow-[var(--shadow-md)] p-5 sm:p-6 border border-[var(--color-border)] flex flex-col gap-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-[var(--color-border)]">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-[var(--color-primary-dark)] flex items-center justify-center text-white text-[10px] font-bold"><p>BD</p></div>
-              <p className="text-xs font-bold text-[var(--color-text-primary)] tracking-wide">Government / Customs Verification Record</p>
-            </div>
-            <div className="flex items-center gap-1 text-[11px] text-[#1B5E20] font-medium bg-[rgba(46,125,50,0.10)] px-2 py-1 rounded-lg">
-              <ShieldCheck className="w-3.5 h-3.5" /><p>Dossier Match Verified</p>
-            </div>
-          </div>
-
-          <div className="space-y-3 font-mono text-xs">
-            {[
-              ['Document Reference:', document.filename],
-              ['Document Category:', document.type],
-              ['File Footprint:', document.size + ' (Signed & Stamped)'],
-            ].map(([label, value]) => (
-              <div key={label} className="p-2.5 bg-[var(--color-background-subtle)] rounded-lg border border-[var(--color-border)] flex flex-col sm:flex-row sm:justify-between gap-1">
-                <p className="text-[var(--color-text-secondary)]">{label}</p>
-                <p className="font-semibold text-[var(--color-text-primary)] break-all">{value}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="border border-[var(--color-border)] rounded-xl bg-[var(--color-background-subtle)] p-4 text-center flex flex-col items-center justify-center gap-2">
-            <div className="w-12 h-12 rounded-full bg-[rgba(1,173,193,0.10)] flex items-center justify-center text-[var(--color-primary-dark)]"><FileText className="w-6 h-6" /></div>
-            <div>
-              <p className="text-xs font-semibold text-[var(--color-text-primary)]">High-Resolution Archival Scan</p>
-              <p className="text-[11px] text-[var(--color-text-muted)] mt-0.5">BTRC Spectrum Division Document Preview Engine</p>
-            </div>
-          </div>
-
-          <div className="text-[11px] text-[var(--color-text-muted)] text-center italic"><p>Watermarked for internal BTRC administrative verification purposes only.</p></div>
+      <div className="px-4 py-2.5 border-b border-[var(--color-border)] bg-[var(--color-surface)] flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
+        <p className="font-mono text-[var(--color-text-primary)]">{document.filename}</p>
+        <p className="text-[var(--color-text-secondary)]">{document.size}</p>
+        <p className="text-[var(--color-text-secondary)]">Uploaded {document.date || '2026-03-20'}</p>
+        <div className="ml-auto flex items-center gap-1.5 text-[#1B5E20] bg-[rgba(46,125,50,0.10)] px-2 py-1 rounded-lg">
+          <ShieldCheck className="w-3.5 h-3.5" />
+          <p className="font-medium">Verified</p>
         </div>
       </div>
 
-      <div className="px-4 py-2 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] text-xs text-[var(--color-text-secondary)]">
-        <p>Uploaded: {document.date || '2026-03-20'}</p>
+      <div className="flex-1 min-h-[420px] overflow-auto bg-[var(--color-background)] p-4 sm:p-5">
+        <div className="mx-auto w-full max-w-3xl min-h-[520px] bg-white border border-[var(--color-border)] shadow-[var(--shadow-sm)] rounded-lg p-6 sm:p-8 flex flex-col">
+          <div className="flex items-center justify-between gap-4 pb-4 border-b border-[var(--color-border)]">
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate">{document.title}</p>
+              <p className="text-xs font-mono text-[var(--color-text-muted)] mt-1 truncate">{document.filename}</p>
+            </div>
+            <div className="w-10 h-10 rounded-lg bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center shrink-0">
+              <FileText className="w-5 h-5" />
+            </div>
+          </div>
+
+          <div className="flex-1 py-8 space-y-5" aria-hidden="true">
+            <div className="h-3 w-2/5 rounded bg-[var(--color-border-subtle)]" />
+            <div className="space-y-3">
+              <div className="h-2.5 w-full rounded bg-[var(--color-background-subtle)]" />
+              <div className="h-2.5 w-11/12 rounded bg-[var(--color-background-subtle)]" />
+              <div className="h-2.5 w-4/5 rounded bg-[var(--color-background-subtle)]" />
+            </div>
+            <div className="grid grid-cols-2 gap-4 pt-3">
+              <div className="h-28 rounded-lg border border-[var(--color-border)] bg-[var(--color-background-subtle)]" />
+              <div className="h-28 rounded-lg border border-[var(--color-border)] bg-[var(--color-background-subtle)]" />
+            </div>
+            <div className="space-y-3 pt-2">
+              <div className="h-2.5 w-full rounded bg-[var(--color-background-subtle)]" />
+              <div className="h-2.5 w-5/6 rounded bg-[var(--color-background-subtle)]" />
+              <div className="h-2.5 w-3/5 rounded bg-[var(--color-background-subtle)]" />
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-[var(--color-border)] flex items-center justify-between gap-3">
+            <p className="text-xs text-[var(--color-text-muted)]">{document.type}</p>
+            <p className="text-xs text-[#1B5E20] font-medium">Verified</p>
+          </div>
+        </div>
       </div>
     </div>
   );
