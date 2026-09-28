@@ -140,7 +140,7 @@ export const UserFormPage = () => {
         }
       />
 
-      <div className="max-w-3xl mx-auto">
+      <div className="w-full">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Identity & Contact Details */}
           <Card title="Personnel & Contact Information">
