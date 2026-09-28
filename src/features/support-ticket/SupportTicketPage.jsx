@@ -176,7 +176,6 @@ export const SupportTicketPage = () => {
         onTabChange={(id) => {
           setStatusFilter(id);
         }}
-        showSummary
         toolbar={
           <FilterBar embedded
                   searchPlaceholder="Search by Ticket ID, citizen name, phone, or IMEI..."
