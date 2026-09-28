@@ -121,10 +121,10 @@
     font-size: 16px;
   }
 
-  /* Form geometry stays stable; only text/label/helper size responds to preference. */
+  /* Form geometry stays stable; font size follows the exact 90% / 100% / 110% preference scale. */
   html[data-text-size='compact'] {
     --field-height: 56px;
-    --field-font-size: 16px;
+    --field-font-size: 14.4px;
   }
 
   html[data-text-size='standard'] {
@@ -134,7 +134,7 @@
 
   html[data-text-size='large'] {
     --field-height: 56px;
-    --field-font-size: 18px;
+    --field-font-size: 17.6px;
   }
 
   body {

@@ -15,9 +15,11 @@
     --font-weight-bold: 700;
 
     /*
-     * Standard is the default reading scale.
-     * Compact changes density and selected secondary text, not core form legibility.
-     * Large improves readability without proportionally inflating layout spacing.
+     * Text-size preference rule:
+     * Standard = 100% neutral/default baseline.
+     * Compact = exactly 90% of Standard font sizes.
+     * Large = exactly 110% of Standard font sizes.
+     * Layout geometry and spacing are intentionally unaffected.
      */
     --type-display-size: 36px;
     --type-page-title-size: 28px;
@@ -57,25 +59,25 @@
   }
 
   html[data-text-size='compact'] {
-    --type-display-size: 32px;
-    --type-page-title-size: 24px;
-    --type-section-title-size: 16px;
-    --type-card-title-size: 16px;
-    --type-body-lg-size: 16px;
-    --type-body-size: 14px;
-    --type-body-sm-size: 14px;
-    --type-label-size: 14px;
-    --type-nav-size: 14px;
-    --type-control-size: 14px;
-    --type-button-size: 14px;
-    --type-button-sm-size: 14px;
-    --type-table-head-size: 14px;
-    --type-table-cell-size: 14px;
-    --type-meta-size: 14px;
-    --type-helper-size: 14px;
-    --type-form-label-size: 14px;
-    --type-badge-size: 14px;
-    --type-kpi-size: 28px;
+    --type-display-size: 32.4px;
+    --type-page-title-size: 25.2px;
+    --type-section-title-size: 16.2px;
+    --type-card-title-size: 16.2px;
+    --type-body-lg-size: 16.2px;
+    --type-body-size: 14.4px;
+    --type-body-sm-size: 14.4px;
+    --type-label-size: 14.4px;
+    --type-nav-size: 14.4px;
+    --type-control-size: 14.4px;
+    --type-button-size: 14.4px;
+    --type-button-sm-size: 12.6px;
+    --type-table-head-size: 14.4px;
+    --type-table-cell-size: 14.4px;
+    --type-meta-size: 12.6px;
+    --type-helper-size: 12.6px;
+    --type-form-label-size: 12.6px;
+    --type-badge-size: 12.6px;
+    --type-kpi-size: 28.8px;
   }
 
   html[data-text-size='standard'] {
@@ -101,25 +103,25 @@
   }
 
   html[data-text-size='large'] {
-    --type-display-size: 40px;
-    --type-page-title-size: 32px;
-    --type-section-title-size: 20px;
-    --type-card-title-size: 20px;
-    --type-body-lg-size: 20px;
-    --type-body-size: 18px;
-    --type-body-sm-size: 18px;
-    --type-label-size: 18px;
-    --type-nav-size: 18px;
-    --type-control-size: 16px;
-    --type-button-size: 16px;
-    --type-button-sm-size: 16px;
-    --type-table-head-size: 16px;
-    --type-table-cell-size: 18px;
-    --type-meta-size: 16px;
-    --type-helper-size: 16px;
-    --type-form-label-size: 16px;
-    --type-badge-size: 16px;
-    --type-kpi-size: 36px;
+    --type-display-size: 39.6px;
+    --type-page-title-size: 30.8px;
+    --type-section-title-size: 19.8px;
+    --type-card-title-size: 19.8px;
+    --type-body-lg-size: 19.8px;
+    --type-body-size: 17.6px;
+    --type-body-sm-size: 17.6px;
+    --type-label-size: 17.6px;
+    --type-nav-size: 17.6px;
+    --type-control-size: 17.6px;
+    --type-button-size: 17.6px;
+    --type-button-sm-size: 15.4px;
+    --type-table-head-size: 17.6px;
+    --type-table-cell-size: 17.6px;
+    --type-meta-size: 15.4px;
+    --type-helper-size: 15.4px;
+    --type-form-label-size: 15.4px;
+    --type-badge-size: 15.4px;
+    --type-kpi-size: 35.2px;
   }
 
   html[lang='bn'] {
@@ -290,8 +292,8 @@
 
 @media (max-width: 639px) {
   html[data-text-size='compact'] {
-    --type-display-size: 28px;
-    --type-page-title-size: 22px;
+    --type-display-size: 27px;
+    --type-page-title-size: 21.6px;
   }
 
   html[data-text-size='standard'] {
@@ -300,16 +302,16 @@
   }
 
   html[data-text-size='large'] {
-    --type-display-size: 34px;
-    --type-page-title-size: 28px;
+    --type-display-size: 33px;
+    --type-page-title-size: 26.4px;
   }
 }
 
 @layer utilities {
   /*
    * Compatibility bridge for existing utility-based copy.
-   * Nothing readable drops below 14px, while Standard/Large inherit the
-   * semantic body/meta scale without changing component spacing.
+   * Utility text follows the same 90% / 100% / 110% preference scale
+   * without changing component spacing or geometry.
    */
   .text-sm {
     font-size: var(--type-body-size);
