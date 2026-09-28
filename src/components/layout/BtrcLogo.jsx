@@ -4,7 +4,7 @@ export const BtrcLogo = ({ className = 'h-10 w-10', showText = true, inverted = 
   const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   return (
-    <div className="flex items-center gap-3 select-none">
+    <div className="flex items-center gap-2 sm:gap-3 select-none min-w-0">
       <div className={`relative flex items-center justify-center shrink-0 overflow-hidden ${className}`}>
         <img
           src={logoSrc}
@@ -24,7 +24,7 @@ export const BtrcLogo = ({ className = 'h-10 w-10', showText = true, inverted = 
               NEIR
             </p>
           </div>
-          <p className={`text-[12px] font-medium leading-tight mt-0.5 truncate ${inverted ? 'text-slate-300' : 'text-[#626981]'}`}>
+          <p className={`hidden sm:block text-[12px] font-medium leading-tight mt-0.5 truncate ${inverted ? 'text-slate-300' : 'text-[#626981]'}`}>
             National Equipment Identity Register
           </p>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
@@ -184,6 +184,7 @@ export const PermissionPage = () => {
             size="md"
             icon={Plus}
             onClick={handleOpenCreate}
+            className="w-full sm:w-auto"
           >
             Create Permission
           </Button>
@@ -204,7 +205,7 @@ export const PermissionPage = () => {
                     setSelectedParentFilter('All');
                   }}
                   filters={
-                    <div className="w-52">
+                    <div className="w-full sm:w-52">
                       <CompactSelect
                         value={selectedParentFilter}
                         onChange={(e) => setSelectedParentFilter(e.target.value)}
@@ -220,11 +221,34 @@ export const PermissionPage = () => {
                 />
         }
       >
-        <DataTable embedded
-                columns={columns}
-                data={filteredData}
-                isLoading={isLoading}
-              />
+        <DataTable
+          embedded
+          columns={columns}
+          data={filteredData}
+          isLoading={isLoading}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.name}
+              subtitle={row.parentName}
+              fields={[
+                { label: 'Path', value: row.path, isMono: true },
+                { label: 'Position', value: row.position, isMono: true },
+                { label: 'Icon', value: row.icon, isMono: true },
+              ]}
+              actions={
+                <Button
+                  variant="outline"
+                  size="sm"
+                  icon={Edit2}
+                  onClick={() => handleOpenEdit(row)}
+                  className="w-full"
+                >
+                  Edit Permission
+                </Button>
+              }
+            />
+          )}
+        />
       </TablePageWorkspace>
 
       {/* Create / Edit Modal */}
