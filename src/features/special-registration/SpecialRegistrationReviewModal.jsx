@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FullScreenWorkspace } from '../../components/overlays/FullScreenWorkspace.jsx';
 import { DocumentList, DocumentViewerPlaceholder } from '../../components/data-display/DocumentList.jsx';
 import { Button } from '../../components/forms/Button.jsx';
@@ -36,10 +36,8 @@ export const SpecialRegistrationReviewModal = ({
   registration,
   onStatusUpdated,
 }) => {
-  if (!registration) return null;
-
   const [selectedDoc, setSelectedDoc] = useState(null);
-  const [remarks, setRemarks] = useState(registration.remarks || '');
+  const [remarks, setRemarks] = useState(registration?.remarks || '');
   const [rejectRemarks, setRejectRemarks] = useState('');
   const [isApproveOpen, setIsApproveOpen] = useState(false);
   const [isRejectOpen, setIsRejectOpen] = useState(false);
@@ -51,13 +49,54 @@ export const SpecialRegistrationReviewModal = ({
     remarks: true,
   });
   const { addToast } = useToast();
+  const workspaceScrollRef = useRef(null);
+  const reviewScrollPositionRef = useRef(0);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedDoc(null);
+      return;
+    }
+
+    setSelectedDoc(null);
+    setRemarks(registration?.remarks || '');
+  }, [isOpen, registration?.id, registration?.remarks]);
+
+  if (!registration) return null;
 
   const toggleSection = (section) => {
     setOpenSections((current) => ({ ...current, [section]: !current[section] }));
   };
 
   const handleDocumentSelect = (document) => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
+    if (isMobile) {
+      reviewScrollPositionRef.current = workspaceScrollRef.current?.scrollTop || 0;
+      setSelectedDoc(document);
+      requestAnimationFrame(() => {
+        if (workspaceScrollRef.current) workspaceScrollRef.current.scrollTop = 0;
+      });
+      return;
+    }
+
     setSelectedDoc((current) => current?.id === document.id ? null : document);
+  };
+
+  const handleMobileDocumentBack = () => {
+    setSelectedDoc(null);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (workspaceScrollRef.current) {
+          workspaceScrollRef.current.scrollTop = reviewScrollPositionRef.current;
+        }
+      });
+    });
+  };
+
+  const handleWorkspaceClose = () => {
+    setSelectedDoc(null);
+    onClose();
   };
 
   const handleApprove = async () => {
@@ -67,7 +106,7 @@ export const SpecialRegistrationReviewModal = ({
       addToast(`Special Registration ${registration.id} approved. IMEI ${registration.imei} added to White List.`, 'success');
       setIsApproveOpen(false);
       onStatusUpdated && onStatusUpdated(registration.id, 'Accepted');
-      onClose();
+      handleWorkspaceClose();
     } catch (err) {
       addToast('Failed to approve application.', 'error');
     } finally {
@@ -86,7 +125,7 @@ export const SpecialRegistrationReviewModal = ({
       addToast(`Special Registration ${registration.id} rejected with official remarks.`, 'info');
       setIsRejectOpen(false);
       onStatusUpdated && onStatusUpdated(registration.id, 'Rejected');
-      onClose();
+      handleWorkspaceClose();
     } catch (err) {
       addToast('Failed to reject application.', 'error');
     } finally {
@@ -98,18 +137,24 @@ export const SpecialRegistrationReviewModal = ({
     <>
       <FullScreenWorkspace
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={handleWorkspaceClose}
         title="Special Registration Review Dossier"
         identifier={registration.id}
         status={registration.status}
+        mobileTitle={selectedDoc ? selectedDoc.type : undefined}
+        mobileIdentifier={selectedDoc ? `${selectedDoc.title} · ${selectedDoc.size}` : registration.id}
+        onMobileBack={selectedDoc ? handleMobileDocumentBack : undefined}
+        hideMobileFooter={Boolean(selectedDoc)}
+        contentRef={workspaceScrollRef}
+        contentClassName={selectedDoc ? 'max-md:p-0' : ''}
         maxWidth={selectedDoc ? 'max-w-[92vw]' : 'max-w-[720px]'}
         footer={
-          <div className="flex flex-col gap-2 w-full sm:flex-row sm:items-center sm:justify-end sm:gap-3">
+          <div className="flex flex-col gap-2 w-full md:flex-row md:items-center md:justify-end md:gap-3">
             <Button
               variant="dangerOutline"
               size="md"
               icon={XCircle}
-              className="w-full sm:w-auto"
+              className="w-full md:w-auto"
               onClick={() => setIsRejectOpen(true)}
             >
               Reject Application
@@ -118,7 +163,7 @@ export const SpecialRegistrationReviewModal = ({
               variant="primary"
               size="md"
               icon={CheckCircle2}
-              className="w-full sm:w-auto"
+              className="w-full md:w-auto"
               onClick={() => setIsApproveOpen(true)}
             >
               Approve & Whitelist
@@ -126,7 +171,7 @@ export const SpecialRegistrationReviewModal = ({
           </div>
         }
       >
-        <div className={'grid grid-cols-1 gap-4 h-full transition-all duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
+        <div className={(selectedDoc ? 'hidden md:grid ' : 'grid ') + 'grid-cols-1 gap-4 h-full transition-all duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
           <div className={selectedDoc
             ? 'lg:col-span-5 space-y-4 overflow-y-auto'
             : 'w-full max-w-5xl mx-auto space-y-4'}
@@ -237,6 +282,15 @@ export const SpecialRegistrationReviewModal = ({
             </div>
           )}
         </div>
+
+        {selectedDoc && (
+          <div key={'mobile-' + selectedDoc.id} className="md:hidden h-full min-h-[calc(90dvh-64px)] bg-[var(--color-background-subtle)]">
+            <DocumentViewerPlaceholder
+              document={selectedDoc}
+              focusedMobile
+            />
+          </div>
+        )}
       </FullScreenWorkspace>
 
       <ConfirmationDialog
