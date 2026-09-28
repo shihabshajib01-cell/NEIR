@@ -138,7 +138,6 @@ export const GlobalImeiBlockListPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Global IMEI Block List"
-        description="Master historical blacklist of barred mobile equipment identity records active in MNO EIR nodes."
         breadcrumbs={[
           { label: 'Global IMEI Block' },
           { label: 'Block List' }
