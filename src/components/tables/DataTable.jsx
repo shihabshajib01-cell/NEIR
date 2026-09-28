@@ -189,7 +189,7 @@ export const DataTable = ({
       {!isLoading && !isError && data.length > 0 && (
         <>
           {renderMobileCard && (
-            <div className="lg:hidden flex flex-col gap-[4px] bg-[var(--color-background)]">
+            <div className="lg:hidden bg-[var(--color-background)]">
               {sortedData.map((row, index) => {
                 const key = row[keyField] || index;
                 return (
@@ -212,7 +212,7 @@ export const DataTable = ({
                     }}
                     className={(mobileCardClick
                       ? 'cursor-pointer transition-colors hover:bg-[var(--color-background-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)] '
-                      : '') + 'bg-white'}
+                      : '') + 'bg-white [&:not(:last-child)]:border-b-[4px] [&:not(:last-child)]:border-b-[var(--color-background)]'}
                   >
                     {renderMobileCard(row, index)}
                   </div>
