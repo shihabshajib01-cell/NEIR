@@ -118,7 +118,7 @@ export const LostStolenPage = () => {
         count={data.length}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Search by IMEI, GD number, citizen name, or Police Station..."
+                  searchPlaceholder="Search records..."
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.imei, item.gdNumber, item.requestedBy, item.thana])}
                   onSearchChange={setSearchTerm}
