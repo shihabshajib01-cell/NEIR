@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Download, ShieldCheck, X } from 'lucide-react';
+import { FileText, Download, X } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
@@ -64,27 +64,17 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 shrink-0">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => alert('Document "' + document.filename + '" downloaded.')}
-            icon={Download}
+        {onClosePreview && (
+          <button
+            type="button"
+            onClick={onClosePreview}
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] transition-colors shrink-0"
+            aria-label={t('Close preview')}
+            title={t('Close preview')}
           >
-            Download
-          </Button>
-          {onClosePreview && (
-            <button
-              type="button"
-              onClick={onClosePreview}
-              className="w-9 h-9 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] transition-colors"
-              aria-label={t('Close preview')}
-              title={t('Close preview')}
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
-        </div>
+            <X className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
       <div className="px-4 py-2.5 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)] flex flex-wrap items-center gap-x-3 gap-y-2 text-xs">
@@ -93,9 +83,15 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
         <p className="text-[var(--color-text-secondary)]">{document.size}</p>
         <p className="text-[var(--color-text-muted)]">·</p>
         <p className="text-[var(--color-text-secondary)]">{document.date || '2026-03-20'}</p>
-        <div className="ml-auto flex items-center gap-1.5 text-[var(--color-success)] bg-[rgba(46,125,50,0.10)] px-2 py-1 rounded-full">
-          <ShieldCheck className="w-3.5 h-3.5" />
-          <p className="font-medium">Verified</p>
+        <div className="ml-auto">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => alert('Document "' + document.filename + '" downloaded.')}
+            icon={Download}
+          >
+            Download
+          </Button>
         </div>
       </div>
 
