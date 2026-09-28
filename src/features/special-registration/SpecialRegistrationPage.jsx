@@ -169,7 +169,7 @@ export const SpecialRegistrationPage = () => {
         toolbar={
           <FilterBar embedded
                   mobileInline
-                  searchPlaceholder="Search by IMEI, Requester name, or NID..."
+                  searchPlaceholder="Search applications..."
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.imei, item.requesterName, item.requesterNid])}
                   onSearchChange={setSearchTerm}
