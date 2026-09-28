@@ -2,7 +2,7 @@ import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   TablePagination as MuiTablePagination,
 } from '@mui/material';
-import { Search, RotateCcw, Download, X } from 'lucide-react';
+import { Search, Download, X } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { TextInput } from '../forms/TextInput.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
@@ -83,7 +83,6 @@ export const FilterBar = ({
   searchSuggestions = [],
   maxSearchSuggestions = 10,
   filters = null,
-  onReset,
   onExport,
   embedded = false,
   className = '',
@@ -266,10 +265,11 @@ export const FilterBar = ({
         {filters}
       </div>
 
-      <div className="flex items-center gap-2 shrink-0 self-end lg:self-center">
-        {onReset && <Button variant="ghost" size="sm" onClick={onReset} icon={RotateCcw}>Reset</Button>}
-        {onExport && <Button variant="outline" size="sm" onClick={onExport} icon={Download}>Export</Button>}
-      </div>
+      {onExport && (
+        <div className="flex items-center gap-2 shrink-0 self-end lg:self-center">
+          <Button variant="outline" size="sm" onClick={onExport} icon={Download}>Export</Button>
+        </div>
+      )}
     </div>
   );
 };
