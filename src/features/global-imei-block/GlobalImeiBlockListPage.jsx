@@ -181,32 +181,21 @@ export const GlobalImeiBlockListPage = () => {
                     fields={[
                       { label: 'Reason', value: row.reason },
                       { label: 'Blocked By', value: row.blockedBy },
-                      { label: 'Block Date', value: row.blockDate, isMono: true },
                       { label: 'Type', value: row.blockType },
                     ]}
+                    footerMeta={row.blockDate}
                     actions={
-                      <div className="flex items-center gap-2 w-full">
+                      row.status === 'Blocked' ? (
                         <Button
                           variant="outline"
                           size="sm"
-                          icon={Eye}
-                          onClick={() => handleOpenDetails(row)}
-                          className="flex-1 justify-center"
+                          icon={Unlock}
+                          onClick={() => setUnblockTarget(row)}
+                          className="border-emerald-300 text-emerald-800"
                         >
-                          View Details
+                          Unblock
                         </Button>
-                        {row.status === 'Blocked' && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            icon={Unlock}
-                            onClick={() => setUnblockTarget(row)}
-                            className="flex-1 justify-center border-emerald-300 text-emerald-800"
-                          >
-                            Unblock
-                          </Button>
-                        )}
-                      </div>
+                      ) : null
                     }
                   />
                 )}

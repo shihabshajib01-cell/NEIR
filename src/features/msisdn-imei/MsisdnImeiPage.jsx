@@ -180,19 +180,8 @@ export const MsisdnImeiPage = () => {
                       { label: 'Active IMEI', value: row.imei, isMono: true },
                       { label: 'Operator', value: row.operator },
                       { label: 'Device', value: row.deviceModel },
-                      { label: 'Attached Date', value: row.attachedDate, isMono: true },
                     ]}
-                    actions={
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        icon={Eye}
-                        onClick={() => handleOpenDetails(row)}
-                        className="w-full justify-center"
-                      >
-                        Inspect Pairing
-                      </Button>
-                    }
+                    footerMeta={row.attachedDate}
                   />
                 )}
               />

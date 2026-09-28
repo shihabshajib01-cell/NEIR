@@ -204,26 +204,14 @@ export const UsersListPage = () => {
                       { label: 'Role', value: row.role },
                     ]}
                     actions={
-                      <div className="flex items-center gap-2 w-full">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          icon={Eye}
-                          onClick={() => handleOpenDetails(row)}
-                          className="flex-1 justify-center"
-                        >
-                          View Profile
-                        </Button>
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          icon={Edit2}
-                          onClick={() => navigate(`/office/users/${row.id}/edit`)}
-                          className="flex-1 justify-center"
-                        >
-                          Edit Officer
-                        </Button>
-                      </div>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        icon={Edit2}
+                        onClick={() => navigate(`/office/users/${row.id}/edit`)}
+                      >
+                        Edit Officer
+                      </Button>
                     }
                   />
                 )}

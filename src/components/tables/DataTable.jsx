@@ -16,31 +16,44 @@ import { StatusBadge } from '../data-display/StatusBadge.jsx';
 import { SafeText } from '../data-display/SafeText.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
-export const MobileRecordCard = ({ title, subtitle, status, fields = [], actions, className = '' }) => {
+export const MobileRecordCard = ({
+  title,
+  subtitle,
+  status,
+  fields = [],
+  footerMeta,
+  actions,
+  className = '',
+}) => {
   const { t } = usePreferences();
 
   return (
-    <article className={'p-4 bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] flex flex-col gap-3 ' + className}>
-      <div className="flex items-start justify-between gap-2 pb-3 border-b border-[var(--color-border-subtle)]">
-        <div className="min-w-0">
-          <h4 className="type-body-strong text-[var(--color-text-primary)] break-words">{title}</h4>
-          {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
-        </div>
-        {status && <StatusBadge status={status} size="sm" />}
+    <article className={'px-5 py-5 bg-white flex flex-col gap-4 ' + className}>
+      <div className="min-w-0">
+        <h4 className="type-card-title text-[var(--color-text-primary)] break-words">{title}</h4>
+        {subtitle && <p className="type-body text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
       </div>
 
-      <dl className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
-        {fields.map((field, index) => (
-          <div key={field.label || index} className="min-w-0">
-            <dt className="type-badge text-[var(--color-text-muted)]"><p>{t(field.label)}</p></dt>
-            <dd className={'mt-0.5 type-table-cell font-medium text-[var(--color-text-primary)] break-words ' + (field.isMono ? 'font-mono tabular-nums' : '')}>
-              <p>{field.value || '—'}</p>
-            </dd>
-          </div>
-        ))}
-      </dl>
+      {fields.length > 0 && (
+        <div className="space-y-1.5">
+          {fields.map((field, index) => (
+            <p key={field.label || index} className="type-body text-[var(--color-text-primary)] break-words">
+              <strong className="font-semibold text-[var(--color-text-secondary)]">{t(field.label)}:</strong>{' '}
+              {field.isMono ? <code className="font-mono tabular-nums">{field.value || '—'}</code> : (field.value || '—')}
+            </p>
+          ))}
+        </div>
+      )}
 
-      {actions && <div className="pt-3 border-t border-[var(--color-border-subtle)] flex items-center justify-end gap-2">{actions}</div>}
+      {(status || footerMeta || actions) && (
+        <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2 min-w-0">
+            {status && <StatusBadge status={status} size="sm" />}
+            {footerMeta && <p className="type-meta text-[var(--color-text-secondary)] font-mono tabular-nums">{footerMeta}</p>}
+          </div>
+          {actions && <div className="flex items-center justify-end gap-2 ml-auto">{actions}</div>}
+        </div>
+      )}
     </article>
   );
 };
@@ -143,10 +156,34 @@ export const DataTable = ({
       {!isLoading && !isError && data.length > 0 && (
         <>
           {renderMobileCard && (
-            <div className="lg:hidden p-3 space-y-3 bg-[var(--color-background)]">
-              {sortedData.map((row, index) => (
-                <div key={row[keyField] || index}>{renderMobileCard(row, index)}</div>
-              ))}
+            <div className="lg:hidden bg-white divide-y divide-[var(--color-border)]">
+              {sortedData.map((row, index) => {
+                const key = row[keyField] || index;
+                return (
+                  <div
+                    key={key}
+                    role={onRowClick ? 'button' : undefined}
+                    tabIndex={onRowClick ? 0 : undefined}
+                    onClick={(event) => {
+                      if (!onRowClick) return;
+                      if (event.target.closest?.('button, a, input, select, textarea, [role="button"], [role="checkbox"], [role="link"]')) return;
+                      onRowClick(row);
+                    }}
+                    onKeyDown={(event) => {
+                      if (!onRowClick || event.target !== event.currentTarget) return;
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        onRowClick(row);
+                      }
+                    }}
+                    className={onRowClick
+                      ? 'cursor-pointer transition-colors hover:bg-[var(--color-background-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)]'
+                      : ''}
+                  >
+                    {renderMobileCard(row, index)}
+                  </div>
+                );
+              })}
             </div>
           )}
 

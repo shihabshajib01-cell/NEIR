@@ -143,20 +143,9 @@ export const LostStolenPage = () => {
                     fields={[
                       { label: 'Requested By', value: row.requestedBy },
                       { label: 'GD Number', value: row.gdNumber, isMono: true },
-                      { label: 'Report Date', value: row.reportDate, isMono: true },
                       { label: 'Last Seen Carrier', value: row.deviceDetails.lastSeenOperator },
                     ]}
-                    actions={
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        icon={Eye}
-                        onClick={() => handleOpenDetails(row)}
-                        className="w-full justify-center"
-                      >
-                        View Police Details
-                      </Button>
-                    }
+                    footerMeta={row.reportDate}
                   />
                 )}
               />

@@ -218,20 +218,9 @@ export const SpecialRegistrationPage = () => {
                     fields={[
                       { label: 'Requester', value: row.requesterName },
                       { label: 'Category', value: row.category },
-                      { label: 'Date', value: row.date, isMono: true },
                       { label: 'Challan No', value: row.customsChallanNo, isMono: true },
                     ]}
-                    actions={
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        icon={Eye}
-                        onClick={() => handleOpenReview(row)}
-                        className="w-full justify-center"
-                      >
-                        View details & Review
-                      </Button>
-                    }
+                    footerMeta={row.date}
                   />
                 )}
               />
