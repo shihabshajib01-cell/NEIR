@@ -214,7 +214,7 @@ export const DateRangeFilter = ({
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         slotProps={{
           paper: {
-            className: 'mobile-bottom-sheet',
+            className: 'mobile-bottom-sheet mobile-bottom-sheet-surface',
             sx: isMobile ? {
               position: 'fixed !important',
               left: '0 !important',
