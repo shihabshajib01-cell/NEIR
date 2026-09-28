@@ -56,7 +56,7 @@ export const AutoRegistrationPage = () => {
         ]}
       />
 
-      <div className="max-w-xl mx-auto">
+      <div className="w-full">
         <Card
           title="Manual Network Sync Registration"
           subtitle="Direct pairing bypass for official testing and carrier verification"
