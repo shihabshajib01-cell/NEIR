@@ -112,9 +112,8 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
         </div>
       </div>
 
-      <div className="px-4 py-2 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-xs text-[var(--color-text-secondary)]">
+      <div className="px-4 py-2 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] text-xs text-[var(--color-text-secondary)]">
         <p>Uploaded: {document.date || '2026-03-20'}</p>
-        <p>Status: Stored on BTRC Gov Cloud</p>
       </div>
     </div>
   );

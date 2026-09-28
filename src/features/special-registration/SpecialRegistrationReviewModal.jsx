@@ -104,29 +104,23 @@ export const SpecialRegistrationReviewModal = ({
         status={registration.status}
         maxWidth={selectedDoc ? 'max-w-[92vw]' : 'max-w-[720px]'}
         footer={
-          <div className="flex items-center justify-between w-full">
-            <div className="text-xs text-[#626981] flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#01ADC1]" />
-              <p>BTRC Spectrum Management & Customs Validation Protocol</p>
-            </div>
-            <div className="flex items-center gap-3">
-              <Button
-                variant="dangerOutline"
-                size="md"
-                icon={XCircle}
-                onClick={() => setIsRejectOpen(true)}
-              >
-                Reject Application
-              </Button>
-              <Button
-                variant="primary"
-                size="md"
-                icon={CheckCircle2}
-                onClick={() => setIsApproveOpen(true)}
-              >
-                Approve & Whitelist
-              </Button>
-            </div>
+          <div className="flex items-center justify-end gap-3 w-full">
+            <Button
+              variant="dangerOutline"
+              size="md"
+              icon={XCircle}
+              onClick={() => setIsRejectOpen(true)}
+            >
+              Reject Application
+            </Button>
+            <Button
+              variant="primary"
+              size="md"
+              icon={CheckCircle2}
+              onClick={() => setIsApproveOpen(true)}
+            >
+              Approve & Whitelist
+            </Button>
           </div>
         }
       >
