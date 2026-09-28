@@ -80,7 +80,6 @@ export const ManufacturerUploadPage = () => {
     <div className="space-y-6">
       <PageHeader
         title="Manufacturer IMEI Upload"
-        description="Bulk import authorized domestic manufacturing and officially imported IMEI batches into the National White List."
         breadcrumbs={[
           { label: 'Manufacturer Portal' },
           { label: 'IMEI Upload' }
@@ -102,7 +101,6 @@ export const ManufacturerUploadPage = () => {
         <div className="lg:col-span-5">
           <Card
             title="Batch Ingestion Form"
-            subtitle="Upload standard CSV file containing dual-SIM TAC and IMEI entries"
           >
             <form onSubmit={handleProcessUpload} className="space-y-4">
               <Select
@@ -123,7 +121,7 @@ export const ManufacturerUploadPage = () => {
 
               <CSVUpload
                 label="Manufactured Handsets CSV File"
-                helperText="Required columns: imei1, imei2, brand, model, tac"
+                helperText="Required: imei1, imei2, brand, model, tac"
                 onFileSelect={(file) => setSelectedFile(file)}
                 onSampleDownload={handleDownloadSample}
               />
@@ -178,21 +176,10 @@ export const ManufacturerUploadPage = () => {
               </Card>
             </div>
           ) : (
-            <Card title="Batch Validation Guidelines">
-              <div className="space-y-3 text-xs text-[#626981] leading-relaxed">
-                <p>
-                  Local assemblers and type-approved importers must submit batch manifests before distributing mobile terminals into retail channels.
-                </p>
-                <div className="p-3 bg-[#F7F8FC] rounded-md border border-[#E2E5F0] space-y-1 font-mono text-[11px] text-[#202338]">
-                  <p className="font-bold font-sans text-xs">Expected CSV Column Header Structure:</p>
-                  <p><code>imei1,imei2,brand,model,tac</code></p>
-                </div>
-                <ul className="list-disc list-inside space-y-1 pt-1 text-[11px]">
-                  <li><p>All IMEI numbers must pass the standard Luhn algorithm checksum.</p></li>
-                  <li><p>Type Allocation Code (TAC) first 8 digits must match GSMA master allocations.</p></li>
-                  <li><p>Duplicate IMEIs previously allocated will trigger duplicate rejection alerts.</p></li>
-                </ul>
-              </div>
+            <Card title="Batch Validation">
+              <p className="type-body-sm text-[var(--color-text-secondary)]">
+                IMEI, TAC, and duplicate checks run automatically during upload.
+              </p>
             </Card>
           )}
         </div>
