@@ -114,7 +114,7 @@ export const MsisdnImeiPage = () => {
         actions={
           <Button
             variant="outline"
-            size="sm"
+            size="md"
             icon={Download}
             onClick={() => addToast('Exporting cellular binding extract...', 'info')}
           >

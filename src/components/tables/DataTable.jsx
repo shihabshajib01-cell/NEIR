@@ -39,7 +39,7 @@ export const MobileRecordCard = ({
           {fields.map((field, index) => (
             <p key={field.label || index} className="type-body text-[var(--color-text-primary)] break-words">
               <strong className="font-semibold text-[var(--color-text-secondary)]">{t(field.label)}:</strong>{' '}
-              {field.isMono ? <code className="font-mono tabular-nums">{field.value || '—'}</code> : (field.value || '—')}
+              {field.value || '—'}
             </p>
           ))}
         </div>
@@ -51,7 +51,7 @@ export const MobileRecordCard = ({
             {status && <StatusBadge status={status} size="sm" showIcon={false} plain />}
           </div>
           <div className="ml-auto flex items-center justify-end gap-3 min-w-0">
-            {footerMeta && <p className="type-body-sm text-[var(--color-text-secondary)] font-mono tabular-nums">{footerMeta}</p>}
+            {footerMeta && <p className="type-body-sm text-[var(--color-text-secondary)]">{footerMeta}</p>}
             {actions}
           </div>
         </div>
@@ -257,18 +257,64 @@ export const DataTable = ({
                 sx={{
                   minWidth: 720,
                   tableLayout: 'auto',
+                  fontFamily: 'var(--font-ui)',
                   '& .MuiTableCell-root': {
                     whiteSpace: 'nowrap',
                     paddingLeft: '12px',
                     paddingRight: '12px',
                     paddingTop: dense ? '8px' : '10px',
                     paddingBottom: dense ? '8px' : '10px',
+                    fontFamily: 'var(--font-ui)',
                   },
                   '& .MuiTableHead-root .MuiTableRow-root': {
                     height: 40,
                   },
+                  '& .MuiTableHead-root .MuiTableCell-root': {
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 'var(--type-table-head-size)',
+                    lineHeight: 'var(--type-compact-line)',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    color: 'var(--color-text-primary)',
+                  },
                   '& .MuiTableBody-root .MuiTableRow-root': {
                     height: dense ? 44 : 52,
+                  },
+                  '& .MuiTableBody-root .MuiTableCell-root': {
+                    fontFamily: 'var(--font-ui)',
+                    fontSize: 'var(--type-table-cell-size)',
+                    lineHeight: 'var(--type-body-line)',
+                    fontWeight: 'var(--font-weight-regular)',
+                    color: 'var(--color-text-primary)',
+                  },
+                  '& .data-table-cell-content, & .data-table-cell-content *': {
+                    fontFamily: 'var(--font-ui) !important',
+                  },
+                  '& .data-table-cell-content p': {
+                    margin: 0,
+                    fontSize: 'var(--type-table-cell-size) !important',
+                    lineHeight: 'var(--type-body-line) !important',
+                    fontWeight: 'var(--font-weight-medium) !important',
+                    color: 'var(--color-text-primary) !important',
+                    backgroundColor: 'transparent !important',
+                    border: '0 !important',
+                    borderRadius: '0 !important',
+                    padding: '0 !important',
+                  },
+                  '& .data-table-cell-content p + p': {
+                    marginTop: '2px',
+                    fontSize: 'var(--type-meta-size) !important',
+                    lineHeight: 'var(--type-compact-line) !important',
+                    fontWeight: 'var(--font-weight-regular) !important',
+                    color: 'var(--color-text-secondary) !important',
+                  },
+                  '& .data-table-cell-content code': {
+                    fontFamily: 'var(--font-ui) !important',
+                    fontSize: 'inherit !important',
+                    fontWeight: 'inherit !important',
+                    color: 'inherit !important',
+                  },
+                  '& .data-table-cell-content svg': {
+                    color: 'var(--color-text-secondary) !important',
                   },
                 }}
                 aria-label={t('Records table')}
@@ -378,11 +424,19 @@ export const DataTable = ({
                                 minWidth: column.minWidth ?? column.width,
                                 ...(column.maxWidth ? { maxWidth: column.maxWidth } : {}),
                               }}
-                              className={column.isMono ? 'font-mono tabular-nums' : ''}
+                              className=""
                             >
-                              {column.render
-                                ? column.render(cellValue, row, index)
-                                : <SafeText value={cellValue} mode={column.truncate || 'normal'} />}
+                              {['actions', 'status', 'priority', 'method', 'validation'].includes(column.key)
+                                ? (column.render
+                                  ? column.render(cellValue, row, index)
+                                  : <SafeText value={cellValue} mode={column.truncate || 'normal'} />)
+                                : (
+                                  <div className="data-table-cell-content">
+                                    {column.render
+                                      ? column.render(cellValue, row, index)
+                                      : <SafeText value={cellValue} mode={column.truncate || 'normal'} />}
+                                  </div>
+                                )}
                             </TableCell>
                           );
                         })}
@@ -424,6 +478,12 @@ export const DataTable = ({
           showFirstButton={false}
           showLastButton={false}
           sx={{
+            fontFamily: 'var(--font-ui)',
+            color: 'var(--color-text-secondary)',
+            '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows, & .MuiTablePagination-select, & .MuiTablePagination-actions': {
+              fontFamily: 'var(--font-ui)',
+              fontSize: 'var(--type-body-sm-size)',
+            },
             ...(renderMobileCard ? {
               '@media (max-width: 1023px)': {
                 display: 'none',
