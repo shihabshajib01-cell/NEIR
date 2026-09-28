@@ -109,7 +109,6 @@ export const MsisdnImeiPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="MSISDN IMEI List"
-        description="Search and review subscriber-to-device registration records in the NEIR registry."
         breadcrumbs={[{ label: 'MSISDN IMEI' }]}
         actions={
           <Button
