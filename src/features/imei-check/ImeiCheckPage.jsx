@@ -39,7 +39,6 @@ export const ImeiCheckPage = () => {
     <div className="space-y-6">
       <PageHeader
         title="IMEI Check"
-        description="Verify individual terminal legitimacy, GSMA TAC allocation, and active status in Bangladesh EIR registry."
         breadcrumbs={[
           { label: 'IMEI Check' }
         ]}
@@ -49,7 +48,6 @@ export const ImeiCheckPage = () => {
       <div className="w-full">
         <Card
           title="Direct EIR Database Lookup"
-          subtitle="Instant cross-carrier query for handset compliance status"
         >
           <form onSubmit={handleSearch} className="space-y-4">
             <IMEIInput
@@ -59,15 +57,6 @@ export const ImeiCheckPage = () => {
               placeholder="e.g. 862940058912341"
               required
             />
-
-            <div className="p-3 bg-[#F7F8FC] rounded-md border border-[#E2E5F0] text-xs text-[#626981] space-y-1">
-              <p className="font-semibold text-[#202338]">Quick Inspection Shortcuts:</p>
-              <ul className="list-disc list-inside space-y-0.5 text-[11px]">
-                <li><p>Standard 15-digit number: <code className="font-mono text-[#028A97]">862940058912341</code> (White Listed)</p></li>
-                <li><p>Blocked stolen device: <code className="font-mono text-red-600">864920194820194</code> (Blacklisted)</p></li>
-                <li><p>Unregistered terminal: <code className="font-mono text-amber-600">999000111222333</code> (Not Registered)</p></li>
-              </ul>
-            </div>
 
             <div className="pt-2 border-t border-[#E2E5F0] flex justify-end">
               <Button
@@ -90,7 +79,6 @@ export const ImeiCheckPage = () => {
           isOpen={isResultModalOpen}
           onClose={() => setIsResultModalOpen(false)}
           title="IMEI Verification Status"
-          subtitle={`Query Target: ${result.imei}`}
           maxWidth="max-w-lg"
         >
           <div className="space-y-4">
