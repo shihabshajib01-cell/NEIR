@@ -49,7 +49,6 @@ export const AutoRegistrationPage = () => {
     <div className="space-y-6">
       <PageHeader
         title="Auto Registration"
-        description="Manual operational trigger to emulate MNO network attachment SIM-IMEI pairing into BTRC White List."
         breadcrumbs={[
           { label: 'Device Operations' },
           { label: 'Auto Registration' }
@@ -59,7 +58,6 @@ export const AutoRegistrationPage = () => {
       <div className="w-full">
         <Card
           title="Manual Network Sync Registration"
-          subtitle="Direct pairing bypass for official testing and carrier verification"
         >
           {error && (
             <Alert variant="danger" title="Registration Failed" className="mb-4">
@@ -86,7 +84,6 @@ export const AutoRegistrationPage = () => {
               label="Current Phone Number"
               value={currentPhone}
               onChange={(e) => setCurrentPhone(e.target.value)}
-              helperText="Active MSISDN to pair with this IMEI"
               required
             />
 
