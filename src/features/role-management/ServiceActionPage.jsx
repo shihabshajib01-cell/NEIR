@@ -143,7 +143,7 @@ export const ServiceActionPage = () => {
           colors[method] || 'bg-slate-100 text-slate-700 border-slate-200'
         }`}
       >
-        {method}
+        {method.charAt(0) + method.slice(1).toLowerCase()}
       </p>
     );
   };
@@ -301,7 +301,12 @@ export const ServiceActionPage = () => {
             label="Action HTTP Method"
             value={formState.method}
             onChange={(e) => setFormState({ ...formState, method: e.target.value })}
-            options={['GET', 'POST', 'PUT', 'DELETE']}
+            options={[
+              { value: 'GET', label: 'Get' },
+              { value: 'POST', label: 'Post' },
+              { value: 'PUT', label: 'Put' },
+              { value: 'DELETE', label: 'Delete' },
+            ]}
             required
           />
         </form>

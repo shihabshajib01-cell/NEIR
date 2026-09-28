@@ -45,6 +45,8 @@ export const Button = ({
       'bg-white hover:bg-[var(--color-primary-light)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] border border-[var(--color-border-strong)]',
     danger:
       'bg-[var(--color-error)] hover:bg-[#A91F22] active:bg-[#8E1B1E] text-white border border-transparent shadow-[var(--shadow-sm)]',
+    dangerOutline:
+      'bg-transparent text-[var(--color-error)] border border-[var(--color-error)] hover:bg-[#C62828] hover:text-white active:bg-[#A91F22] active:text-white',
     ghost:
       'bg-transparent hover:bg-[var(--color-primary-light)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] border border-transparent',
   };

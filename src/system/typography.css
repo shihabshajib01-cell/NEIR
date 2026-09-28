@@ -276,7 +276,6 @@
     line-height: var(--type-compact-line);
     font-weight: var(--font-weight-bold);
     letter-spacing: var(--type-tracking-wide);
-    text-transform: uppercase;
   }
 
   .type-kpi {

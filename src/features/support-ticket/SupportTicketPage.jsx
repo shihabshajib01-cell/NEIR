@@ -259,7 +259,7 @@ export const SupportTicketPage = () => {
 
           {/* Conversation History Thread */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#626981]">
+            <h4 className="text-xs font-semibold tracking-wider text-[#626981]">
               Conversation History
             </h4>
             <div className="space-y-3">
@@ -288,7 +288,7 @@ export const SupportTicketPage = () => {
           {/* Reply Form */}
           <form onSubmit={handleSendReply} className="pt-4 border-t border-[var(--color-border)] space-y-4">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-[#202338]">
+              <h4 className="text-xs font-semibold tracking-wider text-[#202338]">
                 Post Official Resolution
               </h4>
               <div className="w-40">

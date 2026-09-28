@@ -251,8 +251,8 @@ export const AssignPermissionModal = ({
                                     <div className="truncate">
                                       <p className="font-medium truncate">{action.name}</p>
                                       <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#7A8197] mt-0.5">
-                                        <p className="font-bold uppercase text-[#01ADC1]">
-                                          {action.method}
+                                        <p className="font-bold text-[#01ADC1]">
+                                          {action.method.charAt(0) + action.method.slice(1).toLowerCase()}
                                         </p>
                                         <p className="truncate">{action.path}</p>
                                       </div>

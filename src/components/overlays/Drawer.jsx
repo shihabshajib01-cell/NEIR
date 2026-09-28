@@ -91,7 +91,7 @@ export const RecordDetailsDrawer = ({
     >
       <div className="p-3.5 bg-[var(--color-background-subtle)] border border-[var(--color-border)] rounded-xl flex items-center justify-between gap-3">
         <div className="flex flex-col min-w-0">
-          <p className="text-[11px] font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">{t('Record Status')}</p>
+          <p className="text-[11px] font-semibold text-[var(--color-text-secondary)]">{t('Record Status')}</p>
           <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono mt-0.5 truncate">{recordId || 'NEIR-REC'}</p>
         </div>
         {status && <StatusBadge status={status} size="md" />}
@@ -99,7 +99,7 @@ export const RecordDetailsDrawer = ({
 
       {sections.map((section, index) => (
         <section key={section.title || index} className="border border-[var(--color-border)] rounded-xl overflow-hidden bg-white">
-          <h4 className="px-4 py-2.5 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)] uppercase tracking-wider">{t(section.title)}</h4>
+          <h4 className="px-4 py-2.5 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">{t(section.title)}</h4>
           <dl className="p-3.5 space-y-2.5">
             {section.items.map((item, itemIndex) => (
               <div key={item.label || itemIndex} className="grid grid-cols-[minmax(110px,0.8fr)_minmax(0,1.2fr)] gap-3 text-xs">

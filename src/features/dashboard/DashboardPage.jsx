@@ -228,7 +228,7 @@ export const DashboardPage = () => {
 
               {/* Monthly Trend Mini Table */}
               <div className="mt-4 pt-3 border-t border-[#E2E5F0]">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-[#626981] mb-2">
+                <h4 className="text-xs font-semibold tracking-wider text-[#626981] mb-2">
                   Recent 6-Month EIR Trajectory
                 </h4>
                 <div className="border border-[var(--color-border)] rounded-lg overflow-hidden">

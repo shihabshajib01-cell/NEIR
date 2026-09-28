@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
 import { FullScreenWorkspace } from '../../components/overlays/FullScreenWorkspace.jsx';
-import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { DocumentList, DocumentViewerPlaceholder } from '../../components/data-display/DocumentList.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Textarea } from '../../components/forms/TextInput.jsx';
 import { ConfirmationDialog, Modal } from '../../components/overlays/Modal.jsx';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { mockApi } from '../../services/mockApi.js';
-import { CheckCircle2, XCircle, FileText, Smartphone, User, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, ChevronDown, FileText, Smartphone, User, ShieldCheck, XCircle } from 'lucide-react';
+
+const CollapsibleSection = ({ title, icon: Icon, isOpen, onToggle, children }) => (
+  <section className="bg-white border border-[#E2E5F0] rounded-lg shadow-xs overflow-hidden">
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={isOpen}
+      className="w-full px-4 py-3 flex items-center justify-between gap-3 text-left hover:bg-[var(--color-background-subtle)] transition-colors"
+    >
+      <div className="flex items-center gap-2 min-w-0">
+        <Icon className="w-4 h-4 text-[#01ADC1] shrink-0" />
+        <p className="text-xs font-semibold text-[#202338] truncate">{title}</p>
+      </div>
+      <ChevronDown className={'w-4 h-4 text-[#7A8197] shrink-0 transition-transform ' + (isOpen ? 'rotate-180' : '')} />
+    </button>
+    {isOpen && (
+      <div className="px-4 pb-4 pt-1 border-t border-[#E2E5F0]">
+        {children}
+      </div>
+    )}
+  </section>
+);
 
 export const SpecialRegistrationReviewModal = ({
   isOpen,
@@ -17,15 +38,27 @@ export const SpecialRegistrationReviewModal = ({
 }) => {
   if (!registration) return null;
 
-  const [selectedDoc, setSelectedDoc] = useState(
-    registration.attachments && registration.attachments.length > 0 ? registration.attachments[0] : null
-  );
+  const [selectedDoc, setSelectedDoc] = useState(null);
   const [remarks, setRemarks] = useState(registration.remarks || '');
   const [rejectRemarks, setRejectRemarks] = useState('');
   const [isApproveOpen, setIsApproveOpen] = useState(false);
   const [isRejectOpen, setIsRejectOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [openSections, setOpenSections] = useState({
+    requester: true,
+    device: true,
+    attachments: true,
+    remarks: true,
+  });
   const { addToast } = useToast();
+
+  const toggleSection = (section) => {
+    setOpenSections((current) => ({ ...current, [section]: !current[section] }));
+  };
+
+  const handleDocumentSelect = (document) => {
+    setSelectedDoc((current) => current?.id === document.id ? null : document);
+  };
 
   const handleApprove = async () => {
     try {
@@ -77,7 +110,7 @@ export const SpecialRegistrationReviewModal = ({
             </div>
             <div className="flex items-center gap-3">
               <Button
-                variant="danger"
+                variant="dangerOutline"
                 size="md"
                 icon={XCircle}
                 onClick={() => setIsRejectOpen(true)}
@@ -96,114 +129,119 @@ export const SpecialRegistrationReviewModal = ({
           </div>
         }
       >
-        {/* Workspace Dual-Panel Layout (Left 45%, Right 55%) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
-          {/* LEFT 45% (5 cols lg): Device Details, Requester, Attachments, Remarks */}
-          <div className="lg:col-span-5 space-y-4 overflow-y-auto pr-1">
-            {/* Requester Profile Card */}
-            <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338] pb-2 border-b border-[#E2E5F0]">
-                <User className="w-4 h-4 text-[#01ADC1]" />
-                <p>Requester & Citizen Identity</p>
-              </div>
+        <div className={'grid grid-cols-1 gap-6 h-full ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
+          <div className={selectedDoc
+            ? 'lg:col-span-5 space-y-4 overflow-y-auto pr-1'
+            : 'w-full max-w-5xl mx-auto space-y-4'}
+          >
+            <CollapsibleSection
+              title="Requester & Citizen Identity"
+              icon={User}
+              isOpen={openSections.requester}
+              onToggle={() => toggleSection('requester')}
+            >
               <div className="mt-3 space-y-2 text-xs">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Full Name:</p>
-                  <p className="font-semibold text-[#202338]">{registration.requesterName}</p>
+                  <p className="font-semibold text-[#202338] text-right">{registration.requesterName}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">National ID / Passport:</p>
-                  <p className="font-mono text-[#202338]">{registration.requesterNid}</p>
+                  <p className="font-mono text-[#202338] text-right">{registration.requesterNid}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Contact Phone:</p>
-                  <p className="font-mono text-[#202338]">{registration.requesterPhone}</p>
+                  <p className="font-mono text-[#202338] text-right">{registration.requesterPhone}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Application Date:</p>
-                  <p className="font-mono text-[#202338]">{registration.date}</p>
+                  <p className="font-mono text-[#202338] text-right">{registration.date}</p>
                 </div>
               </div>
-            </div>
+            </CollapsibleSection>
 
-            {/* Device Specification Card */}
-            <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338] pb-2 border-b border-[#E2E5F0]">
-                <Smartphone className="w-4 h-4 text-[#01ADC1]" />
-                <p>Device Specifications</p>
-              </div>
+            <CollapsibleSection
+              title="Device Specifications"
+              icon={Smartphone}
+              isOpen={openSections.device}
+              onToggle={() => toggleSection('device')}
+            >
               <div className="mt-3 space-y-2 text-xs">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">IMEI Number:</p>
-                  <p className="font-mono font-bold text-[#028A97] bg-[#028A97]/10 px-1.5 py-0.5 rounded">
-                    {registration.imei}
-                  </p>
+                  <p className="font-mono font-bold text-[#028A97] bg-[#028A97]/10 px-1.5 py-0.5 rounded">{registration.imei}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Brand / Make:</p>
-                  <p className="font-semibold text-[#202338]">{registration.brand}</p>
+                  <p className="font-semibold text-[#202338] text-right">{registration.brand}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Model:</p>
-                  <p className="font-medium text-[#202338]">{registration.model}</p>
+                  <p className="font-medium text-[#202338] text-right">{registration.model}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Device Type:</p>
-                  <p className="text-[#202338]">{registration.deviceType}</p>
+                  <p className="text-[#202338] text-right">{registration.deviceType}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Serial Number:</p>
-                  <p className="font-mono text-[#202338]">{registration.serialNumber}</p>
+                  <p className="font-mono text-[#202338] text-right">{registration.serialNumber}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Purchase Country:</p>
-                  <p className="text-[#202338]">{registration.purchaseCountry}</p>
+                  <p className="text-[#202338] text-right">{registration.purchaseCountry}</p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Customs Challan / Baggage No:</p>
-                  <p className="font-mono text-[#01ADC1] font-semibold">{registration.customsChallanNo}</p>
+                  <p className="font-mono text-[#01ADC1] font-semibold text-right">{registration.customsChallanNo}</p>
                 </div>
               </div>
-            </div>
+            </CollapsibleSection>
 
-            {/* Submitted Attachments List */}
-            <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
-              <div className="flex items-center justify-between pb-2 border-b border-[#E2E5F0]">
-                <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#202338]">
-                  <FileText className="w-4 h-4 text-[#01ADC1]" />
-                  <p>Dossier Attachments ({registration.attachments?.length || 0})</p>
-                </div>
-                <p className="text-[11px] text-[#7A8197]">Click to preview</p>
-              </div>
+            <CollapsibleSection
+              title={`Dossier Attachments (${registration.attachments?.length || 0})`}
+              icon={FileText}
+              isOpen={openSections.attachments}
+              onToggle={() => toggleSection('attachments')}
+            >
               <div className="mt-3">
                 <DocumentList
                   documents={registration.attachments || []}
                   selectedDocId={selectedDoc?.id}
-                  onSelectDoc={(doc) => setSelectedDoc(doc)}
+                  onSelectDoc={handleDocumentSelect}
                 />
               </div>
-            </div>
+            </CollapsibleSection>
 
-            {/* Operational Remarks */}
-            <div className="bg-white border border-[#E2E5F0] rounded-lg p-4 shadow-xs">
-              <Textarea
-                label="Application Verification Remarks"
-                value={remarks}
-                onChange={(e) => setRemarks(e.target.value)}
-                placeholder="Enter officer evaluation notes, customs tax verification references, or clearance remarks..."
-                rows={3}
+            <CollapsibleSection
+              title="Application Verification Remarks"
+              icon={ShieldCheck}
+              isOpen={openSections.remarks}
+              onToggle={() => toggleSection('remarks')}
+            >
+              <div className="mt-3">
+                <Textarea
+                  value={remarks}
+                  onChange={(e) => setRemarks(e.target.value)}
+                  placeholder="Enter officer evaluation notes, customs tax verification references, or clearance remarks..."
+                  rows={3}
+                  aria-label="Application Verification Remarks"
+                />
+              </div>
+            </CollapsibleSection>
+          </div>
+
+          {selectedDoc && (
+            <div className="lg:col-span-7 h-full flex flex-col min-w-0">
+              <DocumentViewerPlaceholder
+                document={selectedDoc}
+                onClosePreview={() => setSelectedDoc(null)}
               />
             </div>
-          </div>
-
-          {/* RIGHT 55% (7 cols lg): Scanned Document High-Res Viewer */}
-          <div className="lg:col-span-7 h-full flex flex-col">
-            <DocumentViewerPlaceholder document={selectedDoc} />
-          </div>
+          )}
         </div>
       </FullScreenWorkspace>
 
-      {/* Approve Confirmation Modal */}
       <ConfirmationDialog
         isOpen={isApproveOpen}
         onClose={() => setIsApproveOpen(false)}
@@ -215,7 +253,6 @@ export const SpecialRegistrationReviewModal = ({
         isLoading={isSubmitting}
       />
 
-      {/* Reject Confirmation Modal with Mandatory Remarks */}
       <Modal
         isOpen={isRejectOpen}
         onClose={() => setIsRejectOpen(false)}

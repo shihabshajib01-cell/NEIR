@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Download, ShieldCheck } from 'lucide-react';
+import { FileText, Download, ShieldCheck, X } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
@@ -23,15 +23,15 @@ export const DocumentList = ({ documents = [], selectedDocId, onSelectDoc, class
                 <FileText className="w-4 h-4" />
               </div>
               <div className="truncate">
-                <div className="text-xs font-semibold uppercase tracking-wider text-[var(--color-primary-dark)]">{doc.type}</div>
-                <div className="text-sm font-medium text-[var(--color-text-primary)] truncate mt-0.5">{doc.title}</div>
+                <p className="text-xs font-semibold text-[var(--color-primary-dark)]">{doc.type}</p>
+                <p className="text-sm font-medium text-[var(--color-text-primary)] truncate mt-0.5">{doc.title}</p>
                 <div className="text-xs text-[var(--color-text-muted)] flex items-center gap-2 mt-0.5 font-mono">
                   <p className="truncate">{doc.filename}</p><p>·</p><p>{doc.size}</p>
                 </div>
               </div>
             </div>
             <p className={'text-xs px-2 py-1 rounded-lg font-medium shrink-0 ml-2 ' + (selected ? 'bg-[var(--color-primary)] text-white' : 'text-[var(--color-text-secondary)] bg-[var(--color-background)]')}>
-              {selected ? t('Viewing') : t('Inspect')}
+              {selected ? t('Close preview') : t('Inspect')}
             </p>
           </button>
         );
@@ -40,7 +40,7 @@ export const DocumentList = ({ documents = [], selectedDocId, onSelectDoc, class
   );
 };
 
-export const DocumentViewerPlaceholder = ({ document, className = '' }) => {
+export const DocumentViewerPlaceholder = ({ document, onClosePreview, className = '' }) => {
   const { t } = usePreferences();
 
   if (!document) {
@@ -59,13 +59,20 @@ export const DocumentViewerPlaceholder = ({ document, className = '' }) => {
         <div className="flex items-center gap-2 min-w-0">
           <FileText className="w-4 h-4 text-cyan-100 shrink-0" />
           <div className="truncate">
-            <p className="text-xs font-semibold uppercase tracking-wider text-cyan-100 mr-2">[{document.type}]</p>
+            <p className="text-xs font-semibold text-cyan-100 mr-2">[{document.type}]</p>
             <p className="text-sm font-medium text-white truncate">{document.title}</p>
           </div>
         </div>
-        <Button variant="ghost" size="sm" className="text-white hover:bg-white/10" onClick={() => alert('Document "' + document.filename + '" downloaded.')} icon={Download}>
-          Download
-        </Button>
+        <div className="flex items-center gap-1">
+          {onClosePreview && (
+            <Button variant="ghost" size="sm" className="text-white hover:bg-white/10" onClick={onClosePreview} icon={X}>
+              Close preview
+            </Button>
+          )}
+          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10" onClick={() => alert('Document "' + document.filename + '" downloaded.')} icon={Download}>
+            Download
+          </Button>
+        </div>
       </div>
 
       <div className="flex-1 min-h-[380px] p-4 sm:p-6 bg-[var(--color-background)] flex items-center justify-center overflow-auto">
@@ -73,7 +80,7 @@ export const DocumentViewerPlaceholder = ({ document, className = '' }) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-3 border-b border-[var(--color-border)]">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-[var(--color-primary-dark)] flex items-center justify-center text-white text-[10px] font-bold"><p>BD</p></div>
-              <p className="text-xs font-bold text-[var(--color-text-primary)] tracking-wide">GOVERNMENT / CUSTOMS VERIFICATION RECORD</p>
+              <p className="text-xs font-bold text-[var(--color-text-primary)] tracking-wide">Government / Customs Verification Record</p>
             </div>
             <div className="flex items-center gap-1 text-[11px] text-[#1B5E20] font-medium bg-[rgba(46,125,50,0.10)] px-2 py-1 rounded-lg">
               <ShieldCheck className="w-3.5 h-3.5" /><p>Dossier Match Verified</p>

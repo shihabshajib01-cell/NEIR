@@ -97,7 +97,7 @@ export const ImeiCheckPage = () => {
             {/* Status Header Strip */}
             <div className="p-3.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-semibold text-[#626981] uppercase tracking-wider">EIR Verdict</p>
+                <p className="text-[11px] font-semibold text-[#626981] tracking-wider">EIR Verdict</p>
                 <p className="text-base font-mono font-bold text-[#202338]">{result.imei}</p>
               </div>
               <StatusBadge status={result.status} size="md" />
