@@ -30,14 +30,14 @@ export const MobileRecordCard = ({
   return (
     <article className={'px-5 py-5 bg-white flex flex-col gap-4 ' + className}>
       <div className="min-w-0">
-        <h4 className="type-mobile-card-title text-[var(--color-text-primary)] break-words">{title}</h4>
-        {subtitle && <p className="type-mobile-card-meta text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
+        <h4 className="type-card-title text-[var(--color-text-primary)] break-words">{title}</h4>
+        {subtitle && <p className="type-body text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
       </div>
 
       {fields.length > 0 && (
         <div className="space-y-1.5">
           {fields.map((field, index) => (
-            <p key={field.label || index} className="type-mobile-card-meta text-[var(--color-text-primary)] break-words">
+            <p key={field.label || index} className="type-body text-[var(--color-text-primary)] break-words">
               <strong className="font-semibold text-[var(--color-text-secondary)]">{t(field.label)}:</strong>{' '}
               {field.isMono ? <code className="font-mono tabular-nums">{field.value || '—'}</code> : (field.value || '—')}
             </p>
@@ -51,7 +51,7 @@ export const MobileRecordCard = ({
             {status && <StatusBadge status={status} size="sm" showIcon={false} plain />}
           </div>
           <div className="ml-auto flex items-center justify-end gap-3 min-w-0">
-            {footerMeta && <p className="type-mobile-card-date text-[var(--color-text-secondary)] font-mono tabular-nums">{footerMeta}</p>}
+            {footerMeta && <p className="type-body-sm text-[var(--color-text-secondary)] font-mono tabular-nums">{footerMeta}</p>}
             {actions}
           </div>
         </div>

@@ -49,8 +49,8 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxW
       <div ref={panelRef} className={'mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' bg-white max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] overflow-hidden flex flex-col max-h-[90dvh] ' + className} role="dialog" aria-modal="true" aria-label={t(title)}>
         <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] flex items-start justify-between gap-3 bg-white shrink-0">
           <div className="min-w-0">
-            <h3 className="type-body font-semibold text-[var(--color-text-primary)]">{t(title)}</h3>
-            {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">{t(subtitle)}</p>}
+            <h3 className="text-sm sm:text-base font-semibold text-[var(--color-text-primary)] leading-tight">{t(title)}</h3>
+            {subtitle && <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">{t(subtitle)}</p>}
           </div>
           <button type="button" onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]" aria-label={t('Close modal')}><X className="w-5 h-5" /></button>
         </div>
@@ -83,7 +83,7 @@ export const ConfirmationDialog = ({
     >
       <div className="flex items-start gap-3.5 py-1">
         <div className="w-10 h-10 rounded-full bg-[var(--color-background)] flex items-center justify-center shrink-0">{iconMap[tone]}</div>
-        <p className="type-body-sm text-[var(--color-text-primary)]">{t(message)}</p>
+        <p className="text-sm text-[var(--color-text-primary)] leading-relaxed">{t(message)}</p>
       </div>
     </Modal>
   );
