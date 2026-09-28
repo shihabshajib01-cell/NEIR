@@ -169,7 +169,6 @@ export const RolesPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Roles"
-        description="Role definitions, administrative scope configurations, and granular capability matrix setup."
         breadcrumbs={[
           { label: 'Role Management' },
           { label: 'Roles' }
@@ -219,7 +218,6 @@ export const RolesPage = () => {
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         title={editingRole ? 'Edit Role' : 'Create Role'}
-        subtitle="Define new operational role designation"
         footer={
           <Button variant="primary" size="md" onClick={handleSaveRole}>
               {editingRole ? 'Save Changes' : 'Create Role'}
@@ -239,7 +237,7 @@ export const RolesPage = () => {
             label="Role Description"
             value={newRoleDesc}
             onChange={(e) => setNewRoleDesc(e.target.value)}
-            placeholder="Describe operational responsibilities and authority bounds..."
+            placeholder="Describe responsibilities..."
             rows={3}
           />
         </form>
