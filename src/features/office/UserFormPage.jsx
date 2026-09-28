@@ -118,11 +118,6 @@ export const UserFormPage = () => {
     <div className="space-y-6">
       <PageHeader
         title={isEditing ? 'Edit Officer Account' : 'Create New Officer'}
-        description={
-          isEditing
-            ? `Update portal credentials and administrative privileges for ${formState.fullName || 'Officer'}.`
-            : 'Provision a new BTRC administrative account with assigned roles and department scopes.'
-        }
         breadcrumbs={[
           { label: 'Office' },
           { label: 'User', href: '/office/users' },
@@ -170,7 +165,6 @@ export const UserFormPage = () => {
                   value={formState.username}
                   onChange={(e) => setFormState({ ...formState, username: e.target.value.toLowerCase().replace(/\s+/g, '.') })}
                   placeholder="e.g. shakil.btrc"
-                  helperText="Unique login identifier"
                   required
                 />
 
@@ -241,7 +235,6 @@ export const UserFormPage = () => {
                 <div className="pb-2 border-b border-[#E2E5F0]">
                   <Checkbox
                     label="Reset / Change Officer Password"
-                    description="Check to set a new password for this administrative user"
                     checked={changePassword}
                     onChange={(e) => setChangePassword(e.target.checked)}
                   />
