@@ -207,7 +207,6 @@ export const ServiceActionPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Service Action"
-        description="Configure granular REST/RPC endpoints and HTTP verb operations tied to operational permissions."
         breadcrumbs={[
           { label: 'Role Management', href: '/role-management/roles' },
           { label: 'Service Action' }
@@ -229,7 +228,7 @@ export const ServiceActionPage = () => {
         count={filteredData.length}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Filter service actions..."
+                  searchPlaceholder="Search service actions..."
                   searchValue={searchTerm}
                   searchSuggestions={serviceActions.flatMap((item) => [item.name, item.path, item.permissionName, item.parentName])}
                   onSearchChange={setSearchTerm}
@@ -263,7 +262,6 @@ export const ServiceActionPage = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Service Action' : 'Create Service Action'}
-        subtitle="Granular API action and HTTP verb mapping"
         footer={
           <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Service Action'}
