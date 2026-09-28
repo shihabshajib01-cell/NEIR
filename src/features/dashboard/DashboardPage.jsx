@@ -102,7 +102,6 @@ export const DashboardPage = () => {
     <div className="w-full space-y-5">
       <PageHeader
         title="Dashboard Summary"
-        description="National Equipment Identity Register real-time operational status, EIR device classification, and operator synchronization."
         breadcrumbs={[{ label: 'Dashboard' }]}
         actions={
           <div className="flex flex-wrap items-center gap-2">
@@ -136,9 +135,6 @@ export const DashboardPage = () => {
       <section aria-labelledby="operational-overview-title" className="space-y-3">
         <div>
           <h2 id="operational-overview-title" className="type-section-title text-[var(--color-text-primary)]">Operational Overview</h2>
-          <p className="type-meta text-[var(--color-text-secondary)] mt-1">
-            Current requests, exceptions, and recovery activity requiring operational attention.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3">
@@ -160,7 +156,6 @@ export const DashboardPage = () => {
         <div className="lg:col-span-7">
           <Card
             title="IMEI Summary"
-            subtitle="Distribution of 52.28 million registered handsets across EIR compliance tiers"
             bodyClassName="p-4 sm:p-5"
             headerAction={
               <p className="type-meta font-mono text-[var(--color-text-secondary)] bg-[var(--color-background-subtle)] px-2.5 py-1 rounded-md border border-[var(--color-border)]">
@@ -249,7 +244,6 @@ export const DashboardPage = () => {
         <div className="lg:col-span-5">
           <Card
             title="Registration Summary"
-            subtitle="Monthly automated MNO pairing vs citizen de-registration volume"
             bodyClassName="p-4 sm:p-5"
           >
             <div className="space-y-4">
