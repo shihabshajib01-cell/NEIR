@@ -46,7 +46,7 @@ export const ImeiCheckPage = () => {
       />
 
       {/* Centered Operational Card */}
-      <div className="max-w-xl mx-auto">
+      <div className="w-full">
         <Card
           title="Direct EIR Database Lookup"
           subtitle="Instant cross-carrier query for handset compliance status"
