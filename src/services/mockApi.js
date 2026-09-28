@@ -62,6 +62,23 @@ const normalizeOfficeUser = (user) => ({
   phone: user.phone ?? user.phoneNumber ?? '',
 });
 
+const normalizeBlockedImei = (record, index = 0) => ({
+  ...record,
+  sl: record.sl ?? index + 1,
+  blockId: record.blockId ?? String(record.id || ('block-' + (index + 1))).toUpperCase(),
+  blockType: record.blockType ?? 'Single IMEI',
+  blockDate: record.blockDate ?? record.blockedDate ?? '',
+  blockedDate: record.blockedDate ?? record.blockDate ?? '',
+  remarks: record.remarks ?? record.details ?? '',
+});
+
+const normalizeMsisdnImei = (record, index = 0) => ({
+  ...record,
+  sl: record.sl ?? index + 1,
+  lastRegistrationDate: record.lastRegistrationDate ?? record.attachedDate ?? '',
+  attachedDate: record.attachedDate ?? record.lastRegistrationDate ?? '',
+});
+
 export const mockApi = {
   // Dashboard
   async getDashboardSummary() {
@@ -191,27 +208,55 @@ export const mockApi = {
   // Global IMEI Block
   async blockImeiGlobally(payload) {
     await delay(250);
-    const newRecord = {
-      id: `blk-${Date.now().toString().slice(-4)}`,
+    const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 16);
+    const suffix = Date.now().toString().slice(-6);
+    const newRecord = normalizeBlockedImei({
+      id: 'blk-' + suffix,
+      blockId: 'GBL-' + suffix,
       imei: payload.imei,
-      blockedDate: new Date().toISOString().replace('T', ' ').slice(0, 16),
+      blockType: payload.blockType || 'Single IMEI',
+      blockDate: timestamp,
+      blockedDate: timestamp,
       blockedBy: 'Current Active Admin',
       reason: payload.reason || 'Manual Administrative Block Requisition',
       status: 'Blocked',
-      details: payload.details || 'Immediate hard EIR broadcast across all 4 licensed MNOs.'
-    };
+      remarks: payload.remarks || payload.details || '',
+      details: payload.details || payload.remarks || '',
+    });
     mockBlockedImeis.unshift(newRecord);
     return { success: true, record: newRecord };
   },
 
+  async blockGlobalImei(payload) {
+    return mockApi.blockImeiGlobally(payload);
+  },
+
   async getBlockedImeis(filters = {}) {
     await delay(120);
-    let items = [...mockBlockedImeis];
+    let items = mockBlockedImeis.map(normalizeBlockedImei);
     if (filters.search) {
       const q = filters.search.toLowerCase();
-      items = items.filter(r => r.imei.includes(q) || r.reason.toLowerCase().includes(q) || r.blockedBy.toLowerCase().includes(q));
+      items = items.filter((record) =>
+        record.blockId.toLowerCase().includes(q) ||
+        record.imei.toLowerCase().includes(q) ||
+        record.reason.toLowerCase().includes(q) ||
+        record.remarks.toLowerCase().includes(q) ||
+        record.blockedBy.toLowerCase().includes(q)
+      );
     }
     return { items, total: items.length };
+  },
+
+  async getGlobalBlockedImeis(filters = {}) {
+    return mockApi.getBlockedImeis(filters);
+  },
+
+  async unblockGlobalImei(id) {
+    await delay(180);
+    const record = mockBlockedImeis.find((item) => item.id === id);
+    if (!record) throw new Error('Blacklist record not found.');
+    record.status = 'Unblocked';
+    return { success: true, record: normalizeBlockedImei(record) };
   },
 
   // Manufacturer Upload
@@ -333,13 +378,39 @@ export const mockApi = {
   },
 
   // MSISDN IMEI Lookup
+  async getMsisdnImeiList(filters = {}) {
+    await delay(120);
+    let items = mockMsisdnImeiRecords.map(normalizeMsisdnImei);
+
+    if (filters.operator && filters.operator !== 'All') {
+      items = items.filter((record) => record.operator === filters.operator);
+    }
+
+    if (filters.search) {
+      const q = filters.search.trim().toLowerCase();
+      items = items.filter((record) =>
+        record.msisdn.toLowerCase().includes(q) ||
+        record.imei.toLowerCase().includes(q) ||
+        record.operator.toLowerCase().includes(q) ||
+        record.deviceModel.toLowerCase().includes(q)
+      );
+    }
+
+    return { items, total: items.length };
+  },
+
   async lookupMsisdnImei(type, query) {
     await delay(150);
     if (!query) return [];
     const q = query.trim().toLowerCase();
-    return mockMsisdnImeiRecords.filter(r => {
-      if (type === 'MSISDN') return r.msisdn.replace(/[\s+-]/g, '').includes(q.replace(/[\s+-]/g, ''));
-      return r.imei.toLowerCase().includes(q);
-    });
+
+    return mockMsisdnImeiRecords
+      .map(normalizeMsisdnImei)
+      .filter((record) => {
+        if (type === 'MSISDN') {
+          return record.msisdn.replace(/[\s+-]/g, '').includes(q.replace(/[\s+-]/g, ''));
+        }
+        return record.imei.toLowerCase().includes(q);
+      });
   }
 };
