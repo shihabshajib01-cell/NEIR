@@ -93,8 +93,7 @@ export const AssignPermissionModal = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title={`Assign Permissions Matrix — ${role.name}`}
-      subtitle="Configure hierarchical capabilities (Parent > Permission > Service Action)"
+      title={`Assign Permissions — ${role.name}`}
       maxWidth="max-w-3xl"
       footer={
         <div className="flex flex-col gap-2.5 w-full sm:flex-row sm:items-center sm:justify-between">
@@ -104,7 +103,7 @@ export const AssignPermissionModal = ({
           </p>
           <div className="w-full sm:w-auto">
             <Button variant="primary" size="sm" onClick={handleSave} className="w-full sm:w-auto">
-              Save Permission Matrix
+              Save Permissions
             </Button>
           </div>
         </div>
@@ -119,7 +118,7 @@ export const AssignPermissionModal = ({
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search parent module, permission or service action..."
+              placeholder="Search permissions..."
               className="w-full h-8.5 pl-9 pr-3 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden focus:border-[#01ADC1]"
             />
           </div>
@@ -228,7 +227,7 @@ export const AssignPermissionModal = ({
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 sm:pl-4">
                             {actionsForPerm.length === 0 ? (
                               <p className="text-[11px] text-[#7A8197] italic">
-                                No granular API endpoints configured
+                                No actions configured
                               </p>
                             ) : (
                               actionsForPerm.map((action) => {
