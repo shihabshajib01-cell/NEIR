@@ -159,7 +159,6 @@ export const SupportTicketPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Support Ticket"
-        description="Citizen and MNO helpdesk inquiries, EIR whitelist dispute resolution, and registration exception handling."
         breadcrumbs={[
           { label: 'Support Ticket' }
         ]}
@@ -177,7 +176,7 @@ export const SupportTicketPage = () => {
         }}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Search by Ticket ID, citizen name, phone, or IMEI..."
+                  searchPlaceholder="Search tickets..."
                   searchValue={searchTerm}
                   searchSuggestions={tickets.flatMap((ticket) => [ticket.ticketNumber, ticket.submittedBy, ticket.phone, ticket.imei, ticket.subject])}
                   onSearchChange={setSearchTerm}
@@ -205,17 +204,7 @@ export const SupportTicketPage = () => {
                       { label: 'Priority', value: row.priority },
                       { label: 'Date', value: row.date, isMono: true },
                     ]}
-                    actions={
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        icon={Eye}
-                        onClick={() => handleOpenTicket(row)}
-                        className="w-full justify-center"
-                      >
-                        Inspect Ticket
-                      </Button>
-                    }
+
                   />
                 )}
               />
@@ -260,7 +249,7 @@ export const SupportTicketPage = () => {
           {/* Conversation History Thread */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold tracking-wider text-[#626981]">
-              Conversation History
+              Conversation
             </h4>
             <div className="space-y-3">
               {selectedTicket.messages?.map((msg) => (
@@ -289,7 +278,7 @@ export const SupportTicketPage = () => {
           <form onSubmit={handleSendReply} className="pt-4 border-t border-[var(--color-border)] space-y-4">
             <div className="flex items-center justify-between">
               <h4 className="text-xs font-semibold tracking-wider text-[#202338]">
-                Post Official Resolution
+                Response
               </h4>
               <div className="w-40">
                 <CompactSelect
@@ -309,7 +298,7 @@ export const SupportTicketPage = () => {
             <Textarea
               value={replyMessage}
               onChange={(e) => setReplyMessage(e.target.value)}
-              placeholder="Enter official resolution, verification findings, or citizen instructions..."
+              placeholder="Write response..."
               rows={3}
               required
             />
