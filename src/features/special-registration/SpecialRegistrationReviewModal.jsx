@@ -126,7 +126,7 @@ export const SpecialRegistrationReviewModal = ({
       >
         <div className={'grid grid-cols-1 gap-6 h-full transition-all duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
           <div className={selectedDoc
-            ? 'lg:col-span-5 space-y-4 overflow-y-auto pr-1'
+            ? 'lg:col-span-5 space-y-4 overflow-y-auto'
             : 'w-full max-w-5xl mx-auto space-y-4'}
           >
             <CollapsibleSection

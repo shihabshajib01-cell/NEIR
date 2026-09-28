@@ -99,7 +99,7 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
       </div>
 
       <div className="flex-1 min-h-[420px] overflow-auto bg-[var(--color-background-subtle)] p-4">
-        <div className="mx-auto w-full max-w-3xl min-h-[520px] bg-white border border-[var(--color-border)] rounded-lg p-6 sm:p-8">
+        <div className="w-full min-h-[520px] bg-white border border-[var(--color-border)] rounded-lg p-4">
           <div className="flex items-center justify-between gap-4 pb-4 border-b border-[var(--color-border)]">
             <div className="min-w-0">
               <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate">{document.title}</p>
@@ -110,18 +110,18 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
             </div>
           </div>
 
-          <div className="py-7 space-y-5" aria-hidden="true">
+          <div className="py-4 space-y-4" aria-hidden="true">
             <div className="h-2.5 w-2/5 rounded bg-[var(--color-border-subtle)]" />
             <div className="space-y-3">
               <div className="h-2 w-full rounded bg-[var(--color-background-subtle)]" />
               <div className="h-2 w-11/12 rounded bg-[var(--color-background-subtle)]" />
               <div className="h-2 w-4/5 rounded bg-[var(--color-background-subtle)]" />
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            <div className="grid grid-cols-2 gap-4">
               <div className="h-24 rounded-lg border border-[var(--color-border)] bg-[var(--color-background-subtle)]" />
               <div className="h-24 rounded-lg border border-[var(--color-border)] bg-[var(--color-background-subtle)]" />
             </div>
-            <div className="space-y-3 pt-1">
+            <div className="space-y-3">
               <div className="h-2 w-full rounded bg-[var(--color-background-subtle)]" />
               <div className="h-2 w-5/6 rounded bg-[var(--color-background-subtle)]" />
               <div className="h-2 w-3/5 rounded bg-[var(--color-background-subtle)]" />
