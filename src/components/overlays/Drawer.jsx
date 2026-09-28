@@ -60,8 +60,8 @@ export const Drawer = ({ isOpen, onClose, title, subtitle, children, footer, wid
       >
         <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] bg-white flex items-start justify-between gap-3 shrink-0">
           <div className="pr-4 min-w-0">
-            <h3 className="text-base font-semibold text-[var(--color-text-primary)] truncate">{t(title)}</h3>
-            {subtitle && <p className="text-xs text-[var(--color-text-secondary)] mt-0.5 truncate">{t(subtitle)}</p>}
+            <h3 className="type-body-lg font-semibold text-[var(--color-text-primary)] truncate">{t(title)}</h3>
+            {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-0.5 truncate">{t(subtitle)}</p>}
           </div>
           <button type="button" onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] shrink-0" aria-label={t('Close drawer')}>
             <X className="w-5 h-5" />
@@ -154,7 +154,7 @@ export const FullScreenWorkspace = ({
               </button>
             )}
             <div className="min-w-0 flex-1">
-              <h2 className="text-sm font-semibold leading-tight truncate">{t(mobileTitle || title)}</h2>
+              <h2 className="type-body font-semibold truncate">{t(mobileTitle || title)}</h2>
               {(mobileIdentifier || identifier) && (
                 <p className="text-xs text-[var(--color-text-secondary)] mt-1 truncate">
                   {mobileIdentifier || identifier}
@@ -176,7 +176,7 @@ export const FullScreenWorkspace = ({
         </div>
 
         <div className="hidden md:flex px-6 py-4 bg-white text-[var(--color-text-primary)] items-start justify-between gap-3 border-b border-[var(--color-border)] shrink-0">
-          <h2 className="text-base font-semibold leading-tight flex flex-wrap items-center gap-2 min-w-0">
+          <h2 className="type-body-lg font-semibold flex flex-wrap items-center gap-2 min-w-0">
             <p className="truncate">{t(title)}</p>
             {identifier && <p className="text-xs font-mono font-normal text-[var(--color-text-secondary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded">{identifier}</p>}
           </h2>

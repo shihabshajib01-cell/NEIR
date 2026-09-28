@@ -1,327 +1,537 @@
+/* NEIR typography synchronized 1:1 with NBR e-Return Office Management.
+   Source ranges: mobile <=480, tablet 481-1024, laptop 1025-1440, large desktop >1440.
+   Standard / Compact / Large values mirror NBR's canonical --fs-* and --lh-* tokens. */
+
 @layer base {
+:root {
+  --fs-h1:40px;--lh-h1:48px;
+  --fs-h2:28px;--lh-h2:36px;
+  --fs-h3:22px;--lh-h3:30px;
+  --fs-body-lg:18px;--lh-body-lg:28px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:16px;--lh-button:24px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:28px;
+}
+html[data-text-size='compact'] {
+  --fs-h1:36px;--lh-h1:44px;
+  --fs-h2:26px;--lh-h2:34px;
+  --fs-h3:20px;--lh-h3:28px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:14px;--lh-body-md:22px;
+  --fs-body-sm:12px;--lh-body-sm:18px;
+  --fs-label-md:12px;--lh-label-md:18px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:20px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:12px;--lh-table-header:16px;
+  --fs-table-body:12px;--lh-table-body:18px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:12px;--lh-nav-main:18px;
+  --fs-nav-sub:12px;--lh-nav-sub:18px;
+  --fs-nav-header:14px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:12px;--lh-topbar-name:18px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:26px;
+}
+html[data-text-size='standard'] {
+  --fs-h1:40px;--lh-h1:48px;
+  --fs-h2:28px;--lh-h2:36px;
+  --fs-h3:22px;--lh-h3:30px;
+  --fs-body-lg:18px;--lh-body-lg:28px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:16px;--lh-button:24px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:28px;
+}
+html[data-text-size='large'] {
+  --fs-h1:44px;--lh-h1:52px;
+  --fs-h2:32px;--lh-h2:40px;
+  --fs-h3:24px;--lh-h3:32px;
+  --fs-body-lg:20px;--lh-body-lg:30px;
+  --fs-body-md:18px;--lh-body-md:28px;
+  --fs-body-sm:16px;--lh-body-sm:24px;
+  --fs-label-md:16px;--lh-label-md:24px;
+  --fs-label-sm:14px;--lh-label-sm:20px;
+  --fs-button:18px;--lh-button:28px;
+  --fs-input:18px;--lh-input:28px;
+  --fs-table-header:16px;--lh-table-header:24px;
+  --fs-table-body:16px;--lh-table-body:24px;
+  --fs-caption:14px;--lh-caption:20px;
+  --fs-badge:14px;--lh-badge:20px;
+  --fs-tooltip:14px;--lh-tooltip:20px;
+  --fs-nav-primary:14px;--lh-nav-primary:1.25;
+  --fs-nav-main:16px;--lh-nav-main:24px;
+  --fs-nav-sub:16px;--lh-nav-sub:24px;
+  --fs-nav-header:18px;--lh-nav-header:1.4;
+  --fs-breadcrumb:14px;--lh-breadcrumb:20px;
+  --fs-topbar-name:16px;--lh-topbar-name:24px;
+  --fs-topbar-role:14px;--lh-topbar-role:20px;
+  --fs-stat-value:32px;
+}
+
   :root {
-    --font-ui-en: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --font-ui-bn: 'Noto Sans Bengali', 'Noto Sans', sans-serif;
-    --font-ui: var(--font-ui-en);
-    --font-data: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-ui-en:Poppins,'Noto Sans Bengali','Noto Sans',sans-serif;
+  --font-ui-bn:'Noto Sans Bengali','Noto Sans',sans-serif;
+  --font-ui:var(--font-ui-en);
+  --font-data:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  --font-sans:var(--font-ui);
+  --font-bangla:var(--font-ui-bn);
+  --font-mono:var(--font-data);
+  --font-family-base:Poppins,'Noto Sans Bengali','Noto Sans',sans-serif;
 
-    --font-sans: var(--font-ui);
-    --font-bangla: var(--font-ui-bn);
-    --font-mono: var(--font-data);
+  --font-weight-regular:400;
+  --font-weight-medium:500;
+  --font-weight-semibold:600;
+  --font-weight-bold:700;
 
-    --font-weight-regular: 400;
-    --font-weight-medium: 500;
-    --font-weight-semibold: 600;
-    --font-weight-bold: 700;
+  --type-display-size:var(--fs-h1);
+  --type-page-title-size:var(--fs-h2);
+  --type-section-title-size:var(--fs-h3);
+  --type-card-title-size:var(--fs-h3);
+  --type-body-lg-size:var(--fs-body-lg);
+  --type-body-size:var(--fs-body-md);
+  --type-body-sm-size:var(--fs-body-sm);
+  --type-label-size:var(--fs-label-md);
+  --type-nav-size:var(--fs-nav-main);
+  --type-control-size:var(--fs-label-md);
+  --type-button-size:var(--fs-button);
+  --type-button-sm-size:var(--fs-caption);
+  --type-table-head-size:var(--fs-table-header);
+  --type-table-cell-size:var(--fs-table-body);
+  --type-meta-size:var(--fs-caption);
+  --type-helper-size:var(--fs-caption);
+  --type-form-label-size:var(--fs-label-md);
+  --type-badge-size:var(--fs-badge);
+  --type-kpi-size:var(--fs-stat-value);
 
-    /*
-     * Standard is the default reading scale.
-     * Compact changes density and selected secondary text, not core form legibility.
-     * Large improves readability without proportionally inflating layout spacing.
-     */
-    --type-display-size: 36px;
-    --type-page-title-size: 28px;
-    --type-section-title-size: 18px;
-    --type-card-title-size: 18px;
-    --type-body-lg-size: 18px;
-    --type-body-size: 16px;
-    --type-body-sm-size: 16px;
-    --type-label-size: 16px;
-    --type-nav-size: 16px;
-    --type-control-size: 16px;
-    --type-button-size: 16px;
-    --type-button-sm-size: 14px;
-    --type-table-head-size: 16px;
-    --type-table-cell-size: 16px;
-    --type-meta-size: 14px;
-    --type-helper-size: 14px;
-    --type-form-label-size: 14px;
-    --type-badge-size: 14px;
-    --type-kpi-size: 32px;
+  --type-title-line:var(--lh-h2);
+  --type-body-line:var(--lh-body-md);
+  --type-compact-line:var(--lh-label-md);
+  --type-kpi-line:1.1;
+  --type-tracking-tight:0;
+  --type-tracking-wide:.04em;
 
-    --type-title-line: 1.3;
-    --type-body-line: 1.55;
-    --type-compact-line: 1.4;
-    --type-kpi-line: 1.1;
-
-    --type-tracking-tight: -0.015em;
-    --type-tracking-wide: 0.06em;
-
-    --fs-h1: var(--type-display-size);
-    --fs-h2: var(--type-page-title-size);
-    --fs-h3: var(--type-section-title-size);
-    --fs-body-lg: var(--type-body-lg-size);
-    --fs-body: var(--type-body-size);
-    --fs-body-sm: var(--type-body-sm-size);
-    --fs-caption: var(--type-meta-size);
-  }
-
-  html[data-text-size='compact'] {
-    --type-display-size: 32px;
-    --type-page-title-size: 24px;
-    --type-section-title-size: 16px;
-    --type-card-title-size: 16px;
-    --type-body-lg-size: 16px;
-    --type-body-size: 14px;
-    --type-body-sm-size: 14px;
-    --type-label-size: 14px;
-    --type-nav-size: 14px;
-    --type-control-size: 14px;
-    --type-button-size: 14px;
-    --type-button-sm-size: 14px;
-    --type-table-head-size: 14px;
-    --type-table-cell-size: 14px;
-    --type-meta-size: 14px;
-    --type-helper-size: 14px;
-    --type-form-label-size: 14px;
-    --type-badge-size: 14px;
-    --type-kpi-size: 28px;
-  }
-
-  html[data-text-size='standard'] {
-    --type-display-size: 36px;
-    --type-page-title-size: 28px;
-    --type-section-title-size: 18px;
-    --type-card-title-size: 18px;
-    --type-body-lg-size: 18px;
-    --type-body-size: 16px;
-    --type-body-sm-size: 16px;
-    --type-label-size: 16px;
-    --type-nav-size: 16px;
-    --type-control-size: 16px;
-    --type-button-size: 16px;
-    --type-button-sm-size: 14px;
-    --type-table-head-size: 16px;
-    --type-table-cell-size: 16px;
-    --type-meta-size: 14px;
-    --type-helper-size: 14px;
-    --type-form-label-size: 14px;
-    --type-badge-size: 14px;
-    --type-kpi-size: 32px;
-  }
-
-  html[data-text-size='large'] {
-    --type-display-size: 40px;
-    --type-page-title-size: 32px;
-    --type-section-title-size: 20px;
-    --type-card-title-size: 20px;
-    --type-body-lg-size: 20px;
-    --type-body-size: 18px;
-    --type-body-sm-size: 18px;
-    --type-label-size: 18px;
-    --type-nav-size: 18px;
-    --type-control-size: 16px;
-    --type-button-size: 16px;
-    --type-button-sm-size: 16px;
-    --type-table-head-size: 16px;
-    --type-table-cell-size: 18px;
-    --type-meta-size: 16px;
-    --type-helper-size: 16px;
-    --type-form-label-size: 16px;
-    --type-badge-size: 16px;
-    --type-kpi-size: 36px;
-  }
-
-  html[lang='bn'] {
-    --font-ui: var(--font-ui-bn);
-    --font-sans: var(--font-ui-bn);
-    --type-title-line: 1.42;
-    --type-body-line: 1.68;
-    --type-compact-line: 1.52;
-  }
-
-  body {
-    font-family: var(--font-ui);
-    font-size: var(--type-body-size);
-    line-height: var(--type-body-line);
-    font-weight: var(--font-weight-regular);
-  }
-
-  button,
-  input,
-  select,
-  textarea {
-    font-family: var(--font-ui);
-  }
-
-  code,
-  kbd,
-  samp,
-  pre,
-  .font-mono {
-    font-family: var(--font-data);
-  }
+  --mobile-card-title-size:15px;
+  --mobile-card-meta-size:13px;
+  --mobile-card-date-size:12px;
 }
 
-@layer components {
-  .type-display {
-    font-size: var(--type-display-size);
-    line-height: var(--type-title-line);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--type-tracking-tight);
-  }
 
-  .type-page-title {
-    font-size: var(--type-page-title-size);
-    line-height: var(--type-title-line);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--type-tracking-tight);
-  }
+html[data-text-size='compact']{--mobile-card-title-size:14px;--mobile-card-meta-size:12px;--mobile-card-date-size:11px;}
+html[data-text-size='large']{--mobile-card-title-size:16px;--mobile-card-meta-size:14px;--mobile-card-date-size:13px;}
 
-  .type-section-title {
-    font-size: var(--type-section-title-size);
-    line-height: var(--type-title-line);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--type-tracking-tight);
-  }
 
-  .type-card-title {
-    font-size: var(--type-card-title-size);
-    line-height: var(--type-title-line);
-    font-weight: var(--font-weight-semibold);
-  }
+  html[lang='bn']{--font-ui:var(--font-ui-bn);--font-sans:var(--font-ui-bn);}
 
-  .type-body-lg {
-    font-size: var(--type-body-lg-size);
-    line-height: var(--type-body-line);
-    font-weight: var(--font-weight-regular);
-  }
+  body{font-family:var(--font-ui);font-size:var(--fs-body-md);line-height:var(--lh-body-md);font-weight:400;}
+  button,input,select,textarea{font-family:var(--font-ui);}
+  code,kbd,samp,pre,.font-mono{font-family:var(--font-data);}
 
-  .type-body {
-    font-size: var(--type-body-size);
-    line-height: var(--type-body-line);
-    font-weight: var(--font-weight-regular);
-  }
-
-  .type-body-strong {
-    font-size: var(--type-body-size);
-    line-height: var(--type-body-line);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .type-body-sm {
-    font-size: var(--type-body-sm-size);
-    line-height: var(--type-body-line);
-    font-weight: var(--font-weight-regular);
-  }
-
-  .type-label {
-    font-size: var(--type-label-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .type-nav {
-    font-size: var(--type-nav-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .type-control {
-    font-size: var(--type-control-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .type-button {
-    font-size: var(--type-button-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .type-button-sm {
-    font-size: var(--type-button-sm-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .type-button-lg {
-    font-size: var(--type-body-lg-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .type-table-head {
-    font-size: var(--type-table-head-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .type-table-cell {
-    font-size: var(--type-table-cell-size);
-    line-height: var(--type-body-line);
-    font-weight: var(--font-weight-regular);
-  }
-
-  .type-meta {
-    font-size: var(--type-meta-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-regular);
-  }
-
-  .type-helper {
-    font-size: var(--type-helper-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-regular);
-  }
-
-  .type-badge {
-    font-size: var(--type-badge-size);
-    line-height: 1.25;
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .type-overline {
-    font-size: var(--type-meta-size);
-    line-height: var(--type-compact-line);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--type-tracking-wide);
-  }
-
-  .type-kpi {
-    font-family: var(--font-data);
-    font-size: var(--type-kpi-size);
-    line-height: var(--type-kpi-line);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: var(--type-tracking-tight);
-    font-variant-numeric: tabular-nums;
-  }
+  html[data-text-size] h1{font-size:var(--fs-h1)!important;line-height:var(--lh-h1)!important;}
+  html[data-text-size] h2{font-size:var(--fs-h2)!important;line-height:var(--lh-h2)!important;}
+  html[data-text-size] h3{font-size:var(--fs-h3)!important;line-height:var(--lh-h3)!important;}
+  html[data-text-size] button{font-size:var(--fs-button);line-height:var(--lh-button);}
+  html[data-text-size] input,
+  html[data-text-size] select,
+  html[data-text-size] textarea{font-size:var(--fs-input)!important;line-height:var(--lh-input)!important;}
+  html[data-text-size] th{font-size:var(--fs-table-header)!important;line-height:var(--lh-table-header)!important;}
+  html[data-text-size] td{font-size:var(--fs-table-body)!important;line-height:var(--lh-table-body)!important;}
+  html[data-text-size] label{font-size:var(--fs-label-md);line-height:var(--lh-label-md);}
 }
 
-@media (max-width: 639px) {
-  html[data-text-size='compact'] {
-    --type-display-size: 28px;
-    --type-page-title-size: 22px;
-  }
-
-  html[data-text-size='standard'] {
-    --type-display-size: 30px;
-    --type-page-title-size: 24px;
-  }
-
-  html[data-text-size='large'] {
-    --type-display-size: 34px;
-    --type-page-title-size: 28px;
-  }
+@media (min-width:1025px) and (max-width:1440px){
+:root {
+  --fs-h1:36px;--lh-h1:44px;
+  --fs-h2:26px;--lh-h2:34px;
+  --fs-h3:20px;--lh-h3:28px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:22px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:26px;
+}
+html[data-text-size='compact'] {
+  --fs-h1:34px;--lh-h1:42px;
+  --fs-h2:24px;--lh-h2:32px;
+  --fs-h3:18px;--lh-h3:26px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:14px;--lh-body-md:22px;
+  --fs-body-sm:12px;--lh-body-sm:18px;
+  --fs-label-md:12px;--lh-label-md:18px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:20px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:12px;--lh-table-header:16px;
+  --fs-table-body:12px;--lh-table-body:18px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:12px;--lh-nav-main:18px;
+  --fs-nav-sub:12px;--lh-nav-sub:18px;
+  --fs-nav-header:14px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:12px;--lh-topbar-name:18px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:24px;
+}
+html[data-text-size='standard'] {
+  --fs-h1:36px;--lh-h1:44px;
+  --fs-h2:26px;--lh-h2:34px;
+  --fs-h3:20px;--lh-h3:28px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:22px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:26px;
+}
+html[data-text-size='large'] {
+  --fs-h1:40px;--lh-h1:48px;
+  --fs-h2:28px;--lh-h2:36px;
+  --fs-h3:22px;--lh-h3:30px;
+  --fs-body-lg:18px;--lh-body-lg:28px;
+  --fs-body-md:18px;--lh-body-md:28px;
+  --fs-body-sm:16px;--lh-body-sm:24px;
+  --fs-label-md:16px;--lh-label-md:24px;
+  --fs-label-sm:14px;--lh-label-sm:20px;
+  --fs-button:16px;--lh-button:24px;
+  --fs-input:18px;--lh-input:28px;
+  --fs-table-header:16px;--lh-table-header:24px;
+  --fs-table-body:16px;--lh-table-body:24px;
+  --fs-caption:14px;--lh-caption:20px;
+  --fs-badge:14px;--lh-badge:20px;
+  --fs-tooltip:14px;--lh-tooltip:20px;
+  --fs-nav-primary:14px;--lh-nav-primary:1.25;
+  --fs-nav-main:16px;--lh-nav-main:24px;
+  --fs-nav-sub:16px;--lh-nav-sub:24px;
+  --fs-nav-header:18px;--lh-nav-header:1.4;
+  --fs-breadcrumb:14px;--lh-breadcrumb:20px;
+  --fs-topbar-name:16px;--lh-topbar-name:24px;
+  --fs-topbar-role:14px;--lh-topbar-role:20px;
+  --fs-stat-value:30px;
+}
 }
 
-@layer utilities {
-  /*
-   * Compatibility bridge for existing utility-based copy.
-   * Nothing readable drops below 14px, while Standard/Large inherit the
-   * semantic body/meta scale without changing component spacing.
-   */
-  .text-sm {
-    font-size: var(--type-body-size);
-    line-height: var(--type-body-line);
-  }
+@media (min-width:481px) and (max-width:1024px){
+:root {
+  --fs-h1:32px;--lh-h1:40px;
+  --fs-h2:24px;--lh-h2:32px;
+  --fs-h3:18px;--lh-h3:26px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:22px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:24px;
+}
+html[data-text-size='compact'] {
+  --fs-h1:30px;--lh-h1:38px;
+  --fs-h2:22px;--lh-h2:30px;
+  --fs-h3:18px;--lh-h3:26px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:14px;--lh-body-md:22px;
+  --fs-body-sm:12px;--lh-body-sm:18px;
+  --fs-label-md:12px;--lh-label-md:18px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:20px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:12px;--lh-table-header:16px;
+  --fs-table-body:12px;--lh-table-body:18px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:12px;--lh-nav-main:18px;
+  --fs-nav-sub:12px;--lh-nav-sub:18px;
+  --fs-nav-header:14px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:12px;--lh-topbar-name:18px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:22px;
+}
+html[data-text-size='standard'] {
+  --fs-h1:32px;--lh-h1:40px;
+  --fs-h2:24px;--lh-h2:32px;
+  --fs-h3:18px;--lh-h3:26px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:22px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:24px;
+}
+html[data-text-size='large'] {
+  --fs-h1:36px;--lh-h1:44px;
+  --fs-h2:26px;--lh-h2:34px;
+  --fs-h3:20px;--lh-h3:28px;
+  --fs-body-lg:18px;--lh-body-lg:28px;
+  --fs-body-md:18px;--lh-body-md:28px;
+  --fs-body-sm:16px;--lh-body-sm:24px;
+  --fs-label-md:16px;--lh-label-md:24px;
+  --fs-label-sm:14px;--lh-label-sm:20px;
+  --fs-button:16px;--lh-button:24px;
+  --fs-input:18px;--lh-input:28px;
+  --fs-table-header:16px;--lh-table-header:24px;
+  --fs-table-body:16px;--lh-table-body:24px;
+  --fs-caption:14px;--lh-caption:20px;
+  --fs-badge:14px;--lh-badge:20px;
+  --fs-tooltip:14px;--lh-tooltip:20px;
+  --fs-nav-primary:14px;--lh-nav-primary:1.25;
+  --fs-nav-main:16px;--lh-nav-main:24px;
+  --fs-nav-sub:16px;--lh-nav-sub:24px;
+  --fs-nav-header:18px;--lh-nav-header:1.4;
+  --fs-breadcrumb:14px;--lh-breadcrumb:20px;
+  --fs-topbar-name:16px;--lh-topbar-name:24px;
+  --fs-topbar-role:14px;--lh-topbar-role:20px;
+  --fs-stat-value:28px;
+}
+}
 
-  .text-xs,
-  .text-\[10px\],
-  .text-\[11px\],
-  .text-\[12px\],
-  .text-\[13px\] {
-    font-size: var(--type-meta-size);
-    line-height: var(--type-compact-line);
-  }
+@media (max-width:480px){
+:root {
+  --fs-h1:28px;--lh-h1:36px;
+  --fs-h2:22px;--lh-h2:30px;
+  --fs-h3:18px;--lh-h3:26px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:22px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:24px;
+}
+html[data-text-size='compact'] {
+  --fs-h1:28px;--lh-h1:36px;
+  --fs-h2:20px;--lh-h2:28px;
+  --fs-h3:18px;--lh-h3:26px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:14px;--lh-body-md:22px;
+  --fs-body-sm:12px;--lh-body-sm:18px;
+  --fs-label-md:12px;--lh-label-md:18px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:20px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:12px;--lh-table-header:16px;
+  --fs-table-body:12px;--lh-table-body:18px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:14px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:12px;--lh-topbar-name:18px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:22px;
+}
+html[data-text-size='standard'] {
+  --fs-h1:28px;--lh-h1:36px;
+  --fs-h2:22px;--lh-h2:30px;
+  --fs-h3:18px;--lh-h3:26px;
+  --fs-body-lg:16px;--lh-body-lg:24px;
+  --fs-body-md:16px;--lh-body-md:24px;
+  --fs-body-sm:14px;--lh-body-sm:20px;
+  --fs-label-md:14px;--lh-label-md:20px;
+  --fs-label-sm:12px;--lh-label-sm:16px;
+  --fs-button:14px;--lh-button:22px;
+  --fs-input:16px;--lh-input:24px;
+  --fs-table-header:14px;--lh-table-header:20px;
+  --fs-table-body:14px;--lh-table-body:20px;
+  --fs-caption:12px;--lh-caption:16px;
+  --fs-badge:12px;--lh-badge:16px;
+  --fs-tooltip:12px;--lh-tooltip:16px;
+  --fs-nav-primary:12px;--lh-nav-primary:1.25;
+  --fs-nav-main:14px;--lh-nav-main:20px;
+  --fs-nav-sub:14px;--lh-nav-sub:20px;
+  --fs-nav-header:16px;--lh-nav-header:1.4;
+  --fs-breadcrumb:12px;--lh-breadcrumb:16px;
+  --fs-topbar-name:14px;--lh-topbar-name:20px;
+  --fs-topbar-role:12px;--lh-topbar-role:16px;
+  --fs-stat-value:24px;
+}
+html[data-text-size='large'] {
+  --fs-h1:32px;--lh-h1:40px;
+  --fs-h2:24px;--lh-h2:32px;
+  --fs-h3:20px;--lh-h3:28px;
+  --fs-body-lg:18px;--lh-body-lg:28px;
+  --fs-body-md:18px;--lh-body-md:28px;
+  --fs-body-sm:16px;--lh-body-sm:24px;
+  --fs-label-md:16px;--lh-label-md:24px;
+  --fs-label-sm:14px;--lh-label-sm:20px;
+  --fs-button:16px;--lh-button:24px;
+  --fs-input:18px;--lh-input:28px;
+  --fs-table-header:16px;--lh-table-header:24px;
+  --fs-table-body:16px;--lh-table-body:24px;
+  --fs-caption:14px;--lh-caption:20px;
+  --fs-badge:14px;--lh-badge:20px;
+  --fs-tooltip:14px;--lh-tooltip:20px;
+  --fs-nav-primary:14px;--lh-nav-primary:1.25;
+  --fs-nav-main:16px;--lh-nav-main:24px;
+  --fs-nav-sub:16px;--lh-nav-sub:24px;
+  --fs-nav-header:18px;--lh-nav-header:1.4;
+  --fs-breadcrumb:14px;--lh-breadcrumb:20px;
+  --fs-topbar-name:16px;--lh-topbar-name:24px;
+  --fs-topbar-role:14px;--lh-topbar-role:20px;
+  --fs-stat-value:28px;
+}
+}
+
+@layer components{
+  .type-display{font-size:var(--fs-h1);line-height:var(--lh-h1);font-weight:700;}
+  .type-page-title{font-size:var(--fs-h2)!important;line-height:var(--lh-h2)!important;font-weight:600;letter-spacing:0;}
+  .type-section-title{font-size:var(--fs-h3)!important;line-height:var(--lh-h3)!important;font-weight:600;letter-spacing:0;}
+  .type-card-title{font-size:var(--fs-h3);line-height:var(--lh-h3);font-weight:600;}
+  .type-body-lg{font-size:var(--fs-body-lg);line-height:var(--lh-body-lg);font-weight:400;}
+  .type-body{font-size:var(--fs-body-md);line-height:var(--lh-body-md);font-weight:400;}
+  .type-body-strong{font-size:var(--fs-body-md);line-height:var(--lh-body-md);font-weight:600;}
+  .type-body-sm{font-size:var(--fs-body-sm);line-height:var(--lh-body-sm);font-weight:400;}
+  .type-label{font-size:var(--fs-label-md);line-height:var(--lh-label-md);font-weight:500;}
+  .type-nav{font-size:var(--fs-nav-main);line-height:var(--lh-nav-main);font-weight:400;}
+  .type-control{font-size:var(--fs-label-md);line-height:var(--lh-label-md);font-weight:500;}
+  .type-button{font-size:var(--fs-button);line-height:var(--lh-button);font-weight:600;}
+  .type-button-sm{font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:600;}
+  .type-button-lg{font-size:var(--fs-body-lg);line-height:var(--lh-body-lg);font-weight:600;}
+  .type-table-head{font-size:var(--fs-table-header);line-height:var(--lh-table-header);font-weight:600;}
+  .type-table-cell{font-size:var(--fs-table-body);line-height:var(--lh-table-body);font-weight:400;}
+  .type-meta{font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:400;}
+  .type-helper{font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:400;}
+  .type-badge{font-size:var(--fs-badge);line-height:var(--lh-badge);font-weight:600;}
+  .type-overline{font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:700;letter-spacing:.04em;}
+  .type-kpi{font-family:var(--font-data);font-size:var(--fs-stat-value);line-height:1.1;font-weight:600;font-variant-numeric:tabular-nums;}
+  .type-mobile-card-title{font-size:var(--mobile-card-title-size);line-height:1.3;font-weight:600;}
+  .type-mobile-card-meta{font-size:var(--mobile-card-meta-size);line-height:1.4;}
+  .type-mobile-card-date{font-size:var(--mobile-card-date-size);line-height:1.4;}
+}
+
+@layer utilities{
+  html[data-text-size] .text-xs{font-size:var(--fs-caption)!important;line-height:var(--lh-caption)!important;}
+  html[data-text-size] .text-sm{font-size:var(--fs-body-sm)!important;line-height:var(--lh-body-sm)!important;}
+  html[data-text-size] .text-base{font-size:var(--fs-body-md)!important;line-height:var(--lh-body-md)!important;}
+  html[data-text-size] .text-lg{font-size:var(--fs-body-lg)!important;line-height:var(--lh-body-lg)!important;}
+  html[data-text-size] .text-xl{font-size:var(--fs-h3)!important;line-height:var(--lh-h3)!important;}
+  html[data-text-size] .text-2xl{font-size:var(--fs-h2)!important;line-height:var(--lh-h2)!important;}
+  html[data-text-size] .text-\[10px\],
+  html[data-text-size] .text-\[11px\],
+  html[data-text-size] .text-\[12px\]{font-size:var(--fs-caption)!important;line-height:var(--lh-caption)!important;}
+  html[data-text-size] .text-\[13px\]{font-size:var(--fs-body-sm)!important;line-height:var(--lh-body-sm)!important;}
+  html[data-text-size] .text-\[14px\],
+  html[data-text-size] .text-\[15px\]{font-size:var(--fs-label-md)!important;line-height:var(--lh-label-md)!important;}
+  html[data-text-size] .text-\[16px\],
+  html[data-text-size] .text-\[17px\]{font-size:var(--fs-body-md)!important;line-height:var(--lh-body-md)!important;}
+  html[data-text-size] .text-\[18px\]{font-size:var(--fs-body-lg)!important;line-height:var(--lh-body-lg)!important;}
+  html[data-text-size] .text-\[20px\],
+  html[data-text-size] .text-\[22px\]{font-size:var(--fs-h3)!important;line-height:var(--lh-h3)!important;}
+  html[data-text-size] .text-\[26px\],
+  html[data-text-size] .text-\[28px\],
+  html[data-text-size] .text-\[32px\]{font-size:var(--fs-h2)!important;line-height:var(--lh-h2)!important;}
+  html[data-text-size] .text-\[40px\],
+  html[data-text-size] .text-\[44px\],
+  html[data-text-size] .text-\[48px\]{font-size:var(--fs-h1)!important;line-height:var(--lh-h1)!important;}
 }
