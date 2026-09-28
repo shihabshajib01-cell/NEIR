@@ -63,7 +63,7 @@ export const GlobalImeiBlockPage = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Block IMEI"
+        title="IMEI Global Block"
         description="Issue nationwide EIR blacklisting directives to deny cellular network attachment across all Bangladeshi telecom operators."
         breadcrumbs={[
           { label: 'Global IMEI Block' },
@@ -78,9 +78,9 @@ export const GlobalImeiBlockPage = () => {
         </Alert>
 
         {lastBlockedResult && (
-          <Alert variant="danger" title="IMEI Block Active">
-            <p>Target: <strong className="font-mono">{lastBlockedResult.record.imei}</strong></p>
-            <p className="mt-0.5">Reference Directive: <code className="font-mono">{lastBlockedResult.record.blockId}</code></p>
+          <Alert variant="success" title="IMEI Block Request Accepted">
+            <p>Target IMEI: <strong className="font-mono">{lastBlockedResult.record.imei}</strong></p>
+            <p className="mt-0.5">Reference: <code className="font-mono">{lastBlockedResult.record.blockId}</code></p>
           </Alert>
         )}
 
