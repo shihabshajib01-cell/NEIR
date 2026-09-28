@@ -173,7 +173,6 @@ export const PermissionPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Permission"
-        description="Manage page-level access permissions and navigation endpoints associated with NEIR modules."
         breadcrumbs={[
           { label: 'Role Management', href: '/role-management/roles' },
           { label: 'Permission' }
@@ -196,7 +195,7 @@ export const PermissionPage = () => {
         count={filteredData.length}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Filter permissions..."
+                  searchPlaceholder="Search permissions..."
                   searchValue={searchTerm}
                   searchSuggestions={permissions.flatMap((item) => [item.name, item.path, item.parentName])}
                   onSearchChange={setSearchTerm}
@@ -247,7 +246,6 @@ export const PermissionPage = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Permission' : 'Create Permission'}
-        subtitle="Route and capability permission node"
         footer={
           <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Permission'}
