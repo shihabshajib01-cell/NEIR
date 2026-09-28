@@ -173,7 +173,7 @@ export const DepartmentsPage = () => {
         count={filteredData.length}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Search departments by name, code, or department head..."
+                  searchPlaceholder="Search departments..."
                   searchValue={searchTerm}
                   searchSuggestions={departments.flatMap((item) => [item.name, item.code, item.head])}
                   onSearchChange={setSearchTerm}
