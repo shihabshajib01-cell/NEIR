@@ -40,6 +40,17 @@ export const Header = ({
     navigate('/login');
   };
 
+  useEffect(() => {
+    const anyPopupOpen = preferencesOpen || notificationsOpen || profileMenuOpen;
+    if (!anyPopupOpen || !window.matchMedia('(max-width: 639px)').matches) return undefined;
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [preferencesOpen, notificationsOpen, profileMenuOpen]);
+
   const utilityButton = 'w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors cursor-pointer';
 
   return (
@@ -89,9 +100,17 @@ export const Header = ({
             </p>
           </button>
           {preferencesOpen && (
-            <div className="absolute right-0 mt-2 z-50">
-              <PreferencesPanel />
-            </div>
+            <>
+              <button
+                type="button"
+                onClick={() => setPreferencesOpen(false)}
+                className="fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
+                aria-label={t('Close preferences')}
+              />
+              <div className="mobile-bottom-sheet fixed inset-x-0 bottom-0 z-50 sm:absolute sm:inset-auto sm:right-0 sm:mt-2">
+                <PreferencesPanel />
+              </div>
+            </>
           )}
         </div>
 
@@ -111,14 +130,22 @@ export const Header = ({
           </button>
 
           {notificationsOpen && (
-            <div className="absolute right-0 mt-2 w-72 bg-white text-[var(--color-text-primary)] rounded-xl shadow-[var(--shadow-lg)] border border-[var(--color-border)] py-2 z-50">
-              <div className="px-4 py-2.5 border-b border-[var(--color-border)]">
-                <p className="type-label font-semibold">{t('Notifications')}</p>
+            <>
+              <button
+                type="button"
+                onClick={() => setNotificationsOpen(false)}
+                className="fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
+                aria-label={t('Close notifications')}
+              />
+              <div className="mobile-bottom-sheet fixed inset-x-0 bottom-0 z-50 w-full bg-white text-[var(--color-text-primary)] rounded-t-[20px] rounded-b-none border border-[var(--color-border)] border-x-0 border-b-0 py-2 shadow-[var(--shadow-overlay)] sm:absolute sm:inset-auto sm:right-0 sm:mt-2 sm:w-72 sm:rounded-xl sm:border sm:shadow-[var(--shadow-lg)]">
+                <div className="px-4 py-2.5 border-b border-[var(--color-border)]">
+                  <p className="type-label font-semibold">{t('Notifications')}</p>
+                </div>
+                <div className="px-4 py-5 text-sm text-[var(--color-text-secondary)]">
+                  {t('No new notifications.')}
+                </div>
               </div>
-              <div className="px-4 py-5 text-sm text-[var(--color-text-secondary)]">
-                {t('No new notifications.')}
-              </div>
-            </div>
+            </>
           )}
         </div>
 
@@ -150,48 +177,56 @@ export const Header = ({
           </button>
 
           {profileMenuOpen && (
-            <div className="absolute right-0 mt-2 w-60 bg-white rounded-xl shadow-[var(--shadow-lg)] border border-[var(--color-border)] py-1.5 z-50">
-              <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
-                <p className="type-label font-semibold truncate">{user?.fullName || t('Admin user')}</p>
-                <p className="type-meta text-[var(--color-text-secondary)] truncate mt-0.5">
-                  {user?.email || user?.username || 'NEIR Admin'}
-                </p>
-              </div>
+            <>
+              <button
+                type="button"
+                onClick={() => setProfileMenuOpen(false)}
+                className="fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
+                aria-label={t('Close profile menu')}
+              />
+              <div className="mobile-bottom-sheet fixed inset-x-0 bottom-0 z-50 w-full bg-white rounded-t-[20px] rounded-b-none border border-[var(--color-border)] border-x-0 border-b-0 py-1.5 shadow-[var(--shadow-overlay)] sm:absolute sm:inset-auto sm:right-0 sm:mt-2 sm:w-60 sm:rounded-xl sm:border sm:shadow-[var(--shadow-lg)]">
+                <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
+                  <p className="type-label font-semibold truncate">{user?.fullName || t('Admin user')}</p>
+                  <p className="type-meta text-[var(--color-text-secondary)] truncate mt-0.5">
+                    {user?.email || user?.username || 'NEIR Admin'}
+                  </p>
+                </div>
 
-              <div className="py-1 type-body-sm">
-                <Link
-                  to="/office/users"
-                  onClick={() => setProfileMenuOpen(false)}
-                  className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-primary-light)]"
-                >
-                  <User className="w-4 h-4 text-[var(--color-text-secondary)]" />
-                  <p>{t('User directory')}</p>
-                </Link>
+                <div className="py-1 type-body-sm">
+                  <Link
+                    to="/office/users"
+                    onClick={() => setProfileMenuOpen(false)}
+                    className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-primary-light)]"
+                  >
+                    <User className="w-4 h-4 text-[var(--color-text-secondary)]" />
+                    <p>{t('User directory')}</p>
+                  </Link>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    setProfileMenuOpen(false);
-                    addToast('Password management is not available from this menu.', 'info');
-                  }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-primary-light)] text-left cursor-pointer"
-                >
-                  <KeyRound className="w-4 h-4 text-[var(--color-text-secondary)]" />
-                  <p>{t('Change password')}</p>
-                </button>
-              </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setProfileMenuOpen(false);
+                      addToast('Password management is not available from this menu.', 'info');
+                    }}
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-primary-light)] text-left cursor-pointer"
+                  >
+                    <KeyRound className="w-4 h-4 text-[var(--color-text-secondary)]" />
+                    <p>{t('Change password')}</p>
+                  </button>
+                </div>
 
-              <div className="border-t border-[var(--color-border)] py-1">
-                <button
-                  type="button"
-                  onClick={handleSignOut}
-                  className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-50 text-[var(--color-error)] type-label text-left cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <p>{t('Sign out')}</p>
-                </button>
+                <div className="border-t border-[var(--color-border)] py-1 pb-[max(4px,env(safe-area-inset-bottom))]">
+                  <button
+                    type="button"
+                    onClick={handleSignOut}
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-50 text-[var(--color-error)] type-label text-left cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <p>{t('Sign out')}</p>
+                  </button>
+                </div>
               </div>
-            </div>
+            </>
           )}
         </div>
       </div>
