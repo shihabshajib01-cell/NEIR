@@ -190,7 +190,7 @@ export const FilterBar = ({
                 id={searchListId}
                 role="listbox"
                 aria-label={t('Search suggestions')}
-                className="mobile-bottom-sheet fixed inset-x-0 bottom-0 top-auto mt-0 max-h-[70dvh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] border-x-0 border-b-0 rounded-t-[20px] rounded-b-none shadow-[var(--shadow-overlay)] z-[70] p-1.5 sm:absolute sm:left-0 sm:right-0 sm:top-full sm:bottom-auto sm:mt-1 sm:max-h-80 sm:border sm:rounded-xl sm:z-40"
+                className="mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 top-auto mt-0 max-h-[90dvh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] border-x-0 border-b-0 rounded-t-[20px] rounded-b-none shadow-[var(--shadow-overlay)] z-[70] p-1.5 sm:absolute sm:left-0 sm:right-0 sm:top-full sm:bottom-auto sm:mt-1 sm:max-h-80 sm:border sm:rounded-xl sm:z-40"
               >
                 {filteredSearchSuggestions.map((suggestion, index) => {
                   const active = index === activeSuggestionIndex;
