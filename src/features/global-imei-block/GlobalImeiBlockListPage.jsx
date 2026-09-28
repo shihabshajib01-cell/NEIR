@@ -159,7 +159,7 @@ export const GlobalImeiBlockListPage = () => {
         count={data.length}
         toolbar={
           <FilterBar embedded
-                  searchPlaceholder="Search by Block ID, IMEI, authority, or remarks..."
+                  searchPlaceholder="Search block list..."
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.blockId, item.imei, item.reason, item.remarks, item.blockedBy])}
                   onSearchChange={setSearchTerm}
