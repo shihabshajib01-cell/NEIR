@@ -121,6 +121,7 @@ export const DateRangeFilter = ({
   onStartDateChange,
   onEndDateChange,
   compact = false,
+  buttonLabel = 'Filter by Date',
   className = '',
 }) => {
   const { t } = usePreferences();
@@ -200,7 +201,7 @@ export const DateRangeFilter = ({
         aria-label={selectionLabel ? `${t('Filter by Date')}: ${selectionLabel}` : t('Filter by Date')}
         className={(compact ? 'min-h-10 px-3' : '') + ' ' + className}
       >
-        Filter by Date
+        {buttonLabel}
       </Button>
 
       <Popover

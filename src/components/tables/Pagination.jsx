@@ -37,6 +37,7 @@ export const FilterBar = ({
   filters = null,
   onExport,
   embedded = false,
+  mobileInline = false,
   className = '',
 }) => {
   const { t } = usePreferences();
@@ -138,7 +139,9 @@ export const FilterBar = ({
       : 'p-3 bg-white border border-[var(--color-border)] rounded-xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 ') + className}
     >
       <div className={embedded
-        ? 'flex flex-1 lg:flex-none flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-end gap-2'
+        ? (mobileInline
+          ? 'grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 w-full lg:flex lg:flex-1 lg:w-auto lg:flex-wrap lg:justify-end'
+          : 'flex flex-1 lg:flex-none flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-end gap-2')
         : 'flex flex-1 flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2'}
       >
         {onSearchChange && (

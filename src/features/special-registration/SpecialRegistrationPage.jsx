@@ -167,6 +167,7 @@ export const SpecialRegistrationPage = () => {
         }}
         toolbar={
           <FilterBar embedded
+                  mobileInline
                   searchPlaceholder="Search by IMEI, Requester name, or NID..."
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.imei, item.requesterName, item.requesterNid])}
@@ -180,6 +181,8 @@ export const SpecialRegistrationPage = () => {
                   filters={
                     <DateRangeFilter
                       compact
+                      buttonLabel="Filter"
+                      className="shrink-0"
                       startDate={fromDate}
                       endDate={toDate}
                       onStartDateChange={(value) => {
