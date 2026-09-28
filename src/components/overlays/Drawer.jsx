@@ -56,7 +56,7 @@ export const Drawer = ({ isOpen, onClose, title, subtitle, children, footer, wid
       <button type="button" onClick={onClose} className="absolute inset-0 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" aria-label={t('Close drawer')} />
       <div
         ref={panelRef}
-        className={'mobile-bottom-sheet relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-white shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
+        className={'mobile-bottom-sheet mobile-bottom-sheet-surface relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-white shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
       >
         <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] bg-white flex items-start justify-between gap-3 shrink-0">
           <div className="pr-4 min-w-0">
@@ -124,7 +124,7 @@ export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
-      <div ref={panelRef} className={'mobile-bottom-sheet w-full ' + maxWidth + ' max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:h-[88vh] sm:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
+      <div ref={panelRef} className={'mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:h-[88vh] sm:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
         <div className="px-4 py-3.5 sm:px-6 sm:py-4 bg-white text-[var(--color-text-primary)] flex items-start justify-between gap-3 border-b border-[var(--color-border)] shrink-0">
           <h2 className="text-sm sm:text-base font-semibold leading-tight flex flex-wrap items-center gap-2 min-w-0">
             <p className="truncate">{t(title)}</p>
