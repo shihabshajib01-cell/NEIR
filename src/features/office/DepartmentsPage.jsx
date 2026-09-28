@@ -195,14 +195,9 @@ export const DepartmentsPage = () => {
         title={editingDept ? 'Edit Department' : 'Create Department'}
         subtitle="Organizational hierarchy configuration"
         footer={
-          <>
-            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" size="md" onClick={handleSave}>
+          <Button variant="primary" size="md" onClick={handleSave}>
               {editingDept ? 'Save Changes' : 'Create Department'}
             </Button>
-          </>
         }
       >
         <form onSubmit={handleSave} className="space-y-3.5">

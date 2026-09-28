@@ -251,14 +251,9 @@ export const ServiceActionPage = () => {
         title={editingItem ? 'Edit Service Action' : 'Create Service Action'}
         subtitle="Granular API action and HTTP verb mapping"
         footer={
-          <>
-            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" size="md" onClick={handleSave}>
+          <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Service Action'}
             </Button>
-          </>
         }
       >
         <form onSubmit={handleSave} className="space-y-4">

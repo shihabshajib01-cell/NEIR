@@ -204,14 +204,9 @@ export const RolesPage = () => {
         title={editingRole ? 'Edit Role' : 'Create Role'}
         subtitle="Define new operational role designation"
         footer={
-          <>
-            <Button variant="secondary" size="md" onClick={() => setIsCreateModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" size="md" onClick={handleSaveRole}>
+          <Button variant="primary" size="md" onClick={handleSaveRole}>
               {editingRole ? 'Save Changes' : 'Create Role'}
             </Button>
-          </>
         }
       >
         <form onSubmit={handleSaveRole} className="space-y-4">

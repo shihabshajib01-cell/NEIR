@@ -226,14 +226,9 @@ export const DesignationsPage = () => {
         title={editingItem ? 'Edit Designation' : 'Create Designation'}
         subtitle="Rank and organizational title definition"
         footer={
-          <>
-            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" size="md" onClick={handleSave}>
+          <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Designation'}
             </Button>
-          </>
         }
       >
         <form onSubmit={handleSave} className="space-y-4">

@@ -202,14 +202,9 @@ export const ParentPage = () => {
         title={editingItem ? 'Edit Parent Module' : 'Create Parent Module'}
         subtitle="Structural navigation grouping configuration"
         footer={
-          <>
-            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" size="md" onClick={handleSave}>
+          <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Parent'}
             </Button>
-          </>
         }
       >
         <form onSubmit={handleSave} className="space-y-4">

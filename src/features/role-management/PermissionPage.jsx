@@ -234,14 +234,9 @@ export const PermissionPage = () => {
         title={editingItem ? 'Edit Permission' : 'Create Permission'}
         subtitle="Route and capability permission node"
         footer={
-          <>
-            <Button variant="secondary" size="md" onClick={() => setIsModalOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="primary" size="md" onClick={handleSave}>
+          <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Permission'}
             </Button>
-          </>
         }
       >
         <form onSubmit={handleSave} className="space-y-4">
