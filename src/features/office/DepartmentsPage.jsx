@@ -209,7 +209,7 @@ export const DepartmentsPage = () => {
             required
           />
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <TextInput
               label="Department Code"
               value={formState.code}

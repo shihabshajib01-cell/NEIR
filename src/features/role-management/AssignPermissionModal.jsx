@@ -97,13 +97,13 @@ export const AssignPermissionModal = ({
       subtitle="Configure hierarchical capabilities (Parent > Permission > Service Action)"
       maxWidth="max-w-3xl"
       footer={
-        <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col gap-2.5 w-full sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-[#626981] font-medium">
             <strong className="font-mono font-bold text-[#01ADC1]">{selectedActionIds.size}</strong> of{' '}
             <strong className="font-mono">{serviceActions.length}</strong> actions selected
           </p>
-          <div className="flex items-center gap-2">
-            <Button variant="primary" size="sm" onClick={handleSave}>
+          <div className="w-full sm:w-auto">
+            <Button variant="primary" size="sm" onClick={handleSave} className="w-full sm:w-auto">
               Save Permission Matrix
             </Button>
           </div>
@@ -112,7 +112,7 @@ export const AssignPermissionModal = ({
     >
       <div className="space-y-4">
         {/* Search & Bulk Select Toolbar */}
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
           <div className="relative flex-1">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#7A8197]" />
             <input
@@ -123,7 +123,7 @@ export const AssignPermissionModal = ({
               className="w-full h-8.5 pl-9 pr-3 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden focus:border-[#01ADC1]"
             />
           </div>
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div className="grid grid-cols-2 gap-1.5 w-full sm:flex sm:w-auto sm:items-center sm:shrink-0">
             <Button
               variant="ghost"
               size="sm"
@@ -131,7 +131,7 @@ export const AssignPermissionModal = ({
                 const all = new Set(serviceActions.map((s) => s.id));
                 setSelectedActionIds(all);
               }}
-              className="text-xs h-8"
+              className="text-xs h-8 w-full sm:w-auto"
             >
               Select All
             </Button>
@@ -139,7 +139,7 @@ export const AssignPermissionModal = ({
               variant="ghost"
               size="sm"
               onClick={() => setSelectedActionIds(new Set())}
-              className="text-xs h-8 text-[#7A8197]"
+              className="text-xs h-8 text-[#7A8197] w-full sm:w-auto"
             >
               Deselect All
             </Button>
@@ -202,7 +202,7 @@ export const AssignPermissionModal = ({
 
                 {/* Level 2 & Level 3: Permissions and Actions (visible when parent expanded) */}
                 {isExpanded && (
-                  <div className="p-3 pl-8 space-y-3 bg-[#F7F8FC]">
+                  <div className="p-3 space-y-3 bg-[#F7F8FC] sm:pl-8">
                     {parentPerms.map((perm) => {
                       const actionsForPerm = serviceActions.filter(
                         (sa) => sa.permissionId === perm.id
@@ -214,18 +214,18 @@ export const AssignPermissionModal = ({
                           className="border border-[#E1F7FB] rounded-md bg-white p-3 space-y-2"
                         >
                           {/* Level 2: Permission Node */}
-                          <div className="flex items-center gap-2 pb-1.5 border-b border-[#F7F8FC]">
+                          <div className="flex flex-col gap-1 pb-1.5 border-b border-[#F7F8FC] sm:flex-row sm:items-center sm:gap-2">
                             <KeyRound className="w-3.5 h-3.5 text-[#028A97] shrink-0" />
                             <p className="text-xs font-semibold text-[#202338]">
                               {perm.name}
                             </p>
-                            <p className="text-[11px] font-mono text-[#7A8197] ml-auto">
+                            <p className="text-[11px] font-mono text-[#7A8197] break-all sm:ml-auto">
                               {perm.path}
                             </p>
                           </div>
 
                           {/* Level 3: Service Actions Checkboxes */}
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 pl-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 sm:pl-4">
                             {actionsForPerm.length === 0 ? (
                               <p className="text-[11px] text-[#7A8197] italic">
                                 No granular API endpoints configured

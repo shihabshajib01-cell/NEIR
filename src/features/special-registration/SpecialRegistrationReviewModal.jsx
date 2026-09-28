@@ -104,11 +104,12 @@ export const SpecialRegistrationReviewModal = ({
         status={registration.status}
         maxWidth={selectedDoc ? 'max-w-[92vw]' : 'max-w-[720px]'}
         footer={
-          <div className="flex items-center justify-end gap-3 w-full">
+          <div className="flex flex-col gap-2 w-full sm:flex-row sm:items-center sm:justify-end sm:gap-3">
             <Button
               variant="dangerOutline"
               size="md"
               icon={XCircle}
+              className="w-full sm:w-auto"
               onClick={() => setIsRejectOpen(true)}
             >
               Reject Application
@@ -117,6 +118,7 @@ export const SpecialRegistrationReviewModal = ({
               variant="primary"
               size="md"
               icon={CheckCircle2}
+              className="w-full sm:w-auto"
               onClick={() => setIsApproveOpen(true)}
             >
               Approve & Whitelist
