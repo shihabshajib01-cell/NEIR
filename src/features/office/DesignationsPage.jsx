@@ -218,6 +218,7 @@ export const DesignationsPage = () => {
           columns={columns}
           data={filteredData}
           isLoading={isLoading}
+          onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard
               title={row.title}
@@ -226,11 +227,6 @@ export const DesignationsPage = () => {
                 { label: 'Pay Grade / Rank', value: row.rankGrade, isMono: true },
                 { label: 'Staff Assigned', value: `${row.userCount} officers`, isMono: true },
               ]}
-              actions={
-                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
-                  Edit Designation
-                </Button>
-              }
             />
           )}
         />

@@ -82,6 +82,7 @@ export const DataTable = ({
   onPageChange,
   onPageSizeChange,
   renderMobileCard,
+  onMobileCardClick,
   onRowClick,
   embedded = false,
   stickyHeader = true,
@@ -144,6 +145,7 @@ export const DataTable = ({
     );
   };
 
+  const mobileCardClick = onMobileCardClick || onRowClick;
   const desktopVisibleClass = renderMobileCard ? 'hidden lg:block' : 'block';
   const wrapperClass = embedded
     ? 'bg-white overflow-hidden flex flex-col'
@@ -164,21 +166,21 @@ export const DataTable = ({
                 return (
                   <div
                     key={key}
-                    role={onRowClick ? 'button' : undefined}
-                    tabIndex={onRowClick ? 0 : undefined}
+                    role={mobileCardClick ? 'button' : undefined}
+                    tabIndex={mobileCardClick ? 0 : undefined}
                     onClick={(event) => {
-                      if (!onRowClick) return;
+                      if (!mobileCardClick) return;
                       if (event.target.closest?.('button, a, input, select, textarea, [role="button"], [role="checkbox"], [role="link"]')) return;
-                      onRowClick(row);
+                      mobileCardClick(row);
                     }}
                     onKeyDown={(event) => {
-                      if (!onRowClick || event.target !== event.currentTarget) return;
+                      if (!mobileCardClick || event.target !== event.currentTarget) return;
                       if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
-                        onRowClick(row);
+                        mobileCardClick(row);
                       }
                     }}
-                    className={onRowClick
+                    className={mobileCardClick
                       ? 'cursor-pointer transition-colors hover:bg-[var(--color-background-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)]'
                       : ''}
                   >

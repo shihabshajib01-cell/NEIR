@@ -242,6 +242,7 @@ export const ServiceActionPage = () => {
           columns={columns}
           data={filteredData}
           isLoading={isLoading}
+          onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard
               title={row.name}
@@ -251,11 +252,6 @@ export const ServiceActionPage = () => {
                 { label: 'Path', value: row.path, isMono: true },
                 { label: 'Method', value: row.method.charAt(0) + row.method.slice(1).toLowerCase(), isMono: true },
               ]}
-              actions={
-                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
-                  Edit Service Action
-                </Button>
-              }
             />
           )}
         />

@@ -193,6 +193,7 @@ export const ParentPage = () => {
           columns={columns}
           data={filteredData}
           isLoading={isLoading}
+          onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard
               title={row.name}
@@ -202,11 +203,6 @@ export const ParentPage = () => {
                 { label: 'Position', value: row.position, isMono: true },
                 { label: 'Icon', value: row.icon, isMono: true },
               ]}
-              actions={
-                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
-                  Edit Parent
-                </Button>
-              }
             />
           )}
         />

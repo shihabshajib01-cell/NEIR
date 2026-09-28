@@ -187,6 +187,7 @@ export const DepartmentsPage = () => {
           columns={columns}
           data={filteredData}
           isLoading={isLoading}
+          onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard
               title={row.name}
@@ -196,11 +197,6 @@ export const DepartmentsPage = () => {
                 { label: 'Head of Department', value: row.head },
                 { label: 'Personnel', value: `${row.memberCount} staff`, isMono: true },
               ]}
-              actions={
-                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
-                  Edit Department
-                </Button>
-              }
             />
           )}
         />

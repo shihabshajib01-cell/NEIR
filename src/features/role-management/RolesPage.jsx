@@ -195,6 +195,7 @@ export const RolesPage = () => {
           columns={columns}
           data={roles}
           isLoading={isLoading}
+          onMobileCardClick={handleOpenEdit}
           renderMobileCard={(row) => (
             <MobileRecordCard
               title={row.name}
@@ -203,14 +204,9 @@ export const RolesPage = () => {
                 { label: 'Assigned Actions', value: `${row.assignedActionsCount} actions`, isMono: true },
               ]}
               actions={
-                <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2 w-full">
-                  <Button variant="primary" size="sm" icon={KeyRound} onClick={() => handleOpenAssign(row)} className="w-full">
-                    Assign Permissions
-                  </Button>
-                  <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
-                    Edit Role
-                  </Button>
-                </div>
+                <Button variant="primary" size="sm" icon={KeyRound} onClick={() => handleOpenAssign(row)}>
+                  Assign Permissions
+                </Button>
               }
             />
           )}
