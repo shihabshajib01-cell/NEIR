@@ -22,7 +22,7 @@ export const PreferencesPanel = ({ className = '' }) => {
   ];
 
   return (
-    <div className={'w-72 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-lg)] overflow-hidden ' + className}>
+    <div className={'w-full sm:w-72 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-t-[20px] rounded-b-none sm:rounded-xl shadow-[var(--shadow-lg)] overflow-hidden max-h-[85dvh] sm:max-h-none overflow-y-auto ' + className}>
       <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
         <p className="type-label text-[var(--color-text-primary)]">{t('Display preferences')}</p>
       </div>
