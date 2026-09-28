@@ -1,56 +1,8 @@
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
-import {
-  TablePagination as MuiTablePagination,
-} from '@mui/material';
 import { Search, Download, X } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { TextInput } from '../forms/TextInput.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
-
-export const Pagination = ({
-  currentPage = 1,
-  totalPages = 1,
-  totalItems = 0,
-  pageSize = 10,
-  onPageChange,
-  onPageSizeChange,
-  pageSizeOptions = [5, 10, 25, 50],
-  className = '',
-}) => {
-  const { t } = usePreferences();
-
-  return (
-    <div className={className}>
-      <MuiTablePagination
-        component="div"
-        count={totalItems}
-        page={Math.max(0, Math.min(currentPage - 1, Math.max(0, totalPages - 1)))}
-        rowsPerPage={pageSize}
-        rowsPerPageOptions={onPageSizeChange ? pageSizeOptions : []}
-        onPageChange={(_, page) => onPageChange?.(page + 1)}
-        onRowsPerPageChange={(event) => onPageSizeChange?.(Number(event.target.value))}
-        labelRowsPerPage={t('Rows per page:')}
-        labelDisplayedRows={({ from, to, count }) => `${from}–${to} ${t('of')} ${count}`}
-        showFirstButton={false}
-        showLastButton={false}
-        sx={{
-          borderTop: '1px solid var(--color-border)',
-          backgroundColor: 'var(--color-surface)',
-          '& .MuiTablePagination-toolbar': {
-            justifyContent: 'flex-end',
-            gap: '8px',
-          },
-          '& .MuiTablePagination-spacer': {
-            display: 'none',
-          },
-          '& .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows': {
-            whiteSpace: 'nowrap',
-          },
-        }}
-      />
-    </div>
-  );
-};
 
 const normalizeSearchSuggestion = (suggestion) => {
   if (suggestion === null || suggestion === undefined) return null;

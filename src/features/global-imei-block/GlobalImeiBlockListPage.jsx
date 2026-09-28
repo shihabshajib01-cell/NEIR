@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
-import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
 import { ConfirmationDialog } from '../../components/overlays/Modal.jsx';
 import { Button } from '../../components/forms/Button.jsx';

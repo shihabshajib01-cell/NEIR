@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
-import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';

@@ -1,1 +1,1 @@
-export { FilterBar, Pagination } from './Pagination.jsx';
+export { FilterBar } from './Pagination.jsx';
