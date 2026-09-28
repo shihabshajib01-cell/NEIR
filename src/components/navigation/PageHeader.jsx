@@ -31,42 +31,20 @@ export const Breadcrumbs = ({ items = [] }) => {
 
 export const PageHeader = ({ title, description, breadcrumbs = [], actions, className = '' }) => {
   const { t } = usePreferences();
+
   return (
-    <div className={'pb-5 mb-6 border-b border-[var(--color-border)] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 ' + className}>
+    <header className={'pb-5 mb-6 border-b border-[var(--color-border)] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 ' + className}>
       <div className="min-w-0">
         {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
         <h1 className="type-page-title text-[var(--color-text-primary)]">{t(title)}</h1>
         {description && <p className="type-body text-[var(--color-text-secondary)] mt-1.5 max-w-3xl">{t(description)}</p>}
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-start lg:self-center">{actions}</div>}
-    </div>
-  );
-};
 
-export const ContextualSecondaryNav = ({ tabs = [], activeId, onTabChange, className = '' }) => {
-  const { t } = usePreferences();
-  return (
-    <div className={'border-b border-[var(--color-border)] mb-5 ' + className}>
-      <nav className="flex items-center gap-1 -mb-px overflow-x-auto" aria-label="Secondary Navigation">
-        {tabs.map((tab) => {
-          const isActive = activeId ? activeId === tab.id : false;
-          const Icon = tab.icon;
-          const classes = 'inline-flex items-center gap-2 min-h-11 py-2.5 px-3.5 type-control border-b-2 transition-colors whitespace-nowrap ' +
-            (isActive ? 'border-[var(--color-primary)] text-[var(--color-primary-dark)] font-semibold bg-[var(--color-primary-light)] rounded-t-lg' : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:border-[var(--color-border)]');
-
-          const content = (
-            <>
-              {Icon && <Icon className="w-3.5 h-3.5" />}
-              <p>{t(tab.label)}</p>
-              {typeof tab.count === 'number' && <p className={'px-1.5 py-0.5 rounded-full type-badge ' + (isActive ? 'bg-[var(--color-primary)] text-white' : 'bg-[var(--color-primary-light)] text-[var(--color-text-secondary)]')}>{tab.count}</p>}
-            </>
-          );
-
-          return tab.href
-            ? <Link key={tab.id || tab.href} to={tab.href} className={classes}>{content}</Link>
-            : <button key={tab.id} type="button" onClick={() => onTabChange?.(tab.id)} className={classes + ' cursor-pointer'}>{content}</button>;
-        })}
-      </nav>
-    </div>
+      {actions && (
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0 self-start lg:self-center">
+          {actions}
+        </div>
+      )}
+    </header>
   );
 };
