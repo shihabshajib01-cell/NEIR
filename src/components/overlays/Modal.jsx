@@ -62,7 +62,7 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxW
 };
 
 export const ConfirmationDialog = ({
-  isOpen, onClose, onConfirm, title = 'Confirm Action', message, confirmLabel = 'Confirm', cancelLabel = 'Cancel', tone = 'danger', isLoading = false,
+  isOpen, onClose, onConfirm, title = 'Confirm Action', message, confirmLabel = 'Confirm', tone = 'danger', isLoading = false,
 }) => {
   const { t } = usePreferences();
   const iconMap = {
@@ -78,10 +78,7 @@ export const ConfirmationDialog = ({
       title={title}
       maxWidth="max-w-md"
       footer={
-        <>
-          <Button variant="outline" size="sm" onClick={onClose} disabled={isLoading} className="max-sm:w-full">{cancelLabel}</Button>
-          <Button variant={tone === 'danger' ? 'danger' : 'primary'} size="sm" onClick={onConfirm} isLoading={isLoading} className="max-sm:w-full">{confirmLabel}</Button>
-        </>
+        <Button variant={tone === 'danger' ? 'danger' : 'primary'} size="sm" onClick={onConfirm} isLoading={isLoading} className="max-sm:w-full">{confirmLabel}</Button>
       }
     >
       <div className="flex items-start gap-3.5 py-1">

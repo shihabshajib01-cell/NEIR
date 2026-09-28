@@ -92,15 +92,6 @@ export const ImeiCheckPage = () => {
           title="IMEI Verification Status"
           subtitle={`Query Target: ${result.imei}`}
           maxWidth="max-w-lg"
-          footer={
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setIsResultModalOpen(false)}
-            >
-              Close Inquiry
-            </Button>
-          }
         >
           <div className="space-y-4">
             {/* Status Header Strip */}

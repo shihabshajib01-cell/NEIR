@@ -98,14 +98,11 @@ export const AssignPermissionModal = ({
       maxWidth="max-w-3xl"
       footer={
         <div className="flex items-center justify-between w-full">
-          <div className="text-xs text-[#626981] font-medium">
-            <p className="font-mono font-bold text-[#01ADC1]">{selectedActionIds.size}</p> of{' '}
-            <p className="font-mono">{serviceActions.length}</p> actions selected
-          </div>
+          <p className="text-xs text-[#626981] font-medium">
+            <strong className="font-mono font-bold text-[#01ADC1]">{selectedActionIds.size}</strong> of{' '}
+            <strong className="font-mono">{serviceActions.length}</strong> actions selected
+          </p>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={onClose}>
-              Cancel
-            </Button>
             <Button variant="primary" size="sm" onClick={handleSave}>
               Save Permission Matrix
             </Button>

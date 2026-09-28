@@ -4,7 +4,7 @@ import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { DocumentList, DocumentViewerPlaceholder } from '../../components/data-display/DocumentList.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Textarea } from '../../components/forms/TextInput.jsx';
-import { ConfirmationDialog } from '../../components/overlays/Modal.jsx';
+import { ConfirmationDialog, Modal } from '../../components/overlays/Modal.jsx';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { CheckCircle2, XCircle, FileText, Smartphone, User, ShieldCheck } from 'lucide-react';
@@ -76,13 +76,6 @@ export const SpecialRegistrationReviewModal = ({
               <p>BTRC Spectrum Management & Customs Validation Protocol</p>
             </div>
             <div className="flex items-center gap-3">
-              <Button
-                variant="outline"
-                size="md"
-                onClick={onClose}
-              >
-                Close
-              </Button>
               <Button
                 variant="danger"
                 size="md"
@@ -223,49 +216,36 @@ export const SpecialRegistrationReviewModal = ({
       />
 
       {/* Reject Confirmation Modal with Mandatory Remarks */}
-      {isRejectOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#202338]/60 backdrop-blur-xs">
-          <div className="w-full max-w-md bg-white rounded-lg shadow-xl border border-[#E2E5F0] p-5">
-            <h3 className="text-base font-semibold text-red-700 flex items-center gap-2">
-              <XCircle className="w-5 h-5 text-red-600" />
-              <p>Reject Special Registration</p>
-            </h3>
-            <p className="text-xs text-[#626981] mt-1">
-              Please enter the official regulatory reason for rejecting application {registration.id}. This will be communicated to the applicant.
-            </p>
-
-            <div className="mt-4">
-              <Textarea
-                label="Official Rejection Reason"
-                value={rejectRemarks}
-                onChange={(e) => setRejectRemarks(e.target.value)}
-                placeholder="e.g. Customs duty voucher invalid, mismatching IMEI serial on invoice, or exceeded allowable personal baggage quota."
-                rows={3}
-                required
-              />
-            </div>
-
-            <div className="mt-5 flex items-center justify-end gap-2.5">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsRejectOpen(false)}
-                disabled={isSubmitting}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={handleReject}
-                isLoading={isSubmitting}
-              >
-                Confirm Rejection
-              </Button>
-            </div>
-          </div>
+      <Modal
+        isOpen={isRejectOpen}
+        onClose={() => setIsRejectOpen(false)}
+        title="Reject Special Registration"
+        maxWidth="max-w-md"
+        footer={
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={handleReject}
+            isLoading={isSubmitting}
+          >
+            Confirm Rejection
+          </Button>
+        }
+      >
+        <div className="space-y-4">
+          <p className="text-xs text-[#626981]">
+            Please enter the official regulatory reason for rejecting application {registration.id}. This will be communicated to the applicant.
+          </p>
+          <Textarea
+            label="Official Rejection Reason"
+            value={rejectRemarks}
+            onChange={(e) => setRejectRemarks(e.target.value)}
+            placeholder="e.g. Customs duty voucher invalid, mismatching IMEI serial on invoice, or exceeded allowable personal baggage quota."
+            rows={3}
+            required
+          />
         </div>
-      )}
+      </Modal>
     </>
   );
 };
