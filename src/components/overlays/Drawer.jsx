@@ -135,7 +135,11 @@ export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status
             <button type="button" onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]" aria-label={t('Close review workspace')}><X className="w-5 h-5" /></button>
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6">{children}</div>
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          <div className="min-h-full box-border p-4 sm:p-6">
+            {children}
+          </div>
+        </div>
         {footer && <div className="px-6 py-3 bg-white border-t border-[var(--color-border)] flex items-center justify-between shrink-0">{footer}</div>}
       </div>
     </div>
