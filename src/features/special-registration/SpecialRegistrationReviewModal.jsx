@@ -23,7 +23,7 @@ const CollapsibleSection = ({ title, icon: Icon, isOpen, onToggle, children }) =
       <ChevronDown className={'w-4 h-4 text-[#7A8197] shrink-0 transition-transform ' + (isOpen ? 'rotate-180' : '')} />
     </button>
     {isOpen && (
-      <div className="px-4 pb-4 pt-1 border-t border-[#E2E5F0]">
+      <div className="p-4 border-t border-[#E2E5F0]">
         {children}
       </div>
     )}
@@ -124,7 +124,7 @@ export const SpecialRegistrationReviewModal = ({
           </div>
         }
       >
-        <div className={'grid grid-cols-1 gap-6 h-full transition-all duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
+        <div className={'grid grid-cols-1 gap-4 h-full transition-all duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
           <div className={selectedDoc
             ? 'lg:col-span-5 space-y-4 overflow-y-auto'
             : 'w-full max-w-5xl mx-auto space-y-4'}
@@ -135,7 +135,7 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.requester}
               onToggle={() => toggleSection('requester')}
             >
-              <div className="mt-3 space-y-2 text-xs">
+              <div className="space-y-2 text-xs">
                 <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">Full Name:</p>
                   <p className="font-semibold text-[#202338] text-right">{registration.requesterName}</p>
@@ -161,7 +161,7 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.device}
               onToggle={() => toggleSection('device')}
             >
-              <div className="mt-3 space-y-2 text-xs">
+              <div className="space-y-2 text-xs">
                 <div className="flex justify-between gap-4">
                   <p className="text-[#626981]">IMEI Number:</p>
                   <p className="font-mono font-bold text-[#028A97] bg-[#028A97]/10 px-1.5 py-0.5 rounded">{registration.imei}</p>
@@ -199,7 +199,7 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.attachments}
               onToggle={() => toggleSection('attachments')}
             >
-              <div className="mt-3">
+              <div>
                 <DocumentList
                   documents={registration.attachments || []}
                   selectedDocId={selectedDoc?.id}
@@ -214,7 +214,7 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.remarks}
               onToggle={() => toggleSection('remarks')}
             >
-              <div className="mt-3">
+              <div>
                 <Textarea
                   value={remarks}
                   onChange={(e) => setRemarks(e.target.value)}
