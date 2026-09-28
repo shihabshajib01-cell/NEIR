@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Download, X } from 'lucide-react';
+import { ChevronRight, FileText, Download, X } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
@@ -15,8 +15,8 @@ export const DocumentList = ({ documents = [], selectedDocId, onSelectDoc, class
             key={doc.id}
             type="button"
             onClick={() => onSelectDoc?.(doc)}
-            className={'w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between cursor-pointer ' +
-              (selected ? 'border-[var(--color-primary)] bg-[rgba(1,173,193,0.05)] shadow-[var(--shadow-sm)]' : 'border-[var(--color-border)] bg-white hover:bg-[var(--color-background-subtle)]')}
+            className={'w-full text-left px-0 py-3 md:p-3 border-0 border-b md:border md:rounded-xl transition-all flex items-center justify-between cursor-pointer ' +
+              (selected ? 'md:border-[var(--color-primary)] md:bg-[rgba(1,173,193,0.05)] md:shadow-[var(--shadow-sm)]' : 'border-[var(--color-border)] bg-white hover:bg-[var(--color-background-subtle)]')}
           >
             <div className="flex items-center gap-3 min-w-0">
               <div className={'w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ' + (selected ? 'bg-[var(--color-primary)] text-white' : 'bg-[var(--color-primary-light)] text-[var(--color-primary-dark)]')}>
@@ -26,13 +26,18 @@ export const DocumentList = ({ documents = [], selectedDocId, onSelectDoc, class
                 <p className="text-xs font-semibold text-[var(--color-primary-dark)]">{doc.type}</p>
                 <p className="text-sm font-medium text-[var(--color-text-primary)] truncate mt-0.5">{doc.title}</p>
                 <div className="text-xs text-[var(--color-text-muted)] flex items-center gap-2 mt-0.5 font-mono">
-                  <p className="truncate">{doc.filename}</p><p>·</p><p>{doc.size}</p>
+                  <p className="hidden md:block truncate">{doc.filename}</p>
+                  <p className="hidden md:block">·</p>
+                  <p>{doc.size}</p>
                 </div>
               </div>
             </div>
-            <p className={'text-xs px-2 py-1 rounded-lg font-medium shrink-0 ml-2 ' + (selected ? 'bg-[var(--color-primary)] text-white' : 'text-[var(--color-text-secondary)] bg-[var(--color-background)]')}>
-              {selected ? t('Viewing') : t('Inspect')}
-            </p>
+            <div className="shrink-0 ml-2">
+              <ChevronRight className="w-5 h-5 text-[var(--color-text-muted)] md:hidden" />
+              <p className={'hidden md:block text-xs px-2 py-1 rounded-lg font-medium ' + (selected ? 'bg-[var(--color-primary)] text-white' : 'text-[var(--color-text-secondary)] bg-[var(--color-background)]')}>
+                {selected ? t('Viewing') : t('Inspect')}
+              </p>
+            </div>
           </button>
         );
       })}
@@ -40,7 +45,7 @@ export const DocumentList = ({ documents = [], selectedDocId, onSelectDoc, class
   );
 };
 
-export const DocumentViewerPlaceholder = ({ document, onClosePreview, className = '' }) => {
+export const DocumentViewerPlaceholder = ({ document, onClosePreview, focusedMobile = false, className = '' }) => {
   const { t } = usePreferences();
 
   if (!document) {
@@ -54,8 +59,8 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
   }
 
   return (
-    <section className={'flex flex-col h-full bg-white border border-[var(--color-border)] rounded-lg overflow-hidden shadow-xs ' + className}>
-      <div className="px-4 py-3 flex items-center justify-between gap-3 border-b border-[var(--color-border)] bg-white">
+    <section className={'flex flex-col h-full bg-white border border-[var(--color-border)] rounded-lg overflow-hidden shadow-xs ' + (focusedMobile ? 'max-md:border-0 max-md:rounded-none max-md:shadow-none ' : '') + className}>
+      <div className={(focusedMobile ? 'hidden md:flex ' : 'flex ') + 'px-4 py-3 items-center justify-between gap-3 border-b border-[var(--color-border)] bg-white'}>
         <div className="flex items-center gap-2.5 min-w-0">
           <FileText className="w-4 h-4 text-[var(--color-primary)] shrink-0" />
           <div className="min-w-0">
@@ -95,8 +100,8 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
         </div>
       </div>
 
-      <div className="flex-1 min-h-[420px] overflow-auto bg-[var(--color-background-subtle)] p-4">
-        <div className="w-full min-h-[520px] bg-white border border-[var(--color-border)] rounded-lg p-4">
+      <div className={'flex-1 overflow-auto bg-[var(--color-background-subtle)] ' + (focusedMobile ? 'min-h-[55dvh] p-3 md:min-h-[420px] md:p-4' : 'min-h-[420px] p-4')}>
+        <div className={'w-full bg-white border border-[var(--color-border)] rounded-lg p-4 ' + (focusedMobile ? 'min-h-[50dvh] md:min-h-[520px]' : 'min-h-[520px]')}>
           <div className="flex items-center justify-between gap-4 pb-4 border-b border-[var(--color-border)]">
             <div className="min-w-0">
               <p className="text-sm font-semibold text-[var(--color-text-primary)] truncate">{document.title}</p>
