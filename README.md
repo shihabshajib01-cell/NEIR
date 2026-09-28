@@ -67,6 +67,10 @@ The interface is organized around reusable application primitives for navigation
 
 Data access is isolated behind the service layer so backend integration can be completed without rebuilding page-level UI. Authentication state is isolated in `AuthContext` for the same reason.
 
+## Golden rule
+
+**Never change the existing design system or any solved UI unless the user explicitly requests a redesign.** New functionality must be fitted into the existing components, spacing, typography, tables, cards, filters, drawers, modals, responsive behavior, themes, and interaction patterns. Preserve solved work and make the smallest safe change.
+
 ## Design system
 
 - Primary NEIR teal palette

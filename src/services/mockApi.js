@@ -388,12 +388,21 @@ export const mockApi = {
 
     if (filters.search) {
       const q = filters.search.trim().toLowerCase();
-      items = items.filter((record) =>
-        record.msisdn.toLowerCase().includes(q) ||
-        record.imei.toLowerCase().includes(q) ||
-        record.operator.toLowerCase().includes(q) ||
-        record.deviceModel.toLowerCase().includes(q)
-      );
+      if (filters.searchBy === 'MSISDN') {
+        const normalizedQuery = q.replace(/[\s+-]/g, '');
+        items = items.filter((record) =>
+          record.msisdn.replace(/[\s+-]/g, '').includes(normalizedQuery)
+        );
+      } else if (filters.searchBy === 'IMEI') {
+        items = items.filter((record) => record.imei.toLowerCase().includes(q));
+      } else {
+        items = items.filter((record) =>
+          record.msisdn.toLowerCase().includes(q) ||
+          record.imei.toLowerCase().includes(q) ||
+          record.operator.toLowerCase().includes(q) ||
+          record.deviceModel.toLowerCase().includes(q)
+        );
+      }
     }
 
     return { items, total: items.length };

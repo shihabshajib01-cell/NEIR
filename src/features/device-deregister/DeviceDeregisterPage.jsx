@@ -90,24 +90,22 @@ export const DeviceDeregisterPage = () => {
           )}
 
           <form onSubmit={handleDeregister} className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <IMEIInput
-                label="IMEI Number"
-                value={imei}
-                onChange={(e) => setImei(e.target.value)}
-                required
-              />
+            <IMEIInput
+              label="IMEI Number"
+              value={imei}
+              onChange={(e) => setImei(e.target.value)}
+              required
+            />
 
-              <TextInput
-                label="Last 4 Digits of NID"
-                value={nidLast4}
-                onChange={(e) => setNidLast4(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                placeholder="e.g. 7192"
-                maxLength={4}
-                helperText="Security verification against voter biometric KYC"
-                required
-              />
-            </div>
+            <TextInput
+              label="Last 4 Digits of Registered NID"
+              value={nidLast4}
+              onChange={(e) => setNidLast4(e.target.value.replace(/\D/g, '').slice(0, 4))}
+              placeholder="e.g. 7192"
+              maxLength={4}
+              helperText="Security verification against voter biometric KYC"
+              required
+            />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <PhoneInput
@@ -132,7 +130,6 @@ export const DeviceDeregisterPage = () => {
                 variant="primary"
                 size="md"
                 isLoading={isLoading}
-                className="w-full sm:w-auto"
               >
                 De-register Device
               </Button>

@@ -63,7 +63,7 @@ export const GlobalImeiBlockPage = () => {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="IMEI Global Block"
+        title="Block IMEI"
         description="Issue nationwide EIR blacklisting directives to deny cellular network attachment across all Bangladeshi telecom operators."
         breadcrumbs={[
           { label: 'Global IMEI Block' },

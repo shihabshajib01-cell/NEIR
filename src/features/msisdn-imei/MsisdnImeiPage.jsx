@@ -1,23 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
+import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
-import { Card } from '../../components/data-display/Card.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Select, CompactSelect } from '../../components/forms/Select.jsx';
-import { TextInput } from '../../components/forms/TextInput.jsx';
+import { CompactSelect } from '../../components/forms/Select.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Search, Eye, Download, Radio } from 'lucide-react';
+import { Eye, Download, Radio } from 'lucide-react';
 
 export const MsisdnImeiPage = () => {
-  const [records, setRecords] = useState([]);
-  const [lookupResults, setLookupResults] = useState(null);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [lookupType, setLookupType] = useState('MSISDN');
-  const [lookupQuery, setLookupQuery] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchBy, setSearchBy] = useState('MSISDN');
   const [operatorFilter, setOperatorFilter] = useState('All');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -26,8 +24,12 @@ export const MsisdnImeiPage = () => {
   const loadData = async () => {
     try {
       setIsLoading(true);
-      const res = await mockApi.getMsisdnImeiList();
-      setRecords(res.items);
+      const res = await mockApi.getMsisdnImeiList({
+        search: searchTerm,
+        searchBy,
+        operator: operatorFilter,
+      });
+      setData(res.items);
     } catch (err) {
       addToast('Failed to load MSISDN-IMEI records.', 'error');
     } finally {
@@ -37,41 +39,7 @@ export const MsisdnImeiPage = () => {
 
   useEffect(() => {
     loadData();
-  }, []);
-
-  const visibleRecords = useMemo(() => {
-    const source = lookupResults ?? records;
-    if (operatorFilter === 'All') return source;
-    return source.filter((record) => record.operator === operatorFilter);
-  }, [lookupResults, records, operatorFilter]);
-
-  const handleLookup = async (event) => {
-    event.preventDefault();
-    const query = lookupQuery.trim();
-
-    if (!query) {
-      addToast(lookupType === 'MSISDN' ? 'Enter a phone number to search.' : 'Enter a device IMEI to search.', 'error');
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      const result = await mockApi.lookupMsisdnImei(lookupType, query);
-      setLookupResults(result);
-      if (!result.length) addToast('No matching MSISDN-IMEI record found.', 'info');
-    } catch (err) {
-      addToast('MSISDN-IMEI lookup failed.', 'error');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleResetLookup = () => {
-    setLookupType('MSISDN');
-    setLookupQuery('');
-    setOperatorFilter('All');
-    setLookupResults(null);
-  };
+  }, [searchTerm, searchBy, operatorFilter]);
 
   const handleOpenDetails = (record) => {
     setSelectedRecord(record);
@@ -155,72 +123,59 @@ export const MsisdnImeiPage = () => {
         }
       />
 
-      <Card
-        title="Search MSISDN/IMEI"
-        subtitle="Search the registry by subscriber number or device IMEI."
-        bodyClassName="p-4 sm:p-5"
-      >
-        <form onSubmit={handleLookup} className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:items-end">
-          <div className="lg:col-span-3">
-            <Select
-              label="Search By"
-              value={lookupType}
-              onChange={(event) => setLookupType(event.target.value)}
-              options={[
-                { value: 'MSISDN', label: 'MSISDN' },
-                { value: 'IMEI', label: 'IMEI' },
-              ]}
-              placeholder=""
-            />
-          </div>
-
-          <div className="lg:col-span-5">
-            <TextInput
-              label="MSISDN / IMEI"
-              value={lookupQuery}
-              onChange={(event) => setLookupQuery(event.target.value)}
-              placeholder={lookupType === 'MSISDN' ? 'Enter MSISDN' : 'Enter IMEI'}
-              icon={Search}
-              inputMode="numeric"
-            />
-          </div>
-
-          <div className="lg:col-span-4 grid grid-cols-2 gap-2">
-            <Button type="submit" variant="primary" size="md" icon={Search} className="w-full" isLoading={isLoading}>
-              Search
-            </Button>
-            <Button type="button" variant="outline" size="md" onClick={handleResetLookup} className="w-full">
-              Reset
-            </Button>
-          </div>
-        </form>
-      </Card>
-
       <TablePageWorkspace
         title="MSISDN IMEI List"
-        count={visibleRecords.length}
+        count={data.length}
         toolbar={
-          <div className="w-full sm:w-56">
-            <CompactSelect
-              value={operatorFilter}
-              onChange={(event) => setOperatorFilter(event.target.value)}
-              options={[
-                { value: 'All', label: 'All Operators' },
-                { value: 'Grameenphone', label: 'Grameenphone' },
-                { value: 'Robi', label: 'Robi' },
-                { value: 'Banglalink', label: 'Banglalink' },
-                { value: 'Teletalk', label: 'Teletalk' },
-              ]}
-              placeholder=""
-              aria-label="Filter by operator"
-            />
-          </div>
+          <FilterBar
+            embedded
+            searchPlaceholder={searchBy === 'MSISDN' ? 'Search by MSISDN...' : 'Search by IMEI...'}
+            searchValue={searchTerm}
+            searchSuggestions={data.flatMap((item) => [item.msisdn, item.imei, item.deviceModel])}
+            onSearchChange={setSearchTerm}
+            onReset={() => {
+              setSearchTerm('');
+              setSearchBy('MSISDN');
+              setOperatorFilter('All');
+            }}
+            filters={
+              <>
+                <div className="w-full sm:w-40">
+                  <CompactSelect
+                    value={searchBy}
+                    onChange={(event) => setSearchBy(event.target.value)}
+                    options={[
+                      { value: 'MSISDN', label: 'MSISDN' },
+                      { value: 'IMEI', label: 'IMEI' },
+                    ]}
+                    placeholder=""
+                    aria-label="Search by"
+                  />
+                </div>
+                <div className="w-full sm:w-48">
+                  <CompactSelect
+                    value={operatorFilter}
+                    onChange={(event) => setOperatorFilter(event.target.value)}
+                    options={[
+                      { value: 'All', label: 'All Operators' },
+                      { value: 'Grameenphone', label: 'Grameenphone' },
+                      { value: 'Robi', label: 'Robi' },
+                      { value: 'Banglalink', label: 'Banglalink' },
+                      { value: 'Teletalk', label: 'Teletalk' },
+                    ]}
+                    placeholder=""
+                    aria-label="Filter by operator"
+                  />
+                </div>
+              </>
+            }
+          />
         }
       >
         <DataTable
           embedded
           columns={columns}
-          data={visibleRecords}
+          data={data}
           isLoading={isLoading}
           pagination
           onRowClick={handleOpenDetails}
