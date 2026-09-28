@@ -165,7 +165,6 @@ export const SpecialRegistrationPage = () => {
           setPage(1);
           setPageSize(DEFAULT_PAGE_SIZE);
         }}
-        showSummary
         toolbar={
           <FilterBar embedded
                   searchPlaceholder="Search by IMEI, Requester name, or NID..."
