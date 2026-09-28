@@ -9,7 +9,7 @@ const normalizeOptions = (options = []) => options.map((option) =>
 
 const selectMenuProps = {
   PaperProps: {
-    className: 'mobile-bottom-sheet',
+    className: 'mobile-bottom-sheet mobile-bottom-sheet-surface',
     sx: {
       mt: 0.5,
       maxHeight: 304,
@@ -28,7 +28,7 @@ const selectMenuProps = {
         width: '100vw !important',
         minWidth: '100vw !important',
         maxWidth: '100vw !important',
-        maxHeight: '70dvh',
+        maxHeight: '90dvh',
         mt: 0,
         borderLeft: 0,
         borderRight: 0,
@@ -157,7 +157,7 @@ export const SearchableSelect = ({
         noOptionsText={t('No options found')}
         slotProps={{
           paper: {
-            className: 'mobile-bottom-sheet',
+            className: 'mobile-bottom-sheet mobile-bottom-sheet-surface',
             sx: {
               mt: 0.5,
               border: '1px solid var(--color-border)',
