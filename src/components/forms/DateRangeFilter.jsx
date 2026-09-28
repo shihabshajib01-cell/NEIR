@@ -126,6 +126,7 @@ export const DateRangeFilter = ({
 }) => {
   const { t } = usePreferences();
   const showTwoMonths = useMediaQuery('(min-width:700px)');
+  const isMobile = useMediaQuery('(max-width:639px)');
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeField, setActiveField] = useState(null);
 
@@ -207,12 +208,33 @@ export const DateRangeFilter = ({
       <Popover
         open={open}
         anchorEl={anchorEl}
+        anchorReference={isMobile ? 'none' : 'anchorEl'}
         onClose={closeFilter}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         slotProps={{
           paper: {
-            sx: {
+            className: 'mobile-bottom-sheet',
+            sx: isMobile ? {
+              position: 'fixed !important',
+              left: '0 !important',
+              right: '0 !important',
+              bottom: '0 !important',
+              top: 'auto !important',
+              transform: 'none !important',
+              width: '100vw',
+              maxWidth: '100vw',
+              maxHeight: '90dvh',
+              mt: 0,
+              border: '1px solid var(--color-border)',
+              borderLeft: 0,
+              borderRight: 0,
+              borderBottom: 0,
+              borderRadius: '20px 20px 0 0',
+              boxShadow: 'var(--shadow-overlay)',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+            } : {
               mt: 1,
               width: showTwoMonths ? 720 : 'min(360px, calc(100vw - 24px))',
               maxWidth: 'calc(100vw - 24px)',
