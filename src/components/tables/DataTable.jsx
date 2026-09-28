@@ -199,7 +199,8 @@ export const DataTable = ({
                     tabIndex={mobileCardClick ? 0 : undefined}
                     onClick={(event) => {
                       if (!mobileCardClick) return;
-                      if (event.target.closest?.('button, a, input, select, textarea, [role="button"], [role="checkbox"], [role="link"]')) return;
+                      const interactiveTarget = event.target.closest?.('button, a, input, select, textarea, [role="button"], [role="checkbox"], [role="link"]');
+                      if (interactiveTarget && interactiveTarget !== event.currentTarget) return;
                       mobileCardClick(row);
                     }}
                     onKeyDown={(event) => {
