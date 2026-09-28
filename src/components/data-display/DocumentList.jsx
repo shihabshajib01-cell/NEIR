@@ -65,16 +65,6 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
         </div>
 
         <div className="flex items-center gap-1.5 shrink-0">
-          {onClosePreview && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClosePreview}
-              icon={X}
-            >
-              Close preview
-            </Button>
-          )}
           <Button
             variant="outline"
             size="sm"
@@ -83,6 +73,17 @@ export const DocumentViewerPlaceholder = ({ document, onClosePreview, className 
           >
             Download
           </Button>
+          {onClosePreview && (
+            <button
+              type="button"
+              onClick={onClosePreview}
+              className="w-9 h-9 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] transition-colors"
+              aria-label={t('Close preview')}
+              title={t('Close preview')}
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
 
