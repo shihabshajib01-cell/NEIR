@@ -162,7 +162,6 @@ export const ManufacturerUploadPage = () => {
                 <div className="mt-1 space-y-1 text-xs">
                   <p>Manufacturer: <strong className="text-[#202338]">{uploadResult.manufacturer}</strong></p>
                   <p>Total Records Processed: <strong className="text-[#028A97] font-mono">{uploadResult.totalProcessed}</strong></p>
-                  <p>Broadcast Target: <code className="font-mono">All 4 MNO Central EIR Nodes (GP, Robi, BL, TT)</code></p>
                 </div>
               </Alert>
 
