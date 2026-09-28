@@ -166,7 +166,6 @@ export const DesignationsPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Designation"
-        description="Official civil service designations, officer ranks, and regulatory administrative titles."
         breadcrumbs={[
           { label: 'Office' },
           { label: 'Designation' }
@@ -237,7 +236,6 @@ export const DesignationsPage = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Designation' : 'Create Designation'}
-        subtitle="Rank and organizational title definition"
         footer={
           <Button variant="primary" size="md" onClick={handleSave}>
               {editingItem ? 'Save Changes' : 'Create Designation'}
