@@ -47,11 +47,13 @@ export const MobileRecordCard = ({
 
       {(status || footerMeta || actions) && (
         <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 min-w-0">
-            {status && <StatusBadge status={status} size="sm" />}
-            {footerMeta && <p className="type-meta text-[var(--color-text-secondary)] font-mono tabular-nums">{footerMeta}</p>}
+          <div className="min-w-0">
+            {status && <StatusBadge status={status} size="sm" showIcon={false} plain />}
           </div>
-          {actions && <div className="flex items-center justify-end gap-2 ml-auto">{actions}</div>}
+          <div className="ml-auto flex items-center justify-end gap-3 min-w-0">
+            {footerMeta && <p className="type-body-sm text-[var(--color-text-secondary)] font-mono tabular-nums">{footerMeta}</p>}
+            {actions}
+          </div>
         </div>
       )}
     </article>

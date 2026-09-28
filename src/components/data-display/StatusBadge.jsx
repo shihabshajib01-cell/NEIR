@@ -2,7 +2,7 @@ import React from 'react';
 import { CheckCircle2, Clock, XCircle, ShieldAlert, Ban, Activity, HelpCircle } from 'lucide-react';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
-export const StatusBadge = ({ status = 'Active', showIcon = true, size = 'md', className = '' }) => {
+export const StatusBadge = ({ status = 'Active', showIcon = true, size = 'md', plain = false, className = '' }) => {
   const { t } = usePreferences();
   const norm = (status || '').toLowerCase().trim();
   let config = { bg: 'bg-[var(--color-background)]', text: 'text-[var(--color-text-secondary)]', border: 'border-[var(--color-border)]', icon: HelpCircle };
@@ -18,10 +18,14 @@ export const StatusBadge = ({ status = 'Active', showIcon = true, size = 'md', c
   }
 
   const Icon = config.icon;
-  const sizeClasses = size === 'sm' ? 'type-badge px-2 py-1 gap-1' : 'type-badge px-2.5 py-1 gap-1.5';
+  const sizeClasses = plain
+    ? (size === 'sm' ? 'type-body-sm gap-1' : 'type-body gap-1.5')
+    : (size === 'sm' ? 'type-badge px-2 py-1 gap-1' : 'type-badge px-2.5 py-1 gap-1.5');
 
   return (
-    <div className={'inline-flex items-center font-semibold rounded-full border leading-none shrink-0 ' + config.bg + ' ' + config.text + ' ' + config.border + ' ' + sizeClasses + ' ' + className}>
+    <div className={'inline-flex items-center font-semibold leading-none shrink-0 ' +
+      (plain ? '' : 'rounded-full border ' + config.bg + ' ' + config.border + ' ') +
+      config.text + ' ' + sizeClasses + ' ' + className}>
       {showIcon && <Icon className={size === 'sm' ? 'w-3 h-3' : 'w-3.5 h-3.5'} />}
       <p>{t(status)}</p>
     </div>
