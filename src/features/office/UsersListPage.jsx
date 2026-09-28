@@ -140,7 +140,6 @@ export const UsersListPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="User"
-        description="Official administrative user accounts, portal privileges, and BTRC personnel access permissions."
         breadcrumbs={[
           { label: 'Office' },
           { label: 'User' }
