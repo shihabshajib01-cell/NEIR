@@ -98,7 +98,6 @@ export const LostStolenPage = () => {
     <div className="space-y-4">
       <PageHeader
         title="Lost and Stolen Devices"
-        description="Police GD synchronized handset theft logs, law enforcement requisitions, and EIR gray/black list triggers."
         breadcrumbs={[
           { label: 'Lost & Stolen' }
         ]}
