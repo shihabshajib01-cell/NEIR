@@ -116,7 +116,7 @@ export const RecordDetailsDrawer = ({
   );
 };
 
-export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status, children, footer, className = '' }) => {
+export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status, children, footer, maxWidth = 'max-w-[92vw]', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
   useOverlayFocus(isOpen, onClose, panelRef);
@@ -124,7 +124,7 @@ export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
-      <div ref={panelRef} className={'w-full max-w-[92vw] h-[88vh] bg-[var(--color-background)] rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden ' + className}>
+      <div ref={panelRef} className={'w-full ' + maxWidth + ' h-[88vh] bg-[var(--color-background)] rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
         <div className="px-6 py-4 bg-white text-[var(--color-text-primary)] flex items-center justify-between border-b border-[var(--color-border)] shrink-0">
           <h2 className="text-base font-semibold leading-tight flex items-center gap-2 min-w-0">
             <p className="truncate">{t(title)}</p>

@@ -102,6 +102,7 @@ export const SpecialRegistrationReviewModal = ({
         title="Special Registration Review Dossier"
         identifier={registration.id}
         status={registration.status}
+        maxWidth={selectedDoc ? 'max-w-[92vw]' : 'max-w-5xl'}
         footer={
           <div className="flex items-center justify-between w-full">
             <div className="text-xs text-[#626981] flex items-center gap-2">
@@ -129,7 +130,7 @@ export const SpecialRegistrationReviewModal = ({
           </div>
         }
       >
-        <div className={'grid grid-cols-1 gap-6 h-full ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
+        <div className={'grid grid-cols-1 gap-6 h-full transition-all duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
           <div className={selectedDoc
             ? 'lg:col-span-5 space-y-4 overflow-y-auto pr-1'
             : 'w-full max-w-5xl mx-auto space-y-4'}
@@ -232,7 +233,7 @@ export const SpecialRegistrationReviewModal = ({
           </div>
 
           {selectedDoc && (
-            <div className="lg:col-span-7 h-full flex flex-col min-w-0">
+            <div key={selectedDoc.id} className="lg:col-span-7 h-full flex flex-col min-w-0 preview-panel-enter">
               <DocumentViewerPlaceholder
                 document={selectedDoc}
                 onClosePreview={() => setSelectedDoc(null)}

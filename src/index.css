@@ -321,6 +321,21 @@ html[data-theme='dark'] ::selection {
   color: var(--color-text-primary);
 }
 
+@keyframes preview-panel-enter {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.preview-panel-enter {
+  animation: preview-panel-enter var(--motion-slow) ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
