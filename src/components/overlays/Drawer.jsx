@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { X } from 'lucide-react';
+import { ArrowLeft, X } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { StatusBadge } from '../data-display/StatusBadge.jsx';
 import { SafeText } from '../data-display/SafeText.jsx';
@@ -116,7 +116,23 @@ export const RecordDetailsDrawer = ({
   );
 };
 
-export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status, children, footer, maxWidth = 'max-w-[92vw]', className = '' }) => {
+export const FullScreenWorkspace = ({
+  isOpen,
+  onClose,
+  title,
+  identifier,
+  status,
+  children,
+  footer,
+  maxWidth = 'max-w-[92vw]',
+  className = '',
+  mobileTitle,
+  mobileIdentifier,
+  onMobileBack,
+  hideMobileFooter = false,
+  contentRef,
+  contentClassName = '',
+}) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
   useOverlayFocus(isOpen, onClose, panelRef);
@@ -125,8 +141,42 @@ export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
       <div ref={panelRef} className={'mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:h-[88vh] sm:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
-        <div className="px-4 py-3.5 sm:px-6 sm:py-4 bg-white text-[var(--color-text-primary)] flex items-start justify-between gap-3 border-b border-[var(--color-border)] shrink-0">
-          <h2 className="text-sm sm:text-base font-semibold leading-tight flex flex-wrap items-center gap-2 min-w-0">
+        <div className="md:hidden px-4 py-3 bg-white text-[var(--color-text-primary)] flex items-center justify-between gap-2 border-b border-[var(--color-border)] shrink-0">
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            {onMobileBack && (
+              <button
+                type="button"
+                onClick={onMobileBack}
+                className="w-10 h-10 -ml-2 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] shrink-0"
+                aria-label={t('Back to review')}
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            )}
+            <div className="min-w-0 flex-1">
+              <h2 className="text-sm font-semibold leading-tight truncate">{t(mobileTitle || title)}</h2>
+              {(mobileIdentifier || identifier) && (
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1 truncate">
+                  {mobileIdentifier || identifier}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            {!onMobileBack && status && <StatusBadge status={status} size="sm" />}
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]"
+              aria-label={t('Close review workspace')}
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        <div className="hidden md:flex px-6 py-4 bg-white text-[var(--color-text-primary)] items-start justify-between gap-3 border-b border-[var(--color-border)] shrink-0">
+          <h2 className="text-base font-semibold leading-tight flex flex-wrap items-center gap-2 min-w-0">
             <p className="truncate">{t(title)}</p>
             {identifier && <p className="text-xs font-mono font-normal text-[var(--color-text-secondary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded">{identifier}</p>}
           </h2>
@@ -135,12 +185,13 @@ export const FullScreenWorkspace = ({ isOpen, onClose, title, identifier, status
             <button type="button" onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]" aria-label={t('Close review workspace')}><X className="w-5 h-5" /></button>
           </div>
         </div>
-        <div className="flex-1 min-h-0 overflow-y-auto">
-          <div className="min-h-0 sm:min-h-full box-border p-4 sm:p-6">
+
+        <div ref={contentRef} className="flex-1 min-h-0 overflow-y-auto">
+          <div className={'min-h-0 md:min-h-full box-border p-4 md:p-6 ' + contentClassName}>
             {children}
           </div>
         </div>
-        {footer && <div className="px-4 py-3 sm:px-6 bg-white border-t border-[var(--color-border)] flex items-center justify-between shrink-0 max-sm:[&>div]:w-full max-sm:[&>button]:w-full">{footer}</div>}
+        {footer && <div className={'px-4 py-3 md:px-6 bg-white border-t border-[var(--color-border)] items-center justify-between shrink-0 max-md:[&>div]:w-full max-md:[&>button]:w-full ' + (hideMobileFooter ? 'hidden md:flex' : 'flex')}>{footer}</div>}
       </div>
     </div>
   );
