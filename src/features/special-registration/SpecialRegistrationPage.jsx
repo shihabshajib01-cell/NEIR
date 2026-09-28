@@ -5,11 +5,12 @@ import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.j
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { MobileRecordCard } from '../../components/tables/MobileRecordCard.jsx';
 import { Button } from '../../components/forms/Button.jsx';
+import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { SpecialRegistrationReviewModal } from './SpecialRegistrationReviewModal.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Eye, Download, Calendar } from 'lucide-react';
+import { Eye, Download } from 'lucide-react';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -178,26 +179,19 @@ export const SpecialRegistrationPage = () => {
                     setPageSize(DEFAULT_PAGE_SIZE);
                   }}
                   filters={
-                    <div className="flex items-center gap-2">
-                      <div className="hidden sm:flex h-10 items-center gap-2 bg-white border border-[var(--color-border)] rounded-lg px-3 type-control text-[var(--color-text-secondary)]">
-                        <Calendar className="w-4 h-4 text-[var(--color-text-muted)] shrink-0" />
-                        <input
-                          type="date"
-                          value={fromDate}
-                          onChange={(e) => setFromDate(e.target.value)}
-                          className="bg-transparent text-[var(--color-text-primary)] outline-none cursor-pointer"
-                          aria-label="From date"
-                        />
-                        <p className="text-[var(--color-text-muted)]">to</p>
-                        <input
-                          type="date"
-                          value={toDate}
-                          onChange={(e) => setToDate(e.target.value)}
-                          className="bg-transparent text-[var(--color-text-primary)] outline-none cursor-pointer"
-                          aria-label="To date"
-                        />
-                      </div>
-                    </div>
+                    <DateRangeFilter
+                      compact
+                      startDate={fromDate}
+                      endDate={toDate}
+                      onStartDateChange={(value) => {
+                        setFromDate(value);
+                        setPage(1);
+                      }}
+                      onEndDateChange={(value) => {
+                        setToDate(value);
+                        setPage(1);
+                      }}
+                    />
                   }
                 />
         }

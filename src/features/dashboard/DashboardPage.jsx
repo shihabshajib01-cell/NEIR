@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Download,
-  Calendar,
   RefreshCw,
   CheckCircle2
 } from 'lucide-react';
@@ -9,6 +8,7 @@ import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { MetricCard } from '../../components/data-display/MetricCard.jsx';
 import { Card } from '../../components/data-display/Card.jsx';
 import { Button } from '../../components/forms/Button.jsx';
+import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { LoadingState } from '../../components/feedback/FeedbackStates.jsx';
 import { useToast } from '../../components/feedback/Toast.jsx';
@@ -106,24 +106,12 @@ export const DashboardPage = () => {
         breadcrumbs={[{ label: 'Dashboard' }]}
         actions={
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-1.5 bg-white border border-[var(--color-border)] rounded-md px-2.5 py-1 text-xs text-[var(--color-text-secondary)]">
-              <Calendar className="w-3.5 h-3.5 text-[var(--color-text-muted)]" />
-              <input
-                type="date"
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-                className="text-xs bg-transparent text-[var(--color-text-primary)] outline-hidden cursor-pointer"
-                aria-label="From date"
-              />
-              <p className="text-[var(--color-text-muted)]">to</p>
-              <input
-                type="date"
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-                className="text-xs bg-transparent text-[var(--color-text-primary)] outline-hidden cursor-pointer"
-                aria-label="To date"
-              />
-            </div>
+            <DateRangeFilter
+              startDate={fromDate}
+              endDate={toDate}
+              onStartDateChange={setFromDate}
+              onEndDateChange={setToDate}
+            />
             <Button
               variant="secondary"
               size="md"
