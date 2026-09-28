@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from '@mui/material';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
@@ -25,6 +26,7 @@ export const SpecialRegistrationPage = () => {
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const isMobileFeed = useMediaQuery('(max-width:1023px)');
   const { addToast } = useToast();
 
   const statusTabs = [
@@ -41,8 +43,8 @@ export const SpecialRegistrationPage = () => {
       const res = await mockApi.getSpecialRegistrations({
         status: statusFilter,
         search: searchTerm,
-        page,
-        pageSize,
+        page: isMobileFeed ? 1 : page,
+        pageSize: isMobileFeed ? 100 : pageSize,
       });
       setData(res.items);
       setTotal(res.total);
@@ -55,7 +57,7 @@ export const SpecialRegistrationPage = () => {
 
   useEffect(() => {
     loadRegistrations();
-  }, [statusFilter, searchTerm, page, pageSize]);
+  }, [statusFilter, searchTerm, page, pageSize, isMobileFeed]);
 
   const handleOpenReview = (item) => {
     setSelectedItem(item);

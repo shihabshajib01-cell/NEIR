@@ -189,8 +189,8 @@ export const DataTable = ({
       {!isLoading && !isError && data.length > 0 && (
         <>
           {renderMobileCard && (
-            <div className="lg:hidden bg-white divide-y divide-[var(--color-border)]">
-              {visibleData.map((row, index) => {
+            <div className="lg:hidden bg-[var(--color-background)] flex flex-col gap-1">
+              {sortedData.map((row, index) => {
                 const key = row[keyField] || index;
                 return (
                   <div
@@ -209,9 +209,9 @@ export const DataTable = ({
                         mobileCardClick(row);
                       }
                     }}
-                    className={mobileCardClick
-                      ? 'cursor-pointer transition-colors hover:bg-[var(--color-background-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)]'
-                      : ''}
+                    className={(mobileCardClick
+                      ? 'cursor-pointer transition-colors hover:bg-[var(--color-background-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)] '
+                      : '') + 'bg-white'}
                   >
                     {renderMobileCard(row, index)}
                   </div>
@@ -423,6 +423,11 @@ export const DataTable = ({
           showFirstButton={false}
           showLastButton={false}
           sx={{
+            ...(renderMobileCard ? {
+              '@media (max-width: 1023px)': {
+                display: 'none',
+              },
+            } : {}),
             borderTop: '1px solid var(--color-border)',
             backgroundColor: 'var(--color-surface)',
             flexShrink: 0,
