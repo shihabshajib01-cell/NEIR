@@ -67,7 +67,7 @@ export const DeviceDeregisterPage = () => {
       />
 
       {/* Centered Form Card Layout */}
-      <div className="max-w-2xl mx-auto">
+      <div className="w-full">
         <Card
           title="Handset De-Registration Request"
           subtitle="All fields are validated against the citizen NID biometric database"
