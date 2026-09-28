@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
@@ -197,7 +197,7 @@ export const DesignationsPage = () => {
                     setSelectedDeptFilter('All');
                   }}
                   filters={
-                    <div className="w-56">
+                    <div className="w-full sm:w-56">
                       <CompactSelect
                         value={selectedDeptFilter}
                         onChange={(e) => setSelectedDeptFilter(e.target.value)}
@@ -213,11 +213,27 @@ export const DesignationsPage = () => {
                 />
         }
       >
-        <DataTable embedded
-                columns={columns}
-                data={filteredData}
-                isLoading={isLoading}
-              />
+        <DataTable
+          embedded
+          columns={columns}
+          data={filteredData}
+          isLoading={isLoading}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.title}
+              subtitle={row.departmentName}
+              fields={[
+                { label: 'Pay Grade / Rank', value: row.rankGrade, isMono: true },
+                { label: 'Staff Assigned', value: `${row.userCount} officers`, isMono: true },
+              ]}
+              actions={
+                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
+                  Edit Designation
+                </Button>
+              }
+            />
+          )}
+        />
       </TablePageWorkspace>
 
       <Modal

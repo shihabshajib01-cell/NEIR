@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
@@ -237,11 +237,28 @@ export const ServiceActionPage = () => {
                 />
         }
       >
-        <DataTable embedded
-                columns={columns}
-                data={filteredData}
-                isLoading={isLoading}
-              />
+        <DataTable
+          embedded
+          columns={columns}
+          data={filteredData}
+          isLoading={isLoading}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.name}
+              subtitle={row.permissionName}
+              fields={[
+                { label: 'Parent Module', value: row.parentName },
+                { label: 'Path', value: row.path, isMono: true },
+                { label: 'Method', value: row.method.charAt(0) + row.method.slice(1).toLowerCase(), isMono: true },
+              ]}
+              actions={
+                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
+                  Edit Service Action
+                </Button>
+              }
+            />
+          )}
+        />
       </TablePageWorkspace>
 
       {/* Create / Edit Modal */}

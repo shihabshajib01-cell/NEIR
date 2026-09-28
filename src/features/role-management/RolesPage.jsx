@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Modal } from '../../components/overlays/Modal.jsx';
@@ -190,11 +190,31 @@ export const RolesPage = () => {
         title="Role List"
         count={roles.length}
       >
-        <DataTable embedded
-                columns={columns}
-                data={roles}
-                isLoading={isLoading}
-              />
+        <DataTable
+          embedded
+          columns={columns}
+          data={roles}
+          isLoading={isLoading}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.name}
+              subtitle={row.description}
+              fields={[
+                { label: 'Assigned Actions', value: `${row.assignedActionsCount} actions`, isMono: true },
+              ]}
+              actions={
+                <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2 w-full">
+                  <Button variant="primary" size="sm" icon={KeyRound} onClick={() => handleOpenAssign(row)} className="w-full">
+                    Assign Permissions
+                  </Button>
+                  <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
+                    Edit Role
+                  </Button>
+                </div>
+              }
+            />
+          )}
+        />
       </TablePageWorkspace>
 
       {/* Create / Edit Role Modal */}

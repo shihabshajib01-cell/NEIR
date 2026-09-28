@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
@@ -182,11 +182,28 @@ export const DepartmentsPage = () => {
                 />
         }
       >
-        <DataTable embedded
-                columns={columns}
-                data={filteredData}
-                isLoading={isLoading}
-              />
+        <DataTable
+          embedded
+          columns={columns}
+          data={filteredData}
+          isLoading={isLoading}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.name}
+              subtitle={row.code}
+              status={row.status}
+              fields={[
+                { label: 'Head of Department', value: row.head },
+                { label: 'Personnel', value: `${row.memberCount} staff`, isMono: true },
+              ]}
+              actions={
+                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
+                  Edit Department
+                </Button>
+              }
+            />
+          )}
+        />
       </TablePageWorkspace>
 
       <Modal

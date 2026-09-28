@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
@@ -188,11 +188,28 @@ export const ParentPage = () => {
                 />
         }
       >
-        <DataTable embedded
-                columns={columns}
-                data={filteredData}
-                isLoading={isLoading}
-              />
+        <DataTable
+          embedded
+          columns={columns}
+          data={filteredData}
+          isLoading={isLoading}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.name}
+              subtitle={row.path}
+              fields={[
+                { label: 'Location', value: row.location },
+                { label: 'Position', value: row.position, isMono: true },
+                { label: 'Icon', value: row.icon, isMono: true },
+              ]}
+              actions={
+                <Button variant="outline" size="sm" icon={Edit2} onClick={() => handleOpenEdit(row)} className="w-full">
+                  Edit Parent
+                </Button>
+              }
+            />
+          )}
+        />
       </TablePageWorkspace>
 
       {/* Create / Edit Modal */}
