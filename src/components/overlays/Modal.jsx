@@ -12,16 +12,25 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxW
   const contentRef = useRef(null);
   const presence = useOverlayPresence(isOpen);
 
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
   useEffect(() => {
     if (!isOpen) return undefined;
+
     const previous = document.activeElement;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    requestAnimationFrame(() => panelRef.current?.querySelector(focusableSelector)?.focus());
+    const focusFrame = requestAnimationFrame(() => {
+      panelRef.current?.querySelector(focusableSelector)?.focus({ preventScroll: true });
+    });
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') onCloseRef.current?.();
       if (event.key === 'Tab' && panelRef.current) {
         const focusables = [...panelRef.current.querySelectorAll(focusableSelector)];
         if (!focusables.length) return;
@@ -36,14 +45,16 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxW
         }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
+      cancelAnimationFrame(focusFrame);
       document.body.style.overflow = originalOverflow;
       window.removeEventListener('keydown', handleKeyDown);
-      previous?.focus?.();
+      previous?.focus?.({ preventScroll: true });
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
