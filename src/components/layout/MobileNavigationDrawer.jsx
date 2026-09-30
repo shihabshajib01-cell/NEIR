@@ -82,7 +82,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                     aria-expanded={submenuOpen}
                   >
                     <div className="flex items-center gap-2.5">
-                      <Icon className="w-4 h-4 text-[var(--color-text-muted)]" />
+                      <Icon className="w-4 h-4" />
                       <p>{t(item.name)}</p>
                     </div>
                     {submenuOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
