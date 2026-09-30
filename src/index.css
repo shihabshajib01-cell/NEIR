@@ -449,6 +449,16 @@ html[data-theme='dark'] ::selection {
   font-weight: var(--font-weight-semibold) !important;
 }
 
+/* Table toolbar controls share one compact 40px geometry.
+   This is intentionally scoped to FilterBar so page/form action buttons remain unchanged. */
+.table-filter-bar .neir-action-button {
+  height: 40px !important;
+  min-height: 40px !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  border-color: var(--color-border-strong) !important;
+}
+
 
 /* Date filter trigger: pressed/open state only. Hover remains the locked neutral style. */
 .date-filter-trigger-pressed,
