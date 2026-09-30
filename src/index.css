@@ -474,6 +474,49 @@ html[data-theme='dark'] ::selection {
   background: var(--color-background);
 }
 
+/* Canonical mobile table toolbar.
+   Search + date share one row on mobile; additional filters use the full row below. */
+.table-filter-primary {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  grid-template-areas:
+    "search date"
+    "extras extras";
+  gap: 8px;
+  width: 100%;
+}
+
+.table-filter-primary.without-date-filter {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "search"
+    "extras";
+}
+
+.table-filter-search { grid-area: search; }
+.table-filter-date { grid-area: date; min-width: 0; }
+.table-filter-extras { grid-area: extras; min-width: 0; }
+
+@media (min-width: 768px) {
+  .table-filter-primary,
+  .table-filter-primary.without-date-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+  }
+
+  .table-filter-search {
+    flex: 1 1 280px;
+  }
+
+  .table-filter-extras,
+  .table-filter-date {
+    flex: 0 0 auto;
+  }
+}
+
 /* Canonical mobile table-filter geometry.
    Search, selects and date actions use one full-width 44px control system through 767px. */
 @media (max-width: 767px) {
