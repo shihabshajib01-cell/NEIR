@@ -113,6 +113,8 @@ export const BlockImeiDrawer = ({
               name="blockType"
               value={blockType}
               onChange={setBlockType}
+              variant="cards"
+              className="w-full pb-1"
               options={[
                 { value: 'single', label: 'Single IMEI Target' },
                 { value: 'batch', label: 'Batch IMEI List / Bulk Requisition' },
