@@ -83,25 +83,33 @@ const DashboardCharts = ({
   const specialRequestTotal = getKpiValue('special-req');
   const specialRequestAccepted = getKpiValue('special-req-accepted');
   const specialRequestPending = Math.max(0, specialRequestTotal - specialRequestAccepted);
+  const acceptanceRate = specialRequestTotal
+    ? (specialRequestAccepted / specialRequestTotal) * 100
+    : 0;
 
   const lostDevices = getKpiValue('lost-devices');
   const recoveredDevices = getKpiValue('found-devices');
-  const unrecoveredDevices = Math.max(0, lostDevices - recoveredDevices);
+  const recoveryRate = lostDevices ? (recoveredDevices / lostDevices) * 100 : 0;
 
-  const enforcementData = [
+  const operationalVolume = [
     { category: t('Blocked Devices'), value: getKpiValue('blocked') },
+    { category: t('Special Requests Total'), value: specialRequestTotal },
+    { category: t('Lost Devices Reported'), value: lostDevices },
     { category: t('Access Denied'), value: getKpiValue('access-denied') },
+    { category: t('Found Devices Recovered'), value: recoveredDevices },
   ];
 
-  const registrationActivityData = [
+  const specialRequestData = [
     {
-      category: t('Auto Registered'),
-      value: registrationSummary?.autoRegistration?.count ?? 0,
+      category: t('Requests'),
+      accepted: specialRequestAccepted,
+      pending: specialRequestPending,
     },
-    {
-      category: t('De-Registered'),
-      value: registrationSummary?.deRegistration?.count ?? 0,
-    },
+  ];
+
+  const recoveryData = [
+    { category: t('Reported'), value: lostDevices },
+    { category: t('Recovered'), value: recoveredDevices },
   ];
 
   const indexFormatter = (value) =>
@@ -115,7 +123,7 @@ const DashboardCharts = ({
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 items-stretch">
         <Card
           title="IMEI Registry Composition"
           subtitle="Current active EIR classification"
@@ -125,34 +133,34 @@ const DashboardCharts = ({
           <PieChart
             series={[
               {
-                innerRadius: 58,
-                outerRadius: 92,
-                paddingAngle: 1,
+                innerRadius: 54,
+                outerRadius: 84,
+                paddingAngle: 1.5,
                 cornerRadius: 3,
                 data: [
                   {
                     id: 'white-list',
                     value: imeiSummary?.whiteList?.count ?? 0,
                     label: t('White List'),
-                    color: '#2E7D32',
+                    color: 'var(--color-primary)',
                   },
                   {
                     id: 'gray-list',
                     value: imeiSummary?.grayList?.count ?? 0,
                     label: t('Gray List'),
-                    color: '#EF8F22',
+                    color: 'var(--color-warning)',
                   },
                   {
                     id: 'blocked',
                     value: imeiSummary?.blackList?.count ?? 0,
                     label: t('Blocked'),
-                    color: '#C62828',
+                    color: 'var(--color-error)',
                   },
                 ],
                 valueFormatter: (item) => countFormatter(item.value),
               },
             ]}
-            height={260}
+            height={230}
             margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
             sx={chartSx}
           />
@@ -160,204 +168,174 @@ const DashboardCharts = ({
 
         <Card
           title="Special Request Outcome"
-          subtitle="Accepted vs pending requests"
+          subtitle={`${acceptanceRate.toFixed(1)}% accepted`}
           bodyClassName="p-3 sm:p-4"
           className="min-w-0"
         >
-          <PieChart
-            series={[
+          <BarChart
+            dataset={specialRequestData}
+            yAxis={[
               {
-                innerRadius: 58,
-                outerRadius: 92,
-                paddingAngle: 2,
-                cornerRadius: 3,
-                data: [
-                  {
-                    id: 'accepted',
-                    value: specialRequestAccepted,
-                    label: t('Accepted'),
-                    color: '#2E7D32',
-                  },
-                  {
-                    id: 'pending',
-                    value: specialRequestPending,
-                    label: t('Pending'),
-                    color: '#EF8F22',
-                  },
-                ],
-                valueFormatter: (item) => countFormatter(item.value),
+                scaleType: 'band',
+                dataKey: 'category',
+                width: 74,
               },
             ]}
-            height={260}
-            margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+            xAxis={[
+              {
+                height: 28,
+                valueFormatter: compactCountFormatter,
+              },
+            ]}
+            series={[
+              {
+                dataKey: 'accepted',
+                label: t('Accepted'),
+                stack: 'requests',
+                color: 'var(--color-primary)',
+                valueFormatter: countFormatter,
+              },
+              {
+                dataKey: 'pending',
+                label: t('Pending'),
+                stack: 'requests',
+                color: 'var(--color-secondary)',
+                valueFormatter: countFormatter,
+              },
+            ]}
+            layout="horizontal"
+            height={230}
+            borderRadius={4}
+            margin={{ top: 22, right: 12, bottom: 8, left: 8 }}
             sx={chartSx}
           />
         </Card>
 
         <Card
           title="Lost Device Recovery"
-          subtitle="Recovered vs still unresolved"
-          bodyClassName="p-3 sm:p-4"
-          className="min-w-0"
-        >
-          <PieChart
-            series={[
-              {
-                innerRadius: 58,
-                outerRadius: 92,
-                paddingAngle: 2,
-                cornerRadius: 3,
-                data: [
-                  {
-                    id: 'recovered',
-                    value: recoveredDevices,
-                    label: t('Recovered'),
-                    color: '#2E7D32',
-                  },
-                  {
-                    id: 'unresolved',
-                    value: unrecoveredDevices,
-                    label: t('Unresolved'),
-                    color: '#EF8F22',
-                  },
-                ],
-                valueFormatter: (item) => countFormatter(item.value),
-              },
-            ]}
-            height={260}
-            margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
-            sx={chartSx}
-          />
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
-        <Card
-          title="Enforcement Activity"
-          subtitle="Blocked devices and denied registration attempts"
+          subtitle={`${recoveryRate.toFixed(1)}% recovered`}
           bodyClassName="p-3 sm:p-4"
           className="min-w-0"
         >
           <BarChart
-            dataset={enforcementData}
+            dataset={recoveryData}
             xAxis={[
               {
                 scaleType: 'band',
                 dataKey: 'category',
-                height: 42,
+                height: 38,
               },
             ]}
             yAxis={[
               {
-                width: 54,
+                width: 48,
                 valueFormatter: compactCountFormatter,
               },
             ]}
             series={[
               {
                 dataKey: 'value',
-                label: t('Count'),
-                color: '#C62828',
+                color: 'var(--color-primary-dark)',
                 valueFormatter: countFormatter,
               },
             ]}
-            height={280}
+            height={230}
             grid={{ horizontal: true }}
             borderRadius={4}
-            margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
+            margin={{ top: 12, right: 12, bottom: 8, left: 8 }}
             sx={chartSx}
           />
         </Card>
+      </div>
 
+      <Card
+        title="Recent 6-Month EIR Trajectory"
+        subtitle="Indexed trend · Oct 2025 = 100"
+        bodyClassName="p-3 sm:p-4"
+        className="min-w-0"
+      >
+        <LineChart
+          dataset={indexedTrendData}
+          xAxis={[
+            {
+              scaleType: 'point',
+              dataKey: 'month',
+              height: 34,
+            },
+          ]}
+          yAxis={[
+            {
+              width: 48,
+              valueFormatter: indexFormatter,
+            },
+          ]}
+          series={[
+            {
+              id: 'white-list-trend',
+              dataKey: 'whiteList',
+              label: t('White List'),
+              color: 'var(--color-primary)',
+              showMark: true,
+              valueFormatter: indexFormatter,
+            },
+            {
+              id: 'gray-list-trend',
+              dataKey: 'grayList',
+              label: t('Gray List'),
+              color: 'var(--color-secondary)',
+              showMark: true,
+              valueFormatter: indexFormatter,
+            },
+            {
+              id: 'blocked-trend',
+              dataKey: 'blackList',
+              label: t('Blocked'),
+              color: 'var(--color-error)',
+              showMark: true,
+              valueFormatter: indexFormatter,
+            },
+          ]}
+          height={310}
+          grid={{ horizontal: true }}
+          margin={{ top: 18, right: 18, bottom: 8, left: 8 }}
+          sx={chartSx}
+        />
+      </Card>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
         <Card
-          title="Registration Activity"
-          subtitle="Current automated registration flow"
+          title="Operational Volume"
+          subtitle="Current dashboard event counts"
           bodyClassName="p-3 sm:p-4"
           className="min-w-0"
         >
           <BarChart
-            dataset={registrationActivityData}
-            xAxis={[
+            dataset={operationalVolume}
+            yAxis={[
               {
                 scaleType: 'band',
                 dataKey: 'category',
-                height: 42,
+                width: 142,
               },
             ]}
-            yAxis={[
+            xAxis={[
               {
-                width: 54,
+                height: 28,
                 valueFormatter: compactCountFormatter,
               },
             ]}
             series={[
               {
                 dataKey: 'value',
-                label: t('Count'),
-                color: 'var(--color-primary)',
+                color: 'var(--color-primary-dark)',
                 valueFormatter: countFormatter,
               },
             ]}
-            height={280}
-            grid={{ horizontal: true }}
+            layout="horizontal"
+            height={310}
+            grid={{ vertical: true }}
             borderRadius={4}
-            margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
-            sx={chartSx}
-          />
-        </Card>
-      </div>
-
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
-        <Card
-          title="Recent 6-Month EIR Trajectory"
-          subtitle="Relative movement · Oct 2025 = 100"
-          bodyClassName="p-3 sm:p-4"
-          className="min-w-0"
-        >
-          <LineChart
-            dataset={indexedTrendData}
-            xAxis={[
-              {
-                scaleType: 'point',
-                dataKey: 'month',
-                height: 32,
-              },
-            ]}
-            yAxis={[
-              {
-                width: 46,
-                valueFormatter: indexFormatter,
-              },
-            ]}
-            series={[
-              {
-                id: 'white-list-trend',
-                dataKey: 'whiteList',
-                label: t('White List'),
-                color: '#2E7D32',
-                showMark: true,
-                valueFormatter: indexFormatter,
-              },
-              {
-                id: 'gray-list-trend',
-                dataKey: 'grayList',
-                label: t('Gray List'),
-                color: '#EF8F22',
-                showMark: true,
-                valueFormatter: indexFormatter,
-              },
-              {
-                id: 'blocked-trend',
-                dataKey: 'blackList',
-                label: t('Blocked'),
-                color: '#C62828',
-                showMark: true,
-                valueFormatter: indexFormatter,
-              },
-            ]}
-            height={320}
-            grid={{ horizontal: true }}
-            margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
+            margin={{ top: 12, right: 14, bottom: 8, left: 8 }}
             sx={chartSx}
           />
         </Card>
@@ -395,16 +373,16 @@ const DashboardCharts = ({
                 id: 'de-registration',
                 dataKey: 'deRegCount',
                 label: t('De-Reg'),
-                color: 'var(--color-primary-dark)',
+                color: 'var(--color-secondary)',
                 minBarSize: 3,
                 valueFormatter: countFormatter,
               },
             ]}
             layout="horizontal"
-            height={320}
+            height={310}
             grid={{ vertical: true }}
             borderRadius={3}
-            margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
+            margin={{ top: 16, right: 14, bottom: 8, left: 8 }}
             sx={chartSx}
           />
         </Card>

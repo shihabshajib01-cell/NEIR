@@ -7,6 +7,8 @@ import {
   RefreshCw,
   ShieldAlert,
   Clock,
+  Table2,
+  ChartNoAxesCombined,
 } from 'lucide-react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { MetricCard } from '../../components/data-display/MetricCard.jsx';
@@ -173,16 +175,17 @@ export const DashboardPage = () => {
 
       <section aria-label={t('Dashboard analytics view')}>
         <nav
-          className="border-b border-[var(--color-border)] px-1 overflow-x-auto mb-4"
+          className="mb-4 overflow-x-auto"
           aria-label={t('Analytics view')}
           role="tablist"
         >
-          <div className="flex items-center gap-1 min-w-max">
+          <div className="inline-flex items-center gap-1 min-w-max p-1 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)]">
             {[
-              { id: 'data', label: 'Data View' },
-              { id: 'graph', label: 'Graph View' },
+              { id: 'data', label: 'Data View', icon: Table2 },
+              { id: 'graph', label: 'Graph View', icon: ChartNoAxesCombined },
             ].map((view) => {
               const active = analyticsView === view.id;
+              const ViewIcon = view.icon;
               return (
                 <button
                   key={view.id}
@@ -192,11 +195,12 @@ export const DashboardPage = () => {
                   aria-selected={active}
                   aria-controls={`dashboard-${view.id}-panel`}
                   onClick={() => setAnalyticsView(view.id)}
-                  className={'min-h-9 px-3 py-2 type-meta font-medium border-b-2 transition-colors whitespace-nowrap ' +
+                  className={'min-h-10 px-3.5 sm:px-4 py-2 rounded-[var(--radius-md)] type-label font-medium inline-flex items-center gap-2 border transition-colors whitespace-nowrap ' +
                     (active
-                      ? 'border-[var(--color-primary)] text-[var(--color-primary-dark)]'
-                      : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-background-subtle)]')}
+                      ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)] shadow-[var(--shadow-sm)]'
+                      : 'bg-transparent border-transparent text-[var(--color-text-secondary)] hover:bg-[var(--color-background-subtle)] hover:text-[var(--color-primary-dark)]')}
                 >
+                  <ViewIcon className="w-4 h-4 shrink-0" />
                   <p>{t(view.label)}</p>
                 </button>
               );
