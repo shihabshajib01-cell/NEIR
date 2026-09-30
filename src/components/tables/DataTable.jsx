@@ -30,17 +30,17 @@ export const MobileRecordCard = ({
   return (
     <article className={'px-5 py-5 bg-[var(--color-surface)] flex flex-col gap-4 ' + className}>
       <div className="min-w-0">
-        <h4 className="type-card-title text-[var(--color-text-primary)] break-words">{title}</h4>
-        {subtitle && <p className="type-body text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
+        <h4 className="type-body font-medium text-[var(--color-text-primary)] break-words">{title}</h4>
+        {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
       </div>
 
       {fields.length > 0 && (
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {fields.map((field, index) => (
-            <p key={field.label || index} className="type-body text-[var(--color-text-primary)] break-words">
-              <strong className="font-semibold text-[var(--color-text-secondary)]">{t(field.label)}:</strong>{' '}
-              {field.value || '—'}
-            </p>
+            <div key={field.label || index} className="grid grid-cols-[minmax(92px,0.8fr)_minmax(0,1.2fr)] gap-3">
+              <p className="type-meta text-[var(--color-text-secondary)]">{t(field.label)}</p>
+              <p className="type-body-sm font-medium text-[var(--color-text-primary)] break-words">{field.value || '—'}</p>
+            </div>
           ))}
         </div>
       )}
@@ -276,13 +276,13 @@ export const DataTable = ({
                     lineHeight: 'var(--type-compact-line)',
                     fontWeight: 'var(--font-weight-semibold)',
                     letterSpacing: 0,
-                    color: 'var(--color-text-secondary)',
+                    color: 'var(--color-text-primary)',
                     borderBottom: '1px solid var(--color-border)',
                   },
                   '& .MuiTableBody-root .MuiTableRow-root': {
                     height: 56,
                     backgroundColor: 'var(--color-surface)',
-                    '&:hover': { backgroundColor: 'var(--color-primary-alpha-3)' },
+                    '&:hover': { backgroundColor: 'var(--color-background-subtle)' },
                   },
                   '& .MuiTableBody-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',
@@ -292,17 +292,18 @@ export const DataTable = ({
                     color: 'var(--color-text-primary)',
                     borderBottom: '1px solid var(--color-border-subtle)',
                   },
-                  '& .data-table-cell-content': {
-                    fontFamily: 'var(--font-ui)',
+                  '& .data-table-cell-content, & .data-table-cell-content *': {
+                    fontFamily: 'var(--font-ui) !important',
                   },
-                  '& .data-table-cell-content .font-mono, & .data-table-cell-content code': {
-                    fontFamily: 'var(--font-data) !important',
+                  '& .data-table-cell-content': {
                     fontVariantNumeric: 'tabular-nums',
                   },
                   '& .data-table-cell-content p': {
                     margin: 0,
                     fontSize: 'var(--type-table-cell-size) !important',
                     lineHeight: 'var(--type-body-line) !important',
+                    fontWeight: 'var(--font-weight-medium) !important',
+                    color: 'var(--color-text-primary) !important',
                     backgroundColor: 'transparent !important',
                     border: '0 !important',
                     borderRadius: '0 !important',
@@ -317,8 +318,8 @@ export const DataTable = ({
                   },
                   '& .data-table-cell-content code': {
                     fontSize: 'inherit !important',
-                    fontWeight: 'inherit !important',
-                    color: 'inherit !important',
+                    fontWeight: 'var(--font-weight-medium) !important',
+                    color: 'var(--color-text-primary) !important',
                   },
                   '& .data-table-cell-content svg': {
                     color: 'var(--color-text-secondary) !important',
@@ -446,7 +447,7 @@ export const DataTable = ({
                                   ? column.render(cellValue, row, index)
                                   : <SafeText value={cellValue} mode={column.truncate || 'normal'} />)
                                 : (
-                                  <div className={'data-table-cell-content ' + (column.isMono ? 'font-mono tabular-nums' : '')}>
+                                  <div className="data-table-cell-content">
                                     {column.render
                                       ? column.render(cellValue, row, index)
                                       : <SafeText value={cellValue} mode={column.truncate || 'normal'} />}
