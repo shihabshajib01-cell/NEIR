@@ -9,7 +9,7 @@ import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
 import { AssignPermissionModal } from './AssignPermissionModal.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Plus, ShieldCheck, KeyRound, Edit2, Shield } from 'lucide-react';
+import { Plus, ShieldCheck, KeyRound, Edit2 } from 'lucide-react';
 
 export const RolesPage = () => {
   const [roles, setRoles] = useState([]);
