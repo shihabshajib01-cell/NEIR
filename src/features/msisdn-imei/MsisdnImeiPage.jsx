@@ -397,7 +397,7 @@ export const MsisdnImeiPage = ({ initialAction = null }) => {
             },
           ]}
           footerActions={
-            <div className="flex items-center justify-end gap-2 w-full max-sm:flex-col max-sm:[&>button]:w-full">
+            <div className="flex items-center justify-end gap-2 w-full max-md:flex-col max-md:[&>button]:w-full">
               <Button
                 variant="outline"
                 icon={Search}
