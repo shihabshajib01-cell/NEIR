@@ -28,7 +28,7 @@ export const MobileRecordCard = ({
   const { t } = usePreferences();
 
   return (
-    <article className={'px-5 py-5 bg-white flex flex-col gap-4 ' + className}>
+    <article className={'px-5 py-5 bg-[var(--color-surface)] flex flex-col gap-4 ' + className}>
       <div className="min-w-0">
         <h4 className="type-card-title text-[var(--color-text-primary)] break-words">{title}</h4>
         {subtitle && <p className="type-body text-[var(--color-text-secondary)] mt-1 break-words">{subtitle}</p>}
@@ -177,8 +177,8 @@ export const DataTable = ({
   const mobileCardClick = onMobileCardClick || onRowClick;
   const desktopVisibleClass = renderMobileCard ? 'hidden lg:block' : 'block';
   const wrapperClass = embedded
-    ? 'bg-white overflow-hidden flex flex-col'
-    : 'bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col';
+    ? 'bg-[var(--color-surface)] overflow-hidden flex flex-col'
+    : 'bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col';
 
   return (
     <div className={wrapperClass + ' ' + className}>
@@ -212,7 +212,7 @@ export const DataTable = ({
                     }}
                     className={(mobileCardClick
                       ? 'cursor-pointer transition-colors hover:bg-[var(--color-background-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)] '
-                      : '') + 'bg-white [&:not(:last-child)]:border-b-[4px] [&:not(:last-child)]:border-b-[var(--color-background)]'}
+                      : '') + 'bg-[var(--color-surface)] [&:not(:last-child)]:border-b-[4px] [&:not(:last-child)]:border-b-[var(--color-background)]'}
                   >
                     {renderMobileCard(row, index)}
                   </div>
