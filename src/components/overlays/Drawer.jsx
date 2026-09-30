@@ -121,7 +121,7 @@ export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, headerStatu
         >
           {children}
         </div>
-        {footer && <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-t border-[var(--color-border)] bg-[var(--color-surface)] flex items-center justify-end gap-2 shrink-0 max-md:pb-[max(12px,env(safe-area-inset-bottom))] max-sm:flex-col max-sm:items-stretch max-sm:[&>button]:w-full max-sm:[&>div]:w-full">{footer}</div>}
+        {footer && <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-t border-[var(--color-border)] bg-[var(--color-surface)] flex items-center justify-end gap-2 shrink-0 max-md:pb-[max(12px,env(safe-area-inset-bottom))] max-md:flex-col max-md:items-stretch max-md:[&>button]:w-full max-md:[&>div]:w-full">{footer}</div>}
       </div>
     </div>
   );
@@ -213,7 +213,7 @@ export const FullScreenWorkspace = ({
               <button
                 type="button"
                 onClick={onMobileBack}
-                className="w-10 h-10 -ml-2 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] shrink-0"
+                className="w-11 h-11 -ml-2 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] shrink-0"
                 aria-label={t('Back to review')}
               >
                 <ArrowLeft className="w-5 h-5" />
@@ -233,7 +233,7 @@ export const FullScreenWorkspace = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]"
+              className="w-11 h-11 flex items-center justify-center rounded-lg text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]"
               aria-label={t('Close review workspace')}
             >
               <X className="w-5 h-5" />
