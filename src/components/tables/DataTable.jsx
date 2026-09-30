@@ -46,7 +46,7 @@ export const MobileRecordCard = ({
       )}
 
       {(status || footerMeta || actions) && (
-        <div className="pt-4 border-t-4 border-[var(--color-background)] flex flex-wrap items-center justify-between gap-3">
+        <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
           <div className="min-w-0">
             {status && <StatusBadge status={status} size="sm" showIcon={false} plain />}
           </div>
@@ -189,7 +189,7 @@ export const DataTable = ({
       {!isLoading && !isError && data.length > 0 && (
         <>
           {renderMobileCard && (
-            <div className="lg:hidden bg-[var(--color-background)] flex flex-col gap-1">
+            <div className="lg:hidden mobile-record-stack">
               {sortedData.map((row, index) => {
                 const key = row[keyField] || index;
                 return (
