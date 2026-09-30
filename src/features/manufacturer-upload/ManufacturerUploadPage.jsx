@@ -69,7 +69,7 @@ export const ManufacturerUploadPage = () => {
       key: 'status',
       title: 'Validation',
       render: (val) => (
-        <p className="text-xs font-semibold text-[#028A97] bg-[#01ADC1]/10 px-2 py-0.5 rounded">
+        <p className="type-meta font-semibold text-[var(--color-primary-dark)] bg-[var(--color-info-bg)] px-2 py-0.5 rounded">
           {val || 'Whitelisted'}
         </p>
       ),
@@ -127,7 +127,7 @@ export const ManufacturerUploadPage = () => {
                 onSampleDownload={handleDownloadSample}
               />
 
-              <div className="pt-2 border-t border-[#E2E5F0] flex items-center justify-between">
+              <div className="pt-2 border-t border-[var(--color-border)] flex items-center justify-between">
                 <Button
                   type="button"
                   variant="ghost"
@@ -160,9 +160,9 @@ export const ManufacturerUploadPage = () => {
                 variant="success"
                 title={`Batch ${uploadResult.batchId} Successfully Ingested`}
               >
-                <div className="mt-1 space-y-1 text-xs">
-                  <p>Manufacturer: <strong className="text-[#202338]">{uploadResult.manufacturer}</strong></p>
-                  <p>Total Records Processed: <strong className="text-[#028A97] font-mono">{uploadResult.totalProcessed}</strong></p>
+                <div className="mt-1 space-y-1 type-meta">
+                  <p>Manufacturer: <strong className="text-[var(--color-text-primary)]">{uploadResult.manufacturer}</strong></p>
+                  <p>Total Records Processed: <strong className="text-[var(--color-primary-dark)] font-mono">{uploadResult.totalProcessed}</strong></p>
                 </div>
               </Alert>
 
