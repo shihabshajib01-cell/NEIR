@@ -185,7 +185,7 @@ export const SupportTicketPage = () => {
                   searchValue={searchTerm}
                   searchSuggestions={tickets.flatMap((ticket) => [ticket.ticketNumber, ticket.submittedBy, ticket.phone, ticket.imei, ticket.subject])}
                   onSearchChange={setSearchTerm}
-                  filters={
+                  dateFilter={
                     <DateRangeFilter
                       compact
                       className="shrink-0"
