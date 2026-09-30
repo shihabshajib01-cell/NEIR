@@ -59,23 +59,23 @@
   }
 
   html[data-text-size='compact'] {
-    --type-display-size: 13.2px;
-    --type-page-title-size: 13.2px;
-    --type-section-title-size: 10.8px;
-    --type-card-title-size: 10.8px;
-    --type-body-lg-size: 10.8px;
-    --type-body-size: 10.8px;
-    --type-body-sm-size: 10.8px;
-    --type-label-size: 10.8px;
-    --type-nav-size: 10.8px;
-    --type-control-size: 10.8px;
-    --type-button-size: 10.8px;
-    --type-button-sm-size: 10.8px;
-    --type-table-head-size: 10.8px;
-    --type-table-cell-size: 10.8px;
+    --type-display-size: 25.2px;
+    --type-page-title-size: 19.8px;
+    --type-section-title-size: 16.2px;
+    --type-card-title-size: 14.4px;
+    --type-body-lg-size: 14.4px;
+    --type-body-size: 12.6px;
+    --type-body-sm-size: 12.6px;
+    --type-label-size: 12.6px;
+    --type-nav-size: 12.6px;
+    --type-control-size: 12.6px;
+    --type-button-size: 12.6px;
+    --type-button-sm-size: 12.6px;
+    --type-table-head-size: 12.6px;
+    --type-table-cell-size: 12.6px;
     --type-meta-size: 10.8px;
     --type-helper-size: 10.8px;
-    --type-form-label-size: 10.8px;
+    --type-form-label-size: 12.6px;
     --type-badge-size: 10.8px;
     --type-kpi-size: 25.2px;
   }
@@ -103,23 +103,23 @@
   }
 
   html[data-text-size='large'] {
-    --type-display-size: 24.2px;
+    --type-display-size: 30.8px;
     --type-page-title-size: 24.2px;
-    --type-section-title-size: 13.2px;
-    --type-card-title-size: 13.2px;
-    --type-body-lg-size: 13.2px;
-    --type-body-size: 13.2px;
-    --type-body-sm-size: 13.2px;
-    --type-label-size: 13.2px;
-    --type-nav-size: 13.2px;
-    --type-control-size: 13.2px;
-    --type-button-size: 13.2px;
-    --type-button-sm-size: 13.2px;
-    --type-table-head-size: 13.2px;
-    --type-table-cell-size: 13.2px;
+    --type-section-title-size: 19.8px;
+    --type-card-title-size: 17.6px;
+    --type-body-lg-size: 17.6px;
+    --type-body-size: 15.4px;
+    --type-body-sm-size: 15.4px;
+    --type-label-size: 15.4px;
+    --type-nav-size: 15.4px;
+    --type-control-size: 15.4px;
+    --type-button-size: 15.4px;
+    --type-button-sm-size: 15.4px;
+    --type-table-head-size: 15.4px;
+    --type-table-cell-size: 15.4px;
     --type-meta-size: 13.2px;
     --type-helper-size: 13.2px;
-    --type-form-label-size: 13.2px;
+    --type-form-label-size: 15.4px;
     --type-badge-size: 13.2px;
     --type-kpi-size: 30.8px;
   }
@@ -294,6 +294,23 @@
   html[data-text-size='compact'] {
     --type-display-size: 27px;
     --type-page-title-size: 21.6px;
+    --type-section-title-size: 16.2px;
+    --type-card-title-size: 14.4px;
+    --type-body-lg-size: 14.4px;
+    --type-body-size: 14.4px;
+    --type-body-sm-size: 12.6px;
+    --type-label-size: 12.6px;
+    --type-nav-size: 12.6px;
+    --type-control-size: 12.6px;
+    --type-button-size: 12.6px;
+    --type-button-sm-size: 12.6px;
+    --type-table-head-size: 12.6px;
+    --type-table-cell-size: 12.6px;
+    --type-meta-size: 10.8px;
+    --type-helper-size: 10.8px;
+    --type-form-label-size: 12.6px;
+    --type-badge-size: 10.8px;
+    --type-kpi-size: 25.2px;
   }
 
   html[data-text-size='standard'] {
@@ -304,6 +321,23 @@
   html[data-text-size='large'] {
     --type-display-size: 33px;
     --type-page-title-size: 26.4px;
+    --type-section-title-size: 19.8px;
+    --type-card-title-size: 17.6px;
+    --type-body-lg-size: 17.6px;
+    --type-body-size: 17.6px;
+    --type-body-sm-size: 15.4px;
+    --type-label-size: 15.4px;
+    --type-nav-size: 15.4px;
+    --type-control-size: 15.4px;
+    --type-button-size: 15.4px;
+    --type-button-sm-size: 15.4px;
+    --type-table-head-size: 15.4px;
+    --type-table-cell-size: 15.4px;
+    --type-meta-size: 13.2px;
+    --type-helper-size: 13.2px;
+    --type-form-label-size: 15.4px;
+    --type-badge-size: 13.2px;
+    --type-kpi-size: 30.8px;
   }
 }
 
