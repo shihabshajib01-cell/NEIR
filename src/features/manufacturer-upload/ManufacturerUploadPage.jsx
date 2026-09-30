@@ -1,22 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
-import { Card } from '../../components/data-display/Card.jsx';
+import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
+import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
+import { FilterBar } from '../../components/tables/FilterBar.jsx';
+import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
+import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
 import { CSVUpload } from '../../components/forms/FileUpload.jsx';
-import { TextInput } from '../../components/forms/TextInput.jsx';
 import { Select } from '../../components/forms/Select.jsx';
+import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Alert } from '../../components/feedback/Alert.jsx';
-import { DataTable } from '../../components/tables/DataTable.jsx';
+import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { UploadCloud, RotateCcw, CheckCircle2, FileSpreadsheet, Download } from 'lucide-react';
+import { Download, Eye, UploadCloud } from 'lucide-react';
+
+const manufacturerOptions = [
+  'Oppo Bangladesh Ltd.',
+  'Realme Bangladesh',
+  'Samsung Electronics Bangladesh Ltd.',
+  'Symphony Mobile (Edison Group)',
+  'Vivo Mobile Bangladesh',
+  'Walton Digi-Tech Industries Ltd.',
+  'Xiaomi Technology Bangladesh',
+];
 
 export const ManufacturerUploadPage = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
+
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [manufacturer, setManufacturer] = useState('Samsung Electronics Bangladesh Ltd.');
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [uploadResult, setUploadResult] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+
   const { addToast } = useToast();
+
+  const loadData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await mockApi.getManufacturerUploads({
+        search: searchTerm,
+        fromDate,
+        toDate,
+      });
+      setData(response.items ?? response);
+    } catch (err) {
+      addToast('Failed to load manufacturer IMEI records.', 'error');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [searchTerm, fromDate, toDate]);
 
   const handleDownloadSample = () => {
     const csvContent =
@@ -29,161 +72,214 @@ export const ManufacturerUploadPage = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
     addToast('Sample CSV template downloaded.', 'info');
   };
 
-  const handleReset = () => {
-    setSelectedFile(null);
-    setUploadResult(null);
+  const handleOpenDetails = (record) => {
+    setSelectedRecord(record);
+    setIsDetailsOpen(true);
   };
 
-  const handleProcessUpload = async (e) => {
-    e.preventDefault();
+  const handleUpload = async (event) => {
+    event.preventDefault();
     if (!selectedFile) {
       addToast('Please attach a CSV data file first.', 'error');
       return;
     }
 
     try {
-      setIsLoading(true);
-      const res = await mockApi.uploadManufacturerBatch({
+      setIsUploading(true);
+      const result = await mockApi.uploadManufacturerBatch({
         manufacturer,
         file: selectedFile,
       });
-      setUploadResult(res);
-      addToast(`Batch ${res.batchId} processed: ${res.totalProcessed} records ingested into White List.`, 'success');
+      addToast(
+        result.message || `Batch ${result.batchId} processed successfully.`,
+        'success'
+      );
+      setIsUploadOpen(false);
+      setSelectedFile(null);
+      await loadData();
     } catch (err) {
-      addToast('Failed to process batch upload.', 'error');
+      addToast(err.message || 'Failed to process batch upload.', 'error');
     } finally {
-      setIsLoading(false);
+      setIsUploading(false);
     }
   };
 
-  const previewColumns = [
-    { key: 'imei1', title: 'IMEI 1 (Primary)', isMono: true },
-    { key: 'imei2', title: 'IMEI 2 (Secondary)', isMono: true },
+  const columns = [
+    { key: 'sn', title: 'SL', width: '60px', isMono: true },
+    {
+      key: 'imei',
+      title: 'IMEI',
+      isMono: true,
+      render: (value) => (
+        <p className="font-mono font-semibold text-[var(--color-primary-dark)]">{value}</p>
+      ),
+    },
     { key: 'brand', title: 'Brand' },
     { key: 'model', title: 'Model' },
-    { key: 'tac', title: 'TAC Code', isMono: true },
+    {
+      key: 'tac',
+      title: 'TAC',
+      isMono: true,
+      render: (value) => <p className="font-mono text-[var(--color-text-secondary)]">{value}</p>,
+    },
     {
       key: 'status',
-      title: 'Validation',
-      render: (val) => (
-        <p className="type-meta font-semibold text-[var(--color-primary-dark)] bg-[var(--color-info-bg)] px-2 py-0.5 rounded">
-          {val || 'Whitelisted'}
-        </p>
+      title: 'Status',
+      render: (value) => <StatusBadge status={value} size="sm" />,
+    },
+    {
+      key: 'createdAt',
+      title: 'Upload Date',
+      isMono: true,
+      render: (value) => <p className="type-meta font-mono text-[var(--color-text-secondary)]">{value}</p>,
+    },
+    {
+      key: 'actions',
+      title: 'Action',
+      width: '112px',
+      sortable: false,
+      render: (_, row) => (
+        <Button variant="outline" size="sm" icon={Eye} onClick={() => handleOpenDetails(row)}>
+          View details
+        </Button>
       ),
     },
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <PageHeader
         title="Manufacturer IMEI Upload"
-        breadcrumbs={[
-          { label: 'Manufacturer Portal' },
-          { label: 'IMEI Upload' }
-        ]}
         actions={
-          <Button
-            variant="secondary"
-            size="md"
-            icon={Download}
-            onClick={handleDownloadSample}
-          >
-            Download CSV Template
-          </Button>
+          <>
+            <Button variant="outline" icon={Download} onClick={handleDownloadSample}>
+              Download CSV Template
+            </Button>
+            <Button variant="primary" icon={UploadCloud} onClick={() => setIsUploadOpen(true)}>
+              Upload CSV
+            </Button>
+          </>
         }
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Form (5 cols) */}
-        <div className="lg:col-span-5">
-          <Card
-            title="Batch Ingestion Form"
-          >
-            <form onSubmit={handleProcessUpload} className="space-y-4">
-              <Select
-                label="Licensed Manufacturer / Importer"
-                value={manufacturer}
-                onChange={(e) => setManufacturer(e.target.value)}
-                options={[
-                  'Samsung Electronics Bangladesh Ltd.',
-                  'Walton Digi-Tech Industries Ltd.',
-                  'Xiaomi Technology Bangladesh',
-                  'Symphony Mobile (Edison Group)',
-                  'Vivo Mobile Bangladesh',
-                  'Oppo Bangladesh Ltd.',
-                  'Realme Bangladesh'
-                ]}
-                required
+      <TablePageWorkspace
+        title="Manufacturer IMEI Records"
+        count={data.length}
+        toolbar={
+          <FilterBar
+            embedded
+            searchPlaceholder="Search IMEI, brand, model or TAC..."
+            searchValue={searchTerm}
+            searchSuggestions={data.flatMap((item) => [item.imei, item.brand, item.model, item.tac])}
+            onSearchChange={setSearchTerm}
+            filters={
+              <DateRangeFilter
+                compact
+                className="shrink-0"
+                startDate={fromDate}
+                endDate={toDate}
+                onStartDateChange={setFromDate}
+                onEndDateChange={setToDate}
               />
-
-              <CSVUpload
-                label="Manufactured Handsets CSV File"
-                helperText="Required: imei1, imei2, brand, model, tac"
-                density="standard"
-                onFileSelect={(file) => setSelectedFile(file)}
-                onSampleDownload={handleDownloadSample}
-              />
-
-              <div className="pt-2 border-t border-[var(--color-border)] flex items-center justify-between">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="md"
-                  icon={RotateCcw}
-                  onClick={handleReset}
-                >
-                  Reset
-                </Button>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="md"
-                  icon={UploadCloud}
-                  isLoading={isLoading}
-                  disabled={!selectedFile}
-                >
-                  Upload & Whitelist
-                </Button>
-              </div>
-            </form>
-          </Card>
-        </div>
-
-        {/* Right Preview / Ingestion Log (7 cols) */}
-        <div className="lg:col-span-7 space-y-4">
-          {uploadResult ? (
-            <div className="space-y-4">
-              <Alert
-                variant="success"
-                title={`Batch ${uploadResult.batchId} Successfully Ingested`}
-              >
-                <div className="mt-1 space-y-1 type-meta">
-                  <p>Manufacturer: <strong className="text-[var(--color-text-primary)]">{uploadResult.manufacturer}</strong></p>
-                  <p>Total Records Processed: <strong className="text-[var(--color-primary-dark)] font-mono">{uploadResult.totalProcessed}</strong></p>
-                </div>
-              </Alert>
-
-              <Card title="Ingested Handset Sample Preview">
-                <DataTable
-                  embedded
-                  columns={previewColumns}
-                  data={uploadResult.previewSample || []}
-                  pagination={false}
-                />
-              </Card>
-            </div>
-          ) : (
-            <Card title="Batch Validation">
-              <p className="type-body-sm text-[var(--color-text-secondary)]">
-                IMEI, TAC, and duplicate checks run automatically during upload.
-              </p>
-            </Card>
+            }
+          />
+        }
+      >
+        <DataTable
+          embedded
+          columns={columns}
+          data={data}
+          isLoading={isLoading}
+          pagination
+          onRowClick={handleOpenDetails}
+          renderMobileCard={(row) => (
+            <MobileRecordCard
+              title={row.imei}
+              subtitle={row.brand}
+              status={row.status}
+              fields={[
+                { label: 'Model', value: row.model },
+                { label: 'TAC', value: row.tac },
+              ]}
+              footerMeta={row.createdAt}
+            />
           )}
-        </div>
-      </div>
+        />
+      </TablePageWorkspace>
+
+      {selectedRecord && (
+        <RecordDetailsDrawer
+          isOpen={isDetailsOpen}
+          onClose={() => setIsDetailsOpen(false)}
+          onExited={() => setSelectedRecord(null)}
+          title="Manufacturer IMEI Record"
+          recordId={selectedRecord.imei}
+          status={selectedRecord.status}
+          sections={[
+            {
+              title: 'Device Details',
+              items: [
+                { label: 'IMEI', value: selectedRecord.imei, isMono: true },
+                { label: 'TAC', value: selectedRecord.tac, isMono: true },
+                { label: 'Brand', value: selectedRecord.brand },
+                { label: 'Model', value: selectedRecord.model },
+              ],
+            },
+            {
+              title: 'Upload Details',
+              items: [
+                { label: 'Status', value: selectedRecord.status },
+                { label: 'Upload Date', value: selectedRecord.createdAt, isMono: true },
+              ],
+            },
+          ]}
+        />
+      )}
+
+      <FormDrawer
+        isOpen={isUploadOpen}
+        onClose={() => setIsUploadOpen(false)}
+        title="Upload Manufacturer IMEI"
+        subtitle="Validate and ingest a manufacturer CSV batch"
+        formId="manufacturer-imei-upload-form"
+        onSubmit={handleUpload}
+        submitLabel="Upload & Whitelist"
+        submitIcon={UploadCloud}
+        isLoading={isUploading}
+      >
+        <FormDrawerSection title="Batch Details">
+          <div className="space-y-4">
+            <Select
+              label="Licensed Manufacturer / Importer"
+              value={manufacturer}
+              onChange={(event) => setManufacturer(event.target.value)}
+              options={manufacturerOptions}
+              required
+            />
+            <CSVUpload
+              label="Manufactured Handsets CSV File"
+              helperText="Required columns: imei1, imei2, brand, model, tac"
+              onFileSelect={setSelectedFile}
+              onSampleDownload={handleDownloadSample}
+            />
+          </div>
+        </FormDrawerSection>
+
+        <FormDrawerSection title="Batch Validation">
+          <div className="p-3 rounded-[var(--radius-md)] border border-[var(--color-info-border)] bg-[var(--color-info-bg)]">
+            <p className="type-body-sm font-medium text-[var(--color-text-primary)]">
+              IMEI format, TAC and duplicate checks run automatically when the CSV is submitted.
+            </p>
+            <p className="type-meta text-[var(--color-text-secondary)] mt-1">
+              Invalid rows remain excluded from the whitelist operation.
+            </p>
+          </div>
+        </FormDrawerSection>
+      </FormDrawer>
     </div>
   );
 };

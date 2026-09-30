@@ -276,9 +276,25 @@ export const mockApi = {
   },
 
   // Manufacturer Upload
-  async getManufacturerUploads() {
+  async getManufacturerUploads(filters = {}) {
     await delay(100);
-    return [...mockManufacturerUploads];
+    let items = [...mockManufacturerUploads];
+
+    if (filters.search) {
+      const query = filters.search.trim().toLowerCase();
+      items = items.filter((record) =>
+        record.imei.toLowerCase().includes(query) ||
+        record.brand.toLowerCase().includes(query) ||
+        record.model.toLowerCase().includes(query) ||
+        record.tac.toLowerCase().includes(query)
+      );
+    }
+
+    items = items.filter((record) =>
+      isWithinDateRange(record.createdAt, filters.fromDate, filters.toDate)
+    );
+
+    return { items, total: items.length };
   },
 
   async uploadManufacturerCsv(fileName, fileCount = 250) {
@@ -289,6 +305,17 @@ export const mockApi = {
       totalParsed: fileCount,
       validRecords: fileCount,
       message: `Successfully processed ${fileCount} IMEI records into BTRC National Register.`
+    };
+  },
+
+  async uploadManufacturerBatch(payload = {}) {
+    const fileName = payload.file?.name || 'manufacturer-imei.csv';
+    const result = await mockApi.uploadManufacturerCsv(fileName);
+    return {
+      ...result,
+      manufacturer: payload.manufacturer || '',
+      batchId: `BATCH-${Date.now().toString().slice(-6)}`,
+      totalProcessed: result.validRecords,
     };
   },
 

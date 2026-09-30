@@ -14,15 +14,12 @@ import { LoginPage } from './features/auth/LoginPage.jsx';
 import { DashboardPage } from './features/dashboard/DashboardPage.jsx';
 import { SpecialRegistrationPage } from './features/special-registration/SpecialRegistrationPage.jsx';
 import { LostStolenPage } from './features/lost-stolen/LostStolenPage.jsx';
-import { DeviceDeregisterPage } from './features/device-deregister/DeviceDeregisterPage.jsx';
-import { AutoRegistrationPage } from './features/auto-registration/AutoRegistrationPage.jsx';
 
 import { ParentPage } from './features/role-management/ParentPage.jsx';
 import { PermissionPage } from './features/role-management/PermissionPage.jsx';
 import { ServiceActionPage } from './features/role-management/ServiceActionPage.jsx';
 import { RolesPage } from './features/role-management/RolesPage.jsx';
 
-import { ImeiCheckPage } from './features/imei-check/ImeiCheckPage.jsx';
 import { ManufacturerUploadPage } from './features/manufacturer-upload/ManufacturerUploadPage.jsx';
 import { SupportTicketPage } from './features/support-ticket/SupportTicketPage.jsx';
 import { GlobalImeiBlockListPage } from './features/global-imei-block/GlobalImeiBlockListPage.jsx';
@@ -56,8 +53,8 @@ export default function App() {
                 <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="special-registration" element={<SpecialRegistrationPage />} />
                 <Route path="lost-stolen" element={<LostStolenPage />} />
-                <Route path="device-deregister" element={<DeviceDeregisterPage />} />
-                <Route path="auto-registration" element={<AutoRegistrationPage />} />
+                <Route path="device-deregister" element={<Navigate to="/msisdn-imei" replace />} />
+                <Route path="auto-registration" element={<Navigate to="/msisdn-imei" replace />} />
 
                 <Route path="role-management" element={<Navigate to="/role-management/roles" replace />} />
                 <Route path="role-management/parent" element={<ParentPage />} />
@@ -65,7 +62,7 @@ export default function App() {
                 <Route path="role-management/service-action" element={<ServiceActionPage />} />
                 <Route path="role-management/roles" element={<RolesPage />} />
 
-                <Route path="imei-check" element={<ImeiCheckPage />} />
+                <Route path="imei-check" element={<Navigate to="/msisdn-imei" replace />} />
                 <Route path="manufacturer-imei-upload" element={<ManufacturerUploadPage />} />
                 <Route path="support-ticket" element={<SupportTicketPage />} />
 
