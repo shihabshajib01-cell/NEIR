@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, FileCheck2, ShieldAlert, Smartphone, Radio, Users, CheckCircle,
   UploadCloud, Headphones, Ban, Building2, Search, ChevronDown, ChevronRight,
-  FolderTree, KeyRound, Layers, ShieldCheck, Network, Award, UserCheck, ListOrdered, ShieldX
+  FolderTree, KeyRound, Layers, ShieldCheck, Network, Award, UserCheck
 } from 'lucide-react';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
@@ -25,13 +25,7 @@ export const navigationItems = [
   { name: 'IMEI Check', path: '/imei-check', icon: CheckCircle },
   { name: 'Manufacturer IMEI Upload', path: '/manufacturer-imei-upload', icon: UploadCloud },
   { name: 'Support Ticket', path: '/support-ticket', icon: Headphones },
-  {
-    name: 'Global IMEI Block', path: '/global-imei-block', icon: Ban,
-    children: [
-      { name: 'Block IMEI', path: '/global-imei-block', icon: ShieldX, exact: true },
-      { name: 'Global IMEI Block List', path: '/global-imei-block/list', icon: ListOrdered },
-    ]
-  },
+  { name: 'Global IMEI Block', path: '/global-imei-block', icon: Ban },
   {
     name: 'Office', path: '/office', icon: Building2,
     children: [
