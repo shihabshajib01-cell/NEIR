@@ -267,21 +267,22 @@ export const DataTable = ({
                     fontFamily: 'var(--font-ui)',
                   },
                   '& .MuiTableHead-root .MuiTableRow-root': {
-                    height: 38,
+                    height: 40,
                     backgroundColor: 'var(--color-background-subtle)',
                   },
                   '& .MuiTableHead-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',
                     fontSize: 'var(--type-table-head-size)',
                     lineHeight: 'var(--type-compact-line)',
-                    fontWeight: 'var(--font-weight-bold)',
-                    letterSpacing: '0.04em',
+                    fontWeight: 'var(--font-weight-semibold)',
+                    letterSpacing: 0,
                     color: 'var(--color-text-secondary)',
+                    borderBottom: '1px solid var(--color-border)',
                   },
                   '& .MuiTableBody-root .MuiTableRow-root': {
-                    height: 44,
-                    '&:nth-of-type(even)': { backgroundColor: 'var(--color-background-zebra)' },
-                    '&:hover': { backgroundColor: 'var(--color-primary-alpha-3)' },
+                    height: 52,
+                    backgroundColor: 'var(--color-surface)',
+                    '&:hover': { backgroundColor: 'var(--color-primary-alpha-6)' },
                   },
                   '& .MuiTableBody-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',
@@ -289,6 +290,7 @@ export const DataTable = ({
                     lineHeight: 'var(--type-body-line)',
                     fontWeight: 'var(--font-weight-regular)',
                     color: 'var(--color-text-primary)',
+                    borderBottom: '1px solid var(--color-border-subtle)',
                   },
                   '& .data-table-cell-content, & .data-table-cell-content *': {
                     fontFamily: 'var(--font-ui) !important',
@@ -344,7 +346,7 @@ export const DataTable = ({
                         <TableCell
                           key={column.key}
                           sortDirection={activeSort ? sortConfig.direction : false}
-                          align={column.align || 'left'}
+                          align={column.align || (column.key === 'actions' ? 'right' : 'left')}
                           sx={{
                             width: column.width,
                             minWidth: column.minWidth ?? column.width,
@@ -421,12 +423,20 @@ export const DataTable = ({
                           return (
                             <TableCell
                               key={column.key}
-                              align={column.align || 'left'}
+                              align={column.align || (column.key === 'actions' ? 'right' : 'left')}
                               onClick={column.key === 'actions' ? (event) => event.stopPropagation() : undefined}
                               sx={{
                                 width: column.width,
                                 minWidth: column.minWidth ?? column.width,
                                 ...(column.maxWidth ? { maxWidth: column.maxWidth } : {}),
+                                ...(column.key === 'actions' ? {
+                                  '& .neir-action-button': {
+                                    height: '36px !important',
+                                    minHeight: '36px !important',
+                                    paddingLeft: '12px !important',
+                                    paddingRight: '12px !important',
+                                  },
+                                } : {}),
                               }}
                               className=""
                             >
