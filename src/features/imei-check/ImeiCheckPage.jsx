@@ -58,7 +58,7 @@ export const ImeiCheckPage = () => {
               required
             />
 
-            <div className="pt-2 border-t border-[#E2E5F0] flex justify-end">
+            <div className="pt-2 border-t border-[var(--color-border)] flex justify-end">
               <Button
                 type="submit"
                 variant="primary"
@@ -83,49 +83,49 @@ export const ImeiCheckPage = () => {
         >
           <div className="space-y-4">
             {/* Status Header Strip */}
-            <div className="p-3.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg flex items-center justify-between">
+            <div className="p-3.5 bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-semibold text-[#626981] tracking-wider">EIR Verdict</p>
-                <p className="text-base font-mono font-bold text-[#202338]">{result.imei}</p>
+                <p className="type-meta font-semibold text-[var(--color-text-secondary)] tracking-wider">EIR Verdict</p>
+                <p className="type-body-lg font-mono font-bold text-[var(--color-text-primary)]">{result.imei}</p>
               </div>
               <StatusBadge status={result.status} size="md" />
             </div>
 
             {/* Bilingual Verification Message */}
-            <div className="p-3.5 rounded-lg border border-[#01ADC1]/30 bg-[#01ADC1]/10 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#028A97]">
+            <div className="p-3.5 rounded-lg border border-[var(--color-info-border)] bg-[var(--color-info-bg)] space-y-2">
+              <div className="flex items-center gap-2 type-meta font-bold text-[var(--color-primary-dark)]">
                 <Globe className="w-4 h-4" />
                 <p>Official Status Response</p>
               </div>
-              <p className="text-sm font-semibold text-[#202338] leading-relaxed">
+              <p className="type-body-sm font-semibold text-[var(--color-text-primary)] leading-relaxed">
                 {result.bengaliMessage}
               </p>
-              <p className="text-xs text-[#626981]">
+              <p className="type-meta text-[var(--color-text-secondary)]">
                 {result.englishMessage}
               </p>
             </div>
 
             {/* Device Specification Box */}
-            <div className="border border-[#E2E5F0] rounded-lg p-3.5 space-y-2 text-xs">
-              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <p className="text-[#626981]">Brand / Manufacturer:</p>
-                <p className="font-semibold text-[#202338]">{result.brand}</p>
+            <div className="border border-[var(--color-border)] rounded-lg p-3.5 space-y-2 type-meta">
+              <div className="flex justify-between pb-1.5 border-b border-[var(--color-border-subtle)]">
+                <p className="text-[var(--color-text-secondary)]">Brand / Manufacturer:</p>
+                <p className="font-semibold text-[var(--color-text-primary)]">{result.brand}</p>
               </div>
-              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <p className="text-[#626981]">Model & Tier:</p>
-                <p className="font-medium text-[#202338]">{result.model}</p>
+              <div className="flex justify-between pb-1.5 border-b border-[var(--color-border-subtle)]">
+                <p className="text-[var(--color-text-secondary)]">Model & Tier:</p>
+                <p className="font-medium text-[var(--color-text-primary)]">{result.model}</p>
               </div>
-              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <p className="text-[#626981]">GSMA Type Allocation Code (TAC):</p>
-                <p className="font-mono font-semibold text-[#01ADC1]">{result.tac}</p>
+              <div className="flex justify-between pb-1.5 border-b border-[var(--color-border-subtle)]">
+                <p className="text-[var(--color-text-secondary)]">GSMA Type Allocation Code (TAC):</p>
+                <p className="font-mono font-semibold text-[var(--color-primary)]">{result.tac}</p>
               </div>
-              <div className="flex justify-between pb-1.5 border-b border-[#F7F8FC]">
-                <p className="text-[#626981]">Authorization Category:</p>
-                <p className="text-[#202338]">{result.importType}</p>
+              <div className="flex justify-between pb-1.5 border-b border-[var(--color-border-subtle)]">
+                <p className="text-[var(--color-text-secondary)]">Authorization Category:</p>
+                <p className="text-[var(--color-text-primary)]">{result.importType}</p>
               </div>
               <div className="flex justify-between">
-                <p className="text-[#626981]">Carrier Attachment:</p>
-                <p className="text-[#028A97] font-medium">{result.mnoAttachment}</p>
+                <p className="text-[var(--color-text-secondary)]">Carrier Attachment:</p>
+                <p className="text-[var(--color-primary-dark)] font-medium">{result.mnoAttachment}</p>
               </div>
             </div>
           </div>
