@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
+import { UserFormDrawer } from './UserFormPage.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { CompactSelect } from '../../components/forms/Select.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
@@ -20,7 +20,9 @@ export const UsersListPage = () => {
   const [deptFilter, setDeptFilter] = useState('All');
   const [selectedUser, setSelectedUser] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isFormDrawerOpen, setIsFormDrawerOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [pendingEditUser, setPendingEditUser] = useState(null);
   const { addToast } = useToast();
 
   const loadData = async () => {
@@ -46,6 +48,35 @@ export const UsersListPage = () => {
   const handleOpenDetails = (user) => {
     setSelectedUser(user);
     setIsDrawerOpen(true);
+  };
+
+  const handleOpenCreate = () => {
+    setEditingUser(null);
+    setIsFormDrawerOpen(true);
+  };
+
+  const handleOpenEdit = (user, event) => {
+    event?.stopPropagation?.();
+    setEditingUser(user);
+    setIsFormDrawerOpen(true);
+  };
+
+  const handleEditFromDetails = () => {
+    setPendingEditUser(selectedUser);
+    setIsDrawerOpen(false);
+  };
+
+  const handleDetailsExited = () => {
+    setSelectedUser(null);
+    if (pendingEditUser) {
+      setEditingUser(pendingEditUser);
+      setPendingEditUser(null);
+      setIsFormDrawerOpen(true);
+    }
+  };
+
+  const handleUserSaved = async () => {
+    await loadData();
   };
 
   const filteredUsers = users.filter((u) => {
@@ -126,7 +157,7 @@ export const UsersListPage = () => {
             variant="outline"
             size="sm"
             icon={Edit2}
-            onClick={() => navigate(`/office/users/${row.id}/edit`)}
+            onClick={(event) => handleOpenEdit(row, event)}
             className="text-xs h-7 px-2"
           >
             Edit
@@ -149,7 +180,7 @@ export const UsersListPage = () => {
             variant="primary"
             size="md"
             icon={Plus}
-            onClick={() => navigate('/office/users/new')}
+            onClick={handleOpenCreate}
           >
             Create User
           </Button>
@@ -208,7 +239,7 @@ export const UsersListPage = () => {
                         variant="primary"
                         size="sm"
                         icon={Edit2}
-                        onClick={() => navigate(`/office/users/${row.id}/edit`)}
+                        onClick={(event) => handleOpenEdit(row, event)}
                       >
                         Edit Officer
                       </Button>
@@ -225,9 +256,7 @@ export const UsersListPage = () => {
           onClose={() => {
             setIsDrawerOpen(false);
           }}
-          onExited={() => {
-            setSelectedUser(null);
-          }}
+          onExited={handleDetailsExited}
           title="Administrative Officer Dossier"
           recordId={selectedUser.username}
           status={selectedUser.status}
@@ -256,13 +285,21 @@ export const UsersListPage = () => {
             <Button
               variant="primary"
               icon={Edit2}
-              onClick={() => navigate(`/office/users/${selectedUser.id}/edit`)}
+              onClick={handleEditFromDetails}
             >
               Edit Account
             </Button>
           }
         />
       )}
+
+      <UserFormDrawer
+        isOpen={isFormDrawerOpen}
+        user={editingUser}
+        onClose={() => setIsFormDrawerOpen(false)}
+        onExited={() => setEditingUser(null)}
+        onSaved={handleUserSaved}
+      />
     </div>
   );
 };
