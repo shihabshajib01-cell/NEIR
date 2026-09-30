@@ -19,7 +19,7 @@ const selectMenuProps = {
       boxShadow: 'var(--shadow-md)',
       backgroundColor: 'var(--color-surface)',
       backgroundImage: 'none',
-      '@media (max-width:639px)': {
+      '@media (max-width:767px)': {
         position: 'fixed !important',
         top: 'auto !important',
         left: '0 !important',
@@ -42,7 +42,7 @@ const selectMenuProps = {
   MenuListProps: {
     sx: {
       py: 0.5,
-      '@media (max-width:639px)': {
+      '@media (max-width:767px)': {
         py: 0,
         pb: 'max(8px, env(safe-area-inset-bottom))',
       },
@@ -78,11 +78,22 @@ export const Select = ({
   const { t } = usePreferences();
   const selectId = id || name || generatedId;
   const normalizedOptions = normalizeOptions(options);
+  const hasKnownValue = value === null || value === undefined || value === '' ||
+    normalizedOptions.some((option) => option.value === value);
+  const renderedOptions = hasKnownValue
+    ? normalizedOptions
+    : [{ value, label: String(value), disabled: true }, ...normalizedOptions];
   const fieldLabel = typeof label === 'string' ? t(label) : label;
   const supportingText = typeof (error || helperText) === 'string' ? t(error || helperText) : (error || helperText);
   const fieldSx = density === 'compact' ? muiFilterSx : muiFieldSx;
   const optionSx = density === 'compact'
-    ? { ...standardOptionSx, minHeight: 40, py: 0.75, fontSize: 'var(--type-control-size)' }
+    ? {
+        ...standardOptionSx,
+        minHeight: 40,
+        py: 0.75,
+        fontSize: 'var(--type-control-size)',
+        '@media (max-width:767px)': { minHeight: 44 },
+      }
     : standardOptionSx;
   const menuProps = {
     ...selectMenuProps,
@@ -94,7 +105,7 @@ export const Select = ({
           className="mobile-select-sheet-title"
           sx={{
             display: 'none',
-            '@media (max-width:639px)': {
+            '@media (max-width:767px)': {
               display: 'flex',
               position: 'sticky',
               top: 0,
@@ -151,8 +162,8 @@ export const Select = ({
             <p className="text-[var(--color-text-muted)]">{t(placeholder)}</p>
           </MenuItem>
         )}
-        {normalizedOptions.map((option) => (
-          <MenuItem key={option.value} value={option.value} sx={optionSx}>
+        {renderedOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value} disabled={Boolean(option.disabled)} sx={optionSx}>
             {t(option.label)}
           </MenuItem>
         ))}
@@ -169,19 +180,32 @@ export const SearchableSelect = ({
   const { t } = usePreferences();
   const inputId = id || name || generatedId;
   const normalizedOptions = normalizeOptions(options);
-  const selectedOption = normalizedOptions.find((option) => option.value === value) || null;
+  const selectedOptionFromList = normalizedOptions.find((option) => option.value === value) || null;
+  const fallbackSelectedOption = value !== null && value !== undefined && value !== ''
+    ? { value, label: String(value), disabled: true }
+    : null;
+  const selectedOption = selectedOptionFromList || fallbackSelectedOption;
+  const autocompleteOptions = selectedOptionFromList || !fallbackSelectedOption
+    ? normalizedOptions
+    : [fallbackSelectedOption, ...normalizedOptions];
   const fieldLabel = typeof label === 'string' ? t(label) : label;
   const supportingText = typeof (error || helperText) === 'string' ? t(error || helperText) : (error || helperText);
   const fieldSx = density === 'compact' ? muiFilterSx : muiFieldSx;
   const optionSx = density === 'compact'
-    ? { ...standardOptionSx, minHeight: 40, py: 0.75, fontSize: 'var(--type-control-size)' }
+    ? {
+        ...standardOptionSx,
+        minHeight: 40,
+        py: 0.75,
+        fontSize: 'var(--type-control-size)',
+        '@media (max-width:767px)': { minHeight: 44 },
+      }
     : standardOptionSx;
 
   return (
     <div className={className}>
       <Autocomplete
         id={inputId}
-        options={normalizedOptions}
+        options={autocompleteOptions}
         value={selectedOption}
         onChange={(_, option) => onChange?.(option?.value ?? '')}
         disabled={disabled}
@@ -190,6 +214,7 @@ export const SearchableSelect = ({
         openOnFocus
         getOptionLabel={(option) => t(option.label)}
         isOptionEqualToValue={(option, selected) => option.value === selected.value}
+        getOptionDisabled={(option) => Boolean(option.disabled)}
         noOptionsText={t('No options found')}
         slotProps={{
           paper: {
@@ -201,7 +226,7 @@ export const SearchableSelect = ({
               boxShadow: 'var(--shadow-md)',
               backgroundColor: 'var(--color-surface)',
               backgroundImage: 'none',
-              '@media (max-width:639px)': {
+              '@media (max-width:767px)': {
                 mt: 0,
                 borderLeft: 0,
                 borderRight: 0,
@@ -215,7 +240,7 @@ export const SearchableSelect = ({
             sx: {
               py: 0.5,
               maxHeight: 304,
-              '@media (max-width:639px)': {
+              '@media (max-width:767px)': {
                 maxHeight: '60dvh',
                 py: 1,
                 pb: 'max(8px, env(safe-area-inset-bottom))',
@@ -226,7 +251,7 @@ export const SearchableSelect = ({
           popper: {
             sx: {
               zIndex: 'var(--z-toast)',
-              '@media (max-width:639px)': {
+              '@media (max-width:767px)': {
                 position: 'fixed !important',
                 top: 'auto !important',
                 left: '0 !important',
