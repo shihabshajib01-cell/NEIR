@@ -76,7 +76,7 @@ export const GlobalImeiBlockListPage = () => {
       key: 'blockId',
       title: 'Block ID',
       isMono: true,
-      render: (val) => <p className="font-mono font-bold text-[#202338]">{val}</p>,
+      render: (val) => <p className="font-mono font-bold text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'imei',
@@ -84,8 +84,8 @@ export const GlobalImeiBlockListPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <p className="font-mono font-bold text-[#C62828]">{val}</p>
-          <p className="text-[11px] text-[#626981]">{row.blockType}</p>
+          <p className="font-mono font-bold text-[var(--color-error)]">{val}</p>
+          <p className="type-meta text-[var(--color-text-secondary)]">{row.blockType}</p>
         </div>
       ),
     },
@@ -94,8 +94,8 @@ export const GlobalImeiBlockListPage = () => {
       title: 'Reason / Authority',
       render: (val, row) => (
         <div className="flex flex-col max-w-xs">
-          <p className="font-semibold text-[#202338] truncate">{val}</p>
-          <p className="text-[11px] text-[#7A8197] truncate">{row.remarks}</p>
+          <p className="font-semibold text-[var(--color-text-primary)] truncate">{val}</p>
+          <p className="type-meta text-[var(--color-text-muted)] truncate">{row.remarks}</p>
         </div>
       ),
     },
@@ -110,7 +110,7 @@ export const GlobalImeiBlockListPage = () => {
       title: 'Block Date',
       isMono: true,
       width: '120px',
-      render: (val) => <p className="text-xs text-[#626981] font-mono">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-secondary)] font-mono">{val}</p>,
     },
     {
       key: 'actions',
@@ -123,7 +123,7 @@ export const GlobalImeiBlockListPage = () => {
             size="sm"
             icon={Eye}
             onClick={() => handleOpenDetails(row)}
-            className="text-xs h-7 px-2"
+            className="type-meta h-7 px-2"
           >
             Details
           </Button>
@@ -133,7 +133,7 @@ export const GlobalImeiBlockListPage = () => {
               size="sm"
               icon={Unlock}
               onClick={() => setUnblockTarget(row)}
-              className="text-xs h-7 px-2 border-emerald-300 text-emerald-800 hover:bg-emerald-50"
+              className="type-meta h-7 px-2 border-emerald-300 text-emerald-800 hover:bg-emerald-50"
             >
               Unblock
             </Button>
