@@ -5,6 +5,7 @@ import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.j
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
 import { Button } from '../../components/forms/Button.jsx';
+import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
@@ -14,6 +15,8 @@ export const LostStolenPage = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [loadError, setLoadError] = useState('');
@@ -23,7 +26,11 @@ export const LostStolenPage = () => {
     try {
       setIsLoading(true);
       setLoadError('');
-      const res = await mockApi.getLostStolenDevices({ search: searchTerm });
+      const res = await mockApi.getLostStolenDevices({
+        search: searchTerm,
+        fromDate,
+        toDate,
+      });
       setData(res.items);
     } catch (err) {
       const message = err.message || 'Failed to retrieve lost/stolen registry.';
@@ -36,7 +43,7 @@ export const LostStolenPage = () => {
 
   useEffect(() => {
     loadData();
-  }, [searchTerm]);
+  }, [searchTerm, fromDate, toDate]);
 
   const handleOpenDetails = (record) => {
     setSelectedRecord(record);
@@ -122,7 +129,16 @@ export const LostStolenPage = () => {
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.imei, item.gdNumber, item.requestedBy, item.thana])}
                   onSearchChange={setSearchTerm}
-                  onReset={() => setSearchTerm('')}
+                  filters={
+                    <DateRangeFilter
+                      compact
+                      className="shrink-0"
+                      startDate={fromDate}
+                      endDate={toDate}
+                      onStartDateChange={setFromDate}
+                      onEndDateChange={setToDate}
+                    />
+                  }
                 />
         }
       >
