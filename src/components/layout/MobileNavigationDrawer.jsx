@@ -7,6 +7,8 @@ import { useAuth } from '../../features/auth/AuthContext.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
+const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
 export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user, logout } = useAuth();
@@ -19,16 +21,34 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (!isOpen) return undefined;
     previousFocusRef.current = document.activeElement;
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(() => closeRef.current?.focus());
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (event.key === 'Tab') {
+        const panel = closeRef.current?.closest('[role="dialog"]');
+        const focusables = panel ? [...panel.querySelectorAll(focusableSelector)] : [];
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = originalOverflow;
       window.removeEventListener('keydown', handleKeyDown);
       previousFocusRef.current?.focus?.();
     };
@@ -45,7 +65,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 lg:hidden flex" role="dialog" aria-modal="true" aria-label={t('Navigation')}>
       <button data-state={presence.state} type="button" onClick={onClose} className="motion-overlay-backdrop fixed inset-0 bg-[rgba(32,35,56,0.35)] backdrop-blur-xs" aria-label={t('Close navigation')} />
-      <div data-state={presence.state} className="motion-nav-drawer relative w-[86%] max-w-sm bg-white text-[var(--color-text-primary)] flex flex-col h-full z-10 shadow-[var(--shadow-overlay)]">
+      <div data-state={presence.state} className="motion-nav-drawer relative w-[86%] max-w-sm bg-white text-[var(--color-text-primary)] flex flex-col h-[100dvh] z-10 shadow-[var(--shadow-overlay)]">
         <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
           <BtrcLogo className="h-8 w-8" showText />
           <button
@@ -64,7 +84,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
           <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">{user?.role || t('Super Admin')}</p>
         </div>
 
-        <nav className="flex-1 overflow-y-auto p-3 space-y-1" aria-label={t('Navigation')}>
+        <nav className="flex-1 overflow-y-auto overscroll-contain p-3 space-y-1" aria-label={t('Navigation')}>
           {navigationItems.map((item) => {
             const Icon = item.icon;
             const hasChildren = item.children && item.children.length > 0;
@@ -128,7 +148,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
           })}
         </nav>
 
-        <div className="p-3 border-t border-[var(--color-border)]">
+        <div className="p-3 pb-[max(12px,env(safe-area-inset-bottom))] border-t border-[var(--color-border)]">
           <button
             type="button"
             onClick={logout}
