@@ -216,6 +216,8 @@ export const SupportTicketPage = () => {
           isOpen={isDrawerOpen}
           onClose={() => {
             setIsDrawerOpen(false);
+          }}
+          onExited={() => {
             setSelectedTicket(null);
           }}
           title={`Ticket #${selectedTicket.ticketNumber}`}

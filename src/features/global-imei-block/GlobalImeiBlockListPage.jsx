@@ -208,6 +208,8 @@ export const GlobalImeiBlockListPage = () => {
           isOpen={isDrawerOpen}
           onClose={() => {
             setIsDrawerOpen(false);
+          }}
+          onExited={() => {
             setSelectedRecord(null);
           }}
           title="Blacklist Directive Record"

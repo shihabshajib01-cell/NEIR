@@ -157,6 +157,8 @@ export const LostStolenPage = () => {
           isOpen={isDrawerOpen}
           onClose={() => {
             setIsDrawerOpen(false);
+          }}
+          onExited={() => {
             setSelectedRecord(null);
           }}
           title="Lost / Stolen Handset Dossier"

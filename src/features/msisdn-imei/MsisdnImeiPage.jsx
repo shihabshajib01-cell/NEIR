@@ -198,6 +198,8 @@ export const MsisdnImeiPage = () => {
           isOpen={isDrawerOpen}
           onClose={() => {
             setIsDrawerOpen(false);
+          }}
+          onExited={() => {
             setSelectedRecord(null);
           }}
           title="Subscriber Device Registration"

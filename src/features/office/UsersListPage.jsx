@@ -224,6 +224,8 @@ export const UsersListPage = () => {
           isOpen={isDrawerOpen}
           onClose={() => {
             setIsDrawerOpen(false);
+          }}
+          onExited={() => {
             setSelectedUser(null);
           }}
           title="Administrative Officer Dossier"

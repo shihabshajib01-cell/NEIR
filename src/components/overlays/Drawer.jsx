@@ -45,10 +45,10 @@ const useOverlayFocus = (isOpen, onClose, panelRef) => {
   }, [isOpen, onClose, panelRef]);
 };
 
-export const Drawer = ({ isOpen, onClose, title, subtitle, children, footer, width = 'w-full sm:w-[480px]', className = '' }) => {
+export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, children, footer, width = 'w-full sm:w-[480px]', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
-  const presence = useOverlayPresence(isOpen);
+  const presence = useOverlayPresence(isOpen, undefined, onExited);
   useOverlayFocus(isOpen, onClose, panelRef);
 
   if (!presence.mounted) return null;
@@ -79,7 +79,7 @@ export const Drawer = ({ isOpen, onClose, title, subtitle, children, footer, wid
 };
 
 export const RecordDetailsDrawer = ({
-  isOpen, onClose, title = 'Record Details', recordId, status, sections = [], footerActions, width = 'w-full sm:w-[480px]',
+  isOpen, onClose, onExited, title = 'Record Details', recordId, status, sections = [], footerActions, width = 'w-full sm:w-[480px]',
 }) => {
   const { t } = usePreferences();
 
@@ -87,6 +87,7 @@ export const RecordDetailsDrawer = ({
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
+      onExited={onExited}
       title={title}
       subtitle={recordId ? 'ID: ' + recordId : null}
       width={width}
