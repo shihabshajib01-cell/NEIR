@@ -15,6 +15,13 @@ import {
 // Simulated delay helper
 const delay = (ms = 120) => new Promise(resolve => setTimeout(resolve, ms));
 
+const isWithinDateRange = (value, fromDate, toDate) => {
+  if (!fromDate && !toDate) return true;
+  const isoDate = String(value ?? '').slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return false;
+  return (!fromDate || isoDate >= fromDate) && (!toDate || isoDate <= toDate);
+};
+
 
 const normalizeDepartment = (department) => {
   const name = department.name ?? department.fullName ?? '';
@@ -102,6 +109,9 @@ export const mockApi = {
         r.id.toLowerCase().includes(q)
       );
     }
+    items = items.filter((record) =>
+      isWithinDateRange(record.date, filters.fromDate, filters.toDate)
+    );
     return {
       items,
       total: items.length,
@@ -139,6 +149,9 @@ export const mockApi = {
         r.gdNumber.toLowerCase().includes(q)
       );
     }
+    items = items.filter((record) =>
+      isWithinDateRange(record.reportDate, filters.fromDate, filters.toDate)
+    );
     return { items, total: items.length };
   },
 
@@ -244,6 +257,9 @@ export const mockApi = {
         record.blockedBy.toLowerCase().includes(q)
       );
     }
+    items = items.filter((record) =>
+      isWithinDateRange(record.blockDate, filters.fromDate, filters.toDate)
+    );
     return { items, total: items.length };
   },
 
@@ -291,6 +307,9 @@ export const mockApi = {
         t.name.toLowerCase().includes(q)
       );
     }
+    items = items.filter((record) =>
+      isWithinDateRange(record.date, filters.fromDate, filters.toDate)
+    );
     return { items, total: items.length };
   },
 
@@ -404,6 +423,10 @@ export const mockApi = {
         );
       }
     }
+
+    items = items.filter((record) =>
+      isWithinDateRange(record.lastRegistrationDate, filters.fromDate, filters.toDate)
+    );
 
     return { items, total: items.length };
   },
