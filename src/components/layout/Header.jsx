@@ -79,7 +79,7 @@ export const Header = ({
           <Menu className="w-5 h-5" />
         </button>
 
-        <Link to="/dashboard" className="flex items-center min-w-0" aria-label={t('Dashboard')}>
+        <Link to="/dashboard" className="flex items-center min-w-0 min-h-11" aria-label={t('Dashboard')}>
           <BtrcLogo className="h-9 w-9" showText compactOnNarrow />
         </Link>
       </div>
@@ -165,7 +165,7 @@ export const Header = ({
               setPreferencesOpen(false);
               setNotificationsOpen(false);
             }}
-            className="flex items-center gap-2.5 min-h-9 px-2 py-1 rounded-lg hover:bg-[var(--color-primary-light)] transition-colors text-left cursor-pointer"
+            className="flex items-center gap-2.5 min-h-11 md:min-h-9 px-2 py-1 rounded-lg hover:bg-[var(--color-primary-light)] transition-colors text-left cursor-pointer"
             aria-expanded={profileMenuOpen}
           >
             <div className="w-8 h-8 rounded-[var(--radius-md)] bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center type-meta font-bold border border-[var(--color-border)]">
