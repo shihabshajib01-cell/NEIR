@@ -129,7 +129,7 @@ export const LostStolenPage = () => {
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.imei, item.gdNumber, item.requestedBy, item.thana])}
                   onSearchChange={setSearchTerm}
-                  filters={
+                  dateFilter={
                     <DateRangeFilter
                       compact
                       className="shrink-0"
