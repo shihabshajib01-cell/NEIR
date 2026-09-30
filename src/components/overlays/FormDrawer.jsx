@@ -28,7 +28,7 @@ export const FormDrawer = ({
     subtitle={subtitle}
     width={width}
     footer={
-      <div className="flex items-center justify-end gap-2 w-full max-sm:flex-col-reverse max-sm:[&>button]:w-full">
+      <div className="flex items-center justify-end gap-2 w-full max-md:flex-col-reverse max-md:[&>button]:w-full">
         <Button type="button" variant="outline" onClick={onClose}>
           Cancel
         </Button>
