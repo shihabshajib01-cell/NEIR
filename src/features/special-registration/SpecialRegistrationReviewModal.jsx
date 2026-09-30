@@ -294,7 +294,7 @@ export const SpecialRegistrationReviewModal = ({
         title="Reject Special Registration"
         maxWidth="max-w-md"
         footer={
-          <div className="flex items-center justify-end gap-2 w-full max-sm:flex-col-reverse max-sm:[&>button]:w-full">
+          <div className="flex items-center justify-end gap-2 w-full max-md:flex-col-reverse max-md:[&>button]:w-full">
             <Button variant="outline" onClick={() => setIsRejectOpen(false)} disabled={isSubmitting}>
               Cancel
             </Button>
