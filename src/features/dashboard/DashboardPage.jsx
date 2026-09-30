@@ -297,8 +297,10 @@ export const DashboardPage = () => {
                 <button
                   key={view.id}
                   type="button"
+                  id={`dashboard-${view.id}-tab`}
                   role="tab"
                   aria-selected={active}
+                  aria-controls={`dashboard-${view.id}-panel`}
                   onClick={() => setAnalyticsView(view.id)}
                   className={'min-h-9 px-3 py-2 type-meta font-medium border-b-2 transition-colors whitespace-nowrap ' +
                     (active
@@ -312,6 +314,11 @@ export const DashboardPage = () => {
           </div>
         </nav>
 
+        <div
+          id={`dashboard-${analyticsView}-panel`}
+          role="tabpanel"
+          aria-labelledby={`dashboard-${analyticsView}-tab`}
+        >
         {analyticsView === 'data' ? (
           <div className="grid grid-cols-1 min-[1760px]:grid-cols-2 gap-4 items-start">
             <Card
@@ -359,6 +366,7 @@ export const DashboardPage = () => {
             />
           </Suspense>
         )}
+        </div>
       </section>
     </div>
   );
