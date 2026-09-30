@@ -124,8 +124,8 @@ export const DateRangeFilter = ({
   className = '',
 }) => {
   const { t } = usePreferences();
-  const showTwoMonths = useMediaQuery('(min-width:700px)');
-  const isMobile = useMediaQuery('(max-width:639px)');
+  const showTwoMonths = useMediaQuery('(min-width:768px)');
+  const isMobile = useMediaQuery('(max-width:767px)');
   const [anchorEl, setAnchorEl] = useState(null);
   const [activeField, setActiveField] = useState(null);
 
@@ -257,7 +257,7 @@ export const DateRangeFilter = ({
               </p>
             </div>
             {selectionLabel && (
-              <p className="hidden sm:block type-meta font-mono text-[var(--color-text-secondary)] mt-0.5">
+              <p className="hidden md:block type-meta font-mono text-[var(--color-text-secondary)] mt-0.5">
                 {selectionLabel}
               </p>
             )}
@@ -312,8 +312,8 @@ export const DateRangeFilter = ({
                 onClick={() => setVisibleMonth((month) => addMonths(month, -1))}
                 aria-label={t('Previous month')}
                 sx={{
-                  width: 34,
-                  height: 34,
+                  width: isMobile ? 44 : 34,
+                  height: isMobile ? 44 : 34,
                   border: '1px solid var(--color-border)',
                   borderRadius: 'var(--field-radius)',
                   color: 'var(--color-text-secondary)',
@@ -336,8 +336,8 @@ export const DateRangeFilter = ({
                 onClick={() => setVisibleMonth((month) => addMonths(month, 1))}
                 aria-label={t('Next month')}
                 sx={{
-                  width: 34,
-                  height: 34,
+                  width: isMobile ? 44 : 34,
+                  height: isMobile ? 44 : 34,
                   border: '1px solid var(--color-border)',
                   borderRadius: 'var(--field-radius)',
                   color: 'var(--color-text-secondary)',
@@ -375,7 +375,7 @@ export const DateRangeFilter = ({
             </div>
           </div>
 
-          <div className="px-4 py-3 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex items-center justify-between gap-3">
+          <div className="px-4 py-3 max-md:pb-[max(12px,env(safe-area-inset-bottom))] border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="type-meta text-[var(--color-text-secondary)] truncate">
                 {selectionLabel || t('No date selected')}
