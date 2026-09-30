@@ -86,7 +86,7 @@ export const IconButton = ({
   const { t } = usePreferences();
   const sizeClasses = {
     sm: 'w-8 h-8 p-1 rounded-[var(--field-radius)]',
-    md: 'w-10 h-10 p-1.5 rounded-[var(--field-radius)]',
+    md: 'w-11 h-11 md:w-10 md:h-10 p-1.5 rounded-[var(--field-radius)]',
     lg: 'w-11 h-11 p-2 rounded-[var(--field-radius)]',
   };
   const variantClasses = {
