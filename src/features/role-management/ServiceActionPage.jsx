@@ -9,7 +9,7 @@ import { TextInput } from '../../components/forms/TextInput.jsx';
 import { Select, SearchableSelect } from '../../components/forms/Select.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Plus, Edit2, Layers } from 'lucide-react';
+import { Plus, Edit2 } from 'lucide-react';
 
 export const ServiceActionPage = () => {
   const [serviceActions, setServiceActions] = useState([]);
