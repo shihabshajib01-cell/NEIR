@@ -268,7 +268,7 @@ export const DataTable = ({
                   },
                   '& .MuiTableHead-root .MuiTableRow-root': {
                     height: 40,
-                    backgroundColor: 'var(--color-background-subtle)',
+                    backgroundColor: 'var(--color-background)',
                   },
                   '& .MuiTableHead-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',
@@ -299,8 +299,6 @@ export const DataTable = ({
                     margin: 0,
                     fontSize: 'var(--type-table-cell-size) !important',
                     lineHeight: 'var(--type-body-line) !important',
-                    fontWeight: 'var(--font-weight-medium) !important',
-                    color: 'var(--color-text-primary) !important',
                     backgroundColor: 'transparent !important',
                     border: '0 !important',
                     borderRadius: '0 !important',
@@ -504,9 +502,10 @@ export const DataTable = ({
               },
             } : {}),
             borderTop: '1px solid var(--color-border)',
-            backgroundColor: 'var(--color-surface)',
+            backgroundColor: 'var(--color-background-subtle)',
             flexShrink: 0,
             '& .MuiTablePagination-toolbar': {
+              minHeight: '48px',
               justifyContent: 'flex-end',
               gap: '10px',
               paddingLeft: '16px',
