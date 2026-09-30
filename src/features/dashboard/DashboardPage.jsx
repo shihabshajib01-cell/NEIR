@@ -43,7 +43,7 @@ const DashboardMobileDataCard = ({ title, fields = [] }) => {
   const { t } = usePreferences();
 
   return (
-    <article className="bg-white px-4 py-4">
+    <article className="bg-[var(--color-surface)] px-4 py-4">
       <h4 className="type-card-title text-[var(--color-text-primary)]">{title}</h4>
       <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-[var(--color-border-subtle)]">
         {fields.map((field) => (
@@ -100,19 +100,19 @@ export const DashboardPage = () => {
       key: 'whiteList',
       title: 'White List',
       isMono: true,
-      render: (value) => <p className="text-[#2E7D32]">{value.toLocaleString()}</p>,
+      render: (value) => <p className="text-[var(--color-success)]">{value.toLocaleString()}</p>,
     },
     {
       key: 'grayList',
       title: 'Gray List',
       isMono: true,
-      render: (value) => <p className="text-[#B96B18]">{value.toLocaleString()}</p>,
+      render: (value) => <p className="text-[var(--color-warning-text)]">{value.toLocaleString()}</p>,
     },
     {
       key: 'blackList',
       title: 'Blocked',
       isMono: true,
-      render: (value) => <p className="text-[#C62828]">{value.toLocaleString()}</p>,
+      render: (value) => <p className="text-[var(--color-error)]">{value.toLocaleString()}</p>,
     },
   ];
 
@@ -254,17 +254,17 @@ export const DashboardPage = () => {
                           <div className="h-2.5 w-full rounded-full bg-[var(--color-background)] overflow-hidden flex">
                             <div
                               style={{ width: `${data.imeiSummary.whiteList.percent}%` }}
-                              className="bg-[#2E7D32]"
+                              className="bg-[var(--color-success)]"
                               title={`White List: ${data.imeiSummary.whiteList.percent}%`}
                             />
                             <div
                               style={{ width: `${data.imeiSummary.grayList.percent}%` }}
-                              className="bg-[#EF8F22]"
+                              className="bg-[var(--color-warning)]"
                               title={`Gray List: ${data.imeiSummary.grayList.percent}%`}
                             />
                             <div
                               style={{ width: `${data.imeiSummary.blackList.percent}%` }}
-                              className="bg-[#C62828]"
+                              className="bg-[var(--color-error)]"
                               title={`Blocked: ${data.imeiSummary.blackList.percent}%`}
                             />
                           </div>
@@ -272,8 +272,8 @@ export const DashboardPage = () => {
                           <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--color-border-subtle)] mt-4">
                             <div className="py-3 sm:py-0 sm:pr-5">
                               <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#2E7D32]" />
-                                <p className="type-meta font-semibold text-[#2E7D32]">White List</p>
+                                <div className="w-2 h-2 rounded-full bg-[var(--color-success)]" />
+                                <p className="type-meta font-semibold text-[var(--color-success)]">White List</p>
                               </div>
                               <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
                                 {data.imeiSummary.whiteList.count.toLocaleString()}
@@ -285,8 +285,8 @@ export const DashboardPage = () => {
               
                             <div className="py-3 sm:py-0 sm:px-5">
                               <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#EF8F22]" />
-                                <p className="type-meta font-semibold text-[#B96B18]">Gray List</p>
+                                <div className="w-2 h-2 rounded-full bg-[var(--color-warning)]" />
+                                <p className="type-meta font-semibold text-[var(--color-warning-text)]">Gray List</p>
                               </div>
                               <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
                                 {data.imeiSummary.grayList.count.toLocaleString()}
@@ -298,8 +298,8 @@ export const DashboardPage = () => {
               
                             <div className="py-3 sm:py-0 sm:pl-5">
                               <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-[#C62828]" />
-                                <p className="type-meta font-semibold text-[#A91F22]">Blocked</p>
+                                <div className="w-2 h-2 rounded-full bg-[var(--color-error)]" />
+                                <p className="type-meta font-semibold text-[var(--color-error)]">Blocked</p>
                               </div>
                               <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
                                 {data.imeiSummary.blackList.count.toLocaleString()}
@@ -363,17 +363,17 @@ export const DashboardPage = () => {
                                     {
                                       label: 'White List',
                                       value: row.whiteList.toLocaleString(),
-                                      className: 'text-[#2E7D32]',
+                                      className: 'text-[var(--color-success)]',
                                     },
                                     {
                                       label: 'Gray List',
                                       value: row.grayList.toLocaleString(),
-                                      className: 'text-[#B96B18]',
+                                      className: 'text-[var(--color-warning-text)]',
                                     },
                                     {
                                       label: 'Blocked',
                                       value: row.blackList.toLocaleString(),
-                                      className: 'text-[#C62828]',
+                                      className: 'text-[var(--color-error)]',
                                     },
                                   ]}
                                 />
@@ -421,7 +421,7 @@ export const DashboardPage = () => {
             <Suspense
               fallback={
                 <div
-                  className="min-h-[320px] bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] flex items-center justify-center"
+                  className="min-h-[320px] bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] flex items-center justify-center"
                   aria-live="polite"
                 >
                   <p className="type-meta text-[var(--color-text-secondary)]">{t('Loading charts...')}</p>
