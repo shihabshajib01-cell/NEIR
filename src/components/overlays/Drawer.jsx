@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowLeft, X } from 'lucide-react';
-import { Button } from '../forms/Button.jsx';
+import { Button, IconButton } from '../forms/Button.jsx';
 import { StatusBadge } from '../data-display/StatusBadge.jsx';
-import { SafeText } from '../data-display/SafeText.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
@@ -16,7 +15,7 @@ const useOverlayFocus = (isOpen, onClose, panelRef) => {
     document.body.style.overflow = 'hidden';
 
     requestAnimationFrame(() => {
-      panelRef.current?.querySelector(focusableSelector)?.focus();
+      panelRef.current?.focus({ preventScroll: true });
     });
 
     const onKeyDown = (event) => {
@@ -45,7 +44,7 @@ const useOverlayFocus = (isOpen, onClose, panelRef) => {
   }, [isOpen, onClose, panelRef]);
 };
 
-export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, children, footer, width = 'w-full sm:w-[480px]', className = '' }) => {
+export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, children, footer, width = 'w-full sm:w-[520px]', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
   const presence = useOverlayPresence(isOpen, undefined, onExited);
@@ -59,27 +58,33 @@ export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, children, f
       <div
         data-state={presence.state}
         ref={panelRef}
-        className={'motion-drawer-panel mobile-bottom-sheet mobile-bottom-sheet-surface relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-white shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
+        tabIndex={-1}
+        className={'motion-drawer-panel focus:outline-none mobile-bottom-sheet mobile-bottom-sheet-surface relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-white shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
       >
-        <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] bg-white flex items-start justify-between gap-3 shrink-0">
+        <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] bg-[var(--color-surface)] flex items-start justify-between gap-3 shrink-0">
           <div className="pr-4 min-w-0">
-            <h3 className="text-base font-semibold text-[var(--color-text-primary)] truncate">{t(title)}</h3>
-            {subtitle && <p className="text-xs text-[var(--color-text-secondary)] mt-0.5 truncate">{t(subtitle)}</p>}
+            <h3 className="type-card-title text-[var(--color-text-primary)] truncate">{t(title)}</h3>
+            {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-1 truncate">{t(subtitle)}</p>}
           </div>
-          <button type="button" onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)] shrink-0" aria-label={t('Close drawer')}>
-            <X className="w-5 h-5" />
-          </button>
+          <IconButton
+            icon={X}
+            variant="ghost"
+            size="md"
+            onClick={onClose}
+            ariaLabel="Close drawer"
+            className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(1,173,193,0.30)]"
+          />
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 sm:space-y-5">{children}</div>
-        {footer && <div className="px-4 py-3 sm:px-5 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex items-center justify-end gap-2.5 shrink-0 max-sm:flex-col max-sm:items-stretch max-sm:[&>button]:w-full max-sm:[&>div]:w-full">{footer}</div>}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">{children}</div>
+        {footer && <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-t border-[var(--color-border)] bg-[var(--color-surface)] flex items-center justify-end gap-2 shrink-0 max-sm:flex-col max-sm:items-stretch max-sm:[&>button]:w-full max-sm:[&>div]:w-full">{footer}</div>}
       </div>
     </div>
   );
 };
 
 export const RecordDetailsDrawer = ({
-  isOpen, onClose, onExited, title = 'Record Details', recordId, status, sections = [], footerActions, width = 'w-full sm:w-[480px]',
+  isOpen, onClose, onExited, title = 'Record Details', recordId, status, sections = [], footerActions, width = 'w-full sm:w-[520px]',
 }) => {
   const { t } = usePreferences();
 
@@ -93,26 +98,35 @@ export const RecordDetailsDrawer = ({
       width={width}
       footer={footerActions || <Button variant="outline" size="sm" onClick={onClose}>Close</Button>}
     >
-      <div className="p-3.5 bg-[var(--color-background-subtle)] border border-[var(--color-border)] rounded-xl flex items-center justify-between gap-3">
-        <div className="flex flex-col min-w-0">
-          <p className="text-[11px] font-semibold text-[var(--color-text-secondary)]">{t('Record Status')}</p>
-          <p className="text-sm font-semibold text-[var(--color-text-primary)] font-mono mt-0.5 truncate">{recordId || 'NEIR-REC'}</p>
+      {status && (
+        <div className="px-4 py-3 bg-[var(--color-background-subtle)] border border-[var(--color-border)] rounded-lg flex items-center justify-between gap-3">
+          <p className="type-label text-[var(--color-text-primary)]">{t('Current Status')}</p>
+          <StatusBadge status={status} size="md" />
         </div>
-        {status && <StatusBadge status={status} size="md" />}
-      </div>
+      )}
 
       {sections.map((section, index) => (
-        <section key={section.title || index} className="border border-[var(--color-border)] rounded-xl overflow-hidden bg-white">
-          <h4 className="px-4 py-2.5 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)]">{t(section.title)}</h4>
-          <dl className="p-3.5 space-y-2.5">
-            {section.items.map((item, itemIndex) => (
-              <div key={item.label || itemIndex} className="grid grid-cols-[minmax(110px,0.8fr)_minmax(0,1.2fr)] gap-3 text-xs">
-                <dt className="text-[var(--color-text-secondary)]"><p>{t(item.label)}</p></dt>
-                <dd className={'font-medium text-[var(--color-text-primary)] text-right min-w-0 ' + (item.isMono ? 'font-mono tabular-nums' : '')}>
-                  <SafeText value={item.value} mode="long" className="ml-auto" />
-                </dd>
-              </div>
-            ))}
+        <section key={section.title || index} className="border border-[var(--color-border)] rounded-lg overflow-hidden bg-[var(--color-surface)]">
+          <h4 className="px-4 py-3 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] type-label font-semibold text-[var(--color-text-primary)]">
+            {t(section.title)}
+          </h4>
+          <dl className="p-4 space-y-3.5">
+            {section.items.map((item, itemIndex) => {
+              const displayValue = item.value === null || item.value === undefined || item.value === '' ? '—' : String(item.value);
+              return (
+                <div
+                  key={item.label || itemIndex}
+                  className="grid grid-cols-1 sm:grid-cols-[minmax(145px,0.85fr)_minmax(0,1.15fr)] gap-x-4 gap-y-1"
+                >
+                  <dt className="type-meta text-[var(--color-text-secondary)]">
+                    <p>{t(item.label)}</p>
+                  </dt>
+                  <dd className={'type-body-sm font-medium text-[var(--color-text-primary)] sm:text-right min-w-0 ' + (item.isMono ? 'font-mono tabular-nums' : '')}>
+                    <p className="break-words" title={displayValue}>{displayValue}</p>
+                  </dd>
+                </div>
+              );
+            })}
           </dl>
         </section>
       ))}

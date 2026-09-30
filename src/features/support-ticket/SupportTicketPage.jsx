@@ -222,55 +222,58 @@ export const SupportTicketPage = () => {
           }}
           title={`Ticket #${selectedTicket.ticketNumber}`}
           subtitle={selectedTicket.subject}
-          width="w-full sm:w-[540px]"
+          width="w-full sm:w-[560px]"
         >
           {/* Metadata banner */}
-          <div className="p-3.5 bg-[#F7F8FC] border border-[#E2E5F0] rounded-lg space-y-2">
-            <div className="flex items-center justify-between">
-              <p className="text-xs font-semibold text-[#202338]">{selectedTicket.category}</p>
+          <section className="border border-[var(--color-border)] rounded-lg overflow-hidden bg-[var(--color-surface)]">
+            <div className="px-4 py-3 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] flex items-center justify-between gap-3">
+              <p className="type-label font-semibold text-[var(--color-text-primary)]">{selectedTicket.category}</p>
               <div className="flex items-center gap-2">
                 <PriorityBadge priority={selectedTicket.priority} />
                 <StatusBadge status={selectedTicket.status} size="sm" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2 text-xs pt-1 text-[#626981]">
+            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
               <div>
-                <p>Citizen: <strong className="text-[#202338]">{selectedTicket.submittedBy}</strong></p>
+                <p className="type-meta text-[var(--color-text-secondary)]">Citizen</p>
+                <p className="type-body-sm font-medium text-[var(--color-text-primary)] mt-0.5">{selectedTicket.submittedBy}</p>
               </div>
               <div>
-                <p>Phone: <code className="font-mono text-[#202338]">{selectedTicket.phone}</code></p>
+                <p className="type-meta text-[var(--color-text-secondary)]">Phone</p>
+                <p className="type-body-sm font-medium font-mono text-[var(--color-text-primary)] mt-0.5">{selectedTicket.phone}</p>
               </div>
               {selectedTicket.imei && (
-                <div className="col-span-2">
-                  <p>Linked IMEI: <code className="font-mono text-[#028A97] font-bold ml-1">{selectedTicket.imei}</code></p>
+                <div className="sm:col-span-2">
+                  <p className="type-meta text-[var(--color-text-secondary)]">Linked IMEI</p>
+                  <p className="type-body-sm font-medium font-mono text-[var(--color-primary-dark)] mt-0.5">{selectedTicket.imei}</p>
                 </div>
               )}
             </div>
-          </div>
+          </section>
 
           {/* Conversation History Thread */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold tracking-wider text-[#626981]">
+            <h4 className="type-label font-semibold text-[var(--color-text-primary)]">
               Conversation
             </h4>
             <div className="space-y-3">
               {selectedTicket.messages?.map((msg) => (
                 <div
                   key={msg.id}
-                  className={`p-3.5 rounded-lg border text-xs leading-relaxed ${
+                  className={`p-3.5 rounded-lg border type-body-sm ${
                     msg.isStaff
-                      ? 'bg-[#202338]/5 border-[#202338]/20 ml-4'
-                      : 'bg-white border-[#E2E5F0] mr-4 shadow-xs'
+                      ? 'bg-[var(--color-background-subtle)] border-[var(--color-border)] sm:ml-4'
+                      : 'bg-[var(--color-surface)] border-[var(--color-border)] sm:mr-4'
                   }`}
                 >
-                  <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#F7F8FC]">
+                  <div className="flex items-center justify-between gap-3 pb-2 mb-2 border-b border-[var(--color-border-subtle)]">
                     <div className="flex items-center gap-1.5 min-w-0">
-                      <p className="font-semibold text-[#202338] truncate">{msg.sender}</p>
-                      {msg.isStaff && <p className="text-[10px] bg-[#01ADC1] text-white px-1.5 py-0.2 rounded font-normal">Staff</p>}
+                      <p className="type-body-sm font-semibold text-[var(--color-text-primary)] truncate">{msg.sender}</p>
+                      {msg.isStaff && <p className="type-badge bg-[var(--color-primary)] text-white px-2 py-0.5 rounded-full font-medium">Staff</p>}
                     </div>
-                    <p className="text-[10px] text-[#7A8197] font-mono">{msg.timestamp}</p>
+                    <p className="type-meta text-[var(--color-text-muted)] font-mono shrink-0">{msg.timestamp}</p>
                   </div>
-                  <p className="text-[#202338]">{msg.content}</p>
+                  <p className="type-body-sm text-[var(--color-text-primary)]">{msg.content}</p>
                 </div>
               ))}
             </div>
@@ -279,7 +282,7 @@ export const SupportTicketPage = () => {
           {/* Reply Form */}
           <form onSubmit={handleSendReply} className="pt-4 border-t border-[var(--color-border)] space-y-4">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-semibold tracking-wider text-[#202338]">
+              <h4 className="type-label font-semibold text-[var(--color-text-primary)]">
                 Response
               </h4>
               <div className="w-40">

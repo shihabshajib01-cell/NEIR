@@ -253,7 +253,7 @@ export const UsersListPage = () => {
             }
           ]}
           footerActions={
-            <div className="flex items-center justify-between w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full [&>button]:w-full sm:[&>button]:w-auto">
               <Button
                 variant="outline"
                 size="sm"
