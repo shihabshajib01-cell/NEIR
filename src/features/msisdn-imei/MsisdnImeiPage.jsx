@@ -320,28 +320,28 @@ export const MsisdnImeiPage = ({ initialAction = null }) => {
               setSearchBy('MSISDN');
             }}
             filters={
-              <>
-                <div className="w-full md:w-40">
-                  <CompactSelect
-                    value={searchBy}
-                    onChange={(event) => setSearchBy(event.target.value)}
-                    options={[
-                      { value: 'MSISDN', label: 'MSISDN' },
-                      { value: 'IMEI', label: 'IMEI' },
-                    ]}
-                    placeholder=""
-                    aria-label="Search by"
-                  />
-                </div>
-                <DateRangeFilter
-                  compact
-                  className="shrink-0"
-                  startDate={fromDate}
-                  endDate={toDate}
-                  onStartDateChange={setFromDate}
-                  onEndDateChange={setToDate}
+              <div className="w-full md:w-40">
+                <CompactSelect
+                  value={searchBy}
+                  onChange={(event) => setSearchBy(event.target.value)}
+                  options={[
+                    { value: 'MSISDN', label: 'MSISDN' },
+                    { value: 'IMEI', label: 'IMEI' },
+                  ]}
+                  placeholder=""
+                  aria-label="Search by"
                 />
-              </>
+              </div>
+            }
+            dateFilter={
+              <DateRangeFilter
+                compact
+                className="shrink-0"
+                startDate={fromDate}
+                endDate={toDate}
+                onStartDateChange={setFromDate}
+                onEndDateChange={setToDate}
+              />
             }
           />
         }
