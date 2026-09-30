@@ -103,7 +103,7 @@ export const BlockImeiDrawer = ({
         isLoading={isLoading}
       >
         <FormDrawerSection title="Block Target">
-          <div className="space-y-4 pt-1">
+          <div className="flex flex-col gap-4 pt-1">
             <Alert variant="warning" title="Critical Regulatory Action">
               Blocking an IMEI prevents network attachment across all operators.
             </Alert>
@@ -114,7 +114,7 @@ export const BlockImeiDrawer = ({
               value={blockType}
               onChange={setBlockType}
               variant="cards"
-              className="w-full pb-1"
+              className="w-full"
               options={[
                 { value: 'single', label: 'Single IMEI Target' },
                 { value: 'batch', label: 'Batch IMEI List / Bulk Requisition' },
