@@ -36,6 +36,7 @@ export const FilterBar = ({
   searchSuggestions = [],
   maxSearchSuggestions = 10,
   filters = null,
+  dateFilter = null,
   onExport,
   embedded = false,
   className = '',
