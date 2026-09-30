@@ -74,7 +74,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
                   aria-expanded={submenuOpen}
                 >
                   <div className="flex items-center gap-2.5 truncate">
-                    <Icon className={'w-4 h-4 shrink-0 ' + (activeSection ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-muted)]')} />
+                    <Icon className="w-4 h-4 shrink-0" />
                     <p className="truncate">{t(item.name)}</p>
                   </div>
                   {submenuOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
