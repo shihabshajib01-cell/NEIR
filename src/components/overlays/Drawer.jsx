@@ -121,7 +121,7 @@ export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, headerStatu
         >
           {children}
         </div>
-        {footer && <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-t border-[var(--color-border)] bg-[var(--color-surface)] flex items-center justify-end gap-2 shrink-0 max-sm:flex-col max-sm:items-stretch max-sm:[&>button]:w-full max-sm:[&>div]:w-full">{footer}</div>}
+        {footer && <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-t border-[var(--color-border)] bg-[var(--color-surface)] flex items-center justify-end gap-2 shrink-0 max-md:pb-[max(12px,env(safe-area-inset-bottom))] max-sm:flex-col max-sm:items-stretch max-sm:[&>button]:w-full max-sm:[&>div]:w-full">{footer}</div>}
       </div>
     </div>
   );
@@ -190,13 +190,23 @@ export const FullScreenWorkspace = ({
 }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
+  const internalContentRef = useRef(null);
+  const resolvedContentRef = contentRef || internalContentRef;
   const presence = useOverlayPresence(isOpen);
   useOverlayFocus(isOpen, onClose, panelRef);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    requestAnimationFrame(() => {
+      if (resolvedContentRef.current) resolvedContentRef.current.scrollTop = 0;
+    });
+  }, [isOpen, identifier]);
+
   if (!presence.mounted) return null;
 
   return (
-    <div data-state={presence.state} className="motion-overlay-backdrop fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
-      <div data-state={presence.state} ref={panelRef} className={'motion-modal-panel mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:h-[88vh] sm:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
+    <div data-state={presence.state} className="motion-overlay-backdrop fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
+      <div data-state={presence.state} ref={panelRef} className={'motion-modal-panel mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' max-md:!max-w-none max-md:h-auto max-md:max-h-[90dvh] max-md:rounded-t-[20px] max-md:rounded-b-none max-md:border-x-0 max-md:border-b-0 md:h-[88vh] md:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
         <div className="md:hidden px-4 py-3 bg-[var(--color-surface)] text-[var(--color-text-primary)] flex items-center justify-between gap-2 border-b border-[var(--color-border)] shrink-0">
           <div className="flex items-center gap-2 min-w-0 flex-1">
             {onMobileBack && (
@@ -242,12 +252,12 @@ export const FullScreenWorkspace = ({
           </div>
         </div>
 
-        <div ref={contentRef} className="flex-1 min-h-0 overflow-y-auto">
+        <div ref={resolvedContentRef} className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
           <div className={'min-h-0 md:min-h-full box-border p-4 md:p-6 ' + contentClassName}>
             {children}
           </div>
         </div>
-        {footer && <div className={'px-4 py-3 md:px-6 bg-[var(--color-surface)] border-t border-[var(--color-border)] items-center justify-between shrink-0 max-md:[&>div]:w-full max-md:[&>button]:w-full ' + (hideMobileFooter ? 'hidden md:flex' : 'flex')}>{footer}</div>}
+        {footer && <div className={'px-4 py-3 md:px-6 max-md:pb-[max(12px,env(safe-area-inset-bottom))] bg-[var(--color-surface)] border-t border-[var(--color-border)] items-center justify-between shrink-0 max-md:[&>div]:w-full max-md:[&>button]:w-full ' + (hideMobileFooter ? 'hidden md:flex' : 'flex')}>{footer}</div>}
       </div>
     </div>
   );
