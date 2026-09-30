@@ -84,7 +84,7 @@ export const LoginPage = () => {
             <div className="flex items-center gap-3 p-4 bg-[var(--color-surface)]/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
               <div className="w-10 h-10 rounded-xl bg-[var(--color-success-bg)] flex items-center justify-center text-[var(--color-success)] shrink-0"><ShieldCheck className="w-5 h-5" /></div>
               <div>
-                <p className="text-sm font-semibold text-[var(--color-text-primary)]">Administrative workspace</p>
+                <p className="type-label font-semibold text-[var(--color-text-primary)]">Administrative workspace</p>
               </div>
             </div>
           </div>
