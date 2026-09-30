@@ -276,31 +276,35 @@ export const DashboardPage = () => {
         </div>
       </Card>
 
-      <Card
-        title="Recent 6-Month EIR Trajectory"
-        bodyClassName="p-0"
-      >
-        <DataTable
-          embedded
-          stickyHeader={false}
-          keyField="month"
-          columns={trendColumns}
-          data={data.imeiSummary.recentMonthlyTrends}
-        />
-      </Card>
+      <div className="grid grid-cols-1 min-[1760px]:grid-cols-2 gap-4 items-start">
+        <Card
+          title="Recent 6-Month EIR Trajectory"
+          bodyClassName="p-0"
+          className="min-w-0"
+        >
+          <DataTable
+            embedded
+            stickyHeader={false}
+            keyField="month"
+            columns={trendColumns}
+            data={data.imeiSummary.recentMonthlyTrends}
+          />
+        </Card>
 
-      <Card
-        title="Operator Sync Breakdown"
-        bodyClassName="p-0"
-      >
-        <DataTable
-          embedded
-          stickyHeader={false}
-          keyField="operator"
-          columns={operatorColumns}
-          data={data.registrationSummary.operatorBreakdown}
-        />
-      </Card>
+        <Card
+          title="Operator Sync Breakdown"
+          bodyClassName="p-0"
+          className="min-w-0"
+        >
+          <DataTable
+            embedded
+            stickyHeader={false}
+            keyField="operator"
+            columns={operatorColumns}
+            data={data.registrationSummary.operatorBreakdown}
+          />
+        </Card>
+      </div>
     </div>
   );
 };

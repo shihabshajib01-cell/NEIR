@@ -3,17 +3,17 @@
 
 @layer base {
   :root {
-    --color-primary: #4B5694;
-    --color-primary-dark: #343D73;
-    --color-primary-deep: #29305D;
-    --color-primary-light: #EEF0FA;
-    --color-secondary: #7C8BD6;
+    --color-primary: #01ADC1;
+    --color-primary-dark: #028A97;
+    --color-primary-deep: #0A767E;
+    --color-primary-light: #E1F7FB;
+    --color-secondary: #80C2C6;
     --color-on-primary: #FFFFFF;
 
     --color-background: #F7F8FC;
     --color-background-subtle: #FBFCFE;
     --color-surface: #FFFFFF;
-    --color-surface-hover: rgba(75, 86, 148, 0.06);
+    --color-surface-hover: #F3FBFC;
     --color-border: #E2E5F0;
     --color-border-subtle: rgba(226, 229, 240, 0.55);
     --color-border-strong: #C8CDD9;
@@ -411,12 +411,12 @@ html[data-theme='dark'] ::selection {
 /* NBR Office Management visual baseline for NEIR.
    Visual-only: no route, workflow, permission or data behavior changes. */
 :root {
-  --color-primary-alpha-3: rgba(75, 86, 148, 0.03);
-  --color-primary-alpha-6: rgba(75, 86, 148, 0.06);
-  --color-primary-alpha-8: rgba(75, 86, 148, 0.08);
-  --color-primary-alpha-10: rgba(75, 86, 148, 0.10);
-  --color-primary-alpha-12: rgba(75, 86, 148, 0.12);
-  --color-primary-shadow: rgba(75, 86, 148, 0.24);
+  --color-primary-alpha-3: rgba(1, 173, 193, 0.03);
+  --color-primary-alpha-6: rgba(1, 173, 193, 0.06);
+  --color-primary-alpha-8: rgba(1, 173, 193, 0.08);
+  --color-primary-alpha-10: rgba(1, 173, 193, 0.10);
+  --color-primary-alpha-12: rgba(1, 173, 193, 0.12);
+  --color-primary-shadow: rgba(1, 173, 193, 0.24);
   --color-background-zebra: rgba(32, 35, 56, 0.015);
 }
 
