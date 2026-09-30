@@ -55,31 +55,48 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
   };
   const toneConfig = tones[tone] || tones.neutral;
 
+  if (compact) {
+    return (
+      <div className={'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] p-5 min-h-[128px] flex items-center ' + className}>
+        <div className="flex items-start justify-between gap-4 w-full">
+          <div className="min-w-0 flex-1">
+            <p className="type-kpi text-[var(--color-text-primary)]">{value}</p>
+            <p className="type-label text-[var(--color-text-secondary)] mt-2">{t(title)}</p>
+            {(change || category) && (
+              <p className="type-meta text-[var(--color-text-muted)] mt-1 truncate">
+                {change ? <span className="font-medium">{change}</span> : null}
+                {change && category ? <span aria-hidden="true"> · </span> : null}
+                {category ? t(category) : null}
+              </p>
+            )}
+          </div>
+          {Icon && (
+            <div className={'w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ' + toneConfig.iconBg}>
+              <Icon className={'w-5 h-5 ' + toneConfig.iconText} />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className={'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] flex flex-col ' + (compact ? 'p-4 min-h-[124px]' : 'p-5 min-h-[116px] justify-between transition-all hover:shadow-[var(--shadow-md)]') + ' ' + className}>
+    <div className={'bg-white border border-[var(--color-border)] rounded-xl p-5 min-h-[116px] shadow-[var(--shadow-sm)] flex flex-col justify-between transition-all hover:shadow-[var(--shadow-md)] ' + className}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <div className={'w-2 h-2 rounded-full shrink-0 ' + toneConfig.dot} />
-            <p className={(compact ? 'type-meta font-medium' : 'type-label') + ' text-[var(--color-text-secondary)]'}>{t(title)}</p>
+            <p className="type-label text-[var(--color-text-secondary)]">{t(title)}</p>
           </div>
-          <p className={(compact ? 'text-[28px] leading-[1.15] font-semibold font-mono tabular-nums mt-2.5' : 'type-kpi mt-3') + ' text-[var(--color-text-primary)]'}>{value}</p>
+          <p className="type-kpi text-[var(--color-text-primary)] mt-3">{value}</p>
         </div>
         {Icon && <div className={'w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ' + toneConfig.iconBg}><Icon className={'w-5 h-5 ' + toneConfig.iconText} /></div>}
       </div>
       {(change || category) && (
-        compact ? (
-          <p className="type-meta text-[var(--color-text-muted)] mt-3 leading-5">
-            <span className="font-medium">{change}</span>
-            {change && category ? <span aria-hidden="true"> · </span> : null}
-            {category ? t(category) : null}
-          </p>
-        ) : (
-          <div className="flex items-start justify-between gap-3 type-meta text-[var(--color-text-muted)] mt-3 pt-2.5 border-t border-[var(--color-border-subtle)]">
-            <p className="font-medium leading-4">{change}</p>
-            {category && <p className="shrink-0 text-right">{t(category)}</p>}
-          </div>
-        )
+        <div className="flex items-start justify-between gap-3 type-meta text-[var(--color-text-muted)] mt-3 pt-2.5 border-t border-[var(--color-border-subtle)]">
+          <p className="font-medium leading-4">{change}</p>
+          {category && <p className="shrink-0 text-right">{t(category)}</p>}
+        </div>
       )}
     </div>
   );
