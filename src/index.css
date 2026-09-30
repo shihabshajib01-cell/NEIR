@@ -469,7 +469,7 @@ html[data-theme='dark'] ::selection {
 .mobile-record-stack {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
   background: var(--color-border);
 }
 
