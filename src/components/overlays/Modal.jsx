@@ -9,6 +9,7 @@ const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]
 export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxWidth = 'max-w-lg', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
+  const contentRef = useRef(null);
   const presence = useOverlayPresence(isOpen);
 
   useEffect(() => {
@@ -44,20 +45,27 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxW
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    requestAnimationFrame(() => {
+      if (contentRef.current) contentRef.current.scrollTop = 0;
+    });
+  }, [isOpen, title, subtitle]);
+
   if (!presence.mounted) return null;
 
   return (
-    <div data-state={presence.state} className="motion-overlay-backdrop fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="presentation">
-      <div data-state={presence.state} ref={panelRef} className={'motion-modal-panel mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' bg-[var(--color-surface)] max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] overflow-hidden flex flex-col max-h-[90dvh] ' + className} role="dialog" aria-modal="true" aria-label={t(title)}>
+    <div data-state={presence.state} className="motion-overlay-backdrop fixed inset-0 z-[60] flex items-end md:items-center justify-center p-0 md:p-4 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="presentation">
+      <div data-state={presence.state} ref={panelRef} className={'motion-modal-panel mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' bg-[var(--color-surface)] max-md:!max-w-none max-md:h-auto max-md:max-h-[90dvh] max-md:rounded-t-[20px] max-md:rounded-b-none max-md:border-x-0 max-md:border-b-0 md:rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] overflow-hidden flex flex-col max-h-[90dvh] ' + className} role="dialog" aria-modal="true" aria-label={t(title)}>
         <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] flex items-start justify-between gap-3 bg-[var(--color-surface)] shrink-0">
           <div className="min-w-0">
             <h3 className="type-card-title text-[var(--color-text-primary)]">{t(title)}</h3>
             {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-1">{t(subtitle)}</p>}
           </div>
-          <button type="button" onClick={onClose} className="w-10 h-10 flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]" aria-label={t('Close modal')}><X className="w-5 h-5" /></button>
+          <button type="button" onClick={onClose} className="w-11 h-11 md:w-10 md:h-10 flex items-center justify-center rounded-lg text-[var(--color-text-muted)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-light)]" aria-label={t('Close modal')}><X className="w-5 h-5" /></button>
         </div>
-        <div className="p-4 sm:p-6 overflow-y-auto flex-1 min-h-0 type-body text-[var(--color-text-primary)]">{children}</div>
-        {footer && <div className="px-4 py-3 sm:px-5 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex flex-col sm:flex-row sm:items-center sm:justify-end gap-2.5 shrink-0 max-sm:[&>button]:w-full max-sm:[&>div]:w-full">{footer}</div>}
+        <div ref={contentRef} className="p-4 sm:p-6 overflow-y-auto overscroll-contain flex-1 min-h-0 type-body text-[var(--color-text-primary)]">{children}</div>
+        {footer && <div className="px-4 py-3 sm:px-5 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex flex-col md:flex-row md:items-center md:justify-end gap-2.5 shrink-0 max-md:pb-[max(12px,env(safe-area-inset-bottom))] max-md:[&>button]:w-full max-md:[&>div]:w-full">{footer}</div>}
       </div>
     </div>
   );
@@ -80,7 +88,7 @@ export const ConfirmationDialog = ({
       title={title}
       maxWidth="max-w-md"
       footer={
-        <div className="flex items-center justify-end gap-2 w-full max-sm:flex-col-reverse max-sm:[&>button]:w-full">
+        <div className="flex items-center justify-end gap-2 w-full max-md:flex-col-reverse max-md:[&>button]:w-full">
           <Button variant="outline" onClick={onClose} disabled={isLoading}>Cancel</Button>
           <Button variant={tone === 'danger' ? 'danger' : 'primary'} onClick={onConfirm} isLoading={isLoading}>{confirmLabel}</Button>
         </div>
