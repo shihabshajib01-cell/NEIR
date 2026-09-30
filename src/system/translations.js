@@ -1,6 +1,10 @@
 export const banglaTranslations = {
   'Navigation': 'নেভিগেশন',
   'Dashboard': 'ড্যাশবোর্ড',
+  'Overview': 'ওভারভিউ',
+  'Device & EIR': 'ডিভাইস ও EIR',
+  'Service Operations': 'সেবা কার্যক্রম',
+  'Administration': 'প্রশাসন',
   'Dashboard Summary': 'ড্যাশবোর্ড সারসংক্ষেপ',
   'Dashboard analytics view': 'ড্যাশবোর্ড অ্যানালিটিক্স ভিউ',
   'Analytics view': 'অ্যানালিটিক্স ভিউ',
