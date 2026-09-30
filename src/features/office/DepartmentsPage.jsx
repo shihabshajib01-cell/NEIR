@@ -102,10 +102,10 @@ export const DepartmentsPage = () => {
       title: 'Department Name',
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
-          <Building2 className="w-4 h-4 text-[#01ADC1]" />
+          <Building2 className="w-4 h-4 text-[var(--color-primary)]" />
           <div>
-            <p className="font-semibold text-[#202338]">{val}</p>
-            <p className="ml-2 font-mono text-xs text-[#626981] bg-[#F7F8FC] px-1.5 py-0.2 rounded border border-[#E2E5F0]">
+            <p className="font-semibold text-[var(--color-text-primary)]">{val}</p>
+            <p className="ml-2 font-mono type-meta text-[var(--color-text-secondary)] bg-[var(--color-background)] px-1.5 py-0.2 rounded border border-[var(--color-border)]">
               {row.code}
             </p>
           </div>
@@ -115,14 +115,14 @@ export const DepartmentsPage = () => {
     {
       key: 'head',
       title: 'Head of Department',
-      render: (val) => <p className="text-xs font-medium text-[#202338]">{val}</p>,
+      render: (val) => <p className="type-meta font-medium text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'memberCount',
       title: 'Personnel',
       width: '100px',
       isMono: true,
-      render: (val) => <p className="font-mono text-xs font-semibold text-[#202338]">{val} Staff</p>,
+      render: (val) => <p className="font-mono type-meta font-semibold text-[var(--color-text-primary)]">{val} Staff</p>,
     },
     {
       key: 'status',
@@ -140,7 +140,7 @@ export const DepartmentsPage = () => {
           size="sm"
           icon={Edit2}
           onClick={() => handleOpenEdit(row)}
-          className="text-xs h-7 px-2"
+          className="type-meta h-7 px-2"
         >
           Edit
         </Button>
