@@ -204,7 +204,7 @@ export const PermissionPage = () => {
                     setSelectedParentFilter('All');
                   }}
                   filters={
-                    <div className="w-full sm:w-52">
+                    <div className="w-full md:w-52">
                       <CompactSelect
                         value={selectedParentFilter}
                         onChange={(e) => setSelectedParentFilter(e.target.value)}
