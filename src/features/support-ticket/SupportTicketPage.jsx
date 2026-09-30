@@ -98,8 +98,8 @@ export const SupportTicketPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <p className="font-mono font-bold text-[#202338]">{val}</p>
-          <p className="text-[11px] text-[#626981] font-sans truncate">{row.category}</p>
+          <p className="font-mono font-bold text-[var(--color-text-primary)]">{val}</p>
+          <p className="type-meta text-[var(--color-text-secondary)] font-sans truncate">{row.category}</p>
         </div>
       ),
     },
@@ -108,8 +108,8 @@ export const SupportTicketPage = () => {
       title: 'Subject / Description',
       render: (val, row) => (
         <div className="flex flex-col max-w-sm">
-          <p className="font-semibold text-[#202338] truncate">{val}</p>
-          <p className="text-[11px] text-[#7A8197] truncate">{row.description}</p>
+          <p className="font-semibold text-[var(--color-text-primary)] truncate">{val}</p>
+          <p className="type-meta text-[var(--color-text-muted)] truncate">{row.description}</p>
         </div>
       ),
     },
@@ -118,8 +118,8 @@ export const SupportTicketPage = () => {
       title: 'Submitted By',
       render: (val, row) => (
         <div className="flex flex-col">
-          <p className="font-medium text-[#202338]">{val}</p>
-          <p className="text-[11px] text-[#7A8197] font-mono">{row.phone}</p>
+          <p className="font-medium text-[var(--color-text-primary)]">{val}</p>
+          <p className="type-meta text-[var(--color-text-muted)] font-mono">{row.phone}</p>
         </div>
       ),
     },
@@ -140,7 +140,7 @@ export const SupportTicketPage = () => {
       title: 'Date',
       isMono: true,
       width: '110px',
-      render: (val) => <p className="text-xs text-[#626981] font-mono">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-secondary)] font-mono">{val}</p>,
     },
     {
       key: 'actions',
@@ -152,7 +152,7 @@ export const SupportTicketPage = () => {
           size="sm"
           icon={Eye}
           onClick={() => handleOpenTicket(row)}
-          className="text-xs h-7.5 px-2.5"
+          className="type-meta h-7.5 px-2.5"
         >
           Inspect
         </Button>
