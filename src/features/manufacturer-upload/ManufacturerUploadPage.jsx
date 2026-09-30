@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
@@ -40,6 +41,7 @@ export const ManufacturerUploadPage = () => {
   const [isUploading, setIsUploading] = useState(false);
 
   const { addToast } = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const loadData = async () => {
     try {
@@ -60,6 +62,19 @@ export const ManufacturerUploadPage = () => {
   useEffect(() => {
     loadData();
   }, [searchTerm, fromDate, toDate]);
+
+  useEffect(() => {
+    if (searchParams.get('upload') === '1') {
+      setIsUploadOpen(true);
+    }
+  }, [searchParams]);
+
+  const closeUploadDrawer = () => {
+    setIsUploadOpen(false);
+    if (searchParams.get('upload') === '1') {
+      setSearchParams({}, { replace: true });
+    }
+  };
 
   const handleDownloadSample = () => {
     const csvContent =
@@ -98,7 +113,7 @@ export const ManufacturerUploadPage = () => {
         result.message || `Batch ${result.batchId} processed successfully.`,
         'success'
       );
-      setIsUploadOpen(false);
+      closeUploadDrawer();
       setSelectedFile(null);
       await loadData();
     } catch (err) {
@@ -242,7 +257,7 @@ export const ManufacturerUploadPage = () => {
 
       <FormDrawer
         isOpen={isUploadOpen}
-        onClose={() => setIsUploadOpen(false)}
+        onClose={closeUploadDrawer}
         title="Upload Manufacturer IMEI"
         subtitle="Validate and ingest a manufacturer CSV batch"
         formId="manufacturer-imei-upload-form"

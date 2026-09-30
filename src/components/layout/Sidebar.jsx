@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard, FileCheck2, ShieldAlert, Users,
+  LayoutDashboard, FileCheck2, ShieldAlert, Smartphone, Radio, Users, CheckCircle,
   UploadCloud, Headphones, Ban, Building2, Search, ChevronDown, ChevronRight,
   FolderTree, KeyRound, Layers, ShieldCheck, Network, Award, UserCheck
 } from 'lucide-react';
@@ -11,6 +11,8 @@ export const navigationItems = [
   { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
   { name: 'Special Registration', path: '/special-registration', icon: FileCheck2 },
   { name: 'Lost & Stolen', path: '/lost-stolen', icon: ShieldAlert },
+  { name: 'Device De-Register', path: '/device-deregister', icon: Smartphone },
+  { name: 'Auto Registration', path: '/auto-registration', icon: Radio },
   {
     name: 'Role Management', path: '/role-management', icon: Users,
     children: [
@@ -20,7 +22,8 @@ export const navigationItems = [
       { name: 'Role Setup', path: '/role-management/roles', icon: ShieldCheck },
     ]
   },
-  { name: 'Manufacturer IMEI Upload', path: '/manufacturer-imei-upload', icon: UploadCloud },
+  { name: 'IMEI Check', path: '/imei-check', icon: CheckCircle },
+  { name: 'Manufacturer IMEI Upload', path: '/manufacturer-imei-upload', to: '/manufacturer-imei-upload?upload=1', icon: UploadCloud },
   { name: 'Support Ticket', path: '/support-ticket', icon: Headphones },
   { name: 'Global IMEI Block', path: '/global-imei-block', icon: Ban },
   {
@@ -106,7 +109,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
           return (
             <NavLink
               key={item.path}
-              to={item.path}
+              to={item.to || item.path}
               title={isCollapsed ? t(item.name) : undefined}
               className={({ isActive }) =>
                 'min-h-10 flex items-center ' + (isCollapsed ? 'justify-center px-2' : 'gap-2.5 px-3') + ' py-2 rounded-[var(--field-radius)] type-nav transition-colors ' +
