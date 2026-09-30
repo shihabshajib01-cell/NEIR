@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
-import { LineChart } from '@mui/x-charts/LineChart';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { LineChart } from '@mui/x-charts/LineChart';
+import { PieChart } from '@mui/x-charts/PieChart';
 import { Card } from '../../components/data-display/Card.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
@@ -34,7 +35,11 @@ const toIndex = (value, baseline) => {
   return Number(((value / baseline) * 100).toFixed(2));
 };
 
-const DashboardCharts = ({ trendData = [], operatorData = [] }) => {
+const DashboardCharts = ({
+  kpis = [],
+  imeiSummary,
+  registrationSummary,
+}) => {
   const { t, locale } = usePreferences();
 
   const compactFormatter = useMemo(
@@ -46,6 +51,12 @@ const DashboardCharts = ({ trendData = [], operatorData = [] }) => {
     () => new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }),
     [locale]
   );
+
+  const getKpiValue = (id) =>
+    parseCount(kpis.find((item) => item.id === id)?.value);
+
+  const trendData = imeiSummary?.recentMonthlyTrends ?? [];
+  const operatorData = registrationSummary?.operatorBreakdown ?? [];
 
   const indexedTrendData = useMemo(() => {
     const baseline = trendData[0];
@@ -69,21 +80,240 @@ const DashboardCharts = ({ trendData = [], operatorData = [] }) => {
     [operatorData]
   );
 
+  const specialRequestTotal = getKpiValue('special-req');
+  const specialRequestAccepted = getKpiValue('special-req-accepted');
+  const specialRequestPending = Math.max(0, specialRequestTotal - specialRequestAccepted);
+
+  const lostDevices = getKpiValue('lost-devices');
+  const recoveredDevices = getKpiValue('found-devices');
+  const unrecoveredDevices = Math.max(0, lostDevices - recoveredDevices);
+
+  const enforcementData = [
+    { category: t('Blocked Devices'), value: getKpiValue('blocked') },
+    { category: t('Access Denied'), value: getKpiValue('access-denied') },
+  ];
+
+  const registrationActivityData = [
+    {
+      category: t('Auto Registered'),
+      value: registrationSummary?.autoRegistration?.count ?? 0,
+    },
+    {
+      category: t('De-Registered'),
+      value: registrationSummary?.deRegistration?.count ?? 0,
+    },
+  ];
+
   const indexFormatter = (value) =>
-    value == null ? '' : `${Number(value).toFixed(1)}`;
+    value == null ? '' : Number(value).toFixed(1);
 
   const countFormatter = (value) =>
     value == null ? '' : numberFormatter.format(Number(value));
 
+  const compactCountFormatter = (value) =>
+    value == null ? '' : compactFormatter.format(Number(value));
+
   return (
-    <div className="grid grid-cols-1 min-[1760px]:grid-cols-2 gap-4 items-start">
-      <Card
-        title="Recent 6-Month EIR Trajectory"
-        subtitle="Relative movement · Oct 2025 = 100"
-        bodyClassName="p-3 sm:p-4"
-        className="min-w-0"
-      >
-        <div aria-label={t('Recent 6-Month EIR Trajectory')}>
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
+        <Card
+          title="IMEI Registry Composition"
+          subtitle="Current active EIR classification"
+          bodyClassName="p-3 sm:p-4"
+          className="min-w-0"
+        >
+          <PieChart
+            series={[
+              {
+                innerRadius: 58,
+                outerRadius: 92,
+                paddingAngle: 1,
+                cornerRadius: 3,
+                data: [
+                  {
+                    id: 'white-list',
+                    value: imeiSummary?.whiteList?.count ?? 0,
+                    label: t('White List'),
+                    color: '#2E7D32',
+                  },
+                  {
+                    id: 'gray-list',
+                    value: imeiSummary?.grayList?.count ?? 0,
+                    label: t('Gray List'),
+                    color: '#EF8F22',
+                  },
+                  {
+                    id: 'blocked',
+                    value: imeiSummary?.blackList?.count ?? 0,
+                    label: t('Blocked'),
+                    color: '#C62828',
+                  },
+                ],
+                valueFormatter: (item) => countFormatter(item.value),
+              },
+            ]}
+            height={260}
+            margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+            sx={chartSx}
+          />
+        </Card>
+
+        <Card
+          title="Special Request Outcome"
+          subtitle="Accepted vs pending requests"
+          bodyClassName="p-3 sm:p-4"
+          className="min-w-0"
+        >
+          <PieChart
+            series={[
+              {
+                innerRadius: 58,
+                outerRadius: 92,
+                paddingAngle: 2,
+                cornerRadius: 3,
+                data: [
+                  {
+                    id: 'accepted',
+                    value: specialRequestAccepted,
+                    label: t('Accepted'),
+                    color: '#2E7D32',
+                  },
+                  {
+                    id: 'pending',
+                    value: specialRequestPending,
+                    label: t('Pending'),
+                    color: '#EF8F22',
+                  },
+                ],
+                valueFormatter: (item) => countFormatter(item.value),
+              },
+            ]}
+            height={260}
+            margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+            sx={chartSx}
+          />
+        </Card>
+
+        <Card
+          title="Lost Device Recovery"
+          subtitle="Recovered vs still unresolved"
+          bodyClassName="p-3 sm:p-4"
+          className="min-w-0"
+        >
+          <PieChart
+            series={[
+              {
+                innerRadius: 58,
+                outerRadius: 92,
+                paddingAngle: 2,
+                cornerRadius: 3,
+                data: [
+                  {
+                    id: 'recovered',
+                    value: recoveredDevices,
+                    label: t('Recovered'),
+                    color: '#2E7D32',
+                  },
+                  {
+                    id: 'unresolved',
+                    value: unrecoveredDevices,
+                    label: t('Unresolved'),
+                    color: '#EF8F22',
+                  },
+                ],
+                valueFormatter: (item) => countFormatter(item.value),
+              },
+            ]}
+            height={260}
+            margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+            sx={chartSx}
+          />
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
+        <Card
+          title="Enforcement Activity"
+          subtitle="Blocked devices and denied registration attempts"
+          bodyClassName="p-3 sm:p-4"
+          className="min-w-0"
+        >
+          <BarChart
+            dataset={enforcementData}
+            xAxis={[
+              {
+                scaleType: 'band',
+                dataKey: 'category',
+                height: 42,
+              },
+            ]}
+            yAxis={[
+              {
+                width: 54,
+                valueFormatter: compactCountFormatter,
+              },
+            ]}
+            series={[
+              {
+                dataKey: 'value',
+                label: t('Count'),
+                color: '#C62828',
+                valueFormatter: countFormatter,
+              },
+            ]}
+            height={280}
+            grid={{ horizontal: true }}
+            borderRadius={4}
+            margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
+            sx={chartSx}
+          />
+        </Card>
+
+        <Card
+          title="Registration Activity"
+          subtitle="Current automated registration flow"
+          bodyClassName="p-3 sm:p-4"
+          className="min-w-0"
+        >
+          <BarChart
+            dataset={registrationActivityData}
+            xAxis={[
+              {
+                scaleType: 'band',
+                dataKey: 'category',
+                height: 42,
+              },
+            ]}
+            yAxis={[
+              {
+                width: 54,
+                valueFormatter: compactCountFormatter,
+              },
+            ]}
+            series={[
+              {
+                dataKey: 'value',
+                label: t('Count'),
+                color: 'var(--color-primary)',
+                valueFormatter: countFormatter,
+              },
+            ]}
+            height={280}
+            grid={{ horizontal: true }}
+            borderRadius={4}
+            margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
+            sx={chartSx}
+          />
+        </Card>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-start">
+        <Card
+          title="Recent 6-Month EIR Trajectory"
+          subtitle="Relative movement · Oct 2025 = 100"
+          bodyClassName="p-3 sm:p-4"
+          className="min-w-0"
+        >
           <LineChart
             dataset={indexedTrendData}
             xAxis={[
@@ -130,16 +360,14 @@ const DashboardCharts = ({ trendData = [], operatorData = [] }) => {
             margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
             sx={chartSx}
           />
-        </div>
-      </Card>
+        </Card>
 
-      <Card
-        title="Operator Sync Breakdown"
-        subtitle="Auto Sync vs De-Registration by operator"
-        bodyClassName="p-3 sm:p-4"
-        className="min-w-0"
-      >
-        <div aria-label={t('Operator Sync Breakdown')}>
+        <Card
+          title="Operator Sync Breakdown"
+          subtitle="Auto Sync vs De-Registration by operator"
+          bodyClassName="p-3 sm:p-4"
+          className="min-w-0"
+        >
           <BarChart
             dataset={operatorChartData}
             yAxis={[
@@ -152,8 +380,7 @@ const DashboardCharts = ({ trendData = [], operatorData = [] }) => {
             xAxis={[
               {
                 height: 28,
-                valueFormatter: (value) =>
-                  value == null ? '' : compactFormatter.format(Number(value)),
+                valueFormatter: compactCountFormatter,
               },
             ]}
             series={[
@@ -180,8 +407,8 @@ const DashboardCharts = ({ trendData = [], operatorData = [] }) => {
             margin={{ top: 16, right: 16, bottom: 8, left: 8 }}
             sx={chartSx}
           />
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 };
