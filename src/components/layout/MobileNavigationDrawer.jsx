@@ -86,6 +86,14 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
 
         <nav className="flex-1 overflow-y-auto overscroll-contain p-3 space-y-1" aria-label={t('Navigation')}>
           {navigationItems.map((item) => {
+            if (item.type === 'section') {
+              return (
+                <div key={item.name} className="px-3 pt-3 pb-1 first:pt-0">
+                  <p className="type-meta font-semibold text-[var(--color-text-muted)]">{t(item.name)}</p>
+                </div>
+              );
+            }
+
             const Icon = item.icon;
             const hasChildren = item.children && item.children.length > 0;
             const activeSection = hasChildren ? location.pathname.startsWith(item.path) : location.pathname === item.path;

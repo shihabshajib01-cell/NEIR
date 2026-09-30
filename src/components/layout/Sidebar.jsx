@@ -8,11 +8,31 @@ import {
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
 export const navigationItems = [
+  { type: 'section', name: 'Overview' },
   { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+
+  { type: 'section', name: 'Device & EIR' },
+  { name: 'MSISDN IMEI List', path: '/msisdn-imei', icon: Search },
+  { name: 'IMEI Check', path: '/imei-check', icon: CheckCircle },
+  { name: 'Auto Registration', path: '/auto-registration', icon: Radio },
+  { name: 'Device De-Register', path: '/device-deregister', icon: Smartphone },
+  { name: 'Global IMEI Block', path: '/global-imei-block', icon: Ban },
+  { name: 'Manufacturer IMEI Upload', path: '/manufacturer-imei-upload', to: '/manufacturer-imei-upload?upload=1', icon: UploadCloud },
+
+  { type: 'section', name: 'Service Operations' },
   { name: 'Special Registration', path: '/special-registration', icon: FileCheck2 },
   { name: 'Lost & Stolen', path: '/lost-stolen', icon: ShieldAlert },
-  { name: 'Device De-Register', path: '/device-deregister', icon: Smartphone },
-  { name: 'Auto Registration', path: '/auto-registration', icon: Radio },
+  { name: 'Support Ticket', path: '/support-ticket', icon: Headphones },
+
+  { type: 'section', name: 'Administration' },
+  {
+    name: 'Office', path: '/office', icon: Building2,
+    children: [
+      { name: 'Department', path: '/office/departments', icon: Network },
+      { name: 'Designation', path: '/office/designations', icon: Award },
+      { name: 'User', path: '/office/users', icon: UserCheck },
+    ]
+  },
   {
     name: 'Role Management', path: '/role-management', icon: Users,
     children: [
@@ -22,19 +42,6 @@ export const navigationItems = [
       { name: 'Role Setup', path: '/role-management/roles', icon: ShieldCheck },
     ]
   },
-  { name: 'IMEI Check', path: '/imei-check', icon: CheckCircle },
-  { name: 'Manufacturer IMEI Upload', path: '/manufacturer-imei-upload', to: '/manufacturer-imei-upload?upload=1', icon: UploadCloud },
-  { name: 'Support Ticket', path: '/support-ticket', icon: Headphones },
-  { name: 'Global IMEI Block', path: '/global-imei-block', icon: Ban },
-  {
-    name: 'Office', path: '/office', icon: Building2,
-    children: [
-      { name: 'Department', path: '/office/departments', icon: Network },
-      { name: 'Designation', path: '/office/designations', icon: Award },
-      { name: 'User', path: '/office/users', icon: UserCheck },
-    ]
-  },
-  { name: 'MSISDN IMEI List', path: '/msisdn-imei', icon: Search },
 ];
 
 export const Sidebar = ({ isCollapsed = false }) => {
@@ -56,6 +63,16 @@ export const Sidebar = ({ isCollapsed = false }) => {
     >
       <nav className="flex-1 overflow-y-auto pt-4 pb-2 px-2 space-y-0.5" aria-label={t('Navigation')}>
         {navigationItems.map((item) => {
+          if (item.type === 'section') {
+            return isCollapsed ? (
+              <div key={item.name} className="my-2 border-t border-[var(--color-border-subtle)]" aria-hidden="true" />
+            ) : (
+              <div key={item.name} className="px-3 pt-3 pb-1 first:pt-0">
+                <p className="type-meta font-semibold text-[var(--color-text-muted)]">{t(item.name)}</p>
+              </div>
+            );
+          }
+
           const Icon = item.icon;
           const hasChildren = item.children && item.children.length > 0;
           const activeSection = hasChildren ? location.pathname.startsWith(item.path) : location.pathname === item.path;
