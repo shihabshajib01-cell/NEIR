@@ -321,7 +321,7 @@ export const MsisdnImeiPage = ({ initialAction = null }) => {
             }}
             filters={
               <>
-                <div className="w-full sm:w-40">
+                <div className="w-full md:w-40">
                   <CompactSelect
                     value={searchBy}
                     onChange={(event) => setSearchBy(event.target.value)}
