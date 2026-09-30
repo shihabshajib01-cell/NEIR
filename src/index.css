@@ -510,9 +510,21 @@ html[data-theme='dark'] ::selection {
   transition-duration: var(--motion-overlay-exit);
   transition-timing-function: var(--ease-overlay-exit);
 }
+/* Detail drawer: desktop enters from the right and exits back to the right. */
+.motion-drawer-panel {
+  opacity: 1;
+  transform: translate3d(100%,0,0);
+  transition-property: transform;
+}
+.motion-drawer-panel[data-state='open'] {
+  opacity: 1;
+  transform: translate3d(0,0,0);
+  transition-duration: var(--motion-overlay-enter);
+  transition-timing-function: var(--ease-overlay-enter);
+}
 .motion-drawer-panel[data-state='closed'] {
-  opacity: 0;
-  transform: translate3d(24px,0,0);
+  opacity: 1;
+  transform: translate3d(100%,0,0);
   pointer-events: none;
   transition-duration: var(--motion-overlay-exit);
   transition-timing-function: var(--ease-overlay-exit);
@@ -539,7 +551,6 @@ html[data-theme='dark'] ::selection {
 
 @media (max-width: 767px) {
   .motion-modal-panel[data-state='closed'],
-  .motion-drawer-panel[data-state='closed'],
   .motion-dropdown-panel[data-state='closed'],
   .motion-search-panel[data-state='closed'] {
     opacity: 0;
@@ -549,5 +560,20 @@ html[data-theme='dark'] ::selection {
   /* Replaces the previous enter-only bottom-sheet animation. */
   .mobile-bottom-sheet {
     animation: none !important;
+  }
+}
+
+/* Detail drawer: tablet/mobile enters from bottom and exits back to bottom. */
+@media (max-width: 1023px) {
+  .motion-drawer-panel {
+    transform: translate3d(0,100%,0);
+  }
+
+  .motion-drawer-panel[data-state='open'] {
+    transform: translate3d(0,0,0);
+  }
+
+  .motion-drawer-panel[data-state='closed'] {
+    transform: translate3d(0,100%,0);
   }
 }
