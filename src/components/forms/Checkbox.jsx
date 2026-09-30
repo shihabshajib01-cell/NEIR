@@ -83,7 +83,7 @@ export const RadioGroup = ({
   value,
   onChange,
   options = [],
-  orientation = 'vertical',
+  orientation = 'horizontal',
   variant = 'default',
   disabled = false,
   className = '',
@@ -120,7 +120,7 @@ export const RadioGroup = ({
                   : '1fr',
                 gap: 1,
               }
-            : { gap: orientation === 'horizontal' ? 1 : 0.5 }
+            : { gap: orientation === 'horizontal' ? 2 : 0.5 }
         }
       >
         {options.map((option) => (
