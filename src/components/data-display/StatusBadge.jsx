@@ -57,7 +57,7 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
 
   if (compact) {
     return (
-      <div className={'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] p-5 min-h-[128px] flex items-center ' + className}>
+      <div className={'bg-white border border-[var(--color-border)] rounded-[14px] shadow-[var(--shadow-sm)] px-5 py-4 min-h-[110px] flex items-center ' + className}>
         <div className="flex items-start justify-between gap-4 w-full">
           <div className="min-w-0 flex-1">
             <p className="type-kpi text-[var(--color-text-primary)]">{value}</p>

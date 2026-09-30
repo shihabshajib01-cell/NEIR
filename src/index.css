@@ -405,3 +405,23 @@ html[data-theme='dark'] ::selection {
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+
+/* Dashboard-only composition refinement. Keeps global NEIR typography frozen. */
+.dashboard-page-header .type-page-title {
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.dashboard-page-header .type-body {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@media (max-width: 640px) {
+  .dashboard-page-header .type-page-title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

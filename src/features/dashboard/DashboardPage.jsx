@@ -21,12 +21,12 @@ import { DataTable } from '../../components/tables/DataTable.jsx';
 const DUPLICATED_SUMMARY_KPIS = new Set([
   'white-list',
   'gray-list',
-  'blocked',
   'auto-registered',
   'device-deregistered',
 ]);
 
 const KPI_ICONS = {
+  'blocked': Ban,
   'access-denied': Ban,
   'special-req-accepted': CheckCircle2,
   'special-req': Activity,
@@ -113,11 +113,13 @@ export const DashboardPage = () => {
   return (
     <div className="w-full space-y-5">
       <PageHeader
+        className="dashboard-page-header"
         title="Dashboard"
         description="Monitor device registration, status, and operational activity."
         actions={
           <div className="flex flex-wrap items-center gap-2">
             <DateRangeFilter
+              compact
               startDate={fromDate}
               endDate={toDate}
               onStartDateChange={setFromDate}
@@ -125,7 +127,7 @@ export const DashboardPage = () => {
             />
             <Button
               variant="secondary"
-              size="md"
+              size="sm"
               icon={RefreshCw}
               onClick={loadData}
               title="Refresh statistics"
@@ -134,7 +136,7 @@ export const DashboardPage = () => {
             </Button>
             <Button
               variant="primary"
-              size="md"
+              size="sm"
               icon={Download}
               onClick={handleDownloadReport}
             >
@@ -164,42 +166,47 @@ export const DashboardPage = () => {
         </div>
       </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card
-          title="IMEI Summary"
-          bodyClassName="p-4 sm:p-5"
-          headerAction={
-            <p className="type-meta font-mono text-[var(--color-text-secondary)] bg-[var(--color-background-subtle)] px-2.5 py-1 rounded-md">
-              Total: 52,283,412
-            </p>
-          }
-        >
-          <div className="space-y-4">
+      <Card
+        title="Registry Overview"
+        bodyClassName="p-0"
+      >
+        <div className="grid grid-cols-1 xl:grid-cols-[1.45fr_0.75fr]">
+          <section className="p-5 xl:border-r border-[var(--color-border)]">
+            <div className="flex items-center justify-between gap-4 mb-4">
+              <div>
+                <p className="type-label font-semibold text-[var(--color-text-primary)]">IMEI Distribution</p>
+                <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">Active EIR device classification</p>
+              </div>
+              <p className="type-meta font-mono text-[var(--color-text-secondary)]">
+                Total 52,283,412
+              </p>
+            </div>
+
             <div className="h-2.5 w-full rounded-full bg-[var(--color-background)] overflow-hidden flex">
               <div
                 style={{ width: `${data.imeiSummary.whiteList.percent}%` }}
-                className="bg-[#2E7D32] transition-all"
+                className="bg-[#2E7D32]"
                 title={`White List: ${data.imeiSummary.whiteList.percent}%`}
               />
               <div
                 style={{ width: `${data.imeiSummary.grayList.percent}%` }}
-                className="bg-[#EF8F22] transition-all"
+                className="bg-[#EF8F22]"
                 title={`Gray List: ${data.imeiSummary.grayList.percent}%`}
               />
               <div
                 style={{ width: `${data.imeiSummary.blackList.percent}%` }}
-                className="bg-[#C62828] transition-all"
-                title={`Black List: ${data.imeiSummary.blackList.percent}%`}
+                className="bg-[#C62828]"
+                title={`Blocked: ${data.imeiSummary.blackList.percent}%`}
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--color-border-subtle)]">
-              <div className="py-2 sm:py-0 sm:pr-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--color-border-subtle)] mt-4">
+              <div className="py-3 sm:py-0 sm:pr-5">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-[#2E7D32]" />
                   <p className="type-meta font-semibold text-[#2E7D32]">White List</p>
                 </div>
-                <p className="text-xl font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
+                <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
                   {data.imeiSummary.whiteList.count.toLocaleString()}
                 </p>
                 <p className="type-meta text-[var(--color-text-muted)] mt-0.5">
@@ -207,12 +214,12 @@ export const DashboardPage = () => {
                 </p>
               </div>
 
-              <div className="py-2 sm:py-0 sm:px-4">
+              <div className="py-3 sm:py-0 sm:px-5">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-[#EF8F22]" />
                   <p className="type-meta font-semibold text-[#B96B18]">Gray List</p>
                 </div>
-                <p className="text-xl font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
+                <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
                   {data.imeiSummary.grayList.count.toLocaleString()}
                 </p>
                 <p className="type-meta text-[var(--color-text-muted)] mt-0.5">
@@ -220,12 +227,12 @@ export const DashboardPage = () => {
                 </p>
               </div>
 
-              <div className="py-2 sm:py-0 sm:pl-4">
+              <div className="py-3 sm:py-0 sm:pl-5">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-[#C62828]" />
                   <p className="type-meta font-semibold text-[#A91F22]">Blocked</p>
                 </div>
-                <p className="text-xl font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
+                <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1.5">
                   {data.imeiSummary.blackList.count.toLocaleString()}
                 </p>
                 <p className="type-meta text-[var(--color-text-muted)] mt-0.5">
@@ -233,18 +240,16 @@ export const DashboardPage = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </Card>
+          </section>
 
-        <Card
-          title="Registration Summary"
-          bodyClassName="p-4 sm:p-5"
-        >
-          <div className="space-y-5">
-            <div className="grid grid-cols-2 divide-x divide-[var(--color-border-subtle)]">
+          <section className="p-5 border-t xl:border-t-0 border-[var(--color-border)]">
+            <p className="type-label font-semibold text-[var(--color-text-primary)]">Registration Activity</p>
+            <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">Current automated registration flow</p>
+
+            <div className="grid grid-cols-2 divide-x divide-[var(--color-border-subtle)] mt-5">
               <div className="pr-4">
                 <p className="type-meta text-[var(--color-text-secondary)]">Auto Registered</p>
-                <p className="text-xl font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1">
+                <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1">
                   {data.registrationSummary.autoRegistration.count.toLocaleString()}
                 </p>
                 <p className="type-meta text-[var(--color-success)] font-medium mt-0.5">
@@ -254,7 +259,7 @@ export const DashboardPage = () => {
 
               <div className="pl-4">
                 <p className="type-meta text-[var(--color-text-secondary)]">De-Registered</p>
-                <p className="text-xl font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1">
+                <p className="type-body-lg font-semibold text-[var(--color-text-primary)] font-mono tabular-nums mt-1">
                   {data.registrationSummary.deRegistration.count.toLocaleString()}
                 </p>
                 <p className="type-meta text-[var(--color-primary-dark)] font-medium mt-0.5">
@@ -263,13 +268,13 @@ export const DashboardPage = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-[var(--color-border-subtle)] flex items-start gap-2.5 type-meta text-[var(--color-success)]">
+            <div className="pt-4 mt-5 border-t border-[var(--color-border-subtle)] flex items-start gap-2.5 type-meta text-[var(--color-success)]">
               <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
               <p>All operator interfaces are healthy.</p>
             </div>
-          </div>
-        </Card>
-      </div>
+          </section>
+        </div>
+      </Card>
 
       <Card
         title="Recent 6-Month EIR Trajectory"
