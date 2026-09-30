@@ -247,7 +247,7 @@ export const DateRangeFilter = ({
           },
         }}
       >
-        <div className="bg-white">
+        <div className="bg-[var(--color-surface)]">
           <div className="px-4 py-3.5 border-b border-[var(--color-border)] flex items-start justify-between gap-4">
             <div>
               <p className="type-label font-semibold text-[var(--color-text-primary)]">{t('Filter by Date')}</p>
@@ -272,7 +272,7 @@ export const DateRangeFilter = ({
                   'date-filter-field text-left px-3 py-2.5 border rounded-[var(--field-radius)] transition-colors min-w-0 ' +
                   (activeField === 'start'
                     ? 'border-[var(--color-primary)] bg-[var(--color-primary-alpha-6)]'
-                    : 'border-[var(--color-border)] bg-white hover:border-[var(--color-primary)]')
+                    : 'border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]')
                 }
               >
                 <p className="type-meta text-[var(--color-text-muted)]">{t('Start date')}</p>
@@ -293,7 +293,7 @@ export const DateRangeFilter = ({
                   'date-filter-field text-left px-3 py-2.5 border rounded-[var(--field-radius)] transition-colors min-w-0 ' +
                   (activeField === 'end'
                     ? 'border-[var(--color-primary)] bg-[var(--color-primary-alpha-6)]'
-                    : 'border-[var(--color-border)] bg-white hover:border-[var(--color-primary)]')
+                    : 'border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]')
                 }
               >
                 <p className="type-meta text-[var(--color-text-muted)]">{t('End date')}</p>
@@ -317,7 +317,7 @@ export const DateRangeFilter = ({
                   borderRadius: 'var(--field-radius)',
                   color: 'var(--color-text-secondary)',
                   '&:hover': {
-                    backgroundColor: 'white',
+                    backgroundColor: 'var(--color-surface)',
                     borderColor: 'var(--color-primary)',
                     color: 'var(--color-primary)',
                   },
@@ -341,7 +341,7 @@ export const DateRangeFilter = ({
                   borderRadius: 'var(--field-radius)',
                   color: 'var(--color-text-secondary)',
                   '&:hover': {
-                    backgroundColor: 'white',
+                    backgroundColor: 'var(--color-surface)',
                     borderColor: 'var(--color-primary)',
                     color: 'var(--color-primary)',
                   },
