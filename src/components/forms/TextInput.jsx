@@ -320,7 +320,7 @@ export const Textarea = ({
   );
 };
 
-export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, density = 'standard', className = '' }) => {
+export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, density = 'compact', className = '' }) => {
   const [fileName, setFileName] = useState('');
   const { t } = usePreferences();
 
