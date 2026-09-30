@@ -9,7 +9,7 @@ import { TextInput } from '../../components/forms/TextInput.jsx';
 import { Select, SearchableSelect } from '../../components/forms/Select.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Plus, Edit2, Layers } from 'lucide-react';
+import { Plus, Edit2 } from 'lucide-react';
 
 export const ServiceActionPage = () => {
   const [serviceActions, setServiceActions] = useState([]);
@@ -130,34 +130,17 @@ export const ServiceActionPage = () => {
     return matchesSearch;
   });
 
-  const getMethodBadge = (method) => {
-    const colors = {
-      GET: 'bg-blue-50 text-blue-700 border-blue-200',
-      POST: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-      PUT: 'bg-amber-50 text-amber-700 border-amber-200',
-      DELETE: 'bg-rose-50 text-rose-700 border-rose-200',
-    };
-    return (
-      <p
-        className={`px-2 py-0.5 rounded type-meta font-mono font-bold border ${
-          colors[method] || 'bg-slate-100 text-slate-700 border-slate-200'
-        }`}
-      >
-        {method.charAt(0) + method.slice(1).toLowerCase()}
-      </p>
-    );
-  };
+  const getMethodBadge = (method) => (
+    <p className="type-meta font-medium text-[var(--color-text-primary)]">
+      {method.charAt(0) + method.slice(1).toLowerCase()}
+    </p>
+  );
 
   const columns = [
     {
       key: 'name',
       title: 'Service Action Name',
-      render: (val) => (
-        <div className="flex items-center gap-2">
-          <Layers className="w-3.5 h-3.5 text-[var(--color-primary)]" />
-          <p className="font-semibold text-[var(--color-text-primary)]">{val}</p>
-        </div>
-      ),
+      render: (val) => <p>{val}</p>,
     },
     {
       key: 'permissionName',
