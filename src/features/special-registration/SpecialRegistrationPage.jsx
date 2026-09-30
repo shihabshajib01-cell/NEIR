@@ -177,7 +177,6 @@ export const SpecialRegistrationPage = () => {
         }}
         toolbar={
           <FilterBar embedded
-                  mobileInline
                   searchPlaceholder="Search applications..."
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.imei, item.requesterName, item.requesterNid])}
