@@ -19,19 +19,19 @@ export const ToastProvider = ({ children }) => {
   const configs = {
     success: {
       icon: CheckCircle2,
-      bg: 'bg-[var(--color-success-bg)]',
+      tint: 'bg-[var(--color-success-bg)]',
       border: 'border-[var(--color-success-border)]',
       iconColor: 'text-[var(--color-success)]',
     },
     error: {
       icon: AlertCircle,
-      bg: 'bg-[var(--color-error-bg)]',
+      tint: 'bg-[var(--color-error-bg)]',
       border: 'border-[var(--color-error-border)]',
       iconColor: 'text-[var(--color-error)]',
     },
     info: {
       icon: Info,
-      bg: 'bg-[var(--color-info-bg)]',
+      tint: 'bg-[var(--color-info-bg)]',
       border: 'border-[var(--color-info-border)]',
       iconColor: 'text-[var(--color-primary-dark)]',
     },
@@ -41,7 +41,7 @@ export const ToastProvider = ({ children }) => {
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
       <div
-        className="fixed bottom-4 right-4 left-4 sm:left-auto z-[70] flex flex-col gap-2 sm:max-w-sm pointer-events-none"
+        className="fixed bottom-[calc(3.5rem+env(safe-area-inset-bottom))] right-3 left-3 sm:bottom-4 sm:right-4 sm:left-auto z-[70] flex flex-col gap-2 sm:max-w-sm pointer-events-none"
         aria-live="polite"
       >
         {toasts.map((toastItem) => {
@@ -51,15 +51,16 @@ export const ToastProvider = ({ children }) => {
           return (
             <div
               key={toastItem.id}
-              className={'pointer-events-auto p-3.5 rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] border flex items-start gap-2.5 text-[var(--color-text-primary)] ' + config.bg + ' ' + config.border}
+              className={'pointer-events-auto relative isolate overflow-hidden bg-[var(--color-surface)] p-3.5 rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] border flex items-start gap-2.5 text-[var(--color-text-primary)] ' + config.border}
               role={toastItem.type === 'error' ? 'alert' : 'status'}
             >
-              <Icon className={'w-4 h-4 shrink-0 mt-0.5 ' + config.iconColor} />
-              <p className="flex-1 type-meta font-medium">{t(toastItem.message)}</p>
+              <span aria-hidden="true" className={'absolute inset-0 z-0 pointer-events-none ' + config.tint} />
+              <Icon className={'relative z-10 w-4 h-4 shrink-0 mt-0.5 ' + config.iconColor} />
+              <p className="relative z-10 flex-1 min-w-0 type-meta font-medium break-words">{t(toastItem.message)}</p>
               <button
                 type="button"
                 onClick={() => removeToast(toastItem.id)}
-                className="w-8 h-8 -m-1.5 flex items-center justify-center rounded-[var(--radius-md)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors shrink-0"
+                className="relative z-10 w-8 h-8 -m-1.5 flex items-center justify-center rounded-[var(--radius-md)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors shrink-0"
                 aria-label={t('Close')}
               >
                 <X className="w-3.5 h-3.5" />
