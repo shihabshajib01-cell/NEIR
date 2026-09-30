@@ -39,6 +39,26 @@ const KPI_ICONS = {
   'found-devices': Clock,
 };
 
+const DashboardMobileDataCard = ({ title, fields = [] }) => {
+  const { t } = usePreferences();
+
+  return (
+    <article className="bg-white px-4 py-4">
+      <h4 className="type-card-title text-[var(--color-text-primary)]">{title}</h4>
+      <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-[var(--color-border-subtle)]">
+        {fields.map((field) => (
+          <div key={field.label} className="min-w-0">
+            <p className="type-meta text-[var(--color-text-secondary)]">{t(field.label)}</p>
+            <p className={'type-body-sm font-semibold font-mono tabular-nums mt-1 break-words ' + (field.className || 'text-[var(--color-text-primary)]')}>
+              {field.value}
+            </p>
+          </div>
+        ))}
+      </div>
+    </article>
+  );
+};
+
 export const DashboardPage = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -336,6 +356,28 @@ export const DashboardPage = () => {
                               keyField="month"
                               columns={trendColumns}
                               data={data.imeiSummary.recentMonthlyTrends}
+                              renderMobileCard={(row) => (
+                                <DashboardMobileDataCard
+                                  title={row.month}
+                                  fields={[
+                                    {
+                                      label: 'White List',
+                                      value: row.whiteList.toLocaleString(),
+                                      className: 'text-[#2E7D32]',
+                                    },
+                                    {
+                                      label: 'Gray List',
+                                      value: row.grayList.toLocaleString(),
+                                      className: 'text-[#B96B18]',
+                                    },
+                                    {
+                                      label: 'Blocked',
+                                      value: row.blackList.toLocaleString(),
+                                      className: 'text-[#C62828]',
+                                    },
+                                  ]}
+                                />
+                              )}
                             />
                           </Card>
               
@@ -350,6 +392,27 @@ export const DashboardPage = () => {
                               keyField="operator"
                               columns={operatorColumns}
                               data={data.registrationSummary.operatorBreakdown}
+                              renderMobileCard={(row) => (
+                                <DashboardMobileDataCard
+                                  title={row.operator}
+                                  fields={[
+                                    {
+                                      label: 'Auto Sync',
+                                      value: row.autoCount,
+                                      className: 'text-[var(--color-primary-dark)]',
+                                    },
+                                    {
+                                      label: 'De-Reg',
+                                      value: row.deRegCount,
+                                      className: 'text-[var(--color-primary-dark)]',
+                                    },
+                                    {
+                                      label: 'Share',
+                                      value: row.share,
+                                    },
+                                  ]}
+                                />
+                              )}
                             />
                           </Card>
                         </div>
