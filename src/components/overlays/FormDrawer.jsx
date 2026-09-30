@@ -14,6 +14,8 @@ export const FormDrawer = ({
   formId,
   onSubmit,
   submitLabel,
+  submitVariant = 'primary',
+  submitIcon = Save,
   isLoading = false,
   width = 'w-full sm:w-[760px]',
   children,
@@ -33,8 +35,8 @@ export const FormDrawer = ({
         <Button
           type="submit"
           form={formId}
-          variant="primary"
-          icon={Save}
+          variant={submitVariant}
+          icon={submitIcon}
           isLoading={isLoading}
         >
           {submitLabel}
