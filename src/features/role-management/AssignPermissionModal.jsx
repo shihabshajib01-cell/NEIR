@@ -161,7 +161,7 @@ export const AssignPermissionModal = ({
           </div>
         </div>
 
-        <div className="border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden divide-y divide-[var(--color-border)] max-h-[460px] overflow-y-auto bg-[var(--color-surface)]">
+        <div className="border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden divide-y divide-[var(--color-border)] max-md:max-h-none max-md:overflow-visible md:max-h-[460px] md:overflow-y-auto bg-[var(--color-surface)]">
           {visibleParents.length === 0 ? (
             <div className="p-6 text-center">
               <p className="type-body-sm font-medium text-[var(--color-text-primary)]">No matching permissions</p>
