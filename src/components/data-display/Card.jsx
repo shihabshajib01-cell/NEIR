@@ -6,9 +6,9 @@ export const Card = ({
 }) => {
   const { t } = usePreferences();
   return (
-    <div className={'bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
+    <div className={'bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
       {(title || subtitle || headerAction) && (
-        <div className="px-5 py-4 border-b border-[var(--color-border)] flex items-center justify-between gap-4 bg-white">
+        <div className="px-5 py-4 border-b border-[var(--color-border)] flex items-center justify-between gap-4 bg-[var(--color-surface)]">
           <div className="min-w-0">
             {title && <h3 className="type-card-title text-[var(--color-text-primary)]">{t(title)}</h3>}
             {subtitle && <p className="type-body-sm text-[var(--color-text-secondary)] mt-0.5">{t(subtitle)}</p>}
