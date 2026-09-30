@@ -193,7 +193,7 @@ export const FilterBar = ({
                 data-state={suggestionsPresence.state}
                 role="listbox"
                 aria-label={t('Search suggestions')}
-                className="motion-search-panel mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 top-auto mt-0 max-h-[90dvh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] border-x-0 border-b-0 rounded-t-[20px] rounded-b-none shadow-[var(--shadow-overlay)] z-[70] p-1.5 sm:absolute sm:left-0 sm:right-0 sm:top-full sm:bottom-auto sm:mt-1 sm:max-h-80 sm:border sm:rounded-xl sm:z-40"
+                className="motion-search-panel mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 top-auto mt-0 max-h-[90dvh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] border-x-0 border-b-0 rounded-t-[20px] rounded-b-none shadow-[var(--shadow-overlay)] z-[70] p-1.5 max-md:pb-[max(8px,env(safe-area-inset-bottom))] md:absolute md:left-0 md:right-0 md:top-full md:bottom-auto md:mt-1 md:max-h-80 md:border md:rounded-xl md:z-40"
               >
                 {filteredSearchSuggestions.map((suggestion, index) => {
                   const active = index === activeSuggestionIndex;
@@ -206,7 +206,7 @@ export const FilterBar = ({
                       aria-selected={active}
                       onMouseEnter={() => setActiveSuggestionIndex(index)}
                       onClick={() => selectSuggestion(suggestion)}
-                      className={'w-full min-h-10 px-3 py-2 rounded-lg flex items-center gap-2.5 text-left type-control transition-colors ' +
+                      className={'w-full min-h-11 md:min-h-10 px-3 py-2 rounded-lg flex items-center gap-2.5 text-left type-control transition-colors ' +
                         (active
                           ? 'bg-[var(--color-primary-light)] text-[var(--color-primary-dark)]'
                           : 'text-[var(--color-text-primary)] hover:bg-[var(--color-background-subtle)]')}
