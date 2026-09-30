@@ -201,7 +201,7 @@ export const UsersListPage = () => {
                     setDeptFilter('All');
                   }}
                   filters={
-                    <div className="w-56">
+                    <div className="w-full md:w-56">
                       <CompactSelect
                         value={deptFilter}
                         onChange={(e) => setDeptFilter(e.target.value)}
