@@ -136,7 +136,7 @@ export const FilterBar = ({
   };
 
   return (
-    <div className={(embedded
+    <div className={'table-filter-bar ' + (embedded
       ? 'bg-transparent flex flex-col lg:flex-row lg:items-center lg:justify-end gap-2 w-full '
       : 'p-3 bg-white border border-[var(--color-border)] rounded-xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 ') + className}
     >
