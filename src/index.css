@@ -464,6 +464,21 @@ html[data-theme='dark'] ::selection {
 }
 
 
+/* Canonical mobile table-filter geometry.
+   Search, selects and date actions use one full-width 44px control system through 767px. */
+@media (max-width: 767px) {
+  .table-filter-bar .neir-action-button {
+    height: 44px !important;
+    min-height: 44px !important;
+  }
+
+  .table-filter-bar .MuiOutlinedInput-root,
+  .table-filter-bar .MuiAutocomplete-inputRoot {
+    min-height: 44px !important;
+    height: 44px !important;
+  }
+}
+
 /* Date filter trigger: pressed/open state only. Hover remains the locked neutral style. */
 .date-filter-trigger-pressed,
 .date-filter-trigger-pressed:hover {
