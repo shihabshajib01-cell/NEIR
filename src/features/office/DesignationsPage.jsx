@@ -4,7 +4,7 @@ import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.j
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Modal } from '../../components/overlays/Modal.jsx';
+import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
 import { Select, CompactSelect } from '../../components/forms/Select.jsx';
 import { mockApi } from '../../services/mockApi.js';
@@ -232,49 +232,51 @@ export const DesignationsPage = () => {
         />
       </TablePageWorkspace>
 
-      <Modal
+      <FormDrawer
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Designation' : 'Create Designation'}
-        footer={
-          <Button variant="primary" size="md" onClick={handleSave}>
-              {editingItem ? 'Save Changes' : 'Create Designation'}
-            </Button>
-        }
+        subtitle={editingItem ? editingItem.departmentName : 'Add a new official designation'}
+        formId="designation-form"
+        onSubmit={handleSave}
+        submitLabel={editingItem ? 'Save Changes' : 'Create Designation'}
       >
-        <form onSubmit={handleSave} className="space-y-4">
-          <TextInput
-            label="Designation Title"
-            value={formState.title}
-            onChange={(e) => setFormState({ ...formState, title: e.target.value })}
-            placeholder="e.g. Senior Deputy Director (Spectrum)"
-            required
-          />
-
-          <Select
-            label="Department"
-            value={formState.departmentId}
-            onChange={(e) => setFormState({ ...formState, departmentId: e.target.value })}
-            options={departments.map((d) => ({ value: d.id, label: d.name }))}
-            required
-          />
-
-          <TextInput
-            label="National Pay Grade / Rank"
-            value={formState.rankGrade}
-            onChange={(e) => setFormState({ ...formState, rankGrade: e.target.value })}
-            placeholder="e.g. Grade-4"
-          />
-
-          <Textarea
-            label="Job Description Summary"
-            value={formState.description}
-            onChange={(e) => setFormState({ ...formState, description: e.target.value })}
-            placeholder="Brief scope of responsibilities..."
-            rows={3}
-          />
-        </form>
-      </Modal>
+        <FormDrawerSection title="Designation Information">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <TextInput
+              label="Designation Title"
+              value={formState.title}
+              onChange={(e) => setFormState({ ...formState, title: e.target.value })}
+              placeholder="e.g. Senior Deputy Director (Spectrum)"
+              required
+            />
+            <Select
+              label="Department"
+              value={formState.departmentId}
+              onChange={(e) => setFormState({ ...formState, departmentId: e.target.value })}
+              options={departments.map((d) => ({ value: d.id, label: d.name }))}
+              required
+            />
+            <div className="sm:col-span-2">
+              <TextInput
+                label="National Pay Grade / Rank"
+                value={formState.rankGrade}
+                onChange={(e) => setFormState({ ...formState, rankGrade: e.target.value })}
+                placeholder="e.g. Grade-4"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <Textarea
+                label="Job Description Summary"
+                value={formState.description}
+                onChange={(e) => setFormState({ ...formState, description: e.target.value })}
+                placeholder="Brief scope of responsibilities..."
+                rows={3}
+              />
+            </div>
+          </div>
+        </FormDrawerSection>
+      </FormDrawer>
     </div>
   );
 };

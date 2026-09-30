@@ -4,7 +4,7 @@ import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.j
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Modal } from '../../components/overlays/Modal.jsx';
+import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput } from '../../components/forms/TextInput.jsx';
 import { Select, SearchableSelect, CompactSelect } from '../../components/forms/Select.jsx';
 import { mockApi } from '../../services/mockApi.js';
@@ -242,49 +242,50 @@ export const PermissionPage = () => {
       </TablePageWorkspace>
 
       {/* Create / Edit Modal */}
-      <Modal
+      <FormDrawer
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Permission' : 'Create Permission'}
-        footer={
-          <Button variant="primary" size="md" onClick={handleSave}>
-              {editingItem ? 'Save Changes' : 'Create Permission'}
-            </Button>
-        }
+        subtitle={editingItem ? editingItem.path : 'Add a page-level access permission'}
+        formId="permission-form"
+        onSubmit={handleSave}
+        submitLabel={editingItem ? 'Save Changes' : 'Create Permission'}
       >
-        <form onSubmit={handleSave} className="space-y-4">
-          <SearchableSelect
-            label="Parent Module"
-            value={formState.parentId}
-            onChange={(val) => setFormState({ ...formState, parentId: val })}
-            options={parents.map((p) => ({ value: p.id, label: p.name }))}
-            required
-          />
-
-          <TextInput
-            label="Permission Name"
-            value={formState.name}
-            onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-            placeholder="e.g. Review Special Registration Dossier"
-            required
-          />
-
-          <TextInput
-            label="Endpoint / View Path"
-            value={formState.path}
-            onChange={(e) => setFormState({ ...formState, path: e.target.value })}
-            placeholder="e.g. /special-registration/review"
-            required
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <FormDrawerSection title="Permission Definition">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <SearchableSelect
+              label="Parent Module"
+              value={formState.parentId}
+              onChange={(val) => setFormState({ ...formState, parentId: val })}
+              options={parents.map((p) => ({ value: p.id, label: p.name }))}
+              required
+            />
+            <TextInput
+              label="Permission Name"
+              value={formState.name}
+              onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+              placeholder="e.g. Review Special Registration Dossier"
+              required
+            />
+            <div className="sm:col-span-2">
+              <TextInput
+                label="Endpoint / View Path"
+                value={formState.path}
+                onChange={(e) => setFormState({ ...formState, path: e.target.value })}
+                placeholder="e.g. /special-registration/review"
+                required
+              />
+            </div>
+          </div>
+        </FormDrawerSection>
+        <FormDrawerSection title="Navigation Metadata">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
             <TextInput
               label="Icon Identifier"
               value={formState.icon}
               onChange={(e) => setFormState({ ...formState, icon: e.target.value })}
               placeholder="e.g. Eye"
             />
-
             <TextInput
               label="Position"
               type="number"
@@ -293,8 +294,8 @@ export const PermissionPage = () => {
               min={1}
             />
           </div>
-        </form>
-      </Modal>
+        </FormDrawerSection>
+      </FormDrawer>
     </div>
   );
 };

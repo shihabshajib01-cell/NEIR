@@ -3,7 +3,7 @@ import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Modal } from '../../components/overlays/Modal.jsx';
+import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
 import { AssignPermissionModal } from './AssignPermissionModal.jsx';
 import { mockApi } from '../../services/mockApi.js';
@@ -213,35 +213,35 @@ export const RolesPage = () => {
         />
       </TablePageWorkspace>
 
-      {/* Create / Edit Role Modal */}
-      <Modal
+      {/* Create / Edit Role Drawer */}
+      <FormDrawer
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         title={editingRole ? 'Edit Role' : 'Create Role'}
-        footer={
-          <Button variant="primary" size="md" onClick={handleSaveRole}>
-              {editingRole ? 'Save Changes' : 'Create Role'}
-            </Button>
-        }
+        subtitle={editingRole ? editingRole.name : 'Add a new administrative role'}
+        formId="role-form"
+        onSubmit={handleSaveRole}
+        submitLabel={editingRole ? 'Save Changes' : 'Create Role'}
       >
-        <form onSubmit={handleSaveRole} className="space-y-4">
-          <TextInput
-            label="Role Name"
-            value={newRoleName}
-            onChange={(e) => setNewRoleName(e.target.value)}
-            placeholder="e.g. Regional Affairs Officer"
-            required
-          />
-
-          <Textarea
-            label="Role Description"
-            value={newRoleDesc}
-            onChange={(e) => setNewRoleDesc(e.target.value)}
-            placeholder="Describe responsibilities..."
-            rows={3}
-          />
-        </form>
-      </Modal>
+        <FormDrawerSection title="Role Information">
+          <div className="space-y-4 pt-1">
+            <TextInput
+              label="Role Name"
+              value={newRoleName}
+              onChange={(e) => setNewRoleName(e.target.value)}
+              placeholder="e.g. Regional Affairs Officer"
+              required
+            />
+            <Textarea
+              label="Role Description"
+              value={newRoleDesc}
+              onChange={(e) => setNewRoleDesc(e.target.value)}
+              placeholder="Describe responsibilities..."
+              rows={3}
+            />
+          </div>
+        </FormDrawerSection>
+      </FormDrawer>
 
       {/* Assign Permissions Hierarchical Modal */}
       {selectedRole && (

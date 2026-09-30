@@ -4,7 +4,7 @@ import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.j
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Modal } from '../../components/overlays/Modal.jsx';
+import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
@@ -202,26 +202,24 @@ export const DepartmentsPage = () => {
         />
       </TablePageWorkspace>
 
-      <Modal
+      <FormDrawer
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingDept ? 'Edit Department' : 'Create Department'}
-        footer={
-          <Button variant="primary" size="md" onClick={handleSave}>
-              {editingDept ? 'Save Changes' : 'Create Department'}
-            </Button>
-        }
+        subtitle={editingDept ? editingDept.code : 'Add a new organizational department'}
+        formId="department-form"
+        onSubmit={handleSave}
+        submitLabel={editingDept ? 'Save Changes' : 'Create Department'}
       >
-        <form onSubmit={handleSave} className="space-y-3.5">
-          <TextInput
-            label="Department Name"
-            value={formState.name}
-            onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-            placeholder="e.g. Spectrum Management Division"
-            required
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <FormDrawerSection title="Department Information">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <TextInput
+              label="Department Name"
+              value={formState.name}
+              onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+              placeholder="e.g. Spectrum Management Division"
+              required
+            />
             <TextInput
               label="Department Code"
               value={formState.code}
@@ -229,24 +227,26 @@ export const DepartmentsPage = () => {
               placeholder="e.g. SMD"
               required
             />
-
-            <TextInput
-              label="Head of Department"
-              value={formState.head}
-              onChange={(e) => setFormState({ ...formState, head: e.target.value })}
-              placeholder="e.g. Director General (SM)"
-            />
+            <div className="sm:col-span-2">
+              <TextInput
+                label="Head of Department"
+                value={formState.head}
+                onChange={(e) => setFormState({ ...formState, head: e.target.value })}
+                placeholder="e.g. Director General (SM)"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <Textarea
+                label="Department Scope & Function"
+                value={formState.description}
+                onChange={(e) => setFormState({ ...formState, description: e.target.value })}
+                placeholder="Describe regulatory jurisdiction and equipment verification duties..."
+                rows={3}
+              />
+            </div>
           </div>
-
-          <Textarea
-            label="Department Scope & Function"
-            value={formState.description}
-            onChange={(e) => setFormState({ ...formState, description: e.target.value })}
-            placeholder="Describe regulatory jurisdiction and equipment verification duties..."
-            rows={3}
-          />
-        </form>
-      </Modal>
+        </FormDrawerSection>
+      </FormDrawer>
     </div>
   );
 };

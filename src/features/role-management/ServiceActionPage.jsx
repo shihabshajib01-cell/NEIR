@@ -4,7 +4,7 @@ import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.j
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Modal } from '../../components/overlays/Modal.jsx';
+import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput } from '../../components/forms/TextInput.jsx';
 import { Select, SearchableSelect } from '../../components/forms/Select.jsx';
 import { mockApi } from '../../services/mockApi.js';
@@ -258,71 +258,74 @@ export const ServiceActionPage = () => {
       </TablePageWorkspace>
 
       {/* Create / Edit Modal */}
-      <Modal
+      <FormDrawer
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Service Action' : 'Create Service Action'}
-        footer={
-          <Button variant="primary" size="md" onClick={handleSave}>
-              {editingItem ? 'Save Changes' : 'Create Service Action'}
-            </Button>
-        }
+        subtitle={editingItem ? editingItem.path : 'Add an operational service endpoint'}
+        formId="service-action-form"
+        onSubmit={handleSave}
+        submitLabel={editingItem ? 'Save Changes' : 'Create Service Action'}
       >
-        <form onSubmit={handleSave} className="space-y-4">
-          <Select
-            label="Parent Module"
-            value={formState.parentId}
-            onChange={(e) => {
-              const pId = e.target.value;
-              const perms = permissions.filter((p) => p.parentId === pId);
-              setFormState({
-                ...formState,
-                parentId: pId,
-                permissionId: perms.length > 0 ? perms[0].id : '',
-              });
-            }}
-            options={parents.map((p) => ({ value: p.id, label: p.name }))}
-            required
-          />
-
-          <Select
-            label="Associated Permission"
-            value={formState.permissionId}
-            onChange={(e) => setFormState({ ...formState, permissionId: e.target.value })}
-            options={dependentPermissions.map((p) => ({ value: p.id, label: p.name }))}
-            required
-          />
-
-          <TextInput
-            label="Service Action Name"
-            value={formState.name}
-            onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-            placeholder="e.g. Broadcast Global IMEI Blacklist"
-            required
-          />
-
-          <TextInput
-            label="API Route Path"
-            value={formState.path}
-            onChange={(e) => setFormState({ ...formState, path: e.target.value })}
-            placeholder="e.g. /api/v1/imei/global-block"
-            required
-          />
-
-          <Select
-            label="Action HTTP Method"
-            value={formState.method}
-            onChange={(e) => setFormState({ ...formState, method: e.target.value })}
-            options={[
-              { value: 'GET', label: 'Get' },
-              { value: 'POST', label: 'Post' },
-              { value: 'PUT', label: 'Put' },
-              { value: 'DELETE', label: 'Delete' },
-            ]}
-            required
-          />
-        </form>
-      </Modal>
+        <FormDrawerSection title="Permission Mapping">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <Select
+              label="Parent Module"
+              value={formState.parentId}
+              onChange={(e) => {
+                const pId = e.target.value;
+                const perms = permissions.filter((p) => p.parentId === pId);
+                setFormState({
+                  ...formState,
+                  parentId: pId,
+                  permissionId: perms.length > 0 ? perms[0].id : '',
+                });
+              }}
+              options={parents.map((p) => ({ value: p.id, label: p.name }))}
+              required
+            />
+            <Select
+              label="Associated Permission"
+              value={formState.permissionId}
+              onChange={(e) => setFormState({ ...formState, permissionId: e.target.value })}
+              options={dependentPermissions.map((p) => ({ value: p.id, label: p.name }))}
+              required
+            />
+          </div>
+        </FormDrawerSection>
+        <FormDrawerSection title="Service Endpoint">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <TextInput
+              label="Service Action Name"
+              value={formState.name}
+              onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+              placeholder="e.g. Broadcast Global IMEI Blacklist"
+              required
+            />
+            <Select
+              label="Action HTTP Method"
+              value={formState.method}
+              onChange={(e) => setFormState({ ...formState, method: e.target.value })}
+              options={[
+                { value: 'GET', label: 'Get' },
+                { value: 'POST', label: 'Post' },
+                { value: 'PUT', label: 'Put' },
+                { value: 'DELETE', label: 'Delete' },
+              ]}
+              required
+            />
+            <div className="sm:col-span-2">
+              <TextInput
+                label="API Route Path"
+                value={formState.path}
+                onChange={(e) => setFormState({ ...formState, path: e.target.value })}
+                placeholder="e.g. /api/v1/imei/global-block"
+                required
+              />
+            </div>
+          </div>
+        </FormDrawerSection>
+      </FormDrawer>
     </div>
   );
 };

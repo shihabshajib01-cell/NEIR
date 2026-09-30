@@ -4,7 +4,7 @@ import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.j
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
-import { Modal } from '../../components/overlays/Modal.jsx';
+import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput, NumberInput } from '../../components/forms/TextInput.jsx';
 import { Select } from '../../components/forms/Select.jsx';
 import { Checkbox } from '../../components/forms/Checkbox.jsx';
@@ -209,41 +209,37 @@ export const ParentPage = () => {
       </TablePageWorkspace>
 
       {/* Create / Edit Modal */}
-      <Modal
+      <FormDrawer
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title={editingItem ? 'Edit Parent Module' : 'Create Parent Module'}
-        footer={
-          <Button variant="primary" size="md" onClick={handleSave}>
-              {editingItem ? 'Save Changes' : 'Create Parent'}
-            </Button>
-        }
+        subtitle={editingItem ? editingItem.path : 'Add a navigation parent module'}
+        formId="parent-module-form"
+        onSubmit={handleSave}
+        submitLabel={editingItem ? 'Save Changes' : 'Create Parent'}
       >
-        <form onSubmit={handleSave} className="space-y-4">
-          <TextInput
-            label="Parent Name"
-            value={formState.name}
-            onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-            placeholder="e.g. Device Operations"
-            required
-          />
-
-          <TextInput
-            label="Route Path"
-            value={formState.path}
-            onChange={(e) => setFormState({ ...formState, path: e.target.value })}
-            placeholder="e.g. /device-operations"
-            required
-          />
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <FormDrawerSection title="Module Identity">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <TextInput
+              label="Parent Name"
+              value={formState.name}
+              onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+              placeholder="e.g. Device Operations"
+              required
+            />
+            <TextInput
+              label="Route Path"
+              value={formState.path}
+              onChange={(e) => setFormState({ ...formState, path: e.target.value })}
+              placeholder="e.g. /device-operations"
+              required
+            />
             <TextInput
               label="Icon Identifier"
               value={formState.icon}
               onChange={(e) => setFormState({ ...formState, icon: e.target.value })}
               placeholder="e.g. ShieldCheck"
             />
-
             <TextInput
               label="Sort Position"
               type="number"
@@ -252,28 +248,28 @@ export const ParentPage = () => {
               min={1}
             />
           </div>
-
-          <Select
-            label="Menu Location"
-            value={formState.location}
-            onChange={(e) => setFormState({ ...formState, location: e.target.value })}
-            options={[
-              'Main Navigation Rail',
-              'Top Navigation Bar',
-              'Administrative Settings Rail',
-              'Footer Links'
-            ]}
-          />
-
-          <div className="pt-2">
+        </FormDrawerSection>
+        <FormDrawerSection title="Navigation Placement">
+          <div className="space-y-4 pt-1">
+            <Select
+              label="Menu Location"
+              value={formState.location}
+              onChange={(e) => setFormState({ ...formState, location: e.target.value })}
+              options={[
+                'Main Navigation Rail',
+                'Top Navigation Bar',
+                'Administrative Settings Rail',
+                'Footer Links'
+              ]}
+            />
             <Checkbox
               label="Has Nested Child Routes"
               checked={formState.hasChildren}
               onChange={(e) => setFormState({ ...formState, hasChildren: e.target.checked })}
             />
           </div>
-        </form>
-      </Modal>
+        </FormDrawerSection>
+      </FormDrawer>
     </div>
   );
 };
