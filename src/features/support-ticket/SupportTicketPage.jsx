@@ -3,7 +3,7 @@ import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
-import { Drawer } from '../../components/overlays/Drawer.jsx';
+import { Drawer, DrawerSection } from '../../components/overlays/Drawer.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Textarea, TextInput } from '../../components/forms/TextInput.jsx';
 import { Select, CompactSelect } from '../../components/forms/Select.jsx';
@@ -222,41 +222,43 @@ export const SupportTicketPage = () => {
           }}
           title={`Ticket #${selectedTicket.ticketNumber}`}
           subtitle={selectedTicket.subject}
-          width="w-full sm:w-[560px]"
+          headerStatus={
+            <div className="flex items-center gap-2">
+              <PriorityBadge priority={selectedTicket.priority} />
+              <StatusBadge status={selectedTicket.status} size="sm" />
+            </div>
+          }
+          width="w-full sm:w-[600px]"
         >
-          {/* Metadata banner */}
-          <section className="border border-[var(--color-border)] rounded-lg overflow-hidden bg-[var(--color-surface)]">
-            <div className="px-4 py-3 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] flex items-center justify-between gap-3">
-              <p className="type-label font-semibold text-[var(--color-text-primary)]">{selectedTicket.category}</p>
-              <div className="flex items-center gap-2">
-                <PriorityBadge priority={selectedTicket.priority} />
-                <StatusBadge status={selectedTicket.status} size="sm" />
-              </div>
-            </div>
-            <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
-              <div>
-                <p className="type-meta text-[var(--color-text-secondary)]">Citizen</p>
-                <p className="type-body-sm font-medium text-[var(--color-text-primary)] mt-0.5">{selectedTicket.submittedBy}</p>
-              </div>
-              <div>
-                <p className="type-meta text-[var(--color-text-secondary)]">Phone</p>
-                <p className="type-body-sm font-medium font-mono text-[var(--color-text-primary)] mt-0.5">{selectedTicket.phone}</p>
-              </div>
-              {selectedTicket.imei && (
-                <div className="sm:col-span-2">
-                  <p className="type-meta text-[var(--color-text-secondary)]">Linked IMEI</p>
-                  <p className="type-body-sm font-medium font-mono text-[var(--color-primary-dark)] mt-0.5">{selectedTicket.imei}</p>
+          <div className="border border-[var(--color-border)] rounded-[var(--field-radius)] overflow-hidden bg-[var(--color-surface)]">
+            <DrawerSection title="Ticket Information">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3 pt-1">
+                <div>
+                  <p className="type-meta text-[var(--color-text-secondary)]">Citizen</p>
+                  <p className="type-body-sm font-medium text-[var(--color-text-primary)] mt-0.5">{selectedTicket.submittedBy}</p>
                 </div>
-              )}
-            </div>
-          </section>
+                <div>
+                  <p className="type-meta text-[var(--color-text-secondary)]">Phone</p>
+                  <p className="type-body-sm font-medium font-mono text-[var(--color-text-primary)] mt-0.5">{selectedTicket.phone}</p>
+                </div>
+                <div>
+                  <p className="type-meta text-[var(--color-text-secondary)]">Category</p>
+                  <p className="type-body-sm font-medium text-[var(--color-text-primary)] mt-0.5">{selectedTicket.category}</p>
+                </div>
+                {selectedTicket.imei && (
+                  <div>
+                    <p className="type-meta text-[var(--color-text-secondary)]">Linked IMEI</p>
+                    <p className="type-body-sm font-medium font-mono text-[var(--color-primary-dark)] mt-0.5">{selectedTicket.imei}</p>
+                  </div>
+                )}
+              </div>
+            </DrawerSection>
+          </div>
 
           {/* Conversation History Thread */}
-          <div className="space-y-3">
-            <h4 className="type-label font-semibold text-[var(--color-text-primary)]">
-              Conversation
-            </h4>
-            <div className="space-y-3">
+          <div className="border border-[var(--color-border)] rounded-[var(--field-radius)] overflow-hidden bg-[var(--color-surface)]">
+            <DrawerSection title="Conversation">
+              <div className="space-y-3">
               {selectedTicket.messages?.map((msg) => (
                 <div
                   key={msg.id}
@@ -276,15 +278,15 @@ export const SupportTicketPage = () => {
                   <p className="type-body-sm text-[var(--color-text-primary)]">{msg.content}</p>
                 </div>
               ))}
-            </div>
+              </div>
+            </DrawerSection>
           </div>
 
           {/* Reply Form */}
-          <form onSubmit={handleSendReply} className="pt-4 border-t border-[var(--color-border)] space-y-4">
-            <div className="flex items-center justify-between">
-              <h4 className="type-label font-semibold text-[var(--color-text-primary)]">
-                Response
-              </h4>
+          <div className="border border-[var(--color-border)] rounded-[var(--field-radius)] overflow-hidden bg-[var(--color-surface)]">
+            <DrawerSection title="Response">
+              <form onSubmit={handleSendReply} className="space-y-4 pt-1">
+            <div className="flex justify-end">
               <div className="w-40">
                 <CompactSelect
                   value={newStatus}
@@ -312,14 +314,15 @@ export const SupportTicketPage = () => {
               <Button
                 type="submit"
                 variant="primary"
-                size="md"
                 icon={Send}
                 isLoading={isReplying}
               >
                 Send Response
               </Button>
             </div>
-          </form>
+              </form>
+            </DrawerSection>
+          </div>
         </Drawer>
       )}
     </div>

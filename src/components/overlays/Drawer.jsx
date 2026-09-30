@@ -1,11 +1,37 @@
-import React, { useEffect, useRef } from 'react';
-import { ArrowLeft, X } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, ChevronDown, X } from 'lucide-react';
 import { Button, IconButton } from '../forms/Button.jsx';
 import { StatusBadge } from '../data-display/StatusBadge.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
 const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+
+export const DrawerSection = ({ title, children, defaultOpen = true, trailing = null, className = '' }) => {
+  const { t } = usePreferences();
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+
+  return (
+    <section className={'border-b border-[var(--color-border)] last:border-b-0 ' + className}>
+      <button
+        type="button"
+        onClick={() => setIsOpen((current) => !current)}
+        className="w-full min-h-11 px-4 py-2.5 flex items-center justify-between gap-3 text-left bg-[var(--color-surface)] hover:bg-[var(--color-background-subtle)] transition-colors"
+        aria-expanded={isOpen}
+      >
+        <p className="type-label font-semibold text-[var(--color-text-primary)]">{t(title)}</p>
+        <div className="flex items-center gap-2 shrink-0">
+          {trailing}
+          <ChevronDown
+            className={'w-4 h-4 text-[var(--color-text-muted)] transition-transform duration-[var(--motion-base)] ' + (isOpen ? 'rotate-180' : '')}
+          />
+        </div>
+      </button>
+      {isOpen && <div className="px-4 pb-4 pt-1">{children}</div>}
+    </section>
+  );
+};
 
 const useOverlayFocus = (isOpen, onClose, panelRef) => {
   useEffect(() => {
@@ -44,7 +70,7 @@ const useOverlayFocus = (isOpen, onClose, panelRef) => {
   }, [isOpen, onClose, panelRef]);
 };
 
-export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, children, footer, width = 'w-full sm:w-[520px]', className = '' }) => {
+export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, headerStatus, children, footer, width = 'w-full sm:w-[600px]', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
   const presence = useOverlayPresence(isOpen, undefined, onExited);
@@ -66,14 +92,17 @@ export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, children, f
             <h3 className="type-card-title text-[var(--color-text-primary)] truncate">{t(title)}</h3>
             {subtitle && <p className="type-meta text-[var(--color-text-secondary)] mt-1 truncate">{t(subtitle)}</p>}
           </div>
-          <IconButton
-            icon={X}
-            variant="ghost"
-            size="md"
-            onClick={onClose}
-            ariaLabel="Close drawer"
-            className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(1,173,193,0.30)]"
-          />
+          <div className="flex items-center gap-2 shrink-0">
+            {headerStatus}
+            <IconButton
+              icon={X}
+              variant="ghost"
+              size="md"
+              onClick={onClose}
+              ariaLabel="Close drawer"
+              className="shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgba(1,173,193,0.30)]"
+            />
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">{children}</div>
@@ -84,7 +113,7 @@ export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, children, f
 };
 
 export const RecordDetailsDrawer = ({
-  isOpen, onClose, onExited, title = 'Record Details', recordId, status, sections = [], footerActions, width = 'w-full sm:w-[520px]',
+  isOpen, onClose, onExited, title = 'Record Details', recordId, status, sections = [], footerActions, width = 'w-full sm:w-[600px]',
 }) => {
   const { t } = usePreferences();
 
@@ -95,41 +124,34 @@ export const RecordDetailsDrawer = ({
       onExited={onExited}
       title={title}
       subtitle={recordId ? 'ID: ' + recordId : null}
+      headerStatus={status ? <StatusBadge status={status} size="md" /> : null}
       width={width}
-      footer={footerActions || <Button variant="outline" size="sm" onClick={onClose}>Close</Button>}
+      footer={footerActions || <Button variant="outline" onClick={onClose}>Close</Button>}
     >
-      {status && (
-        <div className="px-4 py-3 bg-[var(--color-background-subtle)] border border-[var(--color-border)] rounded-lg flex items-center justify-between gap-3">
-          <p className="type-label text-[var(--color-text-primary)]">{t('Current Status')}</p>
-          <StatusBadge status={status} size="md" />
-        </div>
-      )}
-
-      {sections.map((section, index) => (
-        <section key={section.title || index} className="border border-[var(--color-border)] rounded-lg overflow-hidden bg-[var(--color-surface)]">
-          <h4 className="px-4 py-3 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)] type-label font-semibold text-[var(--color-text-primary)]">
-            {t(section.title)}
-          </h4>
-          <dl className="p-4 space-y-3.5">
-            {section.items.map((item, itemIndex) => {
-              const displayValue = item.value === null || item.value === undefined || item.value === '' ? '—' : String(item.value);
-              return (
-                <div
-                  key={item.label || itemIndex}
-                  className="grid grid-cols-1 sm:grid-cols-[minmax(145px,0.85fr)_minmax(0,1.15fr)] gap-x-4 gap-y-1"
-                >
-                  <dt className="type-meta text-[var(--color-text-secondary)]">
-                    <p>{t(item.label)}</p>
-                  </dt>
-                  <dd className={'type-body-sm font-medium text-[var(--color-text-primary)] sm:text-right min-w-0 ' + (item.isMono ? 'font-mono tabular-nums' : '')}>
-                    <p className="break-words" title={displayValue}>{displayValue}</p>
-                  </dd>
-                </div>
-              );
-            })}
-          </dl>
-        </section>
-      ))}
+      <div className="border border-[var(--color-border)] rounded-[var(--field-radius)] overflow-hidden bg-[var(--color-surface)]">
+        {sections.map((section, index) => (
+          <DrawerSection key={section.title || index} title={section.title}>
+            <dl className="divide-y divide-[var(--color-border-subtle)]">
+              {section.items.map((item, itemIndex) => {
+                const displayValue = item.value === null || item.value === undefined || item.value === '' ? '—' : String(item.value);
+                return (
+                  <div
+                    key={item.label || itemIndex}
+                    className="grid grid-cols-1 sm:grid-cols-[minmax(155px,0.72fr)_minmax(0,1.28fr)] gap-x-5 gap-y-1 py-2.5 first:pt-1 last:pb-0"
+                  >
+                    <dt className="type-meta text-[var(--color-text-secondary)]">
+                      <p>{t(item.label)}</p>
+                    </dt>
+                    <dd className={'type-body-sm font-medium text-[var(--color-text-primary)] sm:text-right min-w-0 ' + (item.isMono ? 'font-mono tabular-nums' : '')}>
+                      <p className="break-words leading-5" title={displayValue}>{displayValue}</p>
+                    </dd>
+                  </div>
+                );
+              })}
+            </dl>
+          </DrawerSection>
+        ))}
+      </div>
     </Drawer>
   );
 };
