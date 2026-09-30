@@ -1,5 +1,5 @@
 import React, { useId } from 'react';
-import { Autocomplete, MenuItem, TextField } from '@mui/material';
+import { Autocomplete, ListSubheader, MenuItem, TextField } from '@mui/material';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 import { muiFieldSx, muiFilterSx } from '../../system/muiFieldSx.js';
 
@@ -42,6 +42,10 @@ const selectMenuProps = {
   MenuListProps: {
     sx: {
       py: 0.5,
+      '@media (max-width:639px)': {
+        py: 0,
+        pb: 'max(8px, env(safe-area-inset-bottom))',
+      },
     },
   },
 };
@@ -80,6 +84,37 @@ export const Select = ({
   const optionSx = density === 'compact'
     ? { ...standardOptionSx, minHeight: 40, py: 0.75, fontSize: 'var(--type-control-size)' }
     : standardOptionSx;
+  const menuProps = {
+    ...selectMenuProps,
+    MenuListProps: {
+      ...selectMenuProps.MenuListProps,
+      subheader: fieldLabel ? (
+        <ListSubheader
+          component="div"
+          className="mobile-select-sheet-title"
+          sx={{
+            display: 'none',
+            '@media (max-width:639px)': {
+              display: 'flex',
+              position: 'sticky',
+              top: 0,
+              zIndex: 1,
+              minHeight: 48,
+              alignItems: 'center',
+              px: 2,
+              py: 1.25,
+              bgcolor: 'var(--color-surface)',
+              color: 'var(--color-text-primary)',
+              borderBottom: '1px solid var(--color-border)',
+              lineHeight: 1.4,
+            },
+          }}
+        >
+          <p className="type-label font-semibold">{fieldLabel}</p>
+        </ListSubheader>
+      ) : undefined,
+    },
+  };
 
   return (
     <div className={className}>
@@ -101,7 +136,7 @@ export const Select = ({
         SelectProps={{
           displayEmpty: !fieldLabel,
           readOnly,
-          MenuProps: selectMenuProps,
+          MenuProps: menuProps,
           inputProps: {
             'aria-invalid': Boolean(error) || undefined,
             'aria-describedby': supportingText ? selectId + '-helper' : undefined,
@@ -111,7 +146,7 @@ export const Select = ({
         sx={fieldSx}
         {...props}
       >
-        {placeholder && (
+        {placeholder && !value && (
           <MenuItem value="" disabled={required} sx={optionSx}>
             <p className="text-[var(--color-text-muted)]">{t(placeholder)}</p>
           </MenuItem>
