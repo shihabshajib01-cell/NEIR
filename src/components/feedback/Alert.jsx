@@ -45,7 +45,7 @@ export const Alert = ({
   const Icon = config.icon;
 
   return (
-    <div className={'p-3.5 rounded-xl border flex items-start gap-3 ' + config.bg + ' ' + config.border + ' ' + className} role={variant === 'danger' ? 'alert' : 'status'}>
+    <div className={(variant === 'warning' ? 'p-3 rounded-[var(--field-radius)]' : 'p-3.5 rounded-xl') + ' border flex items-start gap-3 ' + config.bg + ' ' + config.border + ' ' + className} role={variant === 'danger' ? 'alert' : 'status'}>
       <Icon className={'w-5 h-5 shrink-0 mt-0.5 ' + config.iconColor} />
       <div className="flex-1 min-w-0">
         {title && <h5 className={'text-sm font-semibold leading-tight ' + config.text}>{t(title)}</h5>}
