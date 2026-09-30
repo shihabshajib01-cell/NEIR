@@ -68,7 +68,7 @@ export const AutoRegistrationPage = () => {
           {result && (
             <Alert variant="success" title="Device Registered Successfully" className="mb-4">
               <p>{result.message}</p>
-              <p className="mt-1 font-mono text-[11px]">Audit Token: {result.referenceId}</p>
+              <p className="mt-1 font-mono type-meta">Audit Token: {result.referenceId}</p>
             </Alert>
           )}
 
@@ -87,7 +87,7 @@ export const AutoRegistrationPage = () => {
               required
             />
 
-            <div className="pt-2 border-t border-[#E2E5F0] flex justify-end">
+            <div className="pt-2 border-t border-[var(--color-border)] flex justify-end">
               <Button
                 type="submit"
                 variant="primary"
