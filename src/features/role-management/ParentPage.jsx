@@ -12,6 +12,18 @@ import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { Plus, Edit2, FolderTree } from 'lucide-react';
 
+const MENU_LOCATION_OPTIONS = [
+  'Main Navigation Rail',
+  'Top Navigation Bar',
+  'Administrative Settings Rail',
+  'Footer Links',
+];
+
+const normalizeMenuLocation = (location) => {
+  if (location === 'Top Navigation') return 'Top Navigation Bar';
+  return MENU_LOCATION_OPTIONS.includes(location) ? location : 'Main Navigation Rail';
+};
+
 export const ParentPage = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +78,7 @@ export const ParentPage = () => {
       path: item.path,
       icon: item.icon,
       position: item.position,
-      location: item.location,
+      location: normalizeMenuLocation(item.location),
       hasChildren: item.hasChildren || false,
     });
     setIsModalOpen(true);
@@ -255,12 +267,7 @@ export const ParentPage = () => {
               label="Menu Location"
               value={formState.location}
               onChange={(e) => setFormState({ ...formState, location: e.target.value })}
-              options={[
-                'Main Navigation Rail',
-                'Top Navigation Bar',
-                'Administrative Settings Rail',
-                'Footer Links'
-              ]}
+              options={MENU_LOCATION_OPTIONS}
             />
             <Checkbox
               label="Has Nested Child Routes"
