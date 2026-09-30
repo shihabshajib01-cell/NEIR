@@ -97,9 +97,7 @@ export const mockApi = {
   async getSpecialRegistrations(filters = {}) {
     await delay(120);
     let items = [...mockSpecialRegistrations];
-    if (filters.status && filters.status !== 'All') {
-      items = items.filter(r => r.status.toLowerCase() === filters.status.toLowerCase());
-    }
+
     if (filters.search) {
       const q = filters.search.toLowerCase();
       items = items.filter(r =>
@@ -109,12 +107,33 @@ export const mockApi = {
         r.id.toLowerCase().includes(q)
       );
     }
+
     items = items.filter((record) =>
       isWithinDateRange(record.date, filters.fromDate, filters.toDate)
     );
+
+    const statusCounts = items.reduce((counts, record) => {
+      counts.All += 1;
+      if (Object.prototype.hasOwnProperty.call(counts, record.status)) {
+        counts[record.status] += 1;
+      }
+      return counts;
+    }, {
+      All: 0,
+      Pending: 0,
+      'In Progress': 0,
+      Accepted: 0,
+      Rejected: 0,
+    });
+
+    if (filters.status && filters.status !== 'All') {
+      items = items.filter(r => r.status.toLowerCase() === filters.status.toLowerCase());
+    }
+
     return {
       items,
       total: items.length,
+      statusCounts,
       page: filters.page || 1,
       pageSize: filters.pageSize || 10
     };
