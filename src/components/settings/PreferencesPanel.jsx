@@ -22,7 +22,7 @@ export const PreferencesPanel = ({ className = '' }) => {
   ];
 
   return (
-    <div className={'w-full sm:w-72 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-t-[20px] rounded-b-none sm:rounded-xl shadow-[var(--shadow-lg)] overflow-hidden max-h-[90dvh] sm:max-h-none overflow-y-auto ' + className}>
+    <div className={'w-full md:w-72 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-t-[20px] rounded-b-none md:rounded-xl shadow-[var(--shadow-lg)] overflow-hidden max-h-[90dvh] md:max-h-none overflow-y-auto max-md:pb-[max(8px,env(safe-area-inset-bottom))] ' + className}>
       <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
         <p className="type-label text-[var(--color-text-primary)]">{t('Display preferences')}</p>
       </div>
@@ -39,7 +39,7 @@ export const PreferencesPanel = ({ className = '' }) => {
                 key={option.id}
                 type="button"
                 onClick={() => setLanguage(option.id)}
-                className={'min-h-10 rounded-lg border px-3 type-button-sm transition-colors ' +
+                className={'min-h-11 md:min-h-10 rounded-lg border px-3 type-button-sm transition-colors ' +
                   (language === option.id
                     ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                     : 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
@@ -65,7 +65,7 @@ export const PreferencesPanel = ({ className = '' }) => {
                   key={option.id}
                   type="button"
                   onClick={() => setTheme(option.id)}
-                  className={'min-h-10 rounded-lg border px-3 type-button-sm flex items-center justify-center gap-2 transition-colors ' +
+                  className={'min-h-11 md:min-h-10 rounded-lg border px-3 type-button-sm flex items-center justify-center gap-2 transition-colors ' +
                     (theme === option.id
                       ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                       : 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)]')}
