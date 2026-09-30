@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
+import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
@@ -16,6 +17,7 @@ export const RolesPage = () => {
   const [permissions, setPermissions] = useState([]);
   const [serviceActions, setServiceActions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Modals state
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -106,6 +108,15 @@ export const RolesPage = () => {
     );
   };
 
+  const filteredRoles = roles.filter((role) => {
+    const query = searchTerm.trim().toLowerCase();
+    if (!query) return true;
+    return (
+      role.name.toLowerCase().includes(query) ||
+      String(role.description || '').toLowerCase().includes(query)
+    );
+  });
+
   const columns = [
     {
       key: 'name',
@@ -187,12 +198,21 @@ export const RolesPage = () => {
 
       <TablePageWorkspace
         title="Role List"
-        count={roles.length}
+        count={filteredRoles.length}
+        toolbar={
+          <FilterBar
+            embedded
+            searchPlaceholder="Search roles..."
+            searchValue={searchTerm}
+            searchSuggestions={roles.flatMap((role) => [role.name, role.description]).filter(Boolean)}
+            onSearchChange={setSearchTerm}
+          />
+        }
       >
         <DataTable
           embedded
           columns={columns}
-          data={roles}
+          data={filteredRoles}
           isLoading={isLoading}
           pagination
           onMobileCardClick={handleOpenEdit}

@@ -43,6 +43,8 @@ export const SpecialRegistrationPage = () => {
       const res = await mockApi.getSpecialRegistrations({
         status: statusFilter,
         search: searchTerm,
+        fromDate,
+        toDate,
         page: isMobileFeed ? 1 : page,
         pageSize: isMobileFeed ? 100 : pageSize,
       });
@@ -57,7 +59,7 @@ export const SpecialRegistrationPage = () => {
 
   useEffect(() => {
     loadRegistrations();
-  }, [statusFilter, searchTerm, page, pageSize, isMobileFeed]);
+  }, [statusFilter, searchTerm, fromDate, toDate, page, pageSize, isMobileFeed]);
 
   const handleOpenReview = (item) => {
     setSelectedItem(item);
@@ -181,7 +183,7 @@ export const SpecialRegistrationPage = () => {
                   filters={
                     <DateRangeFilter
                       compact
-                      buttonLabel="Filter"
+                      buttonLabel="Filter by Date"
                       className="shrink-0"
                       startDate={fromDate}
                       endDate={toDate}

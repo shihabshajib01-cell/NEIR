@@ -6,6 +6,7 @@ import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { CompactSelect } from '../../components/forms/Select.jsx';
+import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
@@ -16,7 +17,8 @@ export const MsisdnImeiPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchBy, setSearchBy] = useState('MSISDN');
-  const [operatorFilter, setOperatorFilter] = useState('All');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { addToast } = useToast();
@@ -27,7 +29,8 @@ export const MsisdnImeiPage = () => {
       const res = await mockApi.getMsisdnImeiList({
         search: searchTerm,
         searchBy,
-        operator: operatorFilter,
+        fromDate,
+        toDate,
       });
       setData(res.items);
     } catch (err) {
@@ -39,7 +42,7 @@ export const MsisdnImeiPage = () => {
 
   useEffect(() => {
     loadData();
-  }, [searchTerm, searchBy, operatorFilter]);
+  }, [searchTerm, searchBy, fromDate, toDate]);
 
   const handleOpenDetails = (record) => {
     setSelectedRecord(record);
@@ -135,7 +138,6 @@ export const MsisdnImeiPage = () => {
             onReset={() => {
               setSearchTerm('');
               setSearchBy('MSISDN');
-              setOperatorFilter('All');
             }}
             filters={
               <>
@@ -151,21 +153,14 @@ export const MsisdnImeiPage = () => {
                     aria-label="Search by"
                   />
                 </div>
-                <div className="w-full sm:w-48">
-                  <CompactSelect
-                    value={operatorFilter}
-                    onChange={(event) => setOperatorFilter(event.target.value)}
-                    options={[
-                      { value: 'All', label: 'All Operators' },
-                      { value: 'Grameenphone', label: 'Grameenphone' },
-                      { value: 'Robi', label: 'Robi' },
-                      { value: 'Banglalink', label: 'Banglalink' },
-                      { value: 'Teletalk', label: 'Teletalk' },
-                    ]}
-                    placeholder=""
-                    aria-label="Filter by operator"
-                  />
-                </div>
+                <DateRangeFilter
+                  compact
+                  className="shrink-0"
+                  startDate={fromDate}
+                  endDate={toDate}
+                  onStartDateChange={setFromDate}
+                  onEndDateChange={setToDate}
+                />
               </>
             }
           />

@@ -5,6 +5,7 @@ import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.j
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Drawer, DrawerSection } from '../../components/overlays/Drawer.jsx';
 import { Button } from '../../components/forms/Button.jsx';
+import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { Textarea, TextInput } from '../../components/forms/TextInput.jsx';
 import { Select, CompactSelect } from '../../components/forms/Select.jsx';
 import { StatusBadge, PriorityBadge } from '../../components/data-display/StatusBadge.jsx';
@@ -17,6 +18,8 @@ export const SupportTicketPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [replyMessage, setReplyMessage] = useState('');
@@ -38,6 +41,8 @@ export const SupportTicketPage = () => {
       const res = await mockApi.getSupportTickets({
         status: statusFilter,
         search: searchTerm,
+        fromDate,
+        toDate,
       });
       setTickets(res.items);
     } catch (err) {
@@ -49,7 +54,7 @@ export const SupportTicketPage = () => {
 
   useEffect(() => {
     loadData();
-  }, [statusFilter, searchTerm]);
+  }, [statusFilter, searchTerm, fromDate, toDate]);
 
   const handleOpenTicket = (ticket) => {
     setSelectedTicket(ticket);
@@ -180,10 +185,16 @@ export const SupportTicketPage = () => {
                   searchValue={searchTerm}
                   searchSuggestions={tickets.flatMap((ticket) => [ticket.ticketNumber, ticket.submittedBy, ticket.phone, ticket.imei, ticket.subject])}
                   onSearchChange={setSearchTerm}
-                  onReset={() => {
-                    setSearchTerm('');
-                    setStatusFilter('All');
-                  }}
+                  filters={
+                    <DateRangeFilter
+                      compact
+                      className="shrink-0"
+                      startDate={fromDate}
+                      endDate={toDate}
+                      onStartDateChange={setFromDate}
+                      onEndDateChange={setToDate}
+                    />
+                  }
                 />
         }
       >
