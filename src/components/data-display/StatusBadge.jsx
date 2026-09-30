@@ -8,13 +8,13 @@ export const StatusBadge = ({ status = 'Active', showIcon = true, size = 'md', p
   let config = { bg: 'bg-[var(--color-background)]', text: 'text-[var(--color-text-secondary)]', border: 'border-[var(--color-border)]', icon: HelpCircle };
 
   if (norm.includes('approved') || norm.includes('accepted') || norm === 'white listed' || norm === 'found' || norm === 'active' || norm.includes('resolved')) {
-    config = { bg: 'bg-[rgba(46,125,50,0.10)]', text: 'text-[var(--color-success)]', border: 'border-[rgba(46,125,50,0.25)]', icon: CheckCircle2 };
+    config = { bg: 'bg-[var(--color-success-bg)]', text: 'text-[var(--color-success)]', border: 'border-[var(--color-success-border)]', icon: CheckCircle2 };
   } else if (norm.includes('pending') || norm === 'in queue' || norm.includes('lost') || norm.includes('stolen')) {
-    config = { bg: 'bg-[rgba(239,143,34,0.10)]', text: 'text-[#B96B18]', border: 'border-[rgba(239,143,34,0.30)]', icon: norm.includes('lost') || norm.includes('stolen') ? ShieldAlert : Clock };
+    config = { bg: 'bg-[var(--color-warning-bg)]', text: 'text-[var(--color-warning-text)]', border: 'border-[var(--color-warning-border)]', icon: norm.includes('lost') || norm.includes('stolen') ? ShieldAlert : Clock };
   } else if (norm.includes('progress') || norm.includes('review') || norm.includes('gray')) {
-    config = { bg: 'bg-[rgba(1,173,193,0.10)]', text: 'text-[var(--color-primary-dark)]', border: 'border-[rgba(1,173,193,0.25)]', icon: Activity };
+    config = { bg: 'bg-[var(--color-info-bg)]', text: 'text-[var(--color-primary-dark)]', border: 'border-[var(--color-info-border)]', icon: Activity };
   } else if (norm.includes('rejected') || norm.includes('denied') || norm.includes('failed') || norm.includes('blocked') || norm.includes('black list')) {
-    config = { bg: 'bg-[rgba(198,40,40,0.10)]', text: 'text-[var(--color-error)]', border: 'border-[rgba(198,40,40,0.25)]', icon: norm.includes('blocked') || norm.includes('black') ? Ban : XCircle };
+    config = { bg: 'bg-[var(--color-error-bg)]', text: 'text-[var(--color-error)]', border: 'border-[var(--color-error-border)]', icon: norm.includes('blocked') || norm.includes('black') ? Ban : XCircle };
   }
 
   const Icon = config.icon;
@@ -36,9 +36,9 @@ export const PriorityBadge = ({ priority = 'Medium' }) => {
   const { t } = usePreferences();
   const norm = (priority || '').toLowerCase();
   const colors = {
-    high: 'bg-[rgba(198,40,40,0.10)] text-[var(--color-error)] border-[rgba(198,40,40,0.25)]',
-    urgent: 'bg-[rgba(198,40,40,0.10)] text-[var(--color-error)] border-[rgba(198,40,40,0.25)]',
-    medium: 'bg-[rgba(239,143,34,0.10)] text-[#B96B18] border-[rgba(239,143,34,0.30)]',
+    high: 'bg-[var(--color-error-bg)] text-[var(--color-error)] border-[var(--color-error-border)]',
+    urgent: 'bg-[var(--color-error-bg)] text-[var(--color-error)] border-[var(--color-error-border)]',
+    medium: 'bg-[var(--color-warning-bg)] text-[var(--color-warning-text)] border-[var(--color-warning-border)]',
     low: 'bg-[var(--color-background)] text-[var(--color-text-secondary)] border-[var(--color-border)]',
   };
   return <p className={'px-2 py-1 rounded-full type-badge border ' + (colors[norm] || colors.medium)}>{t(priority)}</p>;
@@ -47,17 +47,17 @@ export const PriorityBadge = ({ priority = 'Medium' }) => {
 export const MetricCard = ({ title, value, change, category, tone = 'neutral', icon: Icon, compact = false, className = '' }) => {
   const { t } = usePreferences();
   const tones = {
-    success: { dot: 'bg-[var(--color-success)]', iconBg: 'bg-[rgba(46,125,50,0.10)]', iconText: 'text-[var(--color-success)]' },
-    warning: { dot: 'bg-[var(--color-warning)]', iconBg: 'bg-[rgba(239,143,34,0.10)]', iconText: 'text-[#B96B18]' },
-    danger: { dot: 'bg-[var(--color-error)]', iconBg: 'bg-[rgba(198,40,40,0.10)]', iconText: 'text-[var(--color-error)]' },
-    info: { dot: 'bg-[var(--color-primary)]', iconBg: 'bg-[rgba(1,173,193,0.10)]', iconText: 'text-[var(--color-primary-dark)]' },
-    neutral: { dot: 'bg-[var(--color-text-muted)]', iconBg: 'bg-[rgba(98,105,129,0.08)]', iconText: 'text-[var(--color-text-secondary)]' },
+    success: { dot: 'bg-[var(--color-success)]', iconBg: 'bg-[var(--color-success-bg)]', iconText: 'text-[var(--color-success)]' },
+    warning: { dot: 'bg-[var(--color-warning)]', iconBg: 'bg-[var(--color-warning-bg)]', iconText: 'text-[var(--color-warning-text)]' },
+    danger: { dot: 'bg-[var(--color-error)]', iconBg: 'bg-[var(--color-error-bg)]', iconText: 'text-[var(--color-error)]' },
+    info: { dot: 'bg-[var(--color-primary)]', iconBg: 'bg-[var(--color-info-bg)]', iconText: 'text-[var(--color-primary-dark)]' },
+    neutral: { dot: 'bg-[var(--color-text-muted)]', iconBg: 'bg-[var(--color-background-subtle)]', iconText: 'text-[var(--color-text-secondary)]' },
   };
   const toneConfig = tones[tone] || tones.neutral;
 
   if (compact) {
     return (
-      <div className={'bg-white border border-[var(--color-border)] rounded-[14px] shadow-[var(--shadow-sm)] p-5 min-h-[110px] flex items-center ' + className}>
+      <div className={'bg-white border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] p-5 min-h-[110px] flex items-center ' + className}>
         <div className="flex items-start justify-between gap-4 w-full">
           <div className="min-w-0 flex-1">
             <p className="type-kpi text-[var(--color-text-primary)]">{value}</p>
@@ -81,7 +81,7 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
   }
 
   return (
-    <div className={'bg-white border border-[var(--color-border)] rounded-xl p-5 min-h-[116px] shadow-[var(--shadow-sm)] flex flex-col justify-between transition-all hover:shadow-[var(--shadow-md)] ' + className}>
+    <div className={'bg-white border border-[var(--color-border)] rounded-xl p-5 min-h-[116px] shadow-[var(--shadow-sm)] flex flex-col justify-between transition-shadow hover:shadow-[var(--shadow-md)] ' + className}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
