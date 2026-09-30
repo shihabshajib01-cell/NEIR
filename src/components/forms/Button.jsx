@@ -26,15 +26,7 @@ export const Button = ({
 }) => {
   const { t } = usePreferences();
 
-  const geometryClasses = {
-    compact: 'py-1.5 px-2.5 type-button-sm gap-1.5 rounded-[var(--field-radius)]',
-    standard: 'py-3 px-4 type-button gap-2 rounded-[var(--field-radius)]',
-  };
-
-  const geometry =
-    size === 'sm' || size === 'compact'
-      ? geometryClasses.compact
-      : geometryClasses.standard;
+  const geometry = 'neir-action-button type-button gap-2 rounded-[var(--field-radius)]';
 
   const variantClasses = {
     primary:

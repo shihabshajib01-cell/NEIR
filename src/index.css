@@ -426,3 +426,21 @@ html[data-theme='dark'] ::selection {
   border-radius: 16px;
   box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
+
+
+/* Canonical NEIR text/action button.
+   Locked to the original Register / De-register Device primary button geometry.
+   Page-level sm/compact/h-7/px-* utilities must not shrink normal action buttons. */
+.neir-action-button {
+  height: 46px !important;
+  min-height: 46px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  border-radius: var(--field-radius) !important;
+  gap: 8px !important;
+  font-size: var(--type-button-size) !important;
+  line-height: var(--type-compact-line) !important;
+  font-weight: var(--font-weight-semibold) !important;
+}
