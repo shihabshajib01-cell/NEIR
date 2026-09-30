@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const BtrcLogo = ({ className = 'h-10 w-10', showText = true, inverted = false }) => {
+export const BtrcLogo = ({ className = 'h-10 w-10', showText = true, inverted = false, compactOnNarrow = false }) => {
   const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
   return (
@@ -15,7 +15,7 @@ export const BtrcLogo = ({ className = 'h-10 w-10', showText = true, inverted = 
       </div>
 
       {showText && (
-        <div className="flex flex-col text-left min-w-0">
+        <div className={(compactOnNarrow ? 'max-[359px]:hidden ' : '') + 'flex flex-col text-left min-w-0'}>
           <div className="flex items-center gap-1.5">
             <p className={`text-base font-bold tracking-tight leading-none ${inverted ? 'text-white' : 'text-[#202338]'}`}>
               BTRC
