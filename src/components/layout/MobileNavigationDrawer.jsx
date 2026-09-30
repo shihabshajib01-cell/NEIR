@@ -115,7 +115,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
             return (
               <NavLink
                 key={item.path}
-                to={item.path}
+                to={item.to || item.path}
                 className={({ isActive }) =>
                   'min-h-11 flex items-center gap-2.5 px-3 py-2.5 rounded-[var(--radius-md)] type-nav font-medium transition-colors ' +
                   (isActive ? 'bg-[var(--color-primary)] text-white font-semibold' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)]')
