@@ -124,11 +124,11 @@ export const SpecialRegistrationPage = () => {
       sortable: false,
       render: (_, row) => (
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           icon={Eye}
+          title="View details"
           onClick={() => handleOpenReview(row)}
-          className="text-xs h-7.5 px-2.5"
         >
           View details
         </Button>
