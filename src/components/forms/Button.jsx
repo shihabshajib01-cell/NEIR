@@ -29,7 +29,7 @@ export const Button = ({
   const geometry = 'neir-action-button type-button gap-2 rounded-[var(--field-radius)]';
 
   const neutralSecondaryClasses =
-    'bg-white hover:bg-[var(--color-primary-alpha-6)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] border border-[var(--color-border)]';
+    'bg-white hover:bg-white text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] border border-[var(--color-border)] hover:border-[var(--color-primary)]';
 
   const variantClasses = {
     primary:
