@@ -475,32 +475,32 @@ html[data-theme='dark'] ::selection {
 }
 
 /* Canonical mobile table toolbar.
-   Search + date share one row on mobile; additional filters use the full row below. */
-.table-filter-primary {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  grid-template-areas:
-    "search date"
-    "extras extras";
+   Preserve the approved mobile pattern everywhere:
+   Search -> optional table filter -> Date, each full width.
+   Desktop keeps the existing horizontal toolbar. */
+.table-filter-primary,
+.table-filter-primary.without-date-filter {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   width: 100%;
 }
 
-.table-filter-primary.without-date-filter {
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    "search"
-    "extras";
+.table-filter-search,
+.table-filter-extras,
+.table-filter-date {
+  width: 100%;
+  min-width: 0;
 }
 
-.table-filter-search { grid-area: search; }
-.table-filter-date { grid-area: date; min-width: 0; }
-.table-filter-extras { grid-area: extras; min-width: 0; }
+.table-filter-search { order: 1; }
+.table-filter-extras { order: 2; }
+.table-filter-date { order: 3; }
 
 @media (min-width: 768px) {
   .table-filter-primary,
   .table-filter-primary.without-date-filter {
-    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
@@ -509,11 +509,13 @@ html[data-theme='dark'] ::selection {
 
   .table-filter-search {
     flex: 1 1 280px;
+    width: auto;
   }
 
   .table-filter-extras,
   .table-filter-date {
     flex: 0 0 auto;
+    width: auto;
   }
 }
 
