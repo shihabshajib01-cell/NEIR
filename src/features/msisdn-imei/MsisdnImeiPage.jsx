@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PageHeader } from '../../components/navigation/PageHeader.jsx';
 import { DataTable, MobileRecordCard } from '../../components/tables/DataTable.jsx';
 import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.jsx';
@@ -23,7 +24,7 @@ const DetailRow = ({ label, value, mono = false }) => (
   </div>
 );
 
-export const MsisdnImeiPage = () => {
+export const MsisdnImeiPage = ({ initialAction = null }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,6 +53,7 @@ export const MsisdnImeiPage = () => {
   const [isDeregistering, setIsDeregistering] = useState(false);
 
   const { addToast } = useToast();
+  const navigate = useNavigate();
 
   const loadData = async () => {
     try {
@@ -73,6 +75,40 @@ export const MsisdnImeiPage = () => {
   useEffect(() => {
     loadData();
   }, [searchTerm, searchBy, fromDate, toDate]);
+
+  useEffect(() => {
+    if (!initialAction) return;
+
+    setIsDetailsOpen(false);
+    setSelectedRecord(null);
+
+    if (initialAction === 'check') {
+      setCheckImei('');
+      setCheckResult(null);
+      setIsCheckOpen(true);
+      return;
+    }
+
+    if (initialAction === 'register') {
+      setRegisterImei('');
+      setRegisterPhone('');
+      setIsRegisterOpen(true);
+      return;
+    }
+
+    if (initialAction === 'deregister') {
+      setDeregisterImei('');
+      setNidLast4('');
+      setCurrentPhone('');
+      setNewPhone('');
+      setIsDeregisterOpen(true);
+    }
+  }, [initialAction]);
+
+  const closeQuickAction = (setter) => {
+    setter(false);
+    if (initialAction) navigate('/msisdn-imei', { replace: true });
+  };
 
   const handleOpenDetails = (record) => {
     setSelectedRecord(record);
@@ -137,6 +173,7 @@ export const MsisdnImeiPage = () => {
       });
       addToast(result.message || 'Device paired and registered in NEIR.', 'success');
       setIsRegisterOpen(false);
+      if (initialAction === 'register') navigate('/msisdn-imei', { replace: true });
       await loadData();
     } catch (err) {
       addToast(err.message || 'Auto registration failed.', 'error');
@@ -170,6 +207,7 @@ export const MsisdnImeiPage = () => {
       });
       addToast(result.message || 'Device de-registration instruction executed.', 'success');
       setIsDeregisterOpen(false);
+      if (initialAction === 'deregister') navigate('/msisdn-imei', { replace: true });
       await loadData();
     } catch (err) {
       addToast(err.message || 'Device de-registration failed.', 'error');
@@ -380,7 +418,7 @@ export const MsisdnImeiPage = () => {
 
       <FormDrawer
         isOpen={isCheckOpen}
-        onClose={() => setIsCheckOpen(false)}
+        onClose={() => closeQuickAction(setIsCheckOpen)}
         title="Check IMEI"
         subtitle="Direct EIR database lookup"
         formId="imei-check-form"
@@ -426,7 +464,7 @@ export const MsisdnImeiPage = () => {
 
       <FormDrawer
         isOpen={isRegisterOpen}
-        onClose={() => setIsRegisterOpen(false)}
+        onClose={() => closeQuickAction(setIsRegisterOpen)}
         title="Register Device"
         subtitle="Manual network sync registration"
         formId="device-register-form"
@@ -456,8 +494,8 @@ export const MsisdnImeiPage = () => {
       <FormDrawer
         isOpen={isDeregisterOpen}
         onClose={() => {
-          setIsDeregisterOpen(false);
           setSelectedRecord(null);
+          closeQuickAction(setIsDeregisterOpen);
         }}
         title="De-register Device"
         subtitle="Remove or reassign the current subscriber binding"
@@ -475,7 +513,7 @@ export const MsisdnImeiPage = () => {
               value={deregisterImei}
               onChange={(event) => setDeregisterImei(event.target.value)}
               required
-              readOnly
+              readOnly={Boolean(selectedRecord)}
             />
             <TextInput
               label="Last 4 Digits of Registered NID"
