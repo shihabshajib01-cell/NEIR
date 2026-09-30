@@ -73,8 +73,18 @@ const useOverlayFocus = (isOpen, onClose, panelRef) => {
 export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, headerStatus, children, footer, width = 'w-full sm:w-[600px]', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
+  const contentRef = useRef(null);
   const presence = useOverlayPresence(isOpen, undefined, onExited);
   useOverlayFocus(isOpen, onClose, panelRef);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    requestAnimationFrame(() => {
+      if (contentRef.current) {
+        contentRef.current.scrollTop = 0;
+      }
+    });
+  }, [isOpen, title, subtitle]);
 
   if (!presence.mounted) return null;
 
@@ -105,7 +115,12 @@ export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, headerStatu
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">{children}</div>
+        <div
+          ref={contentRef}
+          className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-4 sm:p-5 space-y-4"
+        >
+          {children}
+        </div>
         {footer && <div className="px-4 py-3 sm:px-5 sm:py-3.5 border-t border-[var(--color-border)] bg-[var(--color-surface)] flex items-center justify-end gap-2 shrink-0 max-sm:flex-col max-sm:items-stretch max-sm:[&>button]:w-full max-sm:[&>div]:w-full">{footer}</div>}
       </div>
     </div>
