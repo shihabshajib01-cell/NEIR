@@ -475,32 +475,58 @@ html[data-theme='dark'] ::selection {
 }
 
 /* Canonical mobile table toolbar.
-   Preserve the approved mobile pattern everywhere:
-   Search -> optional table filter -> Date, each full width.
-   Desktop keeps the existing horizontal toolbar. */
-.table-filter-primary,
-.table-filter-primary.without-date-filter {
-  display: flex;
-  flex-direction: column;
+   Preserve the approved pattern everywhere:
+   Search + Date stay on the same row.
+   Optional extra filters use a full-width row below. */
+.table-filter-primary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "search date"
+    "extras extras";
   gap: 8px;
   width: 100%;
+  align-items: center;
 }
 
-.table-filter-search,
-.table-filter-extras,
-.table-filter-date {
-  width: 100%;
+.table-filter-primary.without-date-filter {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "search"
+    "extras";
+}
+
+.table-filter-search {
+  grid-area: search;
   min-width: 0;
+  width: 100%;
 }
 
-.table-filter-search { order: 1; }
-.table-filter-extras { order: 2; }
-.table-filter-date { order: 3; }
+.table-filter-extras {
+  grid-area: extras;
+  min-width: 0;
+  width: 100%;
+}
+
+.table-filter-date {
+  grid-area: date;
+  min-width: 0;
+  width: auto;
+  justify-self: end;
+}
+
+@media (max-width: 767px) {
+  .table-filter-date > .neir-action-button {
+    width: auto !important;
+    min-width: 142px;
+    white-space: nowrap;
+  }
+}
 
 @media (min-width: 768px) {
   .table-filter-primary,
   .table-filter-primary.without-date-filter {
-    flex-direction: row;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
