@@ -1,9 +1,8 @@
 import React, { useMemo, useState } from 'react';
-import { Popover, TextField, IconButton, useMediaQuery } from '@mui/material';
-import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Popover, IconButton, useMediaQuery } from '@mui/material';
+import { ArrowRight, CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from './Button.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
-import { muiFieldSx } from '../../system/muiFieldSx.js';
 
 const pad = (value) => String(value).padStart(2, '0');
 
@@ -140,8 +139,9 @@ export const DateRangeFilter = ({
 
   const openFilter = (event) => {
     setAnchorEl(event.currentTarget);
-    setActiveField(null);
-    setVisibleMonth(startOfMonth(parsedStart || parsedEnd || new Date()));
+    const nextField = parsedStart && !parsedEnd ? 'end' : 'start';
+    setActiveField(nextField);
+    setVisibleMonth(startOfMonth((nextField === 'end' ? parsedEnd || parsedStart : parsedStart || parsedEnd) || new Date()));
   };
 
   const closeFilter = () => {
@@ -199,8 +199,9 @@ export const DateRangeFilter = ({
         onClick={openFilter}
         aria-haspopup="dialog"
         aria-expanded={open}
+        aria-pressed={open}
         aria-label={selectionLabel ? `${t('Filter by Date')}: ${selectionLabel}` : t('Filter by Date')}
-        className={(compact ? 'px-3' : '') + ' ' + className}
+        className={(open ? 'date-filter-trigger-pressed ' : '') + (compact ? 'px-3 ' : '') + className}
       >
         {buttonLabel}
       </Button>
@@ -236,105 +237,164 @@ export const DateRangeFilter = ({
               overflowX: 'hidden',
             } : {
               mt: 1,
-              width: showTwoMonths ? 720 : 'min(360px, calc(100vw - 24px))',
+              width: showTwoMonths ? 680 : 'min(360px, calc(100vw - 24px))',
               maxWidth: 'calc(100vw - 24px)',
               border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-lg)',
+              borderRadius: 'var(--radius-md)',
               boxShadow: 'var(--shadow-lg)',
               overflow: 'hidden',
             },
           },
         }}
       >
-        <div className="p-4 sm:p-5">
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <TextField
-              label={t('Start date')}
-              value={formatDisplayDate(startDate)}
-              placeholder="MM/DD/YYYY"
-              fullWidth
-              onClick={() => activateField('start')}
-              onFocus={() => activateField('start')}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ readOnly: true }}
-              inputProps={{ 'aria-label': t('Start date') }}
-              sx={muiFieldSx}
-            />
-
-            <p className="hidden sm:block type-body text-[var(--color-text-muted)]">–</p>
-
-            <TextField
-              label={t('End date')}
-              value={formatDisplayDate(endDate)}
-              placeholder="MM/DD/YYYY"
-              fullWidth
-              onClick={() => activateField('end')}
-              onFocus={() => activateField('end')}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ readOnly: true }}
-              inputProps={{ 'aria-label': t('End date') }}
-              sx={muiFieldSx}
-            />
-          </div>
-
-          {activeField && (
-            <div className="mt-5 pt-4 border-t border-[var(--color-border)]">
-              <div className="flex items-center justify-between mb-3">
-                <IconButton
-                  size="small"
-                  onClick={() => setVisibleMonth((month) => addMonths(month, -1))}
-                  aria-label={t('Previous month')}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </IconButton>
-
-                <p className="type-meta text-[var(--color-text-secondary)]">
-                  {activeField === 'start' ? t('Select start date') : t('Select end date')}
-                </p>
-
-                <IconButton
-                  size="small"
-                  onClick={() => setVisibleMonth((month) => addMonths(month, 1))}
-                  aria-label={t('Next month')}
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </IconButton>
-              </div>
-
-              <div className={'flex gap-5 ' + (showTwoMonths ? 'divide-x divide-[var(--color-border)]' : '')}>
-                <CalendarMonth
-                  monthDate={visibleMonth}
-                  startDate={parsedStart}
-                  endDate={parsedEnd}
-                  onSelect={selectDate}
-                  t={t}
-                />
-
-                {showTwoMonths && (
-                  <div className="pl-5 flex-1 min-w-0">
-                    <CalendarMonth
-                      monthDate={addMonths(visibleMonth, 1)}
-                      startDate={parsedStart}
-                      endDate={parsedEnd}
-                      onSelect={selectDate}
-                      t={t}
-                    />
-                  </div>
-                )}
-              </div>
+        <div className="bg-white">
+          <div className="px-4 py-3.5 border-b border-[var(--color-border)] flex items-start justify-between gap-4">
+            <div>
+              <p className="type-label font-semibold text-[var(--color-text-primary)]">{t('Filter by Date')}</p>
+              <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">
+                {t('Choose a single date or date range')}
+              </p>
             </div>
-          )}
-
-          {(startDate || endDate) && (
-            <div className="mt-4 pt-3 border-t border-[var(--color-border-subtle)] flex items-center justify-between gap-3">
-              <p className="type-meta text-[var(--color-text-secondary)] truncate">
+            {selectionLabel && (
+              <p className="hidden sm:block type-meta font-mono text-[var(--color-text-secondary)] mt-0.5">
                 {selectionLabel}
               </p>
-              <Button variant="ghost" size="compact" onClick={clearDates}>
-                Clear
+            )}
+          </div>
+
+          <div className="px-4 pt-4">
+            <div className="grid grid-cols-[1fr_auto_1fr] gap-2 items-stretch">
+              <button
+                type="button"
+                onClick={() => activateField('start')}
+                aria-pressed={activeField === 'start'}
+                className={
+                  'date-filter-field text-left px-3 py-2.5 border rounded-[var(--field-radius)] transition-colors min-w-0 ' +
+                  (activeField === 'start'
+                    ? 'border-[var(--color-primary)] bg-[var(--color-primary-alpha-6)]'
+                    : 'border-[var(--color-border)] bg-white hover:border-[var(--color-primary)]')
+                }
+              >
+                <p className="type-meta text-[var(--color-text-muted)]">{t('Start date')}</p>
+                <p className="type-body font-medium text-[var(--color-text-primary)] mt-0.5 truncate">
+                  {formatDisplayDate(startDate) || t('Select date')}
+                </p>
+              </button>
+
+              <div className="flex items-center justify-center px-1 text-[var(--color-text-muted)]" aria-hidden="true">
+                <ArrowRight className="w-4 h-4" />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => activateField('end')}
+                aria-pressed={activeField === 'end'}
+                className={
+                  'date-filter-field text-left px-3 py-2.5 border rounded-[var(--field-radius)] transition-colors min-w-0 ' +
+                  (activeField === 'end'
+                    ? 'border-[var(--color-primary)] bg-[var(--color-primary-alpha-6)]'
+                    : 'border-[var(--color-border)] bg-white hover:border-[var(--color-primary)]')
+                }
+              >
+                <p className="type-meta text-[var(--color-text-muted)]">{t('End date')}</p>
+                <p className="type-body font-medium text-[var(--color-text-primary)] mt-0.5 truncate">
+                  {formatDisplayDate(endDate) || t('Select date')}
+                </p>
+              </button>
+            </div>
+          </div>
+
+          <div className="px-4 pt-4">
+            <div className="flex items-center justify-between mb-2">
+              <IconButton
+                size="small"
+                onClick={() => setVisibleMonth((month) => addMonths(month, -1))}
+                aria-label={t('Previous month')}
+                sx={{
+                  width: 34,
+                  height: 34,
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 'var(--field-radius)',
+                  color: 'var(--color-text-secondary)',
+                  '&:hover': {
+                    backgroundColor: 'white',
+                    borderColor: 'var(--color-primary)',
+                    color: 'var(--color-primary)',
+                  },
+                }}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </IconButton>
+
+              <p className="type-meta font-medium text-[var(--color-text-secondary)]">
+                {activeField === 'end' ? t('Select end date') : t('Select start date')}
+              </p>
+
+              <IconButton
+                size="small"
+                onClick={() => setVisibleMonth((month) => addMonths(month, 1))}
+                aria-label={t('Next month')}
+                sx={{
+                  width: 34,
+                  height: 34,
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 'var(--field-radius)',
+                  color: 'var(--color-text-secondary)',
+                  '&:hover': {
+                    backgroundColor: 'white',
+                    borderColor: 'var(--color-primary)',
+                    color: 'var(--color-primary)',
+                  },
+                }}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </IconButton>
+            </div>
+
+            <div className={'pb-4 flex gap-5 ' + (showTwoMonths ? 'divide-x divide-[var(--color-border)]' : '')}>
+              <CalendarMonth
+                monthDate={visibleMonth}
+                startDate={parsedStart}
+                endDate={parsedEnd}
+                onSelect={selectDate}
+                t={t}
+              />
+
+              {showTwoMonths && (
+                <div className="pl-5 flex-1 min-w-0">
+                  <CalendarMonth
+                    monthDate={addMonths(visibleMonth, 1)}
+                    startDate={parsedStart}
+                    endDate={parsedEnd}
+                    onSelect={selectDate}
+                    t={t}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="px-4 py-3 border-t border-[var(--color-border)] bg-[var(--color-background-subtle)] flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="type-meta text-[var(--color-text-secondary)] truncate">
+                {selectionLabel || t('No date selected')}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              {(startDate || endDate) && (
+                <button
+                  type="button"
+                  onClick={clearDates}
+                  className="type-button-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] px-2 py-1.5 rounded-[var(--field-radius)]"
+                >
+                  <p>{t('Clear')}</p>
+                </button>
+              )}
+              <Button variant="primary" onClick={closeFilter}>
+                Done
               </Button>
             </div>
-          )}
+          </div>
         </div>
       </Popover>
     </>
