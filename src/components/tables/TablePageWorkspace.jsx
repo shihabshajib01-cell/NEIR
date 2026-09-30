@@ -43,7 +43,7 @@ export const TablePageWorkspace = ({
       </header>
 
       {tabs.length > 0 && (
-        <nav ref={tabsNavRef} className="border-b border-[var(--color-border)] px-2.5 sm:px-3 overflow-x-auto overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label={t('Table filters')}>
+        <nav ref={tabsNavRef} className="border-b border-[var(--color-border)] px-2.5 sm:px-3 overflow-x-auto overscroll-x-contain snap-x snap-proximity scroll-px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label={t('Table filters')}>
           <div className="flex items-center gap-1 min-w-max">
             {tabs.map((tab) => {
               const active = tab.id === activeTab;
@@ -54,7 +54,7 @@ export const TablePageWorkspace = ({
                   onClick={() => onTabChange?.(tab.id)}
                   data-active-tab={active ? 'true' : 'false'}
                   aria-current={active ? 'page' : undefined}
-                  className={'min-h-9 px-3 py-2 type-meta font-medium border-b-2 flex items-center gap-1.5 transition-colors whitespace-nowrap snap-center ' +
+                  className={'min-h-11 md:min-h-9 px-3 py-2 type-meta font-medium border-b-2 flex items-center gap-1.5 transition-colors whitespace-nowrap snap-center ' +
                     (active
                       ? 'border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                       : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-background-subtle)]')}
