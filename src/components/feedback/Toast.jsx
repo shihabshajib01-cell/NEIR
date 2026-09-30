@@ -41,7 +41,7 @@ export const ToastProvider = ({ children }) => {
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
       <div
-        className="fixed bottom-[calc(3.5rem+env(safe-area-inset-bottom))] right-3 left-3 sm:bottom-4 sm:right-4 sm:left-auto z-[70] flex flex-col gap-2 sm:max-w-sm pointer-events-none"
+        className="fixed bottom-[calc(3.5rem+env(safe-area-inset-bottom))] right-3 left-3 md:bottom-4 md:right-4 md:left-auto z-[70] flex flex-col gap-2 md:max-w-sm pointer-events-none"
         aria-live="polite"
       >
         {toasts.map((toastItem) => {
@@ -60,7 +60,7 @@ export const ToastProvider = ({ children }) => {
               <button
                 type="button"
                 onClick={() => removeToast(toastItem.id)}
-                className="relative z-10 w-8 h-8 -m-1.5 flex items-center justify-center rounded-[var(--radius-md)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors shrink-0"
+                className="relative z-10 w-11 h-11 md:w-8 md:h-8 -m-2 md:-m-1.5 flex items-center justify-center rounded-[var(--radius-md)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors shrink-0"
                 aria-label={t('Close')}
               >
                 <X className="w-3.5 h-3.5" />
