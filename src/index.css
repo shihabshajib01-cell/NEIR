@@ -470,7 +470,7 @@ html[data-theme='dark'] ::selection {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background: var(--color-background);
+  background: var(--color-border);
 }
 
 /* Canonical mobile table toolbar.
