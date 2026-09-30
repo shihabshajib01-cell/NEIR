@@ -62,6 +62,10 @@
     --motion-base: 180ms;
     --motion-medium: 240ms;
     --motion-slow: 320ms;
+    --motion-overlay-enter: 240ms;
+    --motion-overlay-exit: 180ms;
+    --ease-overlay-enter: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-overlay-exit: cubic-bezier(0.4, 0, 1, 1);
 
     --z-header: 30;
     --z-dropdown: 40;
@@ -452,4 +456,98 @@ html[data-theme='dark'] ::selection {
   background: var(--color-primary-light) !important;
   border-color: var(--color-primary) !important;
   color: var(--color-primary-dark) !important;
+}
+
+
+/* Canonical NEIR overlay motion.
+   Every modal, drawer, menu, popover and bottom sheet uses the same timing:
+   enter = 240ms ease-out, exit = 180ms ease-in. */
+.motion-overlay-backdrop,
+.motion-modal-panel,
+.motion-drawer-panel,
+.motion-dropdown-panel,
+.motion-nav-drawer,
+.motion-search-panel {
+  will-change: opacity, transform;
+}
+
+.motion-overlay-backdrop {
+  transition-property: opacity;
+}
+.motion-overlay-backdrop[data-state='open'] {
+  opacity: 1;
+  transition-duration: var(--motion-overlay-enter);
+  transition-timing-function: var(--ease-overlay-enter);
+}
+.motion-overlay-backdrop[data-state='closed'] {
+  opacity: 0;
+  pointer-events: none;
+  transition-duration: var(--motion-overlay-exit);
+  transition-timing-function: var(--ease-overlay-exit);
+}
+
+.motion-modal-panel,
+.motion-drawer-panel,
+.motion-dropdown-panel,
+.motion-nav-drawer,
+.motion-search-panel {
+  transition-property: opacity, transform;
+}
+.motion-modal-panel[data-state='open'],
+.motion-drawer-panel[data-state='open'],
+.motion-dropdown-panel[data-state='open'],
+.motion-nav-drawer[data-state='open'],
+.motion-search-panel[data-state='open'] {
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+  transition-duration: var(--motion-overlay-enter);
+  transition-timing-function: var(--ease-overlay-enter);
+}
+.motion-modal-panel[data-state='closed'] {
+  opacity: 0;
+  transform: translate3d(0,8px,0) scale(.985);
+  pointer-events: none;
+  transition-duration: var(--motion-overlay-exit);
+  transition-timing-function: var(--ease-overlay-exit);
+}
+.motion-drawer-panel[data-state='closed'] {
+  opacity: 0;
+  transform: translate3d(24px,0,0);
+  pointer-events: none;
+  transition-duration: var(--motion-overlay-exit);
+  transition-timing-function: var(--ease-overlay-exit);
+}
+.motion-dropdown-panel,
+.motion-search-panel {
+  transform-origin: top right;
+}
+.motion-dropdown-panel[data-state='closed'],
+.motion-search-panel[data-state='closed'] {
+  opacity: 0;
+  transform: translate3d(0,-6px,0) scale(.985);
+  pointer-events: none;
+  transition-duration: var(--motion-overlay-exit);
+  transition-timing-function: var(--ease-overlay-exit);
+}
+.motion-nav-drawer[data-state='closed'] {
+  opacity: 0;
+  transform: translate3d(-24px,0,0);
+  pointer-events: none;
+  transition-duration: var(--motion-overlay-exit);
+  transition-timing-function: var(--ease-overlay-exit);
+}
+
+@media (max-width: 767px) {
+  .motion-modal-panel[data-state='closed'],
+  .motion-drawer-panel[data-state='closed'],
+  .motion-dropdown-panel[data-state='closed'],
+  .motion-search-panel[data-state='closed'] {
+    opacity: 0;
+    transform: translate3d(0,24px,0) scale(1);
+  }
+
+  /* Replaces the previous enter-only bottom-sheet animation. */
+  .mobile-bottom-sheet {
+    animation: none !important;
+  }
 }

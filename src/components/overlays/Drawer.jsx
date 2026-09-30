@@ -4,6 +4,7 @@ import { Button } from '../forms/Button.jsx';
 import { StatusBadge } from '../data-display/StatusBadge.jsx';
 import { SafeText } from '../data-display/SafeText.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
+import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
 const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -47,16 +48,18 @@ const useOverlayFocus = (isOpen, onClose, panelRef) => {
 export const Drawer = ({ isOpen, onClose, title, subtitle, children, footer, width = 'w-full sm:w-[480px]', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
+  const presence = useOverlayPresence(isOpen);
   useOverlayFocus(isOpen, onClose, panelRef);
 
-  if (!isOpen) return null;
+  if (!presence.mounted) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-end lg:items-stretch lg:justify-end" role="dialog" aria-modal="true" aria-label={t(title || 'Record Details')}>
-      <button type="button" onClick={onClose} className="absolute inset-0 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" aria-label={t('Close drawer')} />
+      <button data-state={presence.state} type="button" onClick={onClose} className="motion-overlay-backdrop absolute inset-0 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" aria-label={t('Close drawer')} />
       <div
+        data-state={presence.state}
         ref={panelRef}
-        className={'mobile-bottom-sheet mobile-bottom-sheet-surface relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-white shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
+        className={'motion-drawer-panel mobile-bottom-sheet mobile-bottom-sheet-surface relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-white shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
       >
         <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] bg-white flex items-start justify-between gap-3 shrink-0">
           <div className="pr-4 min-w-0">
@@ -135,12 +138,13 @@ export const FullScreenWorkspace = ({
 }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
+  const presence = useOverlayPresence(isOpen);
   useOverlayFocus(isOpen, onClose, panelRef);
-  if (!isOpen) return null;
+  if (!presence.mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
-      <div ref={panelRef} className={'mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:h-[88vh] sm:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
+    <div data-state={presence.state} className="motion-overlay-backdrop fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
+      <div data-state={presence.state} ref={panelRef} className={'motion-modal-panel mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:h-[88vh] sm:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
         <div className="md:hidden px-4 py-3 bg-white text-[var(--color-text-primary)] flex items-center justify-between gap-2 border-b border-[var(--color-border)] shrink-0">
           <div className="flex items-center gap-2 min-w-0 flex-1">
             {onMobileBack && (

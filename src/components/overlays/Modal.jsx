@@ -2,12 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { X, AlertTriangle, Info } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
+import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
 const focusableSelector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxWidth = 'max-w-lg', className = '' }) => {
   const { t } = usePreferences();
   const panelRef = useRef(null);
+  const presence = useOverlayPresence(isOpen);
 
   useEffect(() => {
     if (!isOpen) return undefined;
@@ -42,11 +44,11 @@ export const Modal = ({ isOpen, onClose, title, subtitle, children, footer, maxW
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!presence.mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="presentation">
-      <div ref={panelRef} className={'mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' bg-white max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] overflow-hidden flex flex-col max-h-[90dvh] ' + className} role="dialog" aria-modal="true" aria-label={t(title)}>
+    <div data-state={presence.state} className="motion-overlay-backdrop fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="presentation">
+      <div data-state={presence.state} ref={panelRef} className={'motion-modal-panel mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' bg-white max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:rounded-xl shadow-[var(--shadow-overlay)] border border-[var(--color-border)] overflow-hidden flex flex-col max-h-[90dvh] ' + className} role="dialog" aria-modal="true" aria-label={t(title)}>
         <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] flex items-start justify-between gap-3 bg-white shrink-0">
           <div className="min-w-0">
             <h3 className="text-sm sm:text-base font-semibold text-[var(--color-text-primary)] leading-tight">{t(title)}</h3>

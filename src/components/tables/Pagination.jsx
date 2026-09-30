@@ -3,6 +3,7 @@ import { Search, Download, X } from 'lucide-react';
 import { Button } from '../forms/Button.jsx';
 import { TextInput } from '../forms/TextInput.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
+import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
 const normalizeSearchSuggestion = (suggestion) => {
   if (suggestion === null || suggestion === undefined) return null;
@@ -87,6 +88,7 @@ export const FilterBar = ({
     isSearchOpen &&
     Boolean(String(searchValue ?? '').trim()) &&
     filteredSearchSuggestions.length > 0;
+  const suggestionsPresence = useOverlayPresence(showSuggestions);
 
   const selectSuggestion = (suggestion) => {
     onSearchChange?.(suggestion.value);
@@ -185,12 +187,13 @@ export const FilterBar = ({
               ) : null}
             />
 
-            {showSuggestions && (
+            {suggestionsPresence.mounted && (
               <div
                 id={searchListId}
+                data-state={suggestionsPresence.state}
                 role="listbox"
                 aria-label={t('Search suggestions')}
-                className="mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 top-auto mt-0 max-h-[90dvh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] border-x-0 border-b-0 rounded-t-[20px] rounded-b-none shadow-[var(--shadow-overlay)] z-[70] p-1.5 sm:absolute sm:left-0 sm:right-0 sm:top-full sm:bottom-auto sm:mt-1 sm:max-h-80 sm:border sm:rounded-xl sm:z-40"
+                className="motion-search-panel mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 top-auto mt-0 max-h-[90dvh] overflow-y-auto bg-[var(--color-surface)] border border-[var(--color-border)] border-x-0 border-b-0 rounded-t-[20px] rounded-b-none shadow-[var(--shadow-overlay)] z-[70] p-1.5 sm:absolute sm:left-0 sm:right-0 sm:top-full sm:bottom-auto sm:mt-1 sm:max-h-80 sm:border sm:rounded-xl sm:z-40"
               >
                 {filteredSearchSuggestions.map((suggestion, index) => {
                   const active = index === activeSuggestionIndex;

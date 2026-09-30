@@ -5,12 +5,14 @@ import { navigationItems } from './Sidebar.jsx';
 import { BtrcLogo } from './BtrcLogo.jsx';
 import { useAuth } from '../../features/auth/AuthContext.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
+import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
 export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
   const location = useLocation();
   const { user, logout } = useAuth();
   const { t } = usePreferences();
   const [openSubmenus, setOpenSubmenus] = useState({});
+  const presence = useOverlayPresence(isOpen);
   const closeRef = useRef(null);
   const previousFocusRef = useRef(null);
 
@@ -38,12 +40,12 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
 
   const toggleSubmenu = (path) => setOpenSubmenus((prev) => ({ ...prev, [path]: !prev[path] }));
 
-  if (!isOpen) return null;
+  if (!presence.mounted) return null;
 
   return (
     <div className="fixed inset-0 z-50 lg:hidden flex" role="dialog" aria-modal="true" aria-label={t('Navigation')}>
-      <button type="button" onClick={onClose} className="fixed inset-0 bg-[rgba(32,35,56,0.35)] backdrop-blur-xs" aria-label={t('Close navigation')} />
-      <div className="relative w-[86%] max-w-sm bg-white text-[var(--color-text-primary)] flex flex-col h-full z-10 shadow-[var(--shadow-overlay)]">
+      <button data-state={presence.state} type="button" onClick={onClose} className="motion-overlay-backdrop fixed inset-0 bg-[rgba(32,35,56,0.35)] backdrop-blur-xs" aria-label={t('Close navigation')} />
+      <div data-state={presence.state} className="motion-nav-drawer relative w-[86%] max-w-sm bg-white text-[var(--color-text-primary)] flex flex-col h-full z-10 shadow-[var(--shadow-overlay)]">
         <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
           <BtrcLogo className="h-8 w-8" showText />
           <button

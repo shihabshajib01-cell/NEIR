@@ -208,6 +208,7 @@ export const DateRangeFilter = ({
 
       <Popover
         open={open}
+        transitionDuration={{ enter: 240, exit: 180 }}
         anchorEl={anchorEl}
         anchorReference={isMobile ? 'none' : 'anchorEl'}
         onClose={closeFilter}

@@ -6,6 +6,7 @@ import { useAuth } from '../../features/auth/AuthContext.jsx';
 import { useToast } from '../feedback/Toast.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 import { PreferencesPanel } from '../settings/PreferencesPanel.jsx';
+import { useOverlayPresence } from '../../system/useOverlayPresence.js';
 
 export const Header = ({
   onToggleSidebar,
@@ -22,6 +23,9 @@ export const Header = ({
   const profileMenuRef = useRef(null);
   const notificationsRef = useRef(null);
   const preferencesRef = useRef(null);
+  const preferencesPresence = useOverlayPresence(preferencesOpen);
+  const notificationsPresence = useOverlayPresence(notificationsOpen);
+  const profilePresence = useOverlayPresence(profileMenuOpen);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -99,15 +103,16 @@ export const Header = ({
               {language === 'bn' ? 'বাংলা' : 'EN'}
             </p>
           </button>
-          {preferencesOpen && (
+          {preferencesPresence.mounted && (
             <>
               <button
                 type="button"
                 onClick={() => setPreferencesOpen(false)}
-                className="fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
+                data-state={preferencesPresence.state}
+                className="motion-overlay-backdrop fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
                 aria-label={t('Close preferences')}
               />
-              <div className="mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 z-50 sm:absolute sm:inset-auto sm:right-0 sm:mt-2">
+              <div data-state={preferencesPresence.state} className="motion-dropdown-panel mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 z-50 sm:absolute sm:inset-auto sm:right-0 sm:mt-2">
                 <PreferencesPanel />
               </div>
             </>
@@ -129,15 +134,16 @@ export const Header = ({
             <Bell className="w-[18px] h-[18px]" />
           </button>
 
-          {notificationsOpen && (
+          {notificationsPresence.mounted && (
             <>
               <button
                 type="button"
                 onClick={() => setNotificationsOpen(false)}
-                className="fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
+                data-state={notificationsPresence.state}
+                className="motion-overlay-backdrop fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
                 aria-label={t('Close notifications')}
               />
-              <div className="mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 z-50 w-full bg-white text-[var(--color-text-primary)] rounded-t-[20px] rounded-b-none border border-[var(--color-border)] border-x-0 border-b-0 py-2 shadow-[var(--shadow-overlay)] sm:absolute sm:inset-auto sm:right-0 sm:mt-2 sm:w-72 sm:rounded-xl sm:border sm:shadow-[var(--shadow-lg)]">
+              <div data-state={notificationsPresence.state} className="motion-dropdown-panel mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 z-50 w-full bg-white text-[var(--color-text-primary)] rounded-t-[20px] rounded-b-none border border-[var(--color-border)] border-x-0 border-b-0 py-2 shadow-[var(--shadow-overlay)] sm:absolute sm:inset-auto sm:right-0 sm:mt-2 sm:w-72 sm:rounded-xl sm:border sm:shadow-[var(--shadow-lg)]">
                 <div className="px-4 py-2.5 border-b border-[var(--color-border)]">
                   <p className="type-label font-semibold">{t('Notifications')}</p>
                 </div>
@@ -176,15 +182,16 @@ export const Header = ({
             <ChevronDown className="w-3.5 h-3.5 text-[var(--color-text-secondary)] hidden sm:block" />
           </button>
 
-          {profileMenuOpen && (
+          {profilePresence.mounted && (
             <>
               <button
                 type="button"
                 onClick={() => setProfileMenuOpen(false)}
-                className="fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
+                data-state={profilePresence.state}
+                className="motion-overlay-backdrop fixed inset-0 z-40 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs sm:hidden"
                 aria-label={t('Close profile menu')}
               />
-              <div className="mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 z-50 w-full bg-white rounded-t-[20px] rounded-b-none border border-[var(--color-border)] border-x-0 border-b-0 py-1.5 shadow-[var(--shadow-overlay)] sm:absolute sm:inset-auto sm:right-0 sm:mt-2 sm:w-60 sm:rounded-xl sm:border sm:shadow-[var(--shadow-lg)]">
+              <div data-state={profilePresence.state} className="motion-dropdown-panel mobile-bottom-sheet mobile-bottom-sheet-surface fixed inset-x-0 bottom-0 z-50 w-full bg-white rounded-t-[20px] rounded-b-none border border-[var(--color-border)] border-x-0 border-b-0 py-1.5 shadow-[var(--shadow-overlay)] sm:absolute sm:inset-auto sm:right-0 sm:mt-2 sm:w-60 sm:rounded-xl sm:border sm:shadow-[var(--shadow-lg)]">
                 <div className="px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-background-subtle)]">
                   <p className="type-label font-semibold truncate">{user?.fullName || t('Admin user')}</p>
                   <p className="type-meta text-[var(--color-text-secondary)] truncate mt-0.5">

@@ -8,8 +8,9 @@ const normalizeOptions = (options = []) => options.map((option) =>
 );
 
 const selectMenuProps = {
+  transitionDuration: { enter: 240, exit: 180 },
   PaperProps: {
-    className: 'mobile-bottom-sheet mobile-bottom-sheet-surface',
+    className: 'motion-dropdown-panel mobile-bottom-sheet mobile-bottom-sheet-surface',
     sx: {
       mt: 0.5,
       maxHeight: 304,
@@ -157,7 +158,7 @@ export const SearchableSelect = ({
         noOptionsText={t('No options found')}
         slotProps={{
           paper: {
-            className: 'mobile-bottom-sheet mobile-bottom-sheet-surface',
+            className: 'motion-dropdown-panel mobile-bottom-sheet mobile-bottom-sheet-surface',
             sx: {
               mt: 0.5,
               border: '1px solid var(--color-border)',
