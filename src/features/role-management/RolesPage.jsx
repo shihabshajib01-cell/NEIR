@@ -122,16 +122,9 @@ export const RolesPage = () => {
       key: 'name',
       title: 'Role Name',
       render: (val, row) => (
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded bg-[var(--color-info-bg)] text-[var(--color-primary-dark)] flex items-center justify-center font-bold type-meta">
-            <Shield className="w-3.5 h-3.5" />
-          </div>
-          <div>
-            <p className="font-bold text-[var(--color-text-primary)] type-body-sm">{val}</p>
-            {row.description && (
-              <p className="type-meta text-[var(--color-text-secondary)] mt-0.5 max-w-md">{row.description}</p>
-            )}
-          </div>
+        <div>
+          <p>{val}</p>
+          {row.description && <p>{row.description}</p>}
         </div>
       ),
     },
@@ -140,12 +133,7 @@ export const RolesPage = () => {
       title: 'Assigned Actions',
       width: '180px',
       isMono: true,
-      render: (val) => (
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[var(--color-background)] text-[var(--color-text-primary)] font-mono type-meta font-semibold border border-[var(--color-border)]">
-          <KeyRound className="w-3 h-3 text-[var(--color-primary)]" />
-          <p>{val} Actions</p>
-        </div>
-      ),
+      render: (val) => <p>{val} actions</p>,
     },
     {
       key: 'actions',
