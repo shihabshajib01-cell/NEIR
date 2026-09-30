@@ -16,6 +16,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
   const [openSubmenus, setOpenSubmenus] = useState({});
   const presence = useOverlayPresence(isOpen);
   const closeRef = useRef(null);
+  const panelRef = useRef(null);
   const previousFocusRef = useRef(null);
 
   useEffect(() => {
@@ -31,8 +32,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
         return;
       }
       if (event.key === 'Tab') {
-        const panel = closeRef.current?.closest('[role="dialog"]');
-        const focusables = panel ? [...panel.querySelectorAll(focusableSelector)] : [];
+        const focusables = panelRef.current ? [...panelRef.current.querySelectorAll(focusableSelector)] : [];
         if (!focusables.length) return;
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
@@ -65,7 +65,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 lg:hidden flex" role="dialog" aria-modal="true" aria-label={t('Navigation')}>
       <button data-state={presence.state} type="button" onClick={onClose} className="motion-overlay-backdrop fixed inset-0 bg-[rgba(32,35,56,0.35)] backdrop-blur-xs" aria-label={t('Close navigation')} />
-      <div data-state={presence.state} className="motion-nav-drawer relative w-[86%] max-w-sm bg-white text-[var(--color-text-primary)] flex flex-col h-[100dvh] z-10 shadow-[var(--shadow-overlay)]">
+      <div data-state={presence.state} ref={panelRef} className="motion-nav-drawer relative w-[86%] max-w-sm bg-white text-[var(--color-text-primary)] flex flex-col h-[100dvh] z-10 shadow-[var(--shadow-overlay)]">
         <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
           <BtrcLogo className="h-8 w-8" showText />
           <button
