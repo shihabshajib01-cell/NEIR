@@ -7,6 +7,7 @@ import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
 import { ConfirmationDialog } from '../../components/overlays/Modal.jsx';
 import { BlockImeiDrawer } from './GlobalImeiBlockPage.jsx';
 import { Button } from '../../components/forms/Button.jsx';
+import { DateRangeFilter } from '../../components/forms/DateRangeFilter.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
@@ -16,6 +17,8 @@ export const GlobalImeiBlockListPage = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [unblockTarget, setUnblockTarget] = useState(null);
@@ -26,7 +29,11 @@ export const GlobalImeiBlockListPage = () => {
   const loadData = async () => {
     try {
       setIsLoading(true);
-      const res = await mockApi.getGlobalBlockedImeis({ search: searchTerm });
+      const res = await mockApi.getGlobalBlockedImeis({
+        search: searchTerm,
+        fromDate,
+        toDate,
+      });
       setData(res.items);
     } catch (err) {
       addToast('Failed to load global blacklist.', 'error');
@@ -37,7 +44,7 @@ export const GlobalImeiBlockListPage = () => {
 
   useEffect(() => {
     loadData();
-  }, [searchTerm]);
+  }, [searchTerm, fromDate, toDate]);
 
   const handleOpenDetails = (record) => {
     setSelectedRecord(record);
@@ -173,7 +180,16 @@ export const GlobalImeiBlockListPage = () => {
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.blockId, item.imei, item.reason, item.remarks, item.blockedBy])}
                   onSearchChange={setSearchTerm}
-                  onReset={() => setSearchTerm('')}
+                  filters={
+                    <DateRangeFilter
+                      compact
+                      className="shrink-0"
+                      startDate={fromDate}
+                      endDate={toDate}
+                      onStartDateChange={setFromDate}
+                      onEndDateChange={setToDate}
+                    />
+                  }
                 />
         }
       >
