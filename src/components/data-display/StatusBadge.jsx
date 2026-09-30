@@ -63,11 +63,11 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
             <p className="type-kpi text-[var(--color-text-primary)]">{value}</p>
             <p className="type-label text-[var(--color-text-secondary)] mt-2">{t(title)}</p>
             {(change || category) && (
-              <p className="type-meta text-[var(--color-text-muted)] mt-1 truncate">
-                {change ? <span className="font-medium">{change}</span> : null}
-                {change && category ? <span aria-hidden="true"> · </span> : null}
-                {category ? t(category) : null}
-              </p>
+              <div className="flex flex-wrap items-center gap-x-1 type-meta text-[var(--color-text-muted)] mt-1">
+                {change ? <p className="font-medium">{change}</p> : null}
+                {change && category ? <p aria-hidden="true">·</p> : null}
+                {category ? <p>{t(category)}</p> : null}
+              </div>
             )}
           </div>
           {Icon && (
