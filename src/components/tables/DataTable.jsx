@@ -46,7 +46,7 @@ export const MobileRecordCard = ({
       )}
 
       {(status || footerMeta || actions) && (
-        <div className="pt-4 border-t border-[var(--color-background)] flex flex-wrap items-center justify-between gap-3">
+        <div className="pt-4 border-t border-[var(--color-border)] flex flex-wrap items-center justify-between gap-3">
           <div className="min-w-0">
             {status && <StatusBadge status={status} size="sm" showIcon={false} plain />}
           </div>
