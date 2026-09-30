@@ -360,7 +360,14 @@ export const MsisdnImeiPage = () => {
           ]}
           footerActions={
             <div className="flex items-center justify-end gap-2 w-full max-sm:flex-col max-sm:[&>button]:w-full">
-              <Button variant="outline" icon={Search} onClick={() => openCheckDrawer(selectedRecord.imei)}>
+              <Button
+                variant="outline"
+                icon={Search}
+                onClick={() => {
+                  setIsDetailsOpen(false);
+                  openCheckDrawer(selectedRecord.imei);
+                }}
+              >
                 Check IMEI
               </Button>
               <Button variant="dangerOutline" icon={Ban} onClick={() => openDeregisterDrawer(selectedRecord)}>
@@ -448,7 +455,10 @@ export const MsisdnImeiPage = () => {
 
       <FormDrawer
         isOpen={isDeregisterOpen}
-        onClose={() => setIsDeregisterOpen(false)}
+        onClose={() => {
+          setIsDeregisterOpen(false);
+          setSelectedRecord(null);
+        }}
         title="De-register Device"
         subtitle="Remove or reassign the current subscriber binding"
         formId="device-deregister-form"
