@@ -144,7 +144,7 @@ export const DashboardPage = () => {
         title="Dashboard"
         description="Monitor device registration, status, and operational activity."
         actions={
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="grid grid-cols-1 gap-2 w-full sm:flex sm:flex-wrap sm:items-center sm:w-auto [&>button]:w-full sm:[&>button]:w-auto">
             <DateRangeFilter
               compact
               startDate={fromDate}
@@ -195,7 +195,7 @@ export const DashboardPage = () => {
 
       <section aria-label={t('Dashboard analytics view')}>
         <nav
-          className="mb-4 overflow-x-auto"
+          className="mb-4 overflow-x-auto overscroll-x-contain snap-x snap-proximity [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           aria-label={t('Analytics view')}
           role="tablist"
         >
@@ -215,7 +215,7 @@ export const DashboardPage = () => {
                   aria-selected={active}
                   aria-controls={`dashboard-${view.id}-panel`}
                   onClick={() => setAnalyticsView(view.id)}
-                  className={'min-h-10 px-3.5 sm:px-4 py-2 rounded-[var(--radius-md)] type-label font-medium inline-flex items-center gap-2 border transition-colors whitespace-nowrap ' +
+                  className={'min-h-11 md:min-h-10 px-3.5 sm:px-4 py-2 snap-center rounded-[var(--radius-md)] type-label font-medium inline-flex items-center gap-2 border transition-colors whitespace-nowrap ' +
                     (active
                       ? 'bg-[var(--color-primary-light)] border-[var(--color-primary)] text-[var(--color-primary-dark)] shadow-[var(--shadow-sm)]'
                       : 'bg-transparent border-transparent text-[var(--color-text-secondary)] hover:bg-[var(--color-background-subtle)] hover:text-[var(--color-primary-dark)]')}
@@ -241,7 +241,7 @@ export const DashboardPage = () => {
                     >
                       <div className="grid grid-cols-1 xl:grid-cols-[1.45fr_0.75fr]">
                         <section className="p-5 xl:border-r border-[var(--color-border)]">
-                          <div className="flex items-center justify-between gap-4 mb-4">
+                          <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4 mb-4">
                             <div>
                               <p className="type-label font-semibold text-[var(--color-text-primary)]">IMEI Distribution</p>
                               <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">Active EIR device classification</p>
