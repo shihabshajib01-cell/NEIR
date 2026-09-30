@@ -191,7 +191,7 @@ export const ManufacturerUploadPage = () => {
             searchValue={searchTerm}
             searchSuggestions={data.flatMap((item) => [item.imei, item.brand, item.model, item.tac])}
             onSearchChange={setSearchTerm}
-            filters={
+            dateFilter={
               <DateRangeFilter
                 compact
                 className="shrink-0"
