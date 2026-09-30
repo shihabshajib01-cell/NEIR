@@ -36,7 +36,11 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Build production site
-        run: npm run build
+        env:
+          VITE_BUILD_ID: ${{ github.sha }}
+        run: |
+          npm run build
+          printf '{"build":"%s"}\n' "$GITHUB_SHA" > dist/version.json
 
       - name: Publish compiled output to Pages branch source
         run: |
@@ -44,13 +48,14 @@ jobs:
           cp -R dist/assets ./assets
           cp dist/index.html ./index.html
           cp dist/logo.png ./logo.png
+          cp dist/version.json ./version.json
           touch .nojekyll
 
       - name: Commit compiled site
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html assets logo.png .nojekyll
+          git add index.html assets logo.png version.json .nojekyll
           if git diff --cached --quiet; then
             echo "Compiled site is already current."
           else
