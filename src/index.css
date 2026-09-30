@@ -464,6 +464,16 @@ html[data-theme='dark'] ::selection {
 }
 
 
+/* Canonical mobile record separation.
+   One 4px separator between records, using the app background.
+   Internal card sections keep their normal thin border. */
+.mobile-record-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--color-background);
+}
+
 /* Canonical mobile table-filter geometry.
    Search, selects and date actions use one full-width 44px control system through 767px. */
 @media (max-width: 767px) {
