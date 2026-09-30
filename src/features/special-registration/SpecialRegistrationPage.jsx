@@ -187,7 +187,7 @@ export const SpecialRegistrationPage = () => {
                     setPage(1);
                     setPageSize(DEFAULT_PAGE_SIZE);
                   }}
-                  filters={
+                  dateFilter={
                     <DateRangeFilter
                       compact
                       buttonLabel="Filter by Date"
