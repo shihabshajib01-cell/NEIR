@@ -465,12 +465,11 @@ html[data-theme='dark'] ::selection {
 
 
 /* Canonical mobile record separation.
-   One 4px separator between records, using the app background.
-   Internal card sections keep their normal thin border. */
+   Use the actual app background as a clearly visible separator band between records. */
 .mobile-record-stack {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   background: var(--color-background);
 }
 
