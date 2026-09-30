@@ -25,7 +25,6 @@ import { RolesPage } from './features/role-management/RolesPage.jsx';
 import { ImeiCheckPage } from './features/imei-check/ImeiCheckPage.jsx';
 import { ManufacturerUploadPage } from './features/manufacturer-upload/ManufacturerUploadPage.jsx';
 import { SupportTicketPage } from './features/support-ticket/SupportTicketPage.jsx';
-import { GlobalImeiBlockPage } from './features/global-imei-block/GlobalImeiBlockPage.jsx';
 import { GlobalImeiBlockListPage } from './features/global-imei-block/GlobalImeiBlockListPage.jsx';
 
 import { DepartmentsPage } from './features/office/DepartmentsPage.jsx';
@@ -70,8 +69,8 @@ export default function App() {
                 <Route path="manufacturer-imei-upload" element={<ManufacturerUploadPage />} />
                 <Route path="support-ticket" element={<SupportTicketPage />} />
 
-                <Route path="global-imei-block" element={<GlobalImeiBlockPage />} />
-                <Route path="global-imei-block/list" element={<GlobalImeiBlockListPage />} />
+                <Route path="global-imei-block" element={<GlobalImeiBlockListPage />} />
+                <Route path="global-imei-block/list" element={<Navigate to="/global-imei-block" replace />} />
 
                 <Route path="office" element={<Navigate to="/office/departments" replace />} />
                 <Route path="office/departments" element={<DepartmentsPage />} />
