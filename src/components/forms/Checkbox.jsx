@@ -83,8 +83,8 @@ export const RadioGroup = ({
   value,
   onChange,
   options = [],
-  orientation = 'horizontal',
-  variant = 'cards',
+  orientation = 'vertical',
+  variant = 'default',
   disabled = false,
   className = '',
 }) => {
@@ -138,7 +138,7 @@ export const RadioGroup = ({
               variant === 'cards'
                 ? {
                     margin: 0,
-                    minHeight: 56,
+                    minHeight: 52,
                     px: 1.25,
                     py: 0.75,
                     border: '1px solid',
