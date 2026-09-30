@@ -292,8 +292,12 @@ export const DataTable = ({
                     color: 'var(--color-text-primary)',
                     borderBottom: '1px solid var(--color-border-subtle)',
                   },
-                  '& .data-table-cell-content, & .data-table-cell-content *': {
-                    fontFamily: 'var(--font-ui) !important',
+                  '& .data-table-cell-content': {
+                    fontFamily: 'var(--font-ui)',
+                  },
+                  '& .data-table-cell-content .font-mono, & .data-table-cell-content code': {
+                    fontFamily: 'var(--font-data) !important',
+                    fontVariantNumeric: 'tabular-nums',
                   },
                   '& .data-table-cell-content p': {
                     margin: 0,
@@ -312,7 +316,6 @@ export const DataTable = ({
                     color: 'var(--color-text-secondary) !important',
                   },
                   '& .data-table-cell-content code': {
-                    fontFamily: 'var(--font-ui) !important',
                     fontSize: 'inherit !important',
                     fontWeight: 'inherit !important',
                     color: 'inherit !important',
@@ -443,7 +446,7 @@ export const DataTable = ({
                                   ? column.render(cellValue, row, index)
                                   : <SafeText value={cellValue} mode={column.truncate || 'normal'} />)
                                 : (
-                                  <div className="data-table-cell-content">
+                                  <div className={'data-table-cell-content ' + (column.isMono ? 'font-mono tabular-nums' : '')}>
                                     {column.render
                                       ? column.render(cellValue, row, index)
                                       : <SafeText value={cellValue} mode={column.truncate || 'normal'} />}
