@@ -20,11 +20,11 @@ export const TablePageWorkspace = ({
 
   return (
     <section className={'bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
-      <header className={'px-4 sm:px-5 py-2.5 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3 ' + (tabs.length > 0 ? '' : 'border-b border-[var(--color-border)]')}>
+      <header className="px-4 sm:px-5 py-3 border-b border-[var(--color-border)] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <h2 className="type-card-title text-[var(--color-text-primary)] truncate">{t(resolvedTitle)}</h2>
           {typeof resolvedCount === 'number' && (
-            <p className="inline-flex items-center rounded-full bg-[var(--color-background-subtle)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
+            <p className="inline-flex items-center rounded-full bg-[var(--color-background-subtle)] border border-[var(--color-border)] px-2 py-0.5 type-badge text-[var(--color-text-secondary)] whitespace-nowrap">
               {resolvedCount} {t(resolvedCount === 1 ? 'record' : 'records')}
             </p>
           )}
