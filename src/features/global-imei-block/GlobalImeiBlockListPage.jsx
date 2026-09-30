@@ -180,7 +180,7 @@ export const GlobalImeiBlockListPage = () => {
                   searchValue={searchTerm}
                   searchSuggestions={data.flatMap((item) => [item.blockId, item.imei, item.reason, item.remarks, item.blockedBy])}
                   onSearchChange={setSearchTerm}
-                  filters={
+                  dateFilter={
                     <DateRangeFilter
                       compact
                       className="shrink-0"
