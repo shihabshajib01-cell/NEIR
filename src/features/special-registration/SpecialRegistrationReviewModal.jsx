@@ -126,7 +126,7 @@ export const SpecialRegistrationReviewModal = ({
     try {
       setIsSubmitting(true);
       await mockApi.updateSpecialRegistrationStatus(registration.id, 'Accepted', remarks);
-      addToast(`Special Registration ${registration.id} approved. IMEI ${registration.imei} added to White List.`, 'success');
+      addToast(`${registration.id} approved. IMEI added to White List.`, 'success');
       setIsApproveOpen(false);
       onStatusUpdated && onStatusUpdated(registration.id, 'Accepted');
       handleWorkspaceClose();
@@ -145,7 +145,7 @@ export const SpecialRegistrationReviewModal = ({
     try {
       setIsSubmitting(true);
       await mockApi.updateSpecialRegistrationStatus(registration.id, 'Rejected', rejectRemarks);
-      addToast(`Special Registration ${registration.id} rejected with official remarks.`, 'info');
+      addToast(`${registration.id} rejected. Review remarks saved.`, 'info');
       setIsRejectOpen(false);
       onStatusUpdated && onStatusUpdated(registration.id, 'Rejected');
       handleWorkspaceClose();
