@@ -60,8 +60,8 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
         </div>
 
         <div className="px-4 py-3 bg-[var(--color-background-subtle)] border-b border-[var(--color-border)]">
-          <p className="text-sm font-semibold">{user?.fullName || t('BTRC Operator')}</p>
-          <p className="text-xs text-[var(--color-text-secondary)] mt-0.5">{user?.role || t('Super Admin')}</p>
+          <p className="type-label font-semibold">{user?.fullName || t('BTRC Operator')}</p>
+          <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">{user?.role || t('Super Admin')}</p>
         </div>
 
         <nav className="flex-1 overflow-y-auto p-3 space-y-1" aria-label={t('Navigation')}>
@@ -77,7 +77,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                   <button
                     type="button"
                     onClick={() => toggleSubmenu(item.path)}
-                    className={'w-full min-h-11 flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ' +
+                    className={'w-full min-h-11 flex items-center justify-between px-3 py-2.5 rounded-[var(--radius-md)] type-nav font-medium transition-colors ' +
                       (activeSection ? 'bg-[var(--color-primary-light)] text-[var(--color-primary-dark)]' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)]')}
                     aria-expanded={submenuOpen}
                   >
@@ -98,7 +98,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                             key={child.path}
                             to={child.path}
                             end={child.exact}
-                            className={'min-h-11 flex items-center gap-2 px-2.5 py-2.5 rounded-lg text-sm transition-colors ' +
+                            className={'min-h-11 flex items-center gap-2 px-2.5 py-2.5 rounded-[var(--radius-md)] type-nav transition-colors ' +
                               (activeChild ? 'bg-[var(--color-primary)] text-white font-semibold' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)]')}
                           >
                             <ChildIcon className="w-3.5 h-3.5" />
@@ -117,7 +117,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  'min-h-11 flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ' +
+                  'min-h-11 flex items-center gap-2.5 px-3 py-2.5 rounded-[var(--radius-md)] type-nav font-medium transition-colors ' +
                   (isActive ? 'bg-[var(--color-primary)] text-white font-semibold' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-primary-light)]')
                 }
               >
@@ -132,7 +132,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
           <button
             type="button"
             onClick={logout}
-            className="w-full min-h-11 flex items-center justify-center gap-2 px-3 rounded-lg bg-red-50 text-[var(--color-error)] border border-red-100 text-sm font-medium hover:bg-red-100"
+            className="w-full min-h-11 flex items-center justify-center gap-2 px-3 rounded-[var(--radius-md)] bg-[var(--color-error-bg)] text-[var(--color-error)] border border-[var(--color-error-border)] type-nav font-medium hover:bg-[var(--color-error-bg)]"
           >
             <LogOut className="w-4 h-4" />
             <p>{t('Sign Out')}</p>

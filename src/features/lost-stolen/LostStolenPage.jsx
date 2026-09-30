@@ -58,8 +58,8 @@ export const LostStolenPage = () => {
       isMono: true,
       render: (val, row) => (
         <div className="flex flex-col">
-          <p className="font-mono font-semibold text-[#202338]">{val}</p>
-          <p className="text-[11px] text-[#626981] truncate">{row.deviceDetails.brand} {row.deviceDetails.model} ({row.deviceDetails.color})</p>
+          <p className="font-mono font-semibold text-[var(--color-text-primary)]">{val}</p>
+          <p className="type-meta text-[var(--color-text-secondary)] truncate">{row.deviceDetails.brand} {row.deviceDetails.model} ({row.deviceDetails.color})</p>
         </div>
       ),
     },
@@ -68,8 +68,8 @@ export const LostStolenPage = () => {
       title: 'Requested By / Thana GD',
       render: (val, row) => (
         <div className="flex flex-col">
-          <p className="font-medium text-[#202338]">{val}</p>
-          <p className="text-[11px] text-[#7A8197] font-mono">{row.thana}</p>
+          <p className="font-medium text-[var(--color-text-primary)]">{val}</p>
+          <p className="type-meta text-[var(--color-text-muted)] font-mono">{row.thana}</p>
         </div>
       ),
     },
@@ -77,7 +77,7 @@ export const LostStolenPage = () => {
       key: 'reportDate',
       title: 'Report Date',
       isMono: true,
-      render: (val) => <p className="text-xs text-[#626981] font-mono">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-secondary)] font-mono">{val}</p>,
     },
     {
       key: 'status',
@@ -93,7 +93,7 @@ export const LostStolenPage = () => {
           size="sm"
           icon={Eye}
           onClick={() => handleOpenDetails(row)}
-          className="text-xs h-7.5 px-2.5"
+          className="type-meta h-7.5 px-2.5"
         >
           View details
         </Button>

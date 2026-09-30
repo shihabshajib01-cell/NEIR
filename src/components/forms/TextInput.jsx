@@ -335,7 +335,7 @@ export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, d
   return (
     <div className={'flex flex-col gap-1.5 ' + className}>
       {label && <label className="type-label text-[var(--color-text-primary)]">{t(label)}</label>}
-      <div className={'border-2 border-dashed border-[rgba(1,173,193,0.35)] rounded-[var(--field-radius)] text-center bg-[rgba(1,173,193,0.04)] hover:bg-[var(--color-primary-light)] transition-colors relative cursor-pointer ' + (density === 'compact' ? 'p-3.5' : 'p-5')}>
+      <div className={'border-2 border-dashed border-[var(--color-info-border)] rounded-[var(--field-radius)] text-center bg-[var(--color-primary-alpha-3)] hover:bg-[var(--color-primary-light)] transition-colors relative cursor-pointer ' + (density === 'compact' ? 'p-3.5' : 'p-5')}>
         <input type="file" accept=".csv,text/csv" onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">
           <Hash className={(density === 'compact' ? 'w-5 h-5' : 'w-6 h-6') + ' text-[var(--color-primary)]'} />

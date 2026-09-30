@@ -83,7 +83,7 @@ export const DeviceDeregisterPage = () => {
           {result && (
             <Alert variant="success" title="De-Registration Successful" className="mb-4">
               <p>{result.message}</p>
-              <p className="mt-1 font-mono text-[11px]">Reference Token: {result.referenceId}</p>
+              <p className="mt-1 font-mono type-meta">Reference Token: {result.referenceId}</p>
             </Alert>
           )}
 

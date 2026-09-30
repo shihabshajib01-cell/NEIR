@@ -52,7 +52,7 @@ export const Sidebar = ({ isCollapsed = false }) => {
 
   return (
     <aside
-      className={'hidden lg:flex h-full min-h-0 flex-col bg-white text-[var(--color-text-primary)] border-r border-[var(--color-border)] transition-all duration-200 shrink-0 select-none z-20 ' + (isCollapsed ? 'w-14' : 'w-60')}
+      className={'hidden lg:flex h-full min-h-0 flex-col bg-[var(--color-surface)] text-[var(--color-text-primary)] border-r border-[var(--color-border)] transition-[width] duration-[var(--motion-base)] shrink-0 select-none z-20 ' + (isCollapsed ? 'w-14' : 'w-60')}
     >
       <nav className="flex-1 overflow-y-auto pt-4 pb-2 px-2 space-y-0.5" aria-label={t('Navigation')}>
         {navigationItems.map((item) => {

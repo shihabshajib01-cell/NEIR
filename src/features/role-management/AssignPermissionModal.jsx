@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Modal } from '../../components/overlays/Modal.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { TextInput } from '../../components/forms/TextInput.jsx';
@@ -7,13 +7,9 @@ import { useToast } from '../../components/feedback/Toast.jsx';
 import {
   FolderTree,
   KeyRound,
-  Layers,
   ChevronDown,
   ChevronRight,
   Search,
-  CheckSquare,
-  Square,
-  ShieldCheck
 } from 'lucide-react';
 
 export const AssignPermissionModal = ({
@@ -25,35 +21,58 @@ export const AssignPermissionModal = ({
   serviceActions = [],
   onSave,
 }) => {
-  if (!role) return null;
-
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedActionIds, setSelectedActionIds] = useState(new Set());
   const [expandedParents, setExpandedParents] = useState(new Set());
   const { addToast } = useToast();
 
   useEffect(() => {
-    if (role) {
-      // Seed default checked IDs based on role
-      const initial = new Set();
-      if (role.name === 'Super Admin') {
-        serviceActions.forEach((sa) => initial.add(sa.id));
-      } else {
-        serviceActions.slice(0, Math.min(serviceActions.length, role.assignedActionsCount || 6)).forEach((sa) => {
-          initial.add(sa.id);
-        });
-      }
-      setSelectedActionIds(initial);
+    if (!role) return;
 
-      // Expand all parents by default
-      const allParentIds = new Set(parents.map((p) => p.id));
-      setExpandedParents(allParentIds);
+    const initial = new Set();
+    if (role.name === 'Super Admin') {
+      serviceActions.forEach((action) => initial.add(action.id));
+    } else {
+      serviceActions
+        .slice(0, Math.min(serviceActions.length, role.assignedActionsCount || 6))
+        .forEach((action) => initial.add(action.id));
     }
+    setSelectedActionIds(initial);
+    setExpandedParents(new Set(parents.map((parent) => parent.id)));
+    setSearchTerm('');
   }, [role, serviceActions, parents]);
 
+  const query = searchTerm.trim().toLowerCase();
+
+  const visibleParents = useMemo(() => {
+    if (!query) return parents;
+
+    return parents.filter((parent) => {
+      if (parent.name.toLowerCase().includes(query)) return true;
+      const parentPermissions = permissions.filter((permission) => permission.parentId === parent.id);
+      return parentPermissions.some((permission) => {
+        if (
+          permission.name.toLowerCase().includes(query) ||
+          String(permission.path || '').toLowerCase().includes(query)
+        ) return true;
+
+        return serviceActions.some((action) =>
+          action.permissionId === permission.id &&
+          (
+            action.name.toLowerCase().includes(query) ||
+            String(action.path || '').toLowerCase().includes(query) ||
+            String(action.method || '').toLowerCase().includes(query)
+          )
+        );
+      });
+    });
+  }, [parents, permissions, serviceActions, query]);
+
+  if (!role) return null;
+
   const toggleParentExpand = (parentId) => {
-    setExpandedParents((prev) => {
-      const next = new Set(prev);
+    setExpandedParents((previous) => {
+      const next = new Set(previous);
       if (next.has(parentId)) next.delete(parentId);
       else next.add(parentId);
       return next;
@@ -61,8 +80,8 @@ export const AssignPermissionModal = ({
   };
 
   const handleToggleAction = (actionId) => {
-    setSelectedActionIds((prev) => {
-      const next = new Set(prev);
+    setSelectedActionIds((previous) => {
+      const next = new Set(previous);
       if (next.has(actionId)) next.delete(actionId);
       else next.add(actionId);
       return next;
@@ -70,12 +89,16 @@ export const AssignPermissionModal = ({
   };
 
   const handleSelectAllInParent = (parentId, select = true) => {
-    const permIds = permissions.filter((p) => p.parentId === parentId).map((p) => p.id);
-    const actIds = serviceActions.filter((sa) => permIds.includes(sa.permissionId)).map((sa) => sa.id);
+    const permissionIds = permissions
+      .filter((permission) => permission.parentId === parentId)
+      .map((permission) => permission.id);
+    const actionIds = serviceActions
+      .filter((action) => permissionIds.includes(action.permissionId))
+      .map((action) => action.id);
 
-    setSelectedActionIds((prev) => {
-      const next = new Set(prev);
-      actIds.forEach((id) => {
+    setSelectedActionIds((previous) => {
+      const next = new Set(previous);
+      actionIds.forEach((id) => {
         if (select) next.add(id);
         else next.delete(id);
       });
@@ -84,7 +107,7 @@ export const AssignPermissionModal = ({
   };
 
   const handleSave = () => {
-    onSave && onSave(role.id, selectedActionIds.size);
+    onSave?.(role.id, selectedActionIds.size);
     addToast(`Updated permissions for ${role.name} (${selectedActionIds.size} service actions assigned).`, 'success');
     onClose();
   };
@@ -97,176 +120,167 @@ export const AssignPermissionModal = ({
       maxWidth="max-w-3xl"
       footer={
         <div className="flex flex-col gap-2.5 w-full sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-[#626981] font-medium">
-            <strong className="font-mono font-bold text-[#01ADC1]">{selectedActionIds.size}</strong> of{' '}
-            <strong className="font-mono">{serviceActions.length}</strong> actions selected
+          <p className="type-meta text-[var(--color-text-secondary)] font-medium">
+            <strong className="font-mono font-semibold text-[var(--color-primary-dark)]">{selectedActionIds.size}</strong> of{' '}
+            <strong className="font-mono font-semibold text-[var(--color-text-primary)]">{serviceActions.length}</strong> actions selected
           </p>
-          <div className="w-full sm:w-auto">
-            <Button variant="primary" size="sm" onClick={handleSave} className="w-full sm:w-auto">
-              Save Permissions
-            </Button>
+          <div className="flex items-center gap-2 w-full sm:w-auto max-sm:flex-col-reverse max-sm:[&>button]:w-full">
+            <Button variant="outline" onClick={onClose}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave}>Save Permissions</Button>
           </div>
         </div>
       }
     >
       <div className="space-y-4">
-        {/* Search & Bulk Select Toolbar */}
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-          <div className="relative flex-1">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#7A8197]" />
-            <input
-              type="text"
+        <div className="table-filter-bar flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+          <div className="flex-1 min-w-0">
+            <TextInput
+              density="compact"
+              icon={Search}
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(event) => setSearchTerm(event.target.value)}
               placeholder="Search permissions..."
-              className="w-full h-8.5 pl-9 pr-3 text-xs bg-[#F7F8FC] border border-[#E2E5F0] rounded-md text-[#202338] outline-hidden focus:border-[#01ADC1]"
+              aria-label="Search permissions"
             />
           </div>
-          <div className="grid grid-cols-2 gap-1.5 w-full sm:flex sm:w-auto sm:items-center sm:shrink-0">
+          <div className="grid grid-cols-2 gap-2 w-full sm:flex sm:w-auto sm:items-center">
             <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => {
-                const all = new Set(serviceActions.map((s) => s.id));
-                setSelectedActionIds(all);
-              }}
-              className="text-xs h-8 w-full sm:w-auto"
+              variant="outline"
+              onClick={() => setSelectedActionIds(new Set(serviceActions.map((action) => action.id)))}
+              className="w-full sm:w-auto"
             >
               Select All
             </Button>
             <Button
-              variant="ghost"
-              size="sm"
+              variant="outline"
               onClick={() => setSelectedActionIds(new Set())}
-              className="text-xs h-8 text-[#7A8197] w-full sm:w-auto"
+              className="w-full sm:w-auto"
             >
-              Deselect All
+              Clear
             </Button>
           </div>
         </div>
 
-        {/* Hierarchical Tree Container */}
-        <div className="border border-[#E2E5F0] rounded-lg overflow-hidden divide-y divide-[#E2E5F0] max-h-[460px] overflow-y-auto bg-white">
-          {parents.map((parent) => {
-            const parentPerms = permissions.filter((p) => p.parentId === parent.id);
+        <div className="border border-[var(--color-border)] rounded-[var(--radius-lg)] overflow-hidden divide-y divide-[var(--color-border)] max-h-[460px] overflow-y-auto bg-[var(--color-surface)]">
+          {visibleParents.length === 0 ? (
+            <div className="p-6 text-center">
+              <p className="type-body-sm font-medium text-[var(--color-text-primary)]">No matching permissions</p>
+              <p className="type-meta text-[var(--color-text-secondary)] mt-1">Try a different search term.</p>
+            </div>
+          ) : visibleParents.map((parent) => {
+            const parentPermissions = permissions.filter((permission) => permission.parentId === parent.id);
             const isExpanded = expandedParents.has(parent.id);
 
-            // Get all actions for this parent
-            const allParentActions = serviceActions.filter((sa) =>
-              parentPerms.some((p) => p.id === sa.permissionId)
+            const allParentActions = serviceActions.filter((action) =>
+              parentPermissions.some((permission) => permission.id === action.permissionId)
             );
 
-            const selectedParentActions = allParentActions.filter((sa) =>
-              selectedActionIds.has(sa.id)
+            const selectedParentActions = allParentActions.filter((action) =>
+              selectedActionIds.has(action.id)
             );
 
             const allSelected =
               allParentActions.length > 0 &&
               selectedParentActions.length === allParentActions.length;
-            const partiallySelected =
-              selectedParentActions.length > 0 && !allSelected;
+
+            const visiblePermissions = parentPermissions.filter((permission) => {
+              if (!query || parent.name.toLowerCase().includes(query)) return true;
+              if (
+                permission.name.toLowerCase().includes(query) ||
+                String(permission.path || '').toLowerCase().includes(query)
+              ) return true;
+              return serviceActions.some((action) =>
+                action.permissionId === permission.id &&
+                (
+                  action.name.toLowerCase().includes(query) ||
+                  String(action.path || '').toLowerCase().includes(query) ||
+                  String(action.method || '').toLowerCase().includes(query)
+                )
+              );
+            });
 
             return (
-              <div key={parent.id} className="bg-white">
-                {/* Level 1: Parent Group */}
-                <div className="px-4 py-2.5 bg-[#F7F8FC] flex items-center justify-between border-b border-[#E1F7FB] hover:bg-[#F1F5F9] transition-colors">
-                  <div
+              <section key={parent.id} className="bg-[var(--color-surface)]">
+                <div className="min-h-12 px-4 py-2.5 bg-[var(--color-background-subtle)] flex items-center justify-between gap-3">
+                  <button
+                    type="button"
                     onClick={() => toggleParentExpand(parent.id)}
-                    className="flex items-center gap-2 cursor-pointer select-none flex-1 truncate"
+                    className="flex items-center gap-2 min-w-0 flex-1 text-left rounded-[var(--radius-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                    aria-expanded={isExpanded}
                   >
-                    {isExpanded ? (
-                      <ChevronDown className="w-4 h-4 text-[#7A8197] shrink-0" />
-                    ) : (
-                      <ChevronRight className="w-4 h-4 text-[#7A8197] shrink-0" />
-                    )}
-                    <FolderTree className="w-4 h-4 text-[#01ADC1] shrink-0" />
-                    <p className="text-xs font-bold text-[#202338] truncate">
-                      {parent.name}
+                    {isExpanded
+                      ? <ChevronDown className="w-4 h-4 text-[var(--color-text-muted)] shrink-0" />
+                      : <ChevronRight className="w-4 h-4 text-[var(--color-text-muted)] shrink-0" />}
+                    <FolderTree className="w-4 h-4 text-[var(--color-primary-dark)] shrink-0" />
+                    <p className="type-label font-semibold text-[var(--color-text-primary)] truncate">{parent.name}</p>
+                    <p className="type-meta font-mono text-[var(--color-text-muted)] shrink-0">
+                      {selectedParentActions.length}/{allParentActions.length}
                     </p>
-                    <p className="text-[11px] text-[#7A8197] font-mono">
-                      ({selectedParentActions.length}/{allParentActions.length})
-                    </p>
-                  </div>
+                  </button>
 
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleSelectAllInParent(parent.id, !allSelected)}
-                      className="text-[11px] font-semibold text-[#01ADC1] hover:underline cursor-pointer"
-                    >
-                      {allSelected ? 'Uncheck All' : 'Check All'}
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleSelectAllInParent(parent.id, !allSelected)}
+                    className="type-meta font-semibold text-[var(--color-primary-dark)] hover:text-[var(--color-primary)] shrink-0"
+                  >
+                    {allSelected ? 'Clear group' : 'Select group'}
+                  </button>
                 </div>
 
-                {/* Level 2 & Level 3: Permissions and Actions (visible when parent expanded) */}
                 {isExpanded && (
-                  <div className="p-3 space-y-3 bg-[#F7F8FC] sm:pl-8">
-                    {parentPerms.map((perm) => {
-                      const actionsForPerm = serviceActions.filter(
-                        (sa) => sa.permissionId === perm.id
-                      );
+                  <div className="p-3 space-y-3 bg-[var(--color-background)] sm:pl-8">
+                    {visiblePermissions.map((permission) => {
+                      const actionsForPermission = serviceActions.filter((action) => {
+                        if (action.permissionId !== permission.id) return false;
+                        if (!query || parent.name.toLowerCase().includes(query) || permission.name.toLowerCase().includes(query)) return true;
+                        return (
+                          action.name.toLowerCase().includes(query) ||
+                          String(action.path || '').toLowerCase().includes(query) ||
+                          String(action.method || '').toLowerCase().includes(query)
+                        );
+                      });
 
                       return (
                         <div
-                          key={perm.id}
-                          className="border border-[#E1F7FB] rounded-md bg-white p-3 space-y-2"
+                          key={permission.id}
+                          className="border border-[var(--color-border)] rounded-[var(--radius-md)] bg-[var(--color-surface)] p-3 space-y-2"
                         >
-                          {/* Level 2: Permission Node */}
-                          <div className="flex flex-col gap-1 pb-1.5 border-b border-[#F7F8FC] sm:flex-row sm:items-center sm:gap-2">
-                            <KeyRound className="w-3.5 h-3.5 text-[#028A97] shrink-0" />
-                            <p className="text-xs font-semibold text-[#202338]">
-                              {perm.name}
-                            </p>
-                            <p className="text-[11px] font-mono text-[#7A8197] break-all sm:ml-auto">
-                              {perm.path}
-                            </p>
+                          <div className="flex flex-col gap-1 pb-2 border-b border-[var(--color-border-subtle)] sm:flex-row sm:items-center sm:gap-2">
+                            <KeyRound className="w-3.5 h-3.5 text-[var(--color-primary-dark)] shrink-0" />
+                            <p className="type-label font-semibold text-[var(--color-text-primary)]">{permission.name}</p>
+                            <p className="type-meta font-mono text-[var(--color-text-muted)] break-all sm:ml-auto">{permission.path}</p>
                           </div>
 
-                          {/* Level 3: Service Actions Checkboxes */}
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 sm:pl-4">
-                            {actionsForPerm.length === 0 ? (
-                              <p className="text-[11px] text-[#7A8197] italic">
-                                No actions configured
-                              </p>
-                            ) : (
-                              actionsForPerm.map((action) => {
-                                const isChecked = selectedActionIds.has(action.id);
-                                return (
-                                  <label
-                                    key={action.id}
-                                    className={`flex items-start gap-2 p-1.5 rounded border transition-colors cursor-pointer text-xs ${
-                                      isChecked
-                                        ? 'bg-[#01ADC1]/5 border-[#01ADC1]/30 text-[#028A97]'
-                                        : 'bg-white border-[#E2E5F0] text-[#202338] hover:bg-[#F7F8FC]'
-                                    }`}
-                                  >
-                                    <input
-                                      type="checkbox"
-                                      checked={isChecked}
-                                      onChange={() => handleToggleAction(action.id)}
-                                      className="rounded border-[#E2E5F0] text-[#01ADC1] mt-0.5"
-                                    />
-                                    <div className="truncate">
-                                      <p className="font-medium truncate">{action.name}</p>
-                                      <div className="flex items-center gap-1.5 text-[10px] font-mono text-[#7A8197] mt-0.5">
-                                        <p className="font-bold text-[#01ADC1]">
-                                          {action.method.charAt(0) + action.method.slice(1).toLowerCase()}
-                                        </p>
-                                        <p className="truncate">{action.path}</p>
-                                      </div>
-                                    </div>
-                                  </label>
-                                );
-                              })
-                            )}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                            {actionsForPermission.length === 0 ? (
+                              <p className="type-meta text-[var(--color-text-muted)]">No actions configured</p>
+                            ) : actionsForPermission.map((action) => {
+                              const checked = selectedActionIds.has(action.id);
+
+                              return (
+                                <div
+                                  key={action.id}
+                                  className={'rounded-[var(--radius-md)] border p-2 transition-colors ' +
+                                    (checked
+                                      ? 'bg-[var(--color-info-bg)] border-[var(--color-info-border)]'
+                                      : 'bg-[var(--color-surface)] border-[var(--color-border)] hover:bg-[var(--color-background-subtle)]')}
+                                >
+                                  <Checkbox
+                                    label={action.name}
+                                    description={`${action.method.charAt(0) + action.method.slice(1).toLowerCase()} · ${action.path}`}
+                                    checked={checked}
+                                    onChange={() => handleToggleAction(action.id)}
+                                  />
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       );
                     })}
                   </div>
                 )}
-              </div>
+              </section>
             );
           })}
         </div>

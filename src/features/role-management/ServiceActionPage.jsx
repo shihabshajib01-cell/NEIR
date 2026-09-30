@@ -139,7 +139,7 @@ export const ServiceActionPage = () => {
     };
     return (
       <p
-        className={`px-2 py-0.5 rounded text-[11px] font-mono font-bold border ${
+        className={`px-2 py-0.5 rounded type-meta font-mono font-bold border ${
           colors[method] || 'bg-slate-100 text-slate-700 border-slate-200'
         }`}
       >
@@ -154,21 +154,21 @@ export const ServiceActionPage = () => {
       title: 'Service Action Name',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <Layers className="w-3.5 h-3.5 text-[#01ADC1]" />
-          <p className="font-semibold text-[#202338]">{val}</p>
+          <Layers className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+          <p className="font-semibold text-[var(--color-text-primary)]">{val}</p>
         </div>
       ),
     },
     {
       key: 'permissionName',
       title: 'Permission Name',
-      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'parentName',
       title: 'Parent Name',
       render: (val) => (
-        <p className="text-xs text-[#626981] bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0]">
+        <p className="type-meta text-[var(--color-text-secondary)] bg-[var(--color-background)] px-2 py-0.5 rounded border border-[var(--color-border)]">
           {val}
         </p>
       ),
@@ -177,7 +177,7 @@ export const ServiceActionPage = () => {
       key: 'path',
       title: 'Path',
       isMono: true,
-      render: (val) => <p className="font-mono text-xs text-[#626981]">{val}</p>,
+      render: (val) => <p className="font-mono type-meta text-[var(--color-text-secondary)]">{val}</p>,
     },
     {
       key: 'method',
@@ -195,7 +195,7 @@ export const ServiceActionPage = () => {
           size="sm"
           icon={Edit2}
           onClick={() => handleOpenEdit(row)}
-          className="text-xs h-7 px-2"
+          className="type-meta h-7 px-2"
         >
           Edit
         </Button>

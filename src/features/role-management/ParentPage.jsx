@@ -107,8 +107,8 @@ export const ParentPage = () => {
       title: 'Parent Name',
       render: (val, row) => (
         <div className="flex items-center gap-2">
-          <FolderTree className="w-4 h-4 text-[#01ADC1]" />
-          <p className="font-semibold text-[#202338]">{val}</p>
+          <FolderTree className="w-4 h-4 text-[var(--color-primary)]" />
+          <p className="font-semibold text-[var(--color-text-primary)]">{val}</p>
         </div>
       ),
     },
@@ -116,25 +116,25 @@ export const ParentPage = () => {
       key: 'path',
       title: 'Path',
       isMono: true,
-      render: (val) => <p className="font-mono text-xs text-[#626981]">{val}</p>,
+      render: (val) => <p className="font-mono type-meta text-[var(--color-text-secondary)]">{val}</p>,
     },
     {
       key: 'icon',
       title: 'Icon',
       isMono: true,
-      render: (val) => <p className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0]">{val}</p>,
+      render: (val) => <p className="font-mono type-meta bg-[var(--color-background)] px-2 py-0.5 rounded border border-[var(--color-border)]">{val}</p>,
     },
     {
       key: 'location',
       title: 'Location',
-      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'position',
       title: 'Position',
       isMono: true,
       width: '80px',
-      render: (val) => <p className="font-mono font-bold text-center block text-[#202338]">{val}</p>,
+      render: (val) => <p className="font-mono font-bold text-center block text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'actions',
@@ -146,7 +146,7 @@ export const ParentPage = () => {
           size="sm"
           icon={Edit2}
           onClick={() => handleOpenEdit(row)}
-          className="text-xs h-7 px-2"
+          className="type-meta h-7 px-2"
         >
           Edit
         </Button>

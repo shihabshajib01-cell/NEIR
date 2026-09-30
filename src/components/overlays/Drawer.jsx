@@ -85,7 +85,7 @@ export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, headerStatu
         data-state={presence.state}
         ref={panelRef}
         tabIndex={-1}
-        className={'motion-drawer-panel focus:outline-none mobile-bottom-sheet mobile-bottom-sheet-surface relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-white shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
+        className={'motion-drawer-panel focus:outline-none mobile-bottom-sheet mobile-bottom-sheet-surface relative max-lg:!w-full max-lg:max-h-[90dvh] max-lg:rounded-t-[20px] max-sm:border-x-0 max-sm:border-b-0 lg:h-full bg-[var(--color-surface)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] lg:border-y-0 lg:border-r-0 flex flex-col overflow-hidden ' + width + ' ' + className}
       >
         <div className="px-4 py-3.5 sm:px-5 sm:py-4 border-b border-[var(--color-border)] bg-[var(--color-surface)] flex items-start justify-between gap-3 shrink-0">
           <div className="pr-4 min-w-0">
@@ -182,7 +182,7 @@ export const FullScreenWorkspace = ({
   return (
     <div data-state={presence.state} className="motion-overlay-backdrop fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-[rgba(32,35,56,0.30)] backdrop-blur-xs" role="dialog" aria-modal="true">
       <div data-state={presence.state} ref={panelRef} className={'motion-modal-panel mobile-bottom-sheet mobile-bottom-sheet-surface w-full ' + maxWidth + ' max-sm:!max-w-none max-sm:h-auto max-sm:max-h-[90dvh] max-sm:rounded-t-[20px] max-sm:rounded-b-none max-sm:border-x-0 max-sm:border-b-0 sm:h-[88vh] sm:rounded-xl bg-[var(--color-background)] shadow-[var(--shadow-overlay)] border border-[var(--color-border)] flex flex-col overflow-hidden transition-[max-width] duration-[var(--motion-slow)] ease-out ' + className}>
-        <div className="md:hidden px-4 py-3 bg-white text-[var(--color-text-primary)] flex items-center justify-between gap-2 border-b border-[var(--color-border)] shrink-0">
+        <div className="md:hidden px-4 py-3 bg-[var(--color-surface)] text-[var(--color-text-primary)] flex items-center justify-between gap-2 border-b border-[var(--color-border)] shrink-0">
           <div className="flex items-center gap-2 min-w-0 flex-1">
             {onMobileBack && (
               <button
@@ -195,9 +195,9 @@ export const FullScreenWorkspace = ({
               </button>
             )}
             <div className="min-w-0 flex-1">
-              <h2 className="text-sm font-semibold leading-tight truncate">{t(mobileTitle || title)}</h2>
+              <h2 className="type-card-title truncate">{t(mobileTitle || title)}</h2>
               {(mobileIdentifier || identifier) && (
-                <p className="text-xs text-[var(--color-text-secondary)] mt-1 truncate">
+                <p className="type-meta text-[var(--color-text-secondary)] mt-1 truncate">
                   {mobileIdentifier || identifier}
                 </p>
               )}
@@ -216,10 +216,10 @@ export const FullScreenWorkspace = ({
           </div>
         </div>
 
-        <div className="hidden md:flex px-6 py-4 bg-white text-[var(--color-text-primary)] items-start justify-between gap-3 border-b border-[var(--color-border)] shrink-0">
-          <h2 className="text-base font-semibold leading-tight flex flex-wrap items-center gap-2 min-w-0">
+        <div className="hidden md:flex px-6 py-4 bg-[var(--color-surface)] text-[var(--color-text-primary)] items-start justify-between gap-3 border-b border-[var(--color-border)] shrink-0">
+          <h2 className="type-card-title flex flex-wrap items-center gap-2 min-w-0">
             <p className="truncate">{t(title)}</p>
-            {identifier && <p className="text-xs font-mono font-normal text-[var(--color-text-secondary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded">{identifier}</p>}
+            {identifier && <p className="type-meta font-mono font-normal text-[var(--color-text-secondary)] bg-[var(--color-primary-light)] px-2 py-0.5 rounded-[var(--radius-sm)]">{identifier}</p>}
           </h2>
           <div className="flex items-center gap-3 shrink-0">
             {status && <StatusBadge status={status} size="sm" />}
@@ -232,7 +232,7 @@ export const FullScreenWorkspace = ({
             {children}
           </div>
         </div>
-        {footer && <div className={'px-4 py-3 md:px-6 bg-white border-t border-[var(--color-border)] items-center justify-between shrink-0 max-md:[&>div]:w-full max-md:[&>button]:w-full ' + (hideMobileFooter ? 'hidden md:flex' : 'flex')}>{footer}</div>}
+        {footer && <div className={'px-4 py-3 md:px-6 bg-[var(--color-surface)] border-t border-[var(--color-border)] items-center justify-between shrink-0 max-md:[&>div]:w-full max-md:[&>button]:w-full ' + (hideMobileFooter ? 'hidden md:flex' : 'flex')}>{footer}</div>}
       </div>
     </div>
   );

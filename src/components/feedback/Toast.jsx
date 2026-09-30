@@ -16,24 +16,54 @@ export const ToastProvider = ({ children }) => {
 
   const removeToast = useCallback((id) => setToasts((previous) => previous.filter((item) => item.id !== id)), []);
 
+  const configs = {
+    success: {
+      icon: CheckCircle2,
+      bg: 'bg-[var(--color-success-bg)]',
+      border: 'border-[var(--color-success-border)]',
+      iconColor: 'text-[var(--color-success)]',
+    },
+    error: {
+      icon: AlertCircle,
+      bg: 'bg-[var(--color-error-bg)]',
+      border: 'border-[var(--color-error-border)]',
+      iconColor: 'text-[var(--color-error)]',
+    },
+    info: {
+      icon: Info,
+      bg: 'bg-[var(--color-info-bg)]',
+      border: 'border-[var(--color-info-border)]',
+      iconColor: 'text-[var(--color-primary-dark)]',
+    },
+  };
+
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div className="fixed bottom-4 right-4 left-4 sm:left-auto z-[70] flex flex-col gap-2 sm:max-w-sm pointer-events-none" aria-live="polite">
+      <div
+        className="fixed bottom-4 right-4 left-4 sm:left-auto z-[70] flex flex-col gap-2 sm:max-w-sm pointer-events-none"
+        aria-live="polite"
+      >
         {toasts.map((toastItem) => {
-          const isSuccess = toastItem.type === 'success';
-          const isError = toastItem.type === 'error';
-          const shell = isSuccess
-            ? 'bg-[var(--color-text-primary)] border-[rgba(46,125,50,0.30)]'
-            : isError
-              ? 'bg-[#7F1D1D] border-[rgba(198,40,40,0.35)]'
-              : 'bg-[var(--color-primary-dark)] border-[rgba(1,173,193,0.35)]';
+          const config = configs[toastItem.type] || configs.info;
+          const Icon = config.icon;
 
           return (
-            <div key={toastItem.id} className={'pointer-events-auto p-3.5 rounded-xl shadow-[var(--shadow-lg)] border flex items-start gap-2.5 text-white ' + shell}>
-              {isSuccess ? <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" /> : isError ? <AlertCircle className="w-4 h-4 text-rose-200 shrink-0 mt-0.5" /> : <Info className="w-4 h-4 text-cyan-100 shrink-0 mt-0.5" />}
-              <p className="flex-1 text-xs font-medium leading-normal">{t(toastItem.message)}</p>
-              <button type="button" onClick={() => removeToast(toastItem.id)} className="text-white/75 hover:text-white p-0.5 shrink-0" aria-label={t('Close')}><X className="w-3.5 h-3.5" /></button>
+            <div
+              key={toastItem.id}
+              className={'pointer-events-auto p-3.5 rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] border flex items-start gap-2.5 text-[var(--color-text-primary)] ' + config.bg + ' ' + config.border}
+              role={toastItem.type === 'error' ? 'alert' : 'status'}
+            >
+              <Icon className={'w-4 h-4 shrink-0 mt-0.5 ' + config.iconColor} />
+              <p className="flex-1 type-meta font-medium">{t(toastItem.message)}</p>
+              <button
+                type="button"
+                onClick={() => removeToast(toastItem.id)}
+                className="w-8 h-8 -m-1.5 flex items-center justify-center rounded-[var(--radius-md)] text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface)] transition-colors shrink-0"
+                aria-label={t('Close')}
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
             </div>
           );
         })}

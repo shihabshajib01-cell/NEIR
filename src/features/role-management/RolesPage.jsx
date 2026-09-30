@@ -123,13 +123,13 @@ export const RolesPage = () => {
       title: 'Role Name',
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded bg-[#028A97]/10 text-[#028A97] flex items-center justify-center font-bold text-xs">
+          <div className="w-7 h-7 rounded bg-[var(--color-info-bg)] text-[var(--color-primary-dark)] flex items-center justify-center font-bold type-meta">
             <Shield className="w-3.5 h-3.5" />
           </div>
           <div>
-            <p className="font-bold text-[#202338] text-sm">{val}</p>
+            <p className="font-bold text-[var(--color-text-primary)] type-body-sm">{val}</p>
             {row.description && (
-              <p className="text-xs text-[#626981] mt-0.5 max-w-md">{row.description}</p>
+              <p className="type-meta text-[var(--color-text-secondary)] mt-0.5 max-w-md">{row.description}</p>
             )}
           </div>
         </div>
@@ -141,8 +141,8 @@ export const RolesPage = () => {
       width: '180px',
       isMono: true,
       render: (val) => (
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F7F8FC] text-[#202338] font-mono text-xs font-semibold border border-[#E2E5F0]">
-          <KeyRound className="w-3 h-3 text-[#01ADC1]" />
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[var(--color-background)] text-[var(--color-text-primary)] font-mono type-meta font-semibold border border-[var(--color-border)]">
+          <KeyRound className="w-3 h-3 text-[var(--color-primary)]" />
           <p>{val} Actions</p>
         </div>
       ),
@@ -158,7 +158,7 @@ export const RolesPage = () => {
             size="sm"
             icon={KeyRound}
             onClick={() => handleOpenAssign(row)}
-            className="text-xs h-7.5 px-2.5"
+            className="type-meta h-7.5 px-2.5"
           >
             Assign permissions
           </Button>
@@ -167,7 +167,7 @@ export const RolesPage = () => {
             size="sm"
             icon={Edit2}
             onClick={() => handleOpenEdit(row)}
-            className="text-xs h-7.5 px-2"
+            className="type-meta h-7.5 px-2"
           >
             Edit
           </Button>

@@ -37,7 +37,7 @@ export const ExpandableText = ({
   return (
     <div className={className}>
       <p
-        className={'text-sm text-[var(--color-text-primary)] leading-6 ' + (!expanded ? 'overflow-hidden' : '')}
+        className={'type-body-sm text-[var(--color-text-primary)] ' + (!expanded ? 'overflow-hidden' : '')}
         style={!expanded ? { display: '-webkit-box', WebkitLineClamp: collapsedLines, WebkitBoxOrient: 'vertical' } : undefined}
       >
         {text}
@@ -46,7 +46,7 @@ export const ExpandableText = ({
         <button
           type="button"
           onClick={() => setExpanded((current) => !current)}
-          className="mt-1 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
+          className="mt-1 type-meta font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
         >
           <p>{expanded ? t('Show less') : t('Show more')}</p>
         </button>

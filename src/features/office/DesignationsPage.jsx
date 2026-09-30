@@ -116,15 +116,15 @@ export const DesignationsPage = () => {
       title: 'Designation Title',
       render: (val) => (
         <div className="flex items-center gap-2">
-          <Award className="w-4 h-4 text-[#01ADC1]" />
-          <p className="font-semibold text-[#202338]">{val}</p>
+          <Award className="w-4 h-4 text-[var(--color-primary)]" />
+          <p className="font-semibold text-[var(--color-text-primary)]">{val}</p>
         </div>
       ),
     },
     {
       key: 'departmentName',
       title: 'Department',
-      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'rankGrade',
@@ -132,17 +132,17 @@ export const DesignationsPage = () => {
       isMono: true,
       width: '130px',
       render: (val) => val ? (
-        <p className="font-mono text-xs bg-[#F7F8FC] px-2 py-0.5 rounded border border-[#E2E5F0] font-semibold text-[#01ADC1]">
+        <p className="font-mono type-meta bg-[var(--color-background)] px-2 py-0.5 rounded border border-[var(--color-border)] font-semibold text-[var(--color-primary)]">
           {val}
         </p>
-      ) : <p className="text-xs text-[var(--color-text-muted)]">—</p>,
+      ) : <p className="type-meta text-[var(--color-text-muted)]">—</p>,
     },
     {
       key: 'userCount',
       title: 'Staff Assigned',
       width: '120px',
       isMono: true,
-      render: (val) => <p className="font-mono text-xs text-[#626981]">{val} Officers</p>,
+      render: (val) => <p className="font-mono type-meta text-[var(--color-text-secondary)]">{val} Officers</p>,
     },
     {
       key: 'actions',
@@ -154,7 +154,7 @@ export const DesignationsPage = () => {
           size="sm"
           icon={Edit2}
           onClick={() => handleOpenEdit(row)}
-          className="text-xs h-7 px-2"
+          className="type-meta h-7 px-2"
         >
           Edit
         </Button>

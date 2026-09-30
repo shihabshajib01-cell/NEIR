@@ -5,30 +5,53 @@ import { Button } from '../../components/forms/Button.jsx';
 import { Textarea } from '../../components/forms/TextInput.jsx';
 import { ConfirmationDialog, Modal } from '../../components/overlays/Modal.jsx';
 import { useToast } from '../../components/feedback/Toast.jsx';
+import { usePreferences } from '../../system/PreferencesContext.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { CheckCircle2, ChevronDown, FileText, Smartphone, User, ShieldCheck, XCircle } from 'lucide-react';
 
-const CollapsibleSection = ({ title, icon: Icon, isOpen, onToggle, children }) => (
-  <section className="bg-white border border-[#E2E5F0] rounded-lg shadow-xs overflow-hidden">
-    <button
-      type="button"
-      onClick={onToggle}
-      aria-expanded={isOpen}
-      className="w-full px-4 py-3 flex items-center justify-between gap-3 text-left hover:bg-[var(--color-background-subtle)] transition-colors"
-    >
-      <div className="flex items-center gap-2 min-w-0">
-        <Icon className="w-4 h-4 text-[#01ADC1] shrink-0" />
-        <p className="text-xs font-semibold text-[#202338] truncate">{title}</p>
-      </div>
-      <ChevronDown className={'w-4 h-4 text-[#7A8197] shrink-0 transition-transform ' + (isOpen ? 'rotate-180' : '')} />
-    </button>
-    {isOpen && (
-      <div className="p-4 border-t border-[#E2E5F0]">
-        {children}
-      </div>
-    )}
-  </section>
-);
+const CollapsibleSection = ({ title, icon: Icon, isOpen, onToggle, children }) => {
+  const { t } = usePreferences();
+
+  return (
+    <section className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] overflow-hidden">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        className="w-full min-h-11 px-4 py-3 flex items-center justify-between gap-3 text-left hover:bg-[var(--color-background-subtle)] transition-colors"
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <Icon className="w-4 h-4 text-[var(--color-primary-dark)] shrink-0" />
+          <p className="type-label font-semibold text-[var(--color-text-primary)] truncate">{t(title)}</p>
+        </div>
+        <ChevronDown
+          className={'w-4 h-4 text-[var(--color-text-muted)] shrink-0 transition-transform duration-[var(--motion-base)] ' + (isOpen ? 'rotate-180' : '')}
+        />
+      </button>
+      {isOpen && (
+        <div className="p-4 border-t border-[var(--color-border)]">
+          {children}
+        </div>
+      )}
+    </section>
+  );
+};
+
+const ReviewDetailRow = ({ label, value, mono = false, emphasis = false }) => {
+  const { t } = usePreferences();
+  const displayValue = value === null || value === undefined || value === '' ? '—' : value;
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-[minmax(150px,0.75fr)_minmax(0,1.25fr)] gap-x-4 gap-y-1 py-2 border-b border-[var(--color-border-subtle)] last:border-b-0">
+      <p className="type-meta text-[var(--color-text-secondary)]">{t(label)}</p>
+      <p className={'type-body-sm sm:text-right break-words ' +
+        (mono ? 'font-mono tabular-nums ' : '') +
+        (emphasis ? 'font-semibold text-[var(--color-primary-dark)]' : 'font-medium text-[var(--color-text-primary)]')}>
+        {displayValue}
+      </p>
+    </div>
+  );
+};
 
 export const SpecialRegistrationReviewModal = ({
   isOpen,
@@ -152,7 +175,6 @@ export const SpecialRegistrationReviewModal = ({
           <div className="flex flex-col gap-2 w-full md:flex-row md:items-center md:justify-end md:gap-3">
             <Button
               variant="dangerOutline"
-              size="md"
               icon={XCircle}
               className="w-full md:w-auto"
               onClick={() => setIsRejectOpen(true)}
@@ -161,7 +183,6 @@ export const SpecialRegistrationReviewModal = ({
             </Button>
             <Button
               variant="primary"
-              size="md"
               icon={CheckCircle2}
               className="w-full md:w-auto"
               onClick={() => setIsApproveOpen(true)}
@@ -171,7 +192,7 @@ export const SpecialRegistrationReviewModal = ({
           </div>
         }
       >
-        <div className={(selectedDoc ? 'hidden md:grid ' : 'grid ') + 'grid-cols-1 gap-4 h-full transition-all duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
+        <div className={(selectedDoc ? 'hidden md:grid ' : 'grid ') + 'grid-cols-1 gap-4 h-full transition-[grid-template-columns] duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
           <div className={selectedDoc
             ? 'lg:col-span-5 space-y-4 overflow-y-auto'
             : 'w-full max-w-5xl mx-auto space-y-4'}
@@ -182,23 +203,11 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.requester}
               onToggle={() => toggleSection('requester')}
             >
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Full Name:</p>
-                  <p className="font-semibold text-[#202338] text-right">{registration.requesterName}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">National ID / Passport:</p>
-                  <p className="font-mono text-[#202338] text-right">{registration.requesterNid}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Contact Phone:</p>
-                  <p className="font-mono text-[#202338] text-right">{registration.requesterPhone}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Application Date:</p>
-                  <p className="font-mono text-[#202338] text-right">{registration.date}</p>
-                </div>
+              <div>
+                <ReviewDetailRow label="Full Name" value={registration.requesterName} />
+                <ReviewDetailRow label="National ID / Passport" value={registration.requesterNid} mono />
+                <ReviewDetailRow label="Contact Phone" value={registration.requesterPhone} mono />
+                <ReviewDetailRow label="Application Date" value={registration.date} mono />
               </div>
             </CollapsibleSection>
 
@@ -208,35 +217,14 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.device}
               onToggle={() => toggleSection('device')}
             >
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">IMEI Number:</p>
-                  <p className="font-mono font-bold text-[#028A97] bg-[#028A97]/10 px-1.5 py-0.5 rounded">{registration.imei}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Brand / Make:</p>
-                  <p className="font-semibold text-[#202338] text-right">{registration.brand}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Model:</p>
-                  <p className="font-medium text-[#202338] text-right">{registration.model}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Device Type:</p>
-                  <p className="text-[#202338] text-right">{registration.deviceType}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Serial Number:</p>
-                  <p className="font-mono text-[#202338] text-right">{registration.serialNumber}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Purchase Country:</p>
-                  <p className="text-[#202338] text-right">{registration.purchaseCountry}</p>
-                </div>
-                <div className="flex justify-between gap-4">
-                  <p className="text-[#626981]">Customs Challan / Baggage No:</p>
-                  <p className="font-mono text-[#01ADC1] font-semibold text-right">{registration.customsChallanNo}</p>
-                </div>
+              <div>
+                <ReviewDetailRow label="IMEI Number" value={registration.imei} mono emphasis />
+                <ReviewDetailRow label="Brand / Make" value={registration.brand} />
+                <ReviewDetailRow label="Model" value={registration.model} />
+                <ReviewDetailRow label="Device Type" value={registration.deviceType} />
+                <ReviewDetailRow label="Serial Number" value={registration.serialNumber} mono />
+                <ReviewDetailRow label="Purchase Country" value={registration.purchaseCountry} />
+                <ReviewDetailRow label="Customs Challan / Baggage No" value={registration.customsChallanNo} mono emphasis />
               </div>
             </CollapsibleSection>
 
@@ -246,13 +234,11 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.attachments}
               onToggle={() => toggleSection('attachments')}
             >
-              <div>
-                <DocumentList
-                  documents={registration.attachments || []}
-                  selectedDocId={selectedDoc?.id}
-                  onSelectDoc={handleDocumentSelect}
-                />
-              </div>
+              <DocumentList
+                documents={registration.attachments || []}
+                selectedDocId={selectedDoc?.id}
+                onSelectDoc={handleDocumentSelect}
+              />
             </CollapsibleSection>
 
             <CollapsibleSection
@@ -261,15 +247,13 @@ export const SpecialRegistrationReviewModal = ({
               isOpen={openSections.remarks}
               onToggle={() => toggleSection('remarks')}
             >
-              <div>
-                <Textarea
-                  value={remarks}
-                  onChange={(e) => setRemarks(e.target.value)}
-                  placeholder="Enter officer evaluation notes, customs tax verification references, or clearance remarks..."
-                  rows={3}
-                  aria-label="Application Verification Remarks"
-                />
-              </div>
+              <Textarea
+                value={remarks}
+                onChange={(event) => setRemarks(event.target.value)}
+                placeholder="Enter officer evaluation notes, customs tax verification references, or clearance remarks..."
+                rows={3}
+                aria-label="Application Verification Remarks"
+              />
             </CollapsibleSection>
           </div>
 
@@ -310,24 +294,28 @@ export const SpecialRegistrationReviewModal = ({
         title="Reject Special Registration"
         maxWidth="max-w-md"
         footer={
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={handleReject}
-            isLoading={isSubmitting}
-          >
-            Confirm Rejection
-          </Button>
+          <div className="flex items-center justify-end gap-2 w-full max-sm:flex-col-reverse max-sm:[&>button]:w-full">
+            <Button variant="outline" onClick={() => setIsRejectOpen(false)} disabled={isSubmitting}>
+              Cancel
+            </Button>
+            <Button
+              variant="danger"
+              onClick={handleReject}
+              isLoading={isSubmitting}
+            >
+              Confirm Rejection
+            </Button>
+          </div>
         }
       >
         <div className="space-y-4">
-          <p className="text-xs text-[#626981]">
+          <p className="type-meta text-[var(--color-text-secondary)]">
             Please enter the official regulatory reason for rejecting application {registration.id}. This will be communicated to the applicant.
           </p>
           <Textarea
             label="Official Rejection Reason"
             value={rejectRemarks}
-            onChange={(e) => setRejectRemarks(e.target.value)}
+            onChange={(event) => setRejectRemarks(event.target.value)}
             placeholder="e.g. Customs duty voucher invalid, mismatching IMEI serial on invoice, or exceeded allowable personal baggage quota."
             rows={3}
             required

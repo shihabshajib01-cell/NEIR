@@ -58,7 +58,7 @@ export const MsisdnImeiPage = () => {
       render: (val, row) => (
         <div className="flex flex-col">
           <p className="font-mono font-semibold text-[var(--color-primary-dark)]">{val}</p>
-          <p className="text-[11px] text-[var(--color-text-muted)]">{row.deviceModel}</p>
+          <p className="type-meta text-[var(--color-text-muted)]">{row.deviceModel}</p>
         </div>
       ),
     },
@@ -72,7 +72,7 @@ export const MsisdnImeiPage = () => {
       key: 'operator',
       title: 'Operator',
       render: (val) => (
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--color-text-primary)]">
+        <div className="inline-flex items-center gap-1.5 type-meta font-semibold text-[var(--color-text-primary)]">
           <Radio className="w-3.5 h-3.5 text-[var(--color-primary)]" />
           <p>{val}</p>
         </div>
@@ -82,7 +82,7 @@ export const MsisdnImeiPage = () => {
       key: 'lastRegistrationDate',
       title: 'Last Registration Date',
       isMono: true,
-      render: (val) => <p className="text-xs text-[var(--color-text-secondary)] font-mono">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-secondary)] font-mono">{val}</p>,
     },
     {
       key: 'status',
@@ -100,7 +100,7 @@ export const MsisdnImeiPage = () => {
           size="sm"
           icon={Eye}
           onClick={() => handleOpenDetails(row)}
-          className="text-xs h-7 px-2"
+          className="type-meta h-7 px-2"
         >
           Inspect
         </Button>

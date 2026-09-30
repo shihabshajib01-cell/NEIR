@@ -19,7 +19,7 @@ export const TablePageWorkspace = ({
   const resolvedCount = showActiveContext && typeof activeTabConfig.count === 'number' ? activeTabConfig.count : count;
 
   return (
-    <section className={'bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
+    <section className={'bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
       <header className="px-4 sm:px-5 py-3 border-b border-[var(--color-border)] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <h2 className="type-card-title text-[var(--color-text-primary)] truncate">{t(resolvedTitle)}</h2>

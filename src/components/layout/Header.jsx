@@ -55,7 +55,7 @@ export const Header = ({
     };
   }, [preferencesOpen, notificationsOpen, profileMenuOpen]);
 
-  const utilityButton = 'w-9 h-9 flex items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors cursor-pointer';
+  const utilityButton = 'w-10 h-10 flex items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors cursor-pointer';
 
   return (
     <header className="h-16 bg-white text-[var(--color-text-primary)] border-b border-[var(--color-border)] px-3 sm:px-5 flex items-center justify-between sticky top-0 z-30 select-none">
@@ -147,7 +147,7 @@ export const Header = ({
                 <div className="px-4 py-2.5 border-b border-[var(--color-border)]">
                   <p className="type-label font-semibold">{t('Notifications')}</p>
                 </div>
-                <div className="px-4 py-5 text-sm text-[var(--color-text-secondary)]">
+                <div className="px-4 py-5 type-body-sm text-[var(--color-text-secondary)]">
                   {t('No new notifications.')}
                 </div>
               </div>
@@ -168,7 +168,7 @@ export const Header = ({
             className="flex items-center gap-2.5 min-h-9 px-2 py-1 rounded-lg hover:bg-[var(--color-primary-light)] transition-colors text-left cursor-pointer"
             aria-expanded={profileMenuOpen}
           >
-            <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center text-xs font-bold border border-[var(--color-border)]">
+            <div className="w-8 h-8 rounded-[var(--radius-md)] bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center type-meta font-bold border border-[var(--color-border)]">
               <p>{user?.fullName?.charAt(0)?.toUpperCase() || 'A'}</p>
             </div>
             <div className="hidden sm:flex flex-col">
@@ -226,7 +226,7 @@ export const Header = ({
                   <button
                     type="button"
                     onClick={handleSignOut}
-                    className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-50 text-[var(--color-error)] type-label text-left cursor-pointer"
+                    className="w-full flex items-center gap-2.5 px-4 py-2.5 hover:bg-[var(--color-error-bg)] text-[var(--color-error)] type-label text-left cursor-pointer"
                   >
                     <LogOut className="w-4 h-4" />
                     <p>{t('Sign out')}</p>

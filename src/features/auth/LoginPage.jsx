@@ -49,7 +49,7 @@ export const LoginPage = () => {
         <button
           type="button"
           onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-          className="min-h-10 px-3 flex items-center gap-2 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-sm font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
+          className="min-h-10 px-3 flex items-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-surface)] border border-[var(--color-border)] type-label font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
         >
           <Languages className="w-4 h-4" />
           <p>{language === 'en' ? 'বাংলা' : 'EN'}</p>
@@ -63,28 +63,28 @@ export const LoginPage = () => {
           <div className="absolute inset-0 opacity-50 pointer-events-none bg-[radial-gradient(rgba(1,173,193,0.18)_1px,transparent_1px)] [background-size:22px_22px]" />
 
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[var(--color-border)] text-xs font-semibold text-[var(--color-primary-dark)] shadow-[var(--shadow-sm)]">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] type-meta font-semibold text-[var(--color-primary-dark)] shadow-[var(--shadow-sm)]">
               <ShieldCheck className="w-4 h-4" />
               <p>BTRC Administrative Portal</p>
             </div>
 
             <div className="mt-10 max-w-lg">
-              <h1 className="text-[34px] leading-[1.18] font-semibold tracking-tight text-[var(--color-text-primary)]">National Equipment Identity Register</h1>
-              <p className="text-base text-[var(--color-text-secondary)] leading-7 mt-4 max-w-md">NEIR administrative workspace.</p>
+              <h1 className="type-display text-[var(--color-text-primary)]">National Equipment Identity Register</h1>
+              <p className="type-body-lg text-[var(--color-text-secondary)] mt-4 max-w-md">NEIR administrative workspace.</p>
             </div>
           </div>
 
           <div className="relative z-10 grid grid-cols-1 gap-3 max-w-md">
-            <div className="flex items-center gap-3 p-4 bg-white/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
-              <div className="w-10 h-10 rounded-xl bg-[rgba(1,173,193,0.10)] flex items-center justify-center text-[var(--color-primary-dark)] shrink-0"><LayoutDashboard className="w-5 h-5" /></div>
+            <div className="flex items-center gap-3 p-4 bg-[var(--color-surface)]/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-info-bg)] flex items-center justify-center text-[var(--color-primary-dark)] shrink-0"><LayoutDashboard className="w-5 h-5" /></div>
               <div>
-                <p className="text-sm font-semibold text-[var(--color-text-primary)]">Unified administration</p>
+                <p className="type-label font-semibold text-[var(--color-text-primary)]">Unified administration</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 bg-white/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
-              <div className="w-10 h-10 rounded-xl bg-[rgba(46,125,50,0.10)] flex items-center justify-center text-[var(--color-success)] shrink-0"><ShieldCheck className="w-5 h-5" /></div>
+            <div className="flex items-center gap-3 p-4 bg-[var(--color-surface)]/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
+              <div className="w-10 h-10 rounded-xl bg-[var(--color-success-bg)] flex items-center justify-center text-[var(--color-success)] shrink-0"><ShieldCheck className="w-5 h-5" /></div>
               <div>
-                <p className="text-sm font-semibold text-[var(--color-text-primary)]">Administrative workspace</p>
+                <p className="type-label font-semibold text-[var(--color-text-primary)]">Administrative workspace</p>
               </div>
             </div>
           </div>
@@ -93,15 +93,15 @@ export const LoginPage = () => {
         <section className="w-full lg:w-[540px] shrink-0">
           <div className="flex items-start justify-between gap-6 mb-5 px-1">
             <div className="min-w-0">
-              <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">{t('NEIR Admin Portal')}</h2>
-              <p className="text-sm text-[var(--color-text-secondary)] mt-1">{t('Bangladesh Telecommunication Regulatory Commission')}</p>
+              <h2 className="type-page-title text-[var(--color-text-primary)]">{t('NEIR Admin Portal')}</h2>
+              <p className="type-body-sm text-[var(--color-text-secondary)] mt-1">{t('Bangladesh Telecommunication Regulatory Commission')}</p>
             </div>
             <BtrcLogo className="h-14 w-14" showText={false} />
           </div>
 
-          <div className="bg-white rounded-2xl border border-[var(--color-border)] shadow-[var(--shadow-md)] p-6 sm:p-8">
+          <div className="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] shadow-[var(--shadow-md)] p-6 sm:p-8">
             <div className="mb-7">
-              <h1 className="text-[30px] leading-tight font-semibold tracking-tight text-[var(--color-text-primary)]">{t('Administrative sign in')}</h1>
+              <h1 className="type-display text-[var(--color-text-primary)]">{t('Administrative sign in')}</h1>
             </div>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
