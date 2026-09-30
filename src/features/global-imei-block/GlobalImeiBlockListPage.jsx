@@ -5,6 +5,7 @@ import { TablePageWorkspace } from '../../components/tables/TablePageWorkspace.j
 import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { RecordDetailsDrawer } from '../../components/overlays/Drawer.jsx';
 import { ConfirmationDialog } from '../../components/overlays/Modal.jsx';
+import { BlockImeiDrawer } from './GlobalImeiBlockPage.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { StatusBadge } from '../../components/data-display/StatusBadge.jsx';
 import { mockApi } from '../../services/mockApi.js';
@@ -19,6 +20,7 @@ export const GlobalImeiBlockListPage = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [unblockTarget, setUnblockTarget] = useState(null);
   const [isUnblocking, setIsUnblocking] = useState(false);
+  const [isBlockDrawerOpen, setIsBlockDrawerOpen] = useState(false);
   const { addToast } = useToast();
 
   const loadData = async () => {
@@ -143,14 +145,22 @@ export const GlobalImeiBlockListPage = () => {
           { label: 'Block List' }
         ]}
         actions={
-          <Button
-            variant="outline"
-            size="md"
-            icon={Download}
-            onClick={() => addToast('Exporting active EIR Blacklist database...', 'info')}
-          >
-            Export Blacklist
-          </Button>
+          <div className="flex items-center gap-2 max-sm:w-full max-sm:flex-col-reverse max-sm:[&>button]:w-full">
+            <Button
+              variant="outline"
+              icon={Download}
+              onClick={() => addToast('Exporting active EIR Blacklist database...', 'info')}
+            >
+              Export Blacklist
+            </Button>
+            <Button
+              variant="danger"
+              icon={Ban}
+              onClick={() => setIsBlockDrawerOpen(true)}
+            >
+              Block IMEI
+            </Button>
+          </div>
         }
       />
 
@@ -201,6 +211,14 @@ export const GlobalImeiBlockListPage = () => {
                 )}
               />
       </TablePageWorkspace>
+
+      <BlockImeiDrawer
+        isOpen={isBlockDrawerOpen}
+        onClose={() => setIsBlockDrawerOpen(false)}
+        onBlocked={async () => {
+          await loadData();
+        }}
+      />
 
       {/* Details Drawer */}
       {selectedRecord && (
