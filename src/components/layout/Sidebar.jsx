@@ -8,10 +8,8 @@ import {
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 
 export const navigationItems = [
-  { type: 'section', name: 'Overview' },
   { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
 
-  { type: 'section', name: 'Device & EIR' },
   { name: 'MSISDN IMEI List', path: '/msisdn-imei', icon: Search },
   { name: 'IMEI Check', path: '/imei-check', icon: CheckCircle },
   { name: 'Auto Registration', path: '/auto-registration', icon: Radio },
@@ -19,12 +17,10 @@ export const navigationItems = [
   { name: 'Global IMEI Block', path: '/global-imei-block', icon: Ban },
   { name: 'Manufacturer IMEI Upload', path: '/manufacturer-imei-upload', to: '/manufacturer-imei-upload?upload=1', icon: UploadCloud },
 
-  { type: 'section', name: 'Service Operations' },
   { name: 'Special Registration', path: '/special-registration', icon: FileCheck2 },
   { name: 'Lost & Stolen', path: '/lost-stolen', icon: ShieldAlert },
   { name: 'Support Ticket', path: '/support-ticket', icon: Headphones },
 
-  { type: 'section', name: 'Administration' },
   {
     name: 'Office', path: '/office', icon: Building2,
     children: [
