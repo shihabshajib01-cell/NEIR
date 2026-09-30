@@ -200,7 +200,7 @@ export const DateRangeFilter = ({
         aria-haspopup="dialog"
         aria-expanded={open}
         aria-label={selectionLabel ? `${t('Filter by Date')}: ${selectionLabel}` : t('Filter by Date')}
-        className={(compact ? 'min-h-10 px-3' : '') + ' ' + className}
+        className={(compact ? 'px-3' : '') + ' ' + className}
       >
         {buttonLabel}
       </Button>
