@@ -12,7 +12,7 @@ export const PageHeader = ({ title, description, actions, className = '' }) => {
       </div>
 
       {actions && (
-        <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto shrink-0 self-start lg:self-center max-sm:[&>button]:w-full">
+        <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto shrink-0 self-start lg:self-center max-md:[&>button]:w-full">
           {actions}
         </div>
       )}
