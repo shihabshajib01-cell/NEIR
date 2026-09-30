@@ -36,7 +36,7 @@ export const MobileNavigationDrawer = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) onClose();
-  }, [location.pathname]);
+  }, [location.pathname, location.search]);
 
   const toggleSubmenu = (path) => setOpenSubmenus((prev) => ({ ...prev, [path]: !prev[path] }));
 
