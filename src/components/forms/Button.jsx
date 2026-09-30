@@ -27,8 +27,8 @@ export const Button = ({
   const { t } = usePreferences();
 
   const geometryClasses = {
-    compact: 'py-1.5 px-2.5 type-button-sm gap-1.5 rounded-[var(--field-radius)]',
-    standard: 'py-3 px-4 type-button gap-2 rounded-[var(--field-radius)]',
+    compact: 'h-[30px] px-3 type-button-sm gap-1.5 rounded-lg',
+    standard: 'h-10 px-4 type-button gap-2 rounded-lg',
   };
 
   const geometry =
@@ -40,7 +40,7 @@ export const Button = ({
     primary:
       'bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] active:bg-[var(--color-primary-deep)] text-white border border-transparent shadow-[var(--shadow-sm)] focus-visible:ring-2 focus-visible:ring-[rgba(1,173,193,0.30)]',
     secondary:
-      'bg-white hover:bg-[var(--color-primary-light)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] border border-[var(--color-border-strong)]',
+      'bg-white hover:bg-[var(--color-primary-alpha-6)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] border border-[var(--color-border)]',
     outline:
       'bg-white hover:bg-[var(--color-primary-light)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] border border-[var(--color-border-strong)]',
     danger:

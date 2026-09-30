@@ -21,25 +21,25 @@
      * Large = exactly 110% of Standard font sizes.
      * Layout geometry and spacing are intentionally unaffected.
      */
-    --type-display-size: 36px;
-    --type-page-title-size: 28px;
+    --type-display-size: 28px;
+    --type-page-title-size: 22px;
     --type-section-title-size: 18px;
-    --type-card-title-size: 18px;
-    --type-body-lg-size: 18px;
-    --type-body-size: 16px;
-    --type-body-sm-size: 16px;
-    --type-label-size: 16px;
-    --type-nav-size: 16px;
-    --type-control-size: 16px;
-    --type-button-size: 16px;
+    --type-card-title-size: 16px;
+    --type-body-lg-size: 16px;
+    --type-body-size: 14px;
+    --type-body-sm-size: 14px;
+    --type-label-size: 14px;
+    --type-nav-size: 14px;
+    --type-control-size: 14px;
+    --type-button-size: 14px;
     --type-button-sm-size: 14px;
-    --type-table-head-size: 16px;
-    --type-table-cell-size: 16px;
-    --type-meta-size: 14px;
-    --type-helper-size: 14px;
+    --type-table-head-size: 14px;
+    --type-table-cell-size: 14px;
+    --type-meta-size: 12px;
+    --type-helper-size: 12px;
     --type-form-label-size: 14px;
-    --type-badge-size: 14px;
-    --type-kpi-size: 32px;
+    --type-badge-size: 12px;
+    --type-kpi-size: 28px;
 
     --type-title-line: 1.3;
     --type-body-line: 1.55;
@@ -59,69 +59,69 @@
   }
 
   html[data-text-size='compact'] {
-    --type-display-size: 32.4px;
-    --type-page-title-size: 25.2px;
-    --type-section-title-size: 16.2px;
-    --type-card-title-size: 16.2px;
-    --type-body-lg-size: 16.2px;
-    --type-body-size: 14.4px;
-    --type-body-sm-size: 14.4px;
-    --type-label-size: 14.4px;
-    --type-nav-size: 14.4px;
-    --type-control-size: 14.4px;
-    --type-button-size: 14.4px;
-    --type-button-sm-size: 12.6px;
-    --type-table-head-size: 14.4px;
-    --type-table-cell-size: 14.4px;
-    --type-meta-size: 12.6px;
-    --type-helper-size: 12.6px;
-    --type-form-label-size: 12.6px;
-    --type-badge-size: 12.6px;
-    --type-kpi-size: 28.8px;
+    --type-display-size: 13.2px;
+    --type-page-title-size: 13.2px;
+    --type-section-title-size: 10.8px;
+    --type-card-title-size: 10.8px;
+    --type-body-lg-size: 10.8px;
+    --type-body-size: 10.8px;
+    --type-body-sm-size: 10.8px;
+    --type-label-size: 10.8px;
+    --type-nav-size: 10.8px;
+    --type-control-size: 10.8px;
+    --type-button-size: 10.8px;
+    --type-button-sm-size: 10.8px;
+    --type-table-head-size: 10.8px;
+    --type-table-cell-size: 10.8px;
+    --type-meta-size: 10.8px;
+    --type-helper-size: 10.8px;
+    --type-form-label-size: 10.8px;
+    --type-badge-size: 10.8px;
+    --type-kpi-size: 25.2px;
   }
 
   html[data-text-size='standard'] {
-    --type-display-size: 36px;
-    --type-page-title-size: 28px;
+    --type-display-size: 28px;
+    --type-page-title-size: 22px;
     --type-section-title-size: 18px;
-    --type-card-title-size: 18px;
-    --type-body-lg-size: 18px;
-    --type-body-size: 16px;
-    --type-body-sm-size: 16px;
-    --type-label-size: 16px;
-    --type-nav-size: 16px;
-    --type-control-size: 16px;
-    --type-button-size: 16px;
+    --type-card-title-size: 16px;
+    --type-body-lg-size: 16px;
+    --type-body-size: 14px;
+    --type-body-sm-size: 14px;
+    --type-label-size: 14px;
+    --type-nav-size: 14px;
+    --type-control-size: 14px;
+    --type-button-size: 14px;
     --type-button-sm-size: 14px;
-    --type-table-head-size: 16px;
-    --type-table-cell-size: 16px;
-    --type-meta-size: 14px;
-    --type-helper-size: 14px;
+    --type-table-head-size: 14px;
+    --type-table-cell-size: 14px;
+    --type-meta-size: 12px;
+    --type-helper-size: 12px;
     --type-form-label-size: 14px;
-    --type-badge-size: 14px;
-    --type-kpi-size: 32px;
+    --type-badge-size: 12px;
+    --type-kpi-size: 28px;
   }
 
   html[data-text-size='large'] {
-    --type-display-size: 39.6px;
-    --type-page-title-size: 30.8px;
-    --type-section-title-size: 19.8px;
-    --type-card-title-size: 19.8px;
-    --type-body-lg-size: 19.8px;
-    --type-body-size: 17.6px;
-    --type-body-sm-size: 17.6px;
-    --type-label-size: 17.6px;
-    --type-nav-size: 17.6px;
-    --type-control-size: 17.6px;
-    --type-button-size: 17.6px;
-    --type-button-sm-size: 15.4px;
-    --type-table-head-size: 17.6px;
-    --type-table-cell-size: 17.6px;
-    --type-meta-size: 15.4px;
-    --type-helper-size: 15.4px;
-    --type-form-label-size: 15.4px;
-    --type-badge-size: 15.4px;
-    --type-kpi-size: 35.2px;
+    --type-display-size: 24.2px;
+    --type-page-title-size: 24.2px;
+    --type-section-title-size: 13.2px;
+    --type-card-title-size: 13.2px;
+    --type-body-lg-size: 13.2px;
+    --type-body-size: 13.2px;
+    --type-body-sm-size: 13.2px;
+    --type-label-size: 13.2px;
+    --type-nav-size: 13.2px;
+    --type-control-size: 13.2px;
+    --type-button-size: 13.2px;
+    --type-button-sm-size: 13.2px;
+    --type-table-head-size: 13.2px;
+    --type-table-cell-size: 13.2px;
+    --type-meta-size: 13.2px;
+    --type-helper-size: 13.2px;
+    --type-form-label-size: 13.2px;
+    --type-badge-size: 13.2px;
+    --type-kpi-size: 30.8px;
   }
 
   html[lang='bn'] {
@@ -325,5 +325,25 @@
   .text-\[13px\] {
     font-size: var(--type-meta-size);
     line-height: var(--type-compact-line);
+  }
+}
+
+@media (min-width: 641px) {
+  html[data-text-size='standard'] { --type-form-label-size: 14px; }
+}
+@media (max-width: 640px) {
+  :root,
+  html[data-text-size='standard'] {
+    --type-body-size: 16px;
+    --type-body-sm-size: 14px;
+    --type-label-size: 14px;
+    --type-nav-size: 14px;
+    --type-control-size: 14px;
+    --type-button-size: 14px;
+    --type-table-head-size: 14px;
+    --type-table-cell-size: 14px;
+    --type-meta-size: 12px;
+    --type-helper-size: 12px;
+    --type-badge-size: 12px;
   }
 }

@@ -178,7 +178,7 @@ export const DataTable = ({
   const desktopVisibleClass = renderMobileCard ? 'hidden lg:block' : 'block';
   const wrapperClass = embedded
     ? 'bg-white overflow-hidden flex flex-col'
-    : 'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col';
+    : 'bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden flex flex-col';
 
   return (
     <div className={wrapperClass + ' ' + className}>
@@ -262,22 +262,26 @@ export const DataTable = ({
                     whiteSpace: 'nowrap',
                     paddingLeft: '12px',
                     paddingRight: '12px',
-                    paddingTop: dense ? '8px' : '10px',
-                    paddingBottom: dense ? '8px' : '10px',
+                    paddingTop: '8px',
+                    paddingBottom: '8px',
                     fontFamily: 'var(--font-ui)',
                   },
                   '& .MuiTableHead-root .MuiTableRow-root': {
-                    height: 40,
+                    height: 38,
+                    backgroundColor: 'var(--color-background-subtle)',
                   },
                   '& .MuiTableHead-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',
                     fontSize: 'var(--type-table-head-size)',
                     lineHeight: 'var(--type-compact-line)',
-                    fontWeight: 'var(--font-weight-semibold)',
-                    color: 'var(--color-text-primary)',
+                    fontWeight: 'var(--font-weight-bold)',
+                    letterSpacing: '0.04em',
+                    color: 'var(--color-text-secondary)',
                   },
                   '& .MuiTableBody-root .MuiTableRow-root': {
-                    height: dense ? 44 : 52,
+                    height: 44,
+                    '&:nth-of-type(even)': { backgroundColor: 'var(--color-background-zebra)' },
+                    '&:hover': { backgroundColor: 'var(--color-primary-alpha-3)' },
                   },
                   '& .MuiTableBody-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',

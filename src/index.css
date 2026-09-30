@@ -3,23 +3,23 @@
 
 @layer base {
   :root {
-    --color-primary: #01ADC1;
-    --color-primary-dark: #028A97;
-    --color-primary-deep: #0A767E;
-    --color-primary-light: #E1F7FB;
-    --color-secondary: #80C2C6;
+    --color-primary: #4B5694;
+    --color-primary-dark: #343D73;
+    --color-primary-deep: #29305D;
+    --color-primary-light: #EEF0FA;
+    --color-secondary: #7C8BD6;
     --color-on-primary: #FFFFFF;
 
     --color-background: #F7F8FC;
     --color-background-subtle: #FBFCFE;
     --color-surface: #FFFFFF;
-    --color-surface-hover: #F3FBFC;
+    --color-surface-hover: rgba(75, 86, 148, 0.06);
     --color-border: #E2E5F0;
-    --color-border-subtle: #EEF0F5;
+    --color-border-subtle: rgba(226, 229, 240, 0.55);
     --color-border-strong: #C8CDD9;
 
     /* Reusable MUI form-control geometry */
-    --field-height: 56px;
+    --field-height: 52px;
     --field-radius: 4px;
     --field-padding-x: 14px;
     --field-font-size: 16px;
@@ -54,7 +54,7 @@
     --radius-overlay: 20px;
 
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.12);
     --shadow-overlay: 0 12px 48px rgba(0, 0, 0, 0.16);
 
@@ -123,17 +123,17 @@
 
   /* Form geometry stays stable; font size follows the exact 90% / 100% / 110% preference scale. */
   html[data-text-size='compact'] {
-    --field-height: 56px;
+    --field-height: 52px;
     --field-font-size: 14.4px;
   }
 
   html[data-text-size='standard'] {
-    --field-height: 56px;
+    --field-height: 52px;
     --field-font-size: 16px;
   }
 
   html[data-text-size='large'] {
-    --field-height: 56px;
+    --field-height: 52px;
     --field-font-size: 17.6px;
   }
 
@@ -407,21 +407,22 @@ html[data-theme='dark'] ::selection {
 }
 
 
-/* Dashboard-only composition refinement. Keeps global NEIR typography frozen. */
-.dashboard-page-header .type-page-title {
-  font-size: 22px;
-  line-height: 30px;
-  font-weight: 700;
+
+/* NBR Office Management visual baseline for NEIR.
+   Visual-only: no route, workflow, permission or data behavior changes. */
+:root {
+  --color-primary-alpha-3: rgba(75, 86, 148, 0.03);
+  --color-primary-alpha-6: rgba(75, 86, 148, 0.06);
+  --color-primary-alpha-8: rgba(75, 86, 148, 0.08);
+  --color-primary-alpha-10: rgba(75, 86, 148, 0.10);
+  --color-primary-alpha-12: rgba(75, 86, 148, 0.12);
+  --color-primary-shadow: rgba(75, 86, 148, 0.24);
+  --color-background-zebra: rgba(32, 35, 56, 0.015);
 }
 
-.dashboard-page-header .type-body {
-  font-size: 14px;
-  line-height: 20px;
-}
-
-@media (max-width: 640px) {
-  .dashboard-page-header .type-page-title {
-    font-size: 20px;
-    line-height: 28px;
-  }
+.neir-nbr-surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }

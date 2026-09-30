@@ -28,12 +28,12 @@ export const AppShell = () => {
 
         <div className="flex-1 min-w-0 flex flex-col min-h-0 overflow-hidden">
           <main className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
-            <div className="w-full p-4 sm:p-5 lg:p-6">
+            <div className="w-full p-4 sm:p-5 lg:p-5 xl:p-6">
               <Outlet />
             </div>
           </main>
 
-          <footer className="shrink-0 border-t border-[var(--color-border)] bg-white px-4 sm:px-5 lg:px-6 py-3 text-right text-xs text-[var(--color-text-secondary)]">
+          <footer className="shrink-0 border-t border-[var(--color-border)] bg-white px-4 sm:px-5 lg:px-6 py-2.5 text-right text-xs text-[var(--color-text-secondary)]">
             <p>{t('Powered by')} <strong className="font-semibold text-[var(--color-text-primary)]">Synesis IT</strong></p>
           </footer>
         </div>

@@ -19,8 +19,8 @@ export const TablePageWorkspace = ({
   const resolvedCount = showActiveContext && typeof activeTabConfig.count === 'number' ? activeTabConfig.count : count;
 
   return (
-    <section className={'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
-      <header className="px-4 sm:px-5 py-3.5 border-b border-[var(--color-border)] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
+    <section className={'bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
+      <header className="px-4 sm:px-5 py-3 border-b border-[var(--color-border)] flex flex-col xl:flex-row xl:items-center xl:justify-between gap-3">
         <div className="flex items-center gap-2 min-w-0">
           <h2 className="type-card-title text-[var(--color-text-primary)] truncate">{t(resolvedTitle)}</h2>
           {typeof resolvedCount === 'number' && (
@@ -43,7 +43,7 @@ export const TablePageWorkspace = ({
                   key={tab.id}
                   type="button"
                   onClick={() => onTabChange?.(tab.id)}
-                  className={'min-h-10 px-3 py-2 type-meta font-medium border-b-2 flex items-center gap-1.5 transition-colors whitespace-nowrap ' +
+                  className={'min-h-9 px-3 py-2 type-meta font-medium border-b-2 flex items-center gap-1.5 transition-colors whitespace-nowrap ' +
                     (active
                       ? 'border-[var(--color-primary)] text-[var(--color-primary-dark)]'
                       : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-background-subtle)]')}

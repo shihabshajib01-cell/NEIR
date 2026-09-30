@@ -6,7 +6,7 @@ export const Card = ({
 }) => {
   const { t } = usePreferences();
   return (
-    <div className={'bg-white border border-[var(--color-border)] rounded-xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
+    <div className={'bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] overflow-hidden ' + className}>
       {(title || subtitle || headerAction) && (
         <div className="px-5 py-4 border-b border-[var(--color-border)] flex items-center justify-between gap-4 bg-white">
           <div className="min-w-0">

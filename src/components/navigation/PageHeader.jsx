@@ -5,10 +5,10 @@ export const PageHeader = ({ title, description, actions, className = '' }) => {
   const { t } = usePreferences();
 
   return (
-    <header className={'pb-4 mb-4 sm:pb-5 sm:mb-6 border-b border-[var(--color-border)] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4 ' + className}>
+    <header className={'pb-4 mb-5 border-b border-[var(--color-border)] flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 ' + className}>
       <div className="min-w-0">
         <h1 className="type-page-title text-[var(--color-text-primary)]">{t(title)}</h1>
-        {description && <p className="type-body text-[var(--color-text-secondary)] mt-1.5 max-w-3xl">{t(description)}</p>}
+        {description && <p className="type-body text-[var(--color-text-secondary)] mt-1 max-w-3xl">{t(description)}</p>}
       </div>
 
       {actions && (

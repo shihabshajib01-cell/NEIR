@@ -51,10 +51,10 @@ export const Header = ({
     };
   }, [preferencesOpen, notificationsOpen, profileMenuOpen]);
 
-  const utilityButton = 'w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors cursor-pointer';
+  const utilityButton = 'w-9 h-9 flex items-center justify-center rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-colors cursor-pointer';
 
   return (
-    <header className="h-16 sm:h-[72px] bg-white text-[var(--color-text-primary)] border-b border-[var(--color-border)] px-3 sm:px-6 flex items-center justify-between sticky top-0 z-30 select-none shadow-[var(--shadow-sm)]">
+    <header className="h-16 bg-white text-[var(--color-text-primary)] border-b border-[var(--color-border)] px-3 sm:px-5 flex items-center justify-between sticky top-0 z-30 select-none">
       <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         <button
           type="button"
@@ -76,7 +76,7 @@ export const Header = ({
         </button>
 
         <Link to="/dashboard" className="flex items-center min-w-0" aria-label={t('Dashboard')}>
-          <BtrcLogo className="h-9 w-9 sm:h-10 sm:w-10" showText />
+          <BtrcLogo className="h-9 w-9" showText />
         </Link>
       </div>
 
@@ -159,7 +159,7 @@ export const Header = ({
               setPreferencesOpen(false);
               setNotificationsOpen(false);
             }}
-            className="flex items-center gap-2.5 min-h-10 px-2 py-1.5 rounded-lg hover:bg-[var(--color-primary-light)] transition-colors text-left cursor-pointer"
+            className="flex items-center gap-2.5 min-h-9 px-2 py-1 rounded-lg hover:bg-[var(--color-primary-light)] transition-colors text-left cursor-pointer"
             aria-expanded={profileMenuOpen}
           >
             <div className="w-8 h-8 rounded-lg bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center text-xs font-bold border border-[var(--color-border)]">
