@@ -34,18 +34,25 @@ export const DrawerSection = ({ title, children, defaultOpen = true, trailing = 
 };
 
 const useOverlayFocus = (isOpen, onClose, panelRef) => {
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
   useEffect(() => {
     if (!isOpen) return undefined;
+
     const previous = document.activeElement;
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    requestAnimationFrame(() => {
+    const focusFrame = requestAnimationFrame(() => {
       panelRef.current?.focus({ preventScroll: true });
     });
 
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') onCloseRef.current?.();
       if (event.key === 'Tab' && panelRef.current) {
         const focusables = [...panelRef.current.querySelectorAll(focusableSelector)];
         if (focusables.length === 0) return;
@@ -60,14 +67,16 @@ const useOverlayFocus = (isOpen, onClose, panelRef) => {
         }
       }
     };
+
     window.addEventListener('keydown', onKeyDown);
 
     return () => {
+      cancelAnimationFrame(focusFrame);
       document.body.style.overflow = originalOverflow;
       window.removeEventListener('keydown', onKeyDown);
-      previous?.focus?.();
+      previous?.focus?.({ preventScroll: true });
     };
-  }, [isOpen, onClose, panelRef]);
+  }, [isOpen, panelRef]);
 };
 
 export const Drawer = ({ isOpen, onClose, onExited, title, subtitle, headerStatus, children, footer, width = 'w-full sm:w-[600px]', className = '' }) => {
