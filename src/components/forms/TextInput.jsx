@@ -320,7 +320,7 @@ export const Textarea = ({
   );
 };
 
-export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, className = '' }) => {
+export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, density = 'standard', className = '' }) => {
   const [fileName, setFileName] = useState('');
   const { t } = usePreferences();
 
@@ -335,10 +335,10 @@ export const CSVUpload = ({ label, helperText, onFileSelect, onSampleDownload, c
   return (
     <div className={'flex flex-col gap-1.5 ' + className}>
       {label && <label className="type-label text-[var(--color-text-primary)]">{t(label)}</label>}
-      <div className="border-2 border-dashed border-[rgba(1,173,193,0.35)] rounded-xl p-5 text-center bg-[rgba(1,173,193,0.04)] hover:bg-[var(--color-primary-light)] transition-colors relative cursor-pointer">
+      <div className={'border-2 border-dashed border-[rgba(1,173,193,0.35)] rounded-[var(--field-radius)] text-center bg-[rgba(1,173,193,0.04)] hover:bg-[var(--color-primary-light)] transition-colors relative cursor-pointer ' + (density === 'compact' ? 'p-3.5' : 'p-5')}>
         <input type="file" accept=".csv,text/csv" onChange={handleChange} className="absolute inset-0 opacity-0 cursor-pointer w-full h-full" />
         <div className="flex flex-col items-center justify-center gap-1.5">
-          <Hash className="w-6 h-6 text-[var(--color-primary)]" />
+          <Hash className={(density === 'compact' ? 'w-5 h-5' : 'w-6 h-6') + ' text-[var(--color-primary)]'} />
           <p className="type-body-strong text-[var(--color-text-primary)]">{fileName || 'Drop CSV batch file here or click to browse'}</p>
           {helperText && <p className="type-meta text-[var(--color-text-muted)]">{t(helperText)}</p>}
         </div>
