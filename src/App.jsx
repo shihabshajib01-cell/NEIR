@@ -53,8 +53,8 @@ export default function App() {
                 <Route path="dashboard" element={<DashboardPage />} />
                 <Route path="special-registration" element={<SpecialRegistrationPage />} />
                 <Route path="lost-stolen" element={<LostStolenPage />} />
-                <Route path="device-deregister" element={<Navigate to="/msisdn-imei" replace />} />
-                <Route path="auto-registration" element={<Navigate to="/msisdn-imei" replace />} />
+                <Route path="device-deregister" element={<MsisdnImeiPage initialAction="deregister" />} />
+                <Route path="auto-registration" element={<MsisdnImeiPage initialAction="register" />} />
 
                 <Route path="role-management" element={<Navigate to="/role-management/roles" replace />} />
                 <Route path="role-management/parent" element={<ParentPage />} />
@@ -62,7 +62,7 @@ export default function App() {
                 <Route path="role-management/service-action" element={<ServiceActionPage />} />
                 <Route path="role-management/roles" element={<RolesPage />} />
 
-                <Route path="imei-check" element={<Navigate to="/msisdn-imei" replace />} />
+                <Route path="imei-check" element={<MsisdnImeiPage initialAction="check" />} />
                 <Route path="manufacturer-imei-upload" element={<ManufacturerUploadPage />} />
                 <Route path="support-ticket" element={<SupportTicketPage />} />
 
