@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import {
   Activity,
   Ban,
@@ -17,6 +17,9 @@ import { mockApi } from '../../services/mockApi.js';
 import { LoadingState } from '../../components/feedback/FeedbackStates.jsx';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { DataTable } from '../../components/tables/DataTable.jsx';
+import { usePreferences } from '../../system/PreferencesContext.jsx';
+
+const DashboardCharts = lazy(() => import('./DashboardCharts.jsx'));
 
 const DUPLICATED_SUMMARY_KPIS = new Set([
   'white-list',
@@ -39,7 +42,9 @@ export const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [fromDate, setFromDate] = useState('2026-03-01');
   const [toDate, setToDate] = useState('2026-03-24');
+  const [analyticsView, setAnalyticsView] = useState('data');
   const { addToast } = useToast();
+  const { t } = usePreferences();
 
   const loadData = async () => {
     try {
@@ -276,35 +281,93 @@ export const DashboardPage = () => {
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 min-[1760px]:grid-cols-2 gap-4 items-start">
-        <Card
-          title="Recent 6-Month EIR Trajectory"
-          bodyClassName="p-0"
-          className="min-w-0"
+      <section aria-label={t('Dashboard analytics view')}>
+        <nav
+          className="border-b border-[var(--color-border)] px-1 overflow-x-auto mb-4"
+          aria-label={t('Analytics view')}
+          role="tablist"
         >
-          <DataTable
-            embedded
-            stickyHeader={false}
-            keyField="month"
-            columns={trendColumns}
-            data={data.imeiSummary.recentMonthlyTrends}
-          />
-        </Card>
+          <div className="flex items-center gap-1 min-w-max">
+            {[
+              { id: 'data', label: 'Data View' },
+              { id: 'graph', label: 'Graph View' },
+            ].map((view) => {
+              const active = analyticsView === view.id;
+              return (
+                <button
+                  key={view.id}
+                  type="button"
+                  id={`dashboard-${view.id}-tab`}
+                  role="tab"
+                  aria-selected={active}
+                  aria-controls={`dashboard-${view.id}-panel`}
+                  onClick={() => setAnalyticsView(view.id)}
+                  className={'min-h-9 px-3 py-2 type-meta font-medium border-b-2 transition-colors whitespace-nowrap ' +
+                    (active
+                      ? 'border-[var(--color-primary)] text-[var(--color-primary-dark)]'
+                      : 'border-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] hover:bg-[var(--color-background-subtle)]')}
+                >
+                  <p>{t(view.label)}</p>
+                </button>
+              );
+            })}
+          </div>
+        </nav>
 
-        <Card
-          title="Operator Sync Breakdown"
-          bodyClassName="p-0"
-          className="min-w-0"
+        <div
+          id={`dashboard-${analyticsView}-panel`}
+          role="tabpanel"
+          aria-labelledby={`dashboard-${analyticsView}-tab`}
         >
-          <DataTable
-            embedded
-            stickyHeader={false}
-            keyField="operator"
-            columns={operatorColumns}
-            data={data.registrationSummary.operatorBreakdown}
-          />
-        </Card>
-      </div>
+        {analyticsView === 'data' ? (
+          <div className="grid grid-cols-1 min-[1760px]:grid-cols-2 gap-4 items-start">
+            <Card
+              title="Recent 6-Month EIR Trajectory"
+              bodyClassName="p-0"
+              className="min-w-0"
+            >
+              <DataTable
+                embedded
+                stickyHeader={false}
+                keyField="month"
+                columns={trendColumns}
+                data={data.imeiSummary.recentMonthlyTrends}
+              />
+            </Card>
+
+            <Card
+              title="Operator Sync Breakdown"
+              bodyClassName="p-0"
+              className="min-w-0"
+            >
+              <DataTable
+                embedded
+                stickyHeader={false}
+                keyField="operator"
+                columns={operatorColumns}
+                data={data.registrationSummary.operatorBreakdown}
+              />
+            </Card>
+          </div>
+        ) : (
+          <Suspense
+            fallback={
+              <div
+                className="min-h-[320px] bg-white border border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-sm)] flex items-center justify-center"
+                aria-live="polite"
+              >
+                <p className="type-meta text-[var(--color-text-secondary)]">{t('Loading charts...')}</p>
+              </div>
+            }
+          >
+            <DashboardCharts
+              trendData={data.imeiSummary.recentMonthlyTrends}
+              operatorData={data.registrationSummary.operatorBreakdown}
+            />
+          </Suspense>
+        )}
+        </div>
+      </section>
     </div>
   );
 };
