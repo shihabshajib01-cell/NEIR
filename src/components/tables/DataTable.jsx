@@ -260,15 +260,15 @@ export const DataTable = ({
                   fontFamily: 'var(--font-ui)',
                   '& .MuiTableCell-root': {
                     whiteSpace: 'nowrap',
-                    paddingLeft: '12px',
-                    paddingRight: '12px',
-                    paddingTop: '8px',
-                    paddingBottom: '8px',
+                    paddingLeft: '16px',
+                    paddingRight: '16px',
+                    paddingTop: '9px',
+                    paddingBottom: '9px',
                     fontFamily: 'var(--font-ui)',
                   },
                   '& .MuiTableHead-root .MuiTableRow-root': {
-                    height: 40,
-                    backgroundColor: 'var(--color-background)',
+                    height: 42,
+                    backgroundColor: 'var(--color-background-subtle)',
                   },
                   '& .MuiTableHead-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',
@@ -280,9 +280,9 @@ export const DataTable = ({
                     borderBottom: '1px solid var(--color-border)',
                   },
                   '& .MuiTableBody-root .MuiTableRow-root': {
-                    height: 52,
+                    height: 56,
                     backgroundColor: 'var(--color-surface)',
-                    '&:hover': { backgroundColor: 'var(--color-primary-alpha-6)' },
+                    '&:hover': { backgroundColor: 'var(--color-primary-alpha-3)' },
                   },
                   '& .MuiTableBody-root .MuiTableCell-root': {
                     fontFamily: 'var(--font-ui)',
@@ -502,7 +502,7 @@ export const DataTable = ({
               },
             } : {}),
             borderTop: '1px solid var(--color-border)',
-            backgroundColor: 'var(--color-background-subtle)',
+            backgroundColor: 'var(--color-surface)',
             flexShrink: 0,
             '& .MuiTablePagination-toolbar': {
               minHeight: '48px',
