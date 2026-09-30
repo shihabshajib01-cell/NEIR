@@ -1,5 +1,5 @@
 export const mockParents = [
-  { id: 'p-1', name: 'Dashboard Module', path: '/dashboard', icon: 'LayoutDashboard', location: 'Top Navigation', position: 1, hasChildren: false },
+  { id: 'p-1', name: 'Dashboard Module', path: '/dashboard', icon: 'LayoutDashboard', location: 'Top Navigation Bar', position: 1, hasChildren: false },
   { id: 'p-2', name: 'Special Registration', path: '/special-registration', icon: 'FileCheck2', location: 'Main Navigation Rail', position: 2, hasChildren: false },
   { id: 'p-3', name: 'Lost & Stolen', path: '/lost-stolen', icon: 'ShieldAlert', location: 'Main Navigation Rail', position: 3, hasChildren: false },
   { id: 'p-4', name: 'Device Operations', path: '/device-deregister', icon: 'Smartphone', location: 'Main Navigation Rail', position: 4, hasChildren: true },
