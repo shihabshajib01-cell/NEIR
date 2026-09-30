@@ -93,13 +93,13 @@ export const Header = ({
               setNotificationsOpen(false);
               setProfileMenuOpen(false);
             }}
-            className={utilityButton + ' gap-1.5 px-2 sm:w-auto sm:min-w-10'}
+            className={utilityButton + ' gap-1.5 px-2 md:w-auto md:min-w-10'}
             aria-label={t('Preferences')}
             aria-expanded={preferencesOpen}
             title={t('Preferences')}
           >
             <Settings2 className="w-[18px] h-[18px]" />
-            <p className="hidden sm:inline type-meta font-semibold">
+            <p className="hidden md:inline type-meta font-semibold">
               {language === 'bn' ? 'বাংলা' : 'EN'}
             </p>
           </button>
@@ -155,7 +155,7 @@ export const Header = ({
           )}
         </div>
 
-        <div className="w-px h-5 bg-[var(--color-border)] mx-1 hidden sm:block" />
+        <div className="w-px h-5 bg-[var(--color-border)] mx-1 hidden md:block" />
 
         <div ref={profileMenuRef} className="relative">
           <button
@@ -171,7 +171,7 @@ export const Header = ({
             <div className="w-8 h-8 rounded-[var(--radius-md)] bg-[var(--color-primary-light)] text-[var(--color-primary-dark)] flex items-center justify-center type-meta font-bold border border-[var(--color-border)]">
               <p>{user?.fullName?.charAt(0)?.toUpperCase() || 'A'}</p>
             </div>
-            <div className="hidden sm:flex flex-col">
+            <div className="hidden md:flex flex-col">
               <p className="type-label font-semibold leading-tight truncate max-w-[150px]">
                 {user?.fullName || t('Admin user')}
               </p>
@@ -179,7 +179,7 @@ export const Header = ({
                 {user?.role || 'Admin'}
               </p>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-[var(--color-text-secondary)] hidden sm:block" />
+            <ChevronDown className="w-3.5 h-3.5 text-[var(--color-text-secondary)] hidden md:block" />
           </button>
 
           {profilePresence.mounted && (
