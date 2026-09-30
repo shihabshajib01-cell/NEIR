@@ -13,12 +13,20 @@ import { useToast } from '../../components/feedback/Toast.jsx';
 import { Eye, Download } from 'lucide-react';
 
 const DEFAULT_PAGE_SIZE = 5;
+const DEFAULT_STATUS_COUNTS = {
+  All: 7,
+  Pending: 3,
+  'In Progress': 1,
+  Accepted: 2,
+  Rejected: 1,
+};
 
 export const SpecialRegistrationPage = () => {
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('All');
+  const [statusCounts, setStatusCounts] = useState(DEFAULT_STATUS_COUNTS);
   const [searchTerm, setSearchTerm] = useState('');
   const [fromDate, setFromDate] = useState('2026-03-01');
   const [toDate, setToDate] = useState('2026-03-24');
@@ -30,11 +38,11 @@ export const SpecialRegistrationPage = () => {
   const { addToast } = useToast();
 
   const statusTabs = [
-    { id: 'All', label: 'All Applications', count: 7 },
-    { id: 'Pending', label: 'Pending Review', count: 3 },
-    { id: 'In Progress', label: 'In Progress', count: 1 },
-    { id: 'Accepted', label: 'Accepted', count: 2 },
-    { id: 'Rejected', label: 'Rejected', count: 1 },
+    { id: 'All', label: 'All Applications', count: statusCounts.All ?? 0 },
+    { id: 'Pending', label: 'Pending Review', count: statusCounts.Pending ?? 0 },
+    { id: 'In Progress', label: 'In Progress', count: statusCounts['In Progress'] ?? 0 },
+    { id: 'Accepted', label: 'Accepted', count: statusCounts.Accepted ?? 0 },
+    { id: 'Rejected', label: 'Rejected', count: statusCounts.Rejected ?? 0 },
   ];
 
   const loadRegistrations = async () => {
@@ -50,6 +58,7 @@ export const SpecialRegistrationPage = () => {
       });
       setData(res.items);
       setTotal(res.total);
+      setStatusCounts(res.statusCounts || DEFAULT_STATUS_COUNTS);
     } catch (err) {
       addToast('Failed to load special registrations.', 'error');
     } finally {
@@ -66,10 +75,9 @@ export const SpecialRegistrationPage = () => {
     setIsReviewOpen(true);
   };
 
-  const handleStatusUpdated = (id, newStatus) => {
-    setData((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, status: newStatus } : item))
-    );
+  const handleStatusUpdated = () => {
+    // Reload from the source so the active status tab, record count and visible cards stay in sync.
+    loadRegistrations();
   };
 
   const columns = [
