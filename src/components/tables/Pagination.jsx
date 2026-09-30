@@ -139,14 +139,12 @@ export const FilterBar = ({
       ? 'bg-transparent flex flex-col lg:flex-row lg:items-center lg:justify-end gap-2 w-full '
       : 'p-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 ') + className}
     >
-      <div className={embedded
-        ? 'flex flex-1 lg:flex-none flex-col md:flex-row md:flex-wrap md:items-center md:justify-end gap-2 w-full'
-        : 'flex flex-1 flex-col md:flex-row md:flex-wrap md:items-center gap-2 w-full'}
-      >
+      <div className={'table-filter-primary ' + (dateFilter ? 'has-date-filter ' : 'without-date-filter ') + (embedded ? 'lg:flex-1 lg:justify-end' : 'lg:flex-1')}>
+
         {onSearchChange && (
           <div
             ref={searchContainerRef}
-            className="relative min-w-0 w-full md:w-auto md:min-w-[280px] xl:min-w-[320px] flex-1 max-w-2xl"
+            className="table-filter-search relative min-w-0 w-full md:w-auto md:min-w-[280px] xl:min-w-[320px] md:flex-1 md:max-w-2xl"
           >
             <TextInput
               type="search"
@@ -218,8 +216,13 @@ export const FilterBar = ({
           </div>
         )}
         {filters && (
-          <div className="table-filter-controls flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 w-full md:w-auto max-md:[&>*]:w-full">
+          <div className="table-filter-extras flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 w-full md:w-auto max-md:[&>*]:w-full">
             {filters}
+          </div>
+        )}
+        {dateFilter && (
+          <div className="table-filter-date w-full md:w-auto max-md:[&>button]:w-full">
+            {dateFilter}
           </div>
         )}
       </div>
