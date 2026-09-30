@@ -83,7 +83,8 @@ export const RadioGroup = ({
   value,
   onChange,
   options = [],
-  orientation = 'vertical',
+  orientation = 'horizontal',
+  variant = 'cards',
   disabled = false,
   className = '',
 }) => {
@@ -109,8 +110,18 @@ export const RadioGroup = ({
         name={name}
         value={value}
         onChange={(event) => onChange?.(event.target.value)}
-        row={orientation === 'horizontal'}
-        sx={{ gap: orientation === 'horizontal' ? 1 : 0.5 }}
+        row={variant === 'cards' ? false : orientation === 'horizontal'}
+        sx={
+          variant === 'cards'
+            ? {
+                display: 'grid',
+                gridTemplateColumns: orientation === 'horizontal'
+                  ? { xs: '1fr', sm: 'repeat(2, minmax(0, 1fr))' }
+                  : '1fr',
+                gap: 1,
+              }
+            : { gap: orientation === 'horizontal' ? 1 : 0.5 }
+        }
       >
         {options.map((option) => (
           <FormControlLabel
@@ -123,14 +134,33 @@ export const RadioGroup = ({
                 {option.description && <p className="type-meta text-[var(--color-text-muted)] mt-0.5">{t(option.description)}</p>}
               </div>
             }
-            sx={{
-              margin: 0,
-              minHeight: 44,
-              px: 1,
-              py: 0.5,
-              borderRadius: 'var(--radius-md)',
-              '&:hover': { backgroundColor: 'var(--color-background-subtle)' },
-            }}
+            sx={
+              variant === 'cards'
+                ? {
+                    margin: 0,
+                    minHeight: 56,
+                    px: 1.25,
+                    py: 0.75,
+                    border: '1px solid',
+                    borderColor: value === option.value ? 'var(--color-primary)' : 'var(--color-border)',
+                    backgroundColor: value === option.value ? 'var(--color-primary-alpha-8)' : 'var(--color-surface)',
+                    borderRadius: 'var(--field-radius)',
+                    transition: 'background-color var(--motion-fast), border-color var(--motion-fast)',
+                    '&:hover': {
+                      backgroundColor: value === option.value
+                        ? 'var(--color-primary-alpha-8)'
+                        : 'var(--color-background-subtle)',
+                    },
+                  }
+                : {
+                    margin: 0,
+                    minHeight: 44,
+                    px: 1,
+                    py: 0.5,
+                    borderRadius: 'var(--radius-md)',
+                    '&:hover': { backgroundColor: 'var(--color-background-subtle)' },
+                  }
+            }
           />
         ))}
       </MuiRadioGroup>

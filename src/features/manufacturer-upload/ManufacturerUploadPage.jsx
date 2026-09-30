@@ -122,6 +122,7 @@ export const ManufacturerUploadPage = () => {
               <CSVUpload
                 label="Manufactured Handsets CSV File"
                 helperText="Required: imei1, imei2, brand, model, tac"
+                density="standard"
                 onFileSelect={(file) => setSelectedFile(file)}
                 onSampleDownload={handleDownloadSample}
               />
