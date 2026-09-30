@@ -38,7 +38,6 @@ export const FilterBar = ({
   filters = null,
   onExport,
   embedded = false,
-  mobileInline = false,
   className = '',
 }) => {
   const { t } = usePreferences();
@@ -141,15 +140,13 @@ export const FilterBar = ({
       : 'p-3 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5 ') + className}
     >
       <div className={embedded
-        ? (mobileInline
-          ? 'grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 w-full lg:flex lg:flex-1 lg:w-auto lg:flex-wrap lg:justify-end'
-          : 'flex flex-1 lg:flex-none flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-end gap-2')
-        : 'flex flex-1 flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2'}
+        ? 'flex flex-1 lg:flex-none flex-col md:flex-row md:flex-wrap md:items-center md:justify-end gap-2 w-full'
+        : 'flex flex-1 flex-col md:flex-row md:flex-wrap md:items-center gap-2 w-full'}
       >
         {onSearchChange && (
           <div
             ref={searchContainerRef}
-            className="relative min-w-0 sm:min-w-[280px] xl:min-w-[320px] flex-1 max-w-2xl"
+            className="relative min-w-0 w-full md:w-auto md:min-w-[280px] xl:min-w-[320px] flex-1 max-w-2xl"
           >
             <TextInput
               type="search"
@@ -220,11 +217,15 @@ export const FilterBar = ({
             )}
           </div>
         )}
-        {filters}
+        {filters && (
+          <div className="table-filter-controls flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 w-full md:w-auto max-md:[&>*]:w-full">
+            {filters}
+          </div>
+        )}
       </div>
 
       {onExport && (
-        <div className="flex items-center gap-2 shrink-0 self-end lg:self-center">
+        <div className="flex items-center gap-2 shrink-0 w-full md:w-auto md:self-center max-md:[&>button]:w-full">
           <Button variant="outline" size="sm" onClick={onExport} icon={Download}>Export</Button>
         </div>
       )}
