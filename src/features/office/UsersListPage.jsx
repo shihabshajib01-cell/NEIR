@@ -253,23 +253,13 @@ export const UsersListPage = () => {
             }
           ]}
           footerActions={
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full [&>button]:w-full sm:[&>button]:w-auto">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsDrawerOpen(false)}
-              >
-                Close
-              </Button>
-              <Button
-                variant="primary"
-                size="md"
-                icon={Edit2}
-                onClick={() => navigate(`/office/users/${selectedUser.id}/edit`)}
-              >
-                Edit Account
-              </Button>
-            </div>
+            <Button
+              variant="primary"
+              icon={Edit2}
+              onClick={() => navigate(`/office/users/${selectedUser.id}/edit`)}
+            >
+              Edit Account
+            </Button>
           }
         />
       )}

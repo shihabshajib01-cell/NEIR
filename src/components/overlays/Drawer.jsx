@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, ChevronDown, X } from 'lucide-react';
-import { Button, IconButton } from '../forms/Button.jsx';
+import { IconButton } from '../forms/Button.jsx';
 import { StatusBadge } from '../data-display/StatusBadge.jsx';
 import { usePreferences } from '../../system/PreferencesContext.jsx';
 import { useOverlayPresence } from '../../system/useOverlayPresence.js';
@@ -126,7 +126,7 @@ export const RecordDetailsDrawer = ({
       subtitle={recordId ? 'ID: ' + recordId : null}
       headerStatus={status ? <StatusBadge status={status} size="md" /> : null}
       width={width}
-      footer={footerActions || <Button variant="outline" onClick={onClose}>Close</Button>}
+      footer={footerActions || null}
     >
       <div className="border border-[var(--color-border)] rounded-[var(--field-radius)] overflow-hidden bg-[var(--color-surface)]">
         {sections.map((section, index) => (

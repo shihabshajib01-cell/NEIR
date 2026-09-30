@@ -195,26 +195,16 @@ export const LostStolenPage = () => {
             }
           ]}
           footerActions={
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full [&>button]:w-full sm:[&>button]:w-auto">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsDrawerOpen(false)}
-              >
-                Close Drawer
-              </Button>
-              <Button
-                variant="danger"
-                size="md"
-                icon={Ban}
-                onClick={() => {
-                  addToast(`Re-broadcasted Blacklist command for IMEI ${selectedRecord.imei}`, 'success');
-                  setIsDrawerOpen(false);
-                }}
-              >
-                Re-Broadcast Blacklist
-              </Button>
-            </div>
+            <Button
+              variant="danger"
+              icon={Ban}
+              onClick={() => {
+                addToast(`Re-broadcasted Blacklist command for IMEI ${selectedRecord.imei}`, 'success');
+                setIsDrawerOpen(false);
+              }}
+            >
+              Re-Broadcast Blacklist
+            </Button>
           }
         />
       )}
