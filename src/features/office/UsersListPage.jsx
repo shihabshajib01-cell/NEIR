@@ -97,12 +97,12 @@ export const UsersListPage = () => {
       title: 'Officer Name / Email',
       render: (val, row) => (
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-[#202338] text-white flex items-center justify-center font-bold text-xs shrink-0">
+          <div className="w-8 h-8 rounded-full bg-[var(--color-primary-deep)] text-white flex items-center justify-center font-bold type-meta shrink-0">
             <p>{val.charAt(0)}</p>
           </div>
           <div>
-            <p className="font-semibold text-[#202338] block">{val}</p>
-            <p className="text-[11px] text-[#626981] font-mono">{row.email}</p>
+            <p className="font-semibold text-[var(--color-text-primary)] block">{val}</p>
+            <p className="type-meta text-[var(--color-text-secondary)] font-mono">{row.email}</p>
           </div>
         </div>
       ),
@@ -111,23 +111,23 @@ export const UsersListPage = () => {
       key: 'username',
       title: 'Username',
       isMono: true,
-      render: (val) => <p className="font-mono text-xs text-[#01ADC1] font-semibold">{val}</p>,
+      render: (val) => <p className="font-mono type-meta text-[var(--color-primary)] font-semibold">{val}</p>,
     },
     {
       key: 'department',
       title: 'Department',
-      render: (val) => <p className="text-xs text-[#202338]">{val}</p>,
+      render: (val) => <p className="type-meta text-[var(--color-text-primary)]">{val}</p>,
     },
     {
       key: 'designation',
       title: 'Designation',
-      render: (val) => <p className="text-xs font-medium text-[#626981]">{val}</p>,
+      render: (val) => <p className="type-meta font-medium text-[var(--color-text-secondary)]">{val}</p>,
     },
     {
       key: 'role',
       title: 'Role',
       render: (val) => (
-        <p className="text-xs font-semibold bg-[#01ADC1]/10 text-[#028A97] px-2 py-0.5 rounded border border-[#01ADC1]/20">
+        <p className="type-meta font-semibold bg-[var(--color-info-bg)] text-[var(--color-primary-dark)] px-2 py-0.5 rounded border border-[var(--color-info-border)]">
           {val}
         </p>
       ),
@@ -149,7 +149,7 @@ export const UsersListPage = () => {
             size="sm"
             icon={Eye}
             onClick={() => handleOpenDetails(row)}
-            className="text-xs h-7 px-2"
+            className="type-meta h-7 px-2"
           >
             Details
           </Button>
@@ -158,7 +158,7 @@ export const UsersListPage = () => {
             size="sm"
             icon={Edit2}
             onClick={(event) => handleOpenEdit(row, event)}
-            className="text-xs h-7 px-2"
+            className="type-meta h-7 px-2"
           >
             Edit
           </Button>
