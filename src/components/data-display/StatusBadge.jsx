@@ -57,7 +57,7 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
 
   if (compact) {
     return (
-      <div className={'bg-white border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] p-5 min-h-[110px] flex items-center ' + className}>
+      <div className={'bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] shadow-[var(--shadow-sm)] p-5 min-h-[110px] flex items-center ' + className}>
         <div className="flex items-start justify-between gap-4 w-full">
           <div className="min-w-0 flex-1">
             <p className="type-kpi text-[var(--color-text-primary)]">{value}</p>
@@ -81,7 +81,7 @@ export const MetricCard = ({ title, value, change, category, tone = 'neutral', i
   }
 
   return (
-    <div className={'bg-white border border-[var(--color-border)] rounded-xl p-5 min-h-[116px] shadow-[var(--shadow-sm)] flex flex-col justify-between transition-shadow hover:shadow-[var(--shadow-md)] ' + className}>
+    <div className={'bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5 min-h-[116px] shadow-[var(--shadow-sm)] flex flex-col justify-between transition-shadow hover:shadow-[var(--shadow-md)] ' + className}>
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
