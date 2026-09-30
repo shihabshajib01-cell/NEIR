@@ -80,7 +80,7 @@ export const Header = ({
         </button>
 
         <Link to="/dashboard" className="flex items-center min-w-0" aria-label={t('Dashboard')}>
-          <BtrcLogo className="h-9 w-9" showText />
+          <BtrcLogo className="h-9 w-9" showText compactOnNarrow />
         </Link>
       </div>
 
