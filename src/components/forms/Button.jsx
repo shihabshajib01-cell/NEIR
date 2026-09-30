@@ -28,13 +28,14 @@ export const Button = ({
 
   const geometry = 'neir-action-button type-button gap-2 rounded-[var(--field-radius)]';
 
+  const neutralSecondaryClasses =
+    'bg-white hover:bg-[var(--color-primary-alpha-6)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] border border-[var(--color-border)]';
+
   const variantClasses = {
     primary:
       'bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] active:bg-[var(--color-primary-deep)] text-white border border-transparent shadow-[var(--shadow-sm)] focus-visible:ring-2 focus-visible:ring-[rgba(1,173,193,0.30)]',
-    secondary:
-      'bg-white hover:bg-[var(--color-primary-alpha-6)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] border border-[var(--color-border)]',
-    outline:
-      'bg-white hover:bg-[var(--color-primary-light)] text-[var(--color-text-secondary)] hover:text-[var(--color-primary-dark)] border border-[var(--color-border-strong)]',
+    secondary: neutralSecondaryClasses,
+    outline: neutralSecondaryClasses,
     danger:
       'bg-[var(--color-error)] hover:bg-[#A91F22] active:bg-[#8E1B1E] text-white border border-transparent shadow-[var(--shadow-sm)]',
     dangerOutline:
