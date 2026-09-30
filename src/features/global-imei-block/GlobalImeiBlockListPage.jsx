@@ -152,7 +152,7 @@ export const GlobalImeiBlockListPage = () => {
           { label: 'Block List' }
         ]}
         actions={
-          <div className="flex items-center gap-2 max-sm:w-full max-sm:flex-col-reverse max-sm:[&>button]:w-full">
+          <div className="flex items-center gap-2 max-md:w-full max-md:flex-col-reverse max-md:[&>button]:w-full">
             <Button
               variant="outline"
               icon={Download}
