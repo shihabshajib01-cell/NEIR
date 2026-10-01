@@ -467,10 +467,16 @@ html[data-theme='dark'] ::selection {
 /* Canonical mobile record separation.
    Use the actual app background as a clearly visible separator band between records. */
 .mobile-record-stack {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 2px;
   background: var(--color-border);
+}
+
+@media (max-width: 1023px) {
+  .mobile-record-stack {
+    display: flex;
+  }
 }
 
 /* Canonical mobile table toolbar.
