@@ -6,10 +6,10 @@ import { FilterBar } from '../../components/tables/FilterBar.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
-import { AssignPermissionModal } from './AssignPermissionModal.jsx';
+import { RoleDetailsDrawer } from './RoleDetailsDrawer.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
-import { Plus, ShieldCheck, KeyRound, Edit2 } from 'lucide-react';
+import { Plus, Edit2, Eye } from 'lucide-react';
 
 export const RolesPage = () => {
   const [roles, setRoles] = useState([]);
@@ -19,9 +19,8 @@ export const RolesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Modals state
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [selectedRole, setSelectedRole] = useState(null);
   const [editingRole, setEditingRole] = useState(null);
   const [newRoleName, setNewRoleName] = useState('');
@@ -66,9 +65,9 @@ export const RolesPage = () => {
     setIsCreateModalOpen(true);
   };
 
-  const handleOpenAssign = (role) => {
+  const handleOpenDetails = (role) => {
     setSelectedRole(role);
-    setIsAssignModalOpen(true);
+    setIsDetailsOpen(true);
   };
 
   const handleSaveRole = (e) => {
@@ -138,17 +137,17 @@ export const RolesPage = () => {
     {
       key: 'actions',
       title: 'Action',
-      width: '240px',
+      width: '190px',
       render: (_, row) => (
         <div className="flex items-center gap-2">
           <Button
-            variant="primary"
+            variant="outline"
             size="sm"
-            icon={KeyRound}
-            onClick={() => handleOpenAssign(row)}
+            icon={Eye}
+            onClick={() => handleOpenDetails(row)}
             className="type-meta h-7.5 px-2.5"
           >
-            Assign permissions
+            View details
           </Button>
           <Button
             variant="outline"
@@ -203,7 +202,8 @@ export const RolesPage = () => {
           data={filteredRoles}
           isLoading={isLoading}
           pagination
-          onMobileCardClick={handleOpenEdit}
+          onRowClick={handleOpenDetails}
+          onMobileCardClick={handleOpenDetails}
           renderMobileCard={(row) => (
             <MobileRecordCard
               title={row.name}
@@ -211,11 +211,6 @@ export const RolesPage = () => {
               fields={[
                 { label: 'Assigned Actions', value: `${row.assignedActionsCount} actions`, isMono: true },
               ]}
-              actions={
-                <Button variant="primary" size="sm" icon={KeyRound} onClick={() => handleOpenAssign(row)}>
-                  Assign Permissions
-                </Button>
-              }
             />
           )}
         />
@@ -251,12 +246,11 @@ export const RolesPage = () => {
         </FormDrawerSection>
       </FormDrawer>
 
-      {/* Assign Permissions Hierarchical Modal */}
       {selectedRole && (
-        <AssignPermissionModal
-          isOpen={isAssignModalOpen}
+        <RoleDetailsDrawer
+          isOpen={isDetailsOpen}
           onClose={() => {
-            setIsAssignModalOpen(false);
+            setIsDetailsOpen(false);
             setSelectedRole(null);
           }}
           role={selectedRole}
@@ -264,6 +258,11 @@ export const RolesPage = () => {
           permissions={permissions}
           serviceActions={serviceActions}
           onSave={handlePermissionAssigned}
+          onEdit={(role) => {
+            setIsDetailsOpen(false);
+            setSelectedRole(null);
+            handleOpenEdit(role);
+          }}
         />
       )}
     </div>
