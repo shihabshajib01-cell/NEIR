@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { User, ShieldCheck, LayoutDashboard, Languages, Moon, Sun } from 'lucide-react';
+import { User, ShieldCheck, Languages, Moon, Sun } from 'lucide-react';
 import { BtrcLogo } from '../../components/layout/BtrcLogo.jsx';
 import { TextInput, PasswordInput } from '../../components/forms/TextInput.jsx';
 import { Checkbox } from '../../components/forms/Checkbox.jsx';
@@ -35,88 +35,122 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-background)] flex items-center justify-center px-4 py-6 sm:px-6 lg:px-8 lg:py-16 relative">
-      <div className="absolute top-4 right-4 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="w-10 h-10 flex items-center justify-center rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
-          aria-label={t(theme === 'dark' ? 'Use light theme' : 'Use dark theme')}
-          title={t(theme === 'dark' ? 'Use light theme' : 'Use dark theme')}
-        >
-          {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-        </button>
-        <button
-          type="button"
-          onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-          className="min-h-10 px-3 flex items-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-surface)] border border-[var(--color-border)] type-label font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
-        >
-          <Languages className="w-4 h-4" />
-          <p>{language === 'en' ? 'বাংলা' : 'EN'}</p>
-        </button>
-      </div>
+    <div className="min-h-screen bg-[var(--color-background)] text-[var(--color-text-primary)]">
+      <div className="min-h-screen w-full max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-10 flex flex-col">
+        <div className="flex items-center justify-end gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="w-10 h-10 flex items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors"
+            aria-label={t(theme === 'dark' ? 'Use light theme' : 'Use dark theme')}
+            title={t(theme === 'dark' ? 'Use light theme' : 'Use dark theme')}
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <button
+            type="button"
+            onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
+            className="min-h-10 px-3 flex items-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-surface)] border border-[var(--color-border)] type-label font-semibold text-[var(--color-text-secondary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors"
+          >
+            <Languages className="w-4 h-4" />
+            <p>{language === 'en' ? 'বাংলা' : 'EN'}</p>
+          </button>
+        </div>
 
-      <div className="w-full max-w-[1280px] flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
-        <section className="hidden lg:flex flex-1 min-h-[560px] rounded-2xl border border-[var(--color-border)] bg-[var(--color-primary-light)] relative overflow-hidden p-10 flex-col justify-between">
-          <div className="absolute -right-20 -top-24 w-72 h-72 rounded-full bg-[rgba(128,194,198,0.20)]" />
-          <div className="absolute -left-24 bottom-0 w-64 h-64 rounded-full bg-[rgba(1,173,193,0.08)]" />
-          <div className="absolute inset-0 opacity-50 pointer-events-none bg-[radial-gradient(rgba(1,173,193,0.18)_1px,transparent_1px)] [background-size:22px_22px]" />
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] gap-6 lg:gap-8 items-start lg:items-center pt-8 sm:pt-12 lg:pt-0 pb-8">
+          <section className="hidden lg:flex min-h-[560px] rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-primary-light)] relative overflow-hidden p-10 xl:p-12 flex-col justify-between">
+            <div className="absolute -right-20 -top-24 w-72 h-72 rounded-full bg-[rgba(128,194,198,0.20)]" />
+            <div className="absolute -left-24 -bottom-20 w-72 h-72 rounded-full bg-[rgba(1,173,193,0.08)]" />
+            <div className="absolute inset-0 opacity-45 pointer-events-none bg-[radial-gradient(rgba(1,173,193,0.18)_1px,transparent_1px)] [background-size:22px_22px]" />
 
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] type-meta font-semibold text-[var(--color-primary-dark)] shadow-[var(--shadow-sm)]">
-              <ShieldCheck className="w-4 h-4" />
-              <p>BTRC Administrative Portal</p>
-            </div>
-
-            <div className="mt-10 max-w-lg">
-              <h1 className="type-display text-[var(--color-text-primary)]">National Equipment Identity Register</h1>
-              <p className="type-body-lg text-[var(--color-text-secondary)] mt-4 max-w-md">NEIR administrative workspace.</p>
-            </div>
-          </div>
-
-          <div className="relative z-10 grid grid-cols-1 gap-3 max-w-md">
-            <div className="flex items-center gap-3 p-4 bg-[var(--color-surface)]/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
-              <div className="w-10 h-10 rounded-xl bg-[var(--color-info-bg)] flex items-center justify-center text-[var(--color-primary-dark)] shrink-0"><LayoutDashboard className="w-5 h-5" /></div>
-              <div>
-                <p className="type-label font-semibold text-[var(--color-text-primary)]">Unified administration</p>
+            <div className="relative z-10">
+              <BtrcLogo className="h-14 w-14" showText />
+              <div className="mt-14 max-w-xl">
+                <p className="type-label font-semibold text-[var(--color-primary-dark)]">BTRC Administrative Portal</p>
+                <h1 className="type-display text-[var(--color-text-primary)] mt-3">National Equipment Identity Register</h1>
+                <p className="type-body-lg text-[var(--color-text-secondary)] mt-4 max-w-lg">
+                  Secure administrative access for NEIR operations and regulatory workflows.
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-4 bg-[var(--color-surface)]/85 border border-white rounded-xl shadow-[var(--shadow-sm)]">
-              <div className="w-10 h-10 rounded-xl bg-[var(--color-success-bg)] flex items-center justify-center text-[var(--color-success)] shrink-0"><ShieldCheck className="w-5 h-5" /></div>
-              <div>
-                <p className="type-label font-semibold text-[var(--color-text-primary)]">Administrative workspace</p>
+
+            <div className="relative z-10 flex items-center gap-3 max-w-lg p-4 rounded-xl bg-[var(--color-surface)]/85 border border-[var(--color-border)] shadow-[var(--shadow-sm)]">
+              <div className="w-10 h-10 rounded-[var(--radius-md)] bg-[var(--color-info-bg)] flex items-center justify-center text-[var(--color-primary-dark)] shrink-0">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="type-label font-semibold text-[var(--color-text-primary)]">Authorized administrative access</p>
+                <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">Sign in with your assigned NEIR office credentials.</p>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="w-full lg:w-[540px] shrink-0">
-          <div className="flex items-start justify-between gap-6 mb-5 px-1">
-            <div className="min-w-0">
-              <h2 className="type-page-title text-[var(--color-text-primary)]">{t('NEIR Admin Portal')}</h2>
-              <p className="type-body-sm text-[var(--color-text-secondary)] mt-1">{t('Bangladesh Telecommunication Regulatory Commission')}</p>
-            </div>
-            <BtrcLogo className="h-14 w-14" showText={false} />
-          </div>
-
-          <div className="bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] shadow-[var(--shadow-md)] p-6 sm:p-8">
-            <div className="mb-7">
-              <h1 className="type-display text-[var(--color-text-primary)]">{t('Administrative sign in')}</h1>
+          <section className="w-full max-w-[460px] mx-auto lg:max-w-none">
+            <div className="flex items-center gap-3 mb-5 px-1 lg:hidden">
+              <BtrcLogo className="h-12 w-12" showText={false} />
+              <div className="min-w-0">
+                <h2 className="type-page-title text-[var(--color-text-primary)]">{t('NEIR Admin Portal')}</h2>
+                <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">{t('Bangladesh Telecommunication Regulatory Commission')}</p>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <TextInput label="Username" id="username" name="username" value={username} onChange={(event) => setUsername(event.target.value)} placeholder="Enter username" icon={User} autoComplete="username" />
-              <PasswordInput label="Password" id="password" name="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter password" autoComplete="current-password" />
+            <div className="hidden lg:flex items-center gap-3 mb-5 px-1">
+              <BtrcLogo className="h-12 w-12" showText={false} />
+              <div className="min-w-0">
+                <h2 className="type-page-title text-[var(--color-text-primary)]">{t('NEIR Admin Portal')}</h2>
+                <p className="type-body-sm text-[var(--color-text-secondary)] mt-0.5">{t('Bangladesh Telecommunication Regulatory Commission')}</p>
+              </div>
+            </div>
 
-              <div className="flex items-center">
-                <Checkbox label="Remember this browser" checked={rememberMe} onChange={(event) => setRememberMe(event.target.checked)} />
+            <div className="bg-[var(--color-surface)] rounded-[var(--radius-xl)] border border-[var(--color-border)] shadow-[var(--shadow-md)] p-5 sm:p-7 lg:p-8">
+              <div className="mb-6">
+                <h1 className="type-display text-[var(--color-text-primary)]">{t('Administrative sign in')}</h1>
+                <p className="type-body-sm text-[var(--color-text-secondary)] mt-2">
+                  {t('Sign in to access your NEIR office workspace.')}
+                </p>
               </div>
 
-              <Button type="submit" variant="primary" isLoading={isLoading} className="w-full justify-center">Sign in</Button>
-            </form>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <TextInput
+                  label="Username"
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                  placeholder="Enter username"
+                  icon={User}
+                  autoComplete="username"
+                />
+                <PasswordInput
+                  label="Password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Enter password"
+                  autoComplete="current-password"
+                />
 
-          </div>
-        </section>
+                <div className="flex items-center min-h-9">
+                  <Checkbox
+                    label="Remember this browser"
+                    checked={rememberMe}
+                    onChange={(event) => setRememberMe(event.target.checked)}
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  isLoading={isLoading}
+                  className="w-full justify-center mt-1"
+                >
+                  Sign in
+                </Button>
+              </form>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );
