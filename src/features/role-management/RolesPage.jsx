@@ -7,6 +7,7 @@ import { Button } from '../../components/forms/Button.jsx';
 import { FormDrawer, FormDrawerSection } from '../../components/overlays/FormDrawer.jsx';
 import { TextInput, Textarea } from '../../components/forms/TextInput.jsx';
 import { RoleDetailsDrawer } from './RoleDetailsDrawer.jsx';
+import { RolePermissionsPanel, getRoleActionSelection } from './RolePermissionsPanel.jsx';
 import { mockApi } from '../../services/mockApi.js';
 import { useToast } from '../../components/feedback/Toast.jsx';
 import { Plus, Edit2, Eye } from 'lucide-react';
@@ -25,6 +26,7 @@ export const RolesPage = () => {
   const [editingRole, setEditingRole] = useState(null);
   const [newRoleName, setNewRoleName] = useState('');
   const [newRoleDesc, setNewRoleDesc] = useState('');
+  const [editingActionIds, setEditingActionIds] = useState(new Set());
   const { addToast } = useToast();
 
   const loadData = async () => {
@@ -55,6 +57,7 @@ export const RolesPage = () => {
     setEditingRole(null);
     setNewRoleName('');
     setNewRoleDesc('');
+    setEditingActionIds(new Set());
     setIsCreateModalOpen(true);
   };
 
@@ -62,6 +65,7 @@ export const RolesPage = () => {
     setEditingRole(role);
     setNewRoleName(role.name);
     setNewRoleDesc(role.description || '');
+    setEditingActionIds(getRoleActionSelection(role, serviceActions));
     setIsCreateModalOpen(true);
   };
 
@@ -81,7 +85,12 @@ export const RolesPage = () => {
       setRoles((prev) =>
         prev.map((r) =>
           r.id === editingRole.id
-            ? { ...r, name: newRoleName, description: newRoleDesc }
+            ? {
+                ...r,
+                name: newRoleName,
+                description: newRoleDesc,
+                assignedActionsCount: editingActionIds.size,
+              }
             : r
         )
       );
@@ -97,14 +106,6 @@ export const RolesPage = () => {
       addToast(`Role "${newRoleName}" created.`, 'success');
     }
     setIsCreateModalOpen(false);
-  };
-
-  const handlePermissionAssigned = (roleId, newCount) => {
-    setRoles((prev) =>
-      prev.map((r) =>
-        r.id === roleId ? { ...r, assignedActionsCount: newCount } : r
-      )
-    );
   };
 
   const filteredRoles = roles.filter((role) => {
@@ -244,6 +245,27 @@ export const RolesPage = () => {
             />
           </div>
         </FormDrawerSection>
+
+        {editingRole && (
+          <FormDrawerSection
+            title="Permissions"
+            trailing={
+              <p className="type-meta text-[var(--color-text-muted)]">
+                {editingActionIds.size}/{serviceActions.length}
+              </p>
+            }
+          >
+            <RolePermissionsPanel
+              roleKey={editingRole.id}
+              parents={parents}
+              permissions={permissions}
+              serviceActions={serviceActions}
+              selectedActionIds={editingActionIds}
+              onChange={setEditingActionIds}
+              editable
+            />
+          </FormDrawerSection>
+        )}
       </FormDrawer>
 
       {selectedRole && (
@@ -257,7 +279,6 @@ export const RolesPage = () => {
           parents={parents}
           permissions={permissions}
           serviceActions={serviceActions}
-          onSave={handlePermissionAssigned}
           onEdit={(role) => {
             setIsDetailsOpen(false);
             setSelectedRole(null);
