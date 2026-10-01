@@ -39,18 +39,6 @@ export const RolePermissionsPanel = ({
 
   const query = searchTerm.trim().toLowerCase();
 
-  const parentHasSelectedAction = (parentId) => {
-    const permissionIds = permissions
-      .filter((permission) => permission.parentId === parentId)
-      .map((permission) => permission.id);
-
-    return serviceActions.some(
-      (action) =>
-        permissionIds.includes(action.permissionId) &&
-        selectedActionIds.has(action.id)
-    );
-  };
-
   const visibleParents = useMemo(() => {
     const baseParents = editable
       ? parents
