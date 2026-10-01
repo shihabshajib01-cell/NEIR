@@ -57,7 +57,7 @@ export const LoginPage = () => {
           </button>
         </div>
 
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] gap-6 lg:gap-8 items-start lg:items-center pt-8 sm:pt-12 lg:pt-0 pb-8">
+        <div className="flex-1 grid grid-cols-1 lg:grid-cols-[minmax(0,1.08fr)_minmax(420px,0.92fr)] gap-6 lg:gap-8 items-center pt-6 sm:pt-8 lg:pt-0 pb-10">
           <section className="hidden lg:flex min-h-[560px] rounded-[var(--radius-xl)] border border-[var(--color-border)] bg-[var(--color-primary-light)] relative overflow-hidden p-10 xl:p-12 flex-col justify-between">
             <div className="absolute -right-20 -top-24 w-72 h-72 rounded-full bg-[rgba(128,194,198,0.20)]" />
             <div className="absolute -left-24 -bottom-20 w-72 h-72 rounded-full bg-[rgba(1,173,193,0.08)]" />
@@ -85,15 +85,7 @@ export const LoginPage = () => {
             </div>
           </section>
 
-          <section className="w-full max-w-[460px] mx-auto lg:max-w-none">
-            <div className="flex items-center gap-3 mb-5 px-1 lg:hidden">
-              <BtrcLogo className="h-12 w-12" showText={false} />
-              <div className="min-w-0">
-                <h2 className="type-page-title text-[var(--color-text-primary)]">{t('NEIR Admin Portal')}</h2>
-                <p className="type-meta text-[var(--color-text-secondary)] mt-0.5">{t('Bangladesh Telecommunication Regulatory Commission')}</p>
-              </div>
-            </div>
-
+          <section className="w-full max-w-[440px] mx-auto lg:max-w-none">
             <div className="hidden lg:flex items-center gap-3 mb-5 px-1">
               <BtrcLogo className="h-12 w-12" showText={false} />
               <div className="min-w-0">
@@ -102,52 +94,64 @@ export const LoginPage = () => {
               </div>
             </div>
 
-            <div className="bg-[var(--color-surface)] rounded-[var(--radius-xl)] border border-[var(--color-border)] shadow-[var(--shadow-md)] p-5 sm:p-7 lg:p-8">
-              <div className="mb-6">
-                <h1 className="type-display text-[var(--color-text-primary)]">{t('Administrative sign in')}</h1>
-                <p className="type-body-sm text-[var(--color-text-secondary)] mt-2">
-                  {t('Sign in to access your NEIR office workspace.')}
-                </p>
-              </div>
+            <div className="bg-[var(--color-surface)] rounded-[var(--radius-xl)] border border-[var(--color-border)] shadow-[var(--shadow-md)] overflow-hidden">
+              <div className="h-1 bg-[var(--color-primary)] lg:hidden" />
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <TextInput
-                  label="Username"
-                  id="username"
-                  name="username"
-                  value={username}
-                  onChange={(event) => setUsername(event.target.value)}
-                  placeholder="Enter username"
-                  icon={User}
-                  autoComplete="username"
-                />
-                <PasswordInput
-                  label="Password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Enter password"
-                  autoComplete="current-password"
-                />
-
-                <div className="flex items-center min-h-9">
-                  <Checkbox
-                    label="Remember this browser"
-                    checked={rememberMe}
-                    onChange={(event) => setRememberMe(event.target.checked)}
-                  />
+              <div className="p-5 sm:p-7 lg:p-8">
+                <div className="lg:hidden pb-5 mb-5 border-b border-[var(--color-border)]">
+                  <BtrcLogo className="h-12 w-12" showText />
+                  <p className="type-meta text-[var(--color-text-secondary)] mt-3">
+                    {t('Bangladesh Telecommunication Regulatory Commission')}
+                  </p>
                 </div>
 
-                <Button
-                  type="submit"
-                  variant="primary"
-                  isLoading={isLoading}
-                  className="w-full justify-center mt-1"
-                >
-                  Sign in
-                </Button>
-              </form>
+                <div className="mb-5 sm:mb-6">
+                  <p className="type-meta font-semibold text-[var(--color-primary-dark)] mb-1.5 lg:hidden">{t('NEIR Admin Portal')}</p>
+                  <h1 className="type-page-title text-[var(--color-text-primary)]">{t('Administrative sign in')}</h1>
+                  <p className="type-body-sm text-[var(--color-text-secondary)] mt-2">
+                    {t('Sign in to access your NEIR office workspace.')}
+                  </p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                  <TextInput
+                    label="Username"
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                    placeholder="Enter username"
+                    icon={User}
+                    autoComplete="username"
+                  />
+                  <PasswordInput
+                    label="Password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    placeholder="Enter password"
+                    autoComplete="current-password"
+                  />
+
+                  <div className="flex items-center min-h-9">
+                    <Checkbox
+                      label="Remember this browser"
+                      checked={rememberMe}
+                      onChange={(event) => setRememberMe(event.target.checked)}
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    isLoading={isLoading}
+                    className="w-full justify-center mt-1"
+                  >
+                    Sign in
+                  </Button>
+                </form>
+              </div>
             </div>
           </section>
         </div>
