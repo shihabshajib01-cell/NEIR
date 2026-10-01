@@ -65,6 +65,7 @@ export const SpecialRegistrationReviewModal = ({
   const [isApproveOpen, setIsApproveOpen] = useState(false);
   const [isRejectOpen, setIsRejectOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPreviewClosing, setIsPreviewClosing] = useState(false);
   const [openSections, setOpenSections] = useState({
     requester: true,
     device: true,
@@ -74,21 +75,46 @@ export const SpecialRegistrationReviewModal = ({
   const { addToast } = useToast();
   const workspaceScrollRef = useRef(null);
   const reviewScrollPositionRef = useRef(0);
+  const previewCloseTimerRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) {
+      if (previewCloseTimerRef.current) {
+        window.clearTimeout(previewCloseTimerRef.current);
+        previewCloseTimerRef.current = null;
+      }
+      setIsPreviewClosing(false);
       setSelectedDoc(null);
       return;
     }
 
+    setIsPreviewClosing(false);
     setSelectedDoc(null);
     setRemarks(registration?.remarks || '');
   }, [isOpen, registration?.id, registration?.remarks]);
+
+  useEffect(() => () => {
+    if (previewCloseTimerRef.current) {
+      window.clearTimeout(previewCloseTimerRef.current);
+    }
+  }, []);
 
   if (!registration) return null;
 
   const toggleSection = (section) => {
     setOpenSections((current) => ({ ...current, [section]: !current[section] }));
+  };
+
+  const closeDesktopPreview = () => {
+    if (!selectedDoc || isPreviewClosing) return;
+
+    setIsPreviewClosing(true);
+    if (previewCloseTimerRef.current) window.clearTimeout(previewCloseTimerRef.current);
+    previewCloseTimerRef.current = window.setTimeout(() => {
+      setSelectedDoc(null);
+      setIsPreviewClosing(false);
+      previewCloseTimerRef.current = null;
+    }, 180);
   };
 
   const handleDocumentSelect = (document) => {
@@ -103,7 +129,17 @@ export const SpecialRegistrationReviewModal = ({
       return;
     }
 
-    setSelectedDoc((current) => current?.id === document.id ? null : document);
+    if (selectedDoc?.id === document.id) {
+      closeDesktopPreview();
+      return;
+    }
+
+    if (previewCloseTimerRef.current) {
+      window.clearTimeout(previewCloseTimerRef.current);
+      previewCloseTimerRef.current = null;
+    }
+    setIsPreviewClosing(false);
+    setSelectedDoc(document);
   };
 
   const handleMobileDocumentBack = () => {
@@ -118,6 +154,11 @@ export const SpecialRegistrationReviewModal = ({
   };
 
   const handleWorkspaceClose = () => {
+    if (previewCloseTimerRef.current) {
+      window.clearTimeout(previewCloseTimerRef.current);
+      previewCloseTimerRef.current = null;
+    }
+    setIsPreviewClosing(false);
     setSelectedDoc(null);
     onClose();
   };
@@ -169,7 +210,7 @@ export const SpecialRegistrationReviewModal = ({
         onMobileBack={selectedDoc ? handleMobileDocumentBack : undefined}
         hideMobileFooter={Boolean(selectedDoc)}
         contentRef={workspaceScrollRef}
-        contentClassName={selectedDoc ? 'max-md:p-0' : ''}
+        contentClassName={selectedDoc ? 'max-md:p-0 md:h-full md:overflow-hidden' : ''}
         maxWidth={selectedDoc ? 'max-w-[92vw]' : 'max-w-[720px]'}
         footer={
           <div className="flex flex-col gap-2 w-full md:flex-row md:items-center md:justify-end md:gap-3">
@@ -192,9 +233,9 @@ export const SpecialRegistrationReviewModal = ({
           </div>
         }
       >
-        <div className={(selectedDoc ? 'hidden md:grid ' : 'grid ') + 'grid-cols-1 gap-4 h-full transition-[grid-template-columns] duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
+        <div className={(selectedDoc ? 'hidden md:grid ' : 'grid ') + 'grid-cols-1 gap-4 h-full min-h-0 transition-[grid-template-columns] duration-[var(--motion-slow)] ease-out ' + (selectedDoc ? 'lg:grid-cols-12' : '')}>
           <div className={selectedDoc
-            ? 'lg:col-span-5 space-y-4 overflow-y-auto'
+            ? 'lg:col-span-5 min-h-0 space-y-4 lg:overflow-y-auto lg:overscroll-contain lg:pr-1'
             : 'w-full max-w-5xl mx-auto space-y-4'}
           >
             <CollapsibleSection
@@ -258,10 +299,13 @@ export const SpecialRegistrationReviewModal = ({
           </div>
 
           {selectedDoc && (
-            <div key={selectedDoc.id} className="lg:col-span-7 h-full flex flex-col min-w-0 preview-panel-enter">
+            <div
+              key={selectedDoc.id}
+              className={'lg:col-span-7 min-h-0 h-full flex flex-col min-w-0 ' + (isPreviewClosing ? 'preview-panel-exit' : 'preview-panel-enter')}
+            >
               <DocumentViewerPlaceholder
                 document={selectedDoc}
-                onClosePreview={() => setSelectedDoc(null)}
+                onClosePreview={closeDesktopPreview}
               />
             </div>
           )}
