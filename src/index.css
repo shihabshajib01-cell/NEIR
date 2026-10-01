@@ -532,7 +532,7 @@ html[data-theme='dark'] ::selection {
   .table-filter-primary,
   .table-filter-primary.without-date-filter {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 8px;
     width: auto;
@@ -540,6 +540,7 @@ html[data-theme='dark'] ::selection {
 
   .table-filter-search {
     flex: 1 1 280px;
+    min-width: 220px;
     width: auto;
   }
 
